@@ -36,13 +36,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
-  country_list_pick:
-    dependency: "direct main"
-    description:
-      name: country_list_pick
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1+6"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -81,6 +74,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   get:
     dependency: "direct main"
     description:
@@ -88,13 +86,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.5"
-  intl_phone_field:
-    dependency: "direct main"
+  js:
+    dependency: transitive
     description:
-      name: intl_phone_field
+      name: js
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "0.6.4"
   lints:
     dependency: transitive
     description:
@@ -130,6 +128,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+  pinput:
+    dependency: "direct main"
+    description:
+      name: pinput
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.16"
   responsive_framework:
     dependency: "direct main"
     description:
@@ -142,6 +147,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smart_auth:
+    dependency: transitive
+    description:
+      name: smart_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   source_span:
     dependency: transitive
     description:

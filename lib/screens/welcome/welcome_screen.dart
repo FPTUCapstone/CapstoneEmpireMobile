@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: AppColors.WelcomeScreenBackGround,
+        backgroundColor: AppColors.welcomeScreenBackGround,
         body: Center(
             child: Container(
               width: 290,
