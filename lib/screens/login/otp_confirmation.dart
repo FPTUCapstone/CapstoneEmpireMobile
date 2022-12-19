@@ -14,14 +14,15 @@ class OtpConfirmation extends StatefulWidget {
 }
 
 class _OtpConfirmationState extends State<OtpConfirmation> {
-
   @override
   Widget build(BuildContext context) {
-
     final defaultPinTheme = PinTheme(
       width: 68.w,
       height: 64.h,
-      textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
+      textStyle: const TextStyle(
+          fontSize: 20,
+          color: Color.fromRGBO(30, 60, 87, 1),
+          fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.blackTextColor),
         borderRadius: BorderRadius.circular(20),
@@ -53,8 +54,9 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   height: 52.h,
                 ),
                 Text(
-                  "Verifying\ncode",
+                  "Xác nhận OTP",
                   style: TextStyle(
+                    fontFamily: 'SFProDisplay',
                     fontSize: 40.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -63,10 +65,10 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                 SizedBox(
                   height: 5.h,
                 ),
-
                 Text(
-                  "We’ve sent your verification code",
+                  "Chúng tôi đã gửi mã OTP tới SĐT",
                   style: TextStyle(
+                    fontFamily: 'SFProDisplay',
                     fontSize: 17.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
@@ -78,7 +80,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                 Pinput(
                   length: 6,
                   validator: (s) {
-                    return s == '222222' ? null : 'Pin is incorrect';
+                    return s == '222222' ? null : 'Mã OTP không đúng';
                   },
                   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                   showCursor: true,
@@ -91,7 +93,8 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                      child: ElevatedButton(onPressed: () {  },
+                      child: ElevatedButton(
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           primary: AppColors.signInBtn,
                           fixedSize: Size.fromHeight(50.w),
@@ -99,8 +102,13 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Text(
-                            'Verify'
+                        child: Text(
+                          'Xác thực',
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
@@ -112,25 +120,36 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                 Row(
                   children: [
                     TextButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const LoginScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()),
                         );
                       },
                       child: Text(
-                        "Edit Phone Number ?",
-                        style:TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w700, color: AppColors.blackTextColor),
+                        "Sửa số điện thoại ?",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.blackTextColor,
+                          fontFamily: 'SFProDisplay',
+                        ),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     TextButton(
-                      onPressed: (){
+                      onPressed: () {
                         //TODO
                       },
                       child: Text(
-                          "Resend Code",
-                          style:TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w700, color: AppColors.blackTextColor),
+                        "Gửi lại mã",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.blackTextColor,
+                          fontFamily: 'SFProDisplay',
+                        ),
                       ),
                     )
                   ],
