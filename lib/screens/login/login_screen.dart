@@ -1,5 +1,6 @@
 import 'package:empiregarage_mobile/screens/login/otp_confirmation.dart';
 import 'package:empiregarage_mobile/utilities/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,11 +13,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController countrycode = TextEditingController();
-  String vietNameCode = "+84";
+  String vietNamCode = "+84";
+  var phoneNumber = "";
 
   @override
   void initState() {
-    countrycode.text = vietNameCode;
+    countrycode.text = vietNamCode;
     super.initState();
   }
 
@@ -89,8 +91,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           width: 10.w,
                         ),
-                        const Expanded(
+                         Expanded(
                             child: TextField(
+                              keyboardType: TextInputType.phone,
+                              onChanged: (value){
+                                phoneNumber = value;
+                              },
                           decoration: InputDecoration(
                             hintText: "0123456789",
                           ),
@@ -106,13 +112,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
+                          onPressed: () async{
+                            await FirebaseAuth.instance.verifyPhoneNumber(
+                              phoneNumber: '${countrycode.text + phoneNumber}',
+                              timeout: const Duration(seconds: 60),
+                              verificationCompleted: (PhoneAuthCredential credential) {},
+                              verificationFailed: (FirebaseAuthException e) {
+                                if (e.code == 'invalid-phone-number') {
+                                  print('The provided phone number is not valid.');
+                                }
+                              },
+                              codeSent: (String verificationId, int? resendToken) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
                                       const OtpConfirmation()),
+                                );
+                              },
+                              codeAutoRetrievalTimeout: (String verificationId) {},
                             );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) =>
+                            //           const OtpConfirmation()),
+                            // );
                           },
                           style: ElevatedButton.styleFrom(
                             primary: AppColors.signInBtn,

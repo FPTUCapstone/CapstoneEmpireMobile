@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "120247352484",
+    "project_id": "empirefirebase",
+    "storage_bucket": "empirefirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120247352484:android:ec12f135e1ecbff080fa31",
+        "android_client_info": {
+          "package_name": "com.example.empiregarage_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120247352484-cso9020emuaommi9n888gsr85ljl7tca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSogN-07rkrgPkR8esgxDrr6FoX1u2X18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120247352484-cso9020emuaommi9n888gsr85ljl7tca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -55,7 +55,7 @@ class _UserProfileState extends State<UserProfile> {
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.lightTextColor,
                     ),
                   ),
@@ -69,7 +69,8 @@ class _UserProfileState extends State<UserProfile> {
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 17.sp,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
                             ),
                           ),
                       ),
@@ -83,7 +84,7 @@ class _UserProfileState extends State<UserProfile> {
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.lightTextColor,
                     ),
                   ),
@@ -97,7 +98,8 @@ class _UserProfileState extends State<UserProfile> {
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 17.sp,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
                           ),
                         ),
                       ),
@@ -111,7 +113,7 @@ class _UserProfileState extends State<UserProfile> {
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.lightTextColor,
                     ),
                   ),
@@ -125,7 +127,8 @@ class _UserProfileState extends State<UserProfile> {
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 17.sp,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
                           ),
                         ),
                       ),
@@ -139,7 +142,7 @@ class _UserProfileState extends State<UserProfile> {
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.lightTextColor,
                     ),
                   ),
@@ -153,7 +156,8 @@ class _UserProfileState extends State<UserProfile> {
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 17.sp,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
                           ),
                         ),
                       ),
@@ -167,7 +171,7 @@ class _UserProfileState extends State<UserProfile> {
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.lightTextColor,
                     ),
                   ),
@@ -181,7 +185,8 @@ class _UserProfileState extends State<UserProfile> {
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 17.sp,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
                           ),
                         ),
                       ),
@@ -195,7 +200,9 @@ class _UserProfileState extends State<UserProfile> {
                     children: <Widget>[
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO
+                          },
                           style: ElevatedButton.styleFrom(
                             primary: AppColors.signInBtn,
                             fixedSize: Size.fromHeight(50.w),
@@ -208,7 +215,7 @@ class _UserProfileState extends State<UserProfile> {
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 15.sp,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
