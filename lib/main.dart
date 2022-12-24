@@ -2,7 +2,6 @@ import 'package:empiregarage_mobile/routes/routes.dart';
 import 'package:empiregarage_mobile/screens/login/login_screen.dart';
 import 'package:empiregarage_mobile/screens/login/otp_confirmation.dart';
 import 'package:empiregarage_mobile/screens/welcome/welcome_screen.dart';
-import 'package:empiregarage_mobile/user_profile/profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
