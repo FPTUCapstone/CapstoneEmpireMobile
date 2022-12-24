@@ -1,5 +1,7 @@
 import 'package:empiregarage_mobile/screens/login/login_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:empiregarage_mobile/screens/user_profile/profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
@@ -14,6 +16,8 @@ class OtpConfirmation extends StatefulWidget {
 }
 
 class _OtpConfirmationState extends State<OtpConfirmation> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -33,6 +37,8 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
       border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
       borderRadius: BorderRadius.circular(8),
     );
+
+    var otpCode = "";
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
@@ -79,12 +85,12 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                 ),
                 Pinput(
                   length: 6,
-                  validator: (s) {
-                    return s == '222222' ? null : 'Mã OTP không đúng';
-                  },
                   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                   showCursor: true,
                   onCompleted: (pin) => print(pin),
+                  onChanged: (value) {
+                    otpCode = value;
+                  },
                 ),
                 SizedBox(
                   height: 20.h,
@@ -94,7 +100,24 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   children: <Widget>[
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          try {
+                            // Create a PhoneAuthCredential with the code
+                            PhoneAuthCredential credential =
+                                PhoneAuthProvider.credential(
+                                    verificationId: LoginScreen.verify,
+                                    smsCode: otpCode);
+                            // Sign the user in (or link) with the credential
+                            await auth.signInWithCredential(credential);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const UserProfile()),
+                            );
+                          } catch (e) {
+                            print("Wrong OTP");
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           primary: AppColors.signInBtn,
                           fixedSize: Size.fromHeight(50.w),

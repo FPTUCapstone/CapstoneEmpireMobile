@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  static String verify = "";
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -99,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                             keyboardType: TextInputType.phone,
                             validator: (value){
-                              if(value!.length > 9){
+                              if(value!.length > 9 || value.length < 9){
                                 return 'Số điện thoại không hợp lệ !';
                               }
                               else if(value.isEmpty){
@@ -142,6 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                   codeSent:
                                       (String verificationId, int? resendToken) {
+                                    LoginScreen.verify = verificationId;
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
