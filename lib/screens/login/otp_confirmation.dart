@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/common/functions/AppAuthentication.dart';
 import 'package:empiregarage_mobile/screens/login/login_screen.dart';
 import 'package:empiregarage_mobile/screens/user_profile/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -100,24 +101,8 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   children: <Widget>[
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            // Create a PhoneAuthCredential with the code
-                            PhoneAuthCredential credential =
-                                PhoneAuthProvider.credential(
-                                    verificationId: LoginScreen.verify,
-                                    smsCode: otpCode);
-                            // Sign the user in (or link) with the credential
-                            await auth.signInWithCredential(credential);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const UserProfile()),
-                            );
-                          } catch (e) {
-                            print("Wrong OTP");
-                          }
-                        },
+                        onPressed: () => AppAuthentication()
+                            .confirmOTP(otpCode, auth, context),
                         style: ElevatedButton.styleFrom(
                           primary: AppColors.signInBtn,
                           fixedSize: Size.fromHeight(50.w),
