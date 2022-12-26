@@ -1,6 +1,5 @@
-import 'package:empiregarage_mobile/screens/login/otp_confirmation.dart';
+import 'package:empiregarage_mobile/common/functions/AppAuthentication.dart';
 import 'package:empiregarage_mobile/utilities/colors.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController textEditingController = TextEditingController();
   static String vietNamCode = "+84";
   var phoneNumber = "";
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -76,50 +76,48 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: AppColors.lightTextColor,
                       ),
                     ),
-                    Container(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10.w,
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        SizedBox(
+                          width: 40.w,
+                          child: TextFormField(
+                            enabled: false,
+                            initialValue: vietNamCode,
                           ),
-                          SizedBox(
-                            width: 40.w,
+                        ),
+                        const Text(
+                          "|",
+                          style: TextStyle(
+                              fontSize: 33, color: AppColors.lightTextColor),
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Expanded(
                             child: TextFormField(
-                              enabled: false,
-                              initialValue: vietNamCode,
-                            ),
+                          keyboardType: TextInputType.phone,
+                          validator: (value){
+                            if(value!.length > 9 || value.length < 9){
+                              return 'Số điện thoại không hợp lệ !';
+                            }
+                            else if(value.isEmpty){
+                              return 'Số điện thoại không được để trống !';
+                            }
+                            else{
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            phoneNumber = value;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "0123456789",
                           ),
-                          const Text(
-                            "|",
-                            style: TextStyle(
-                                fontSize: 33, color: AppColors.lightTextColor),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Expanded(
-                              child: TextFormField(
-                            keyboardType: TextInputType.phone,
-                            validator: (value){
-                              if(value!.length > 9 || value.length < 9){
-                                return 'Số điện thoại không hợp lệ !';
-                              }
-                              else if(value.isEmpty){
-                                return 'Số điện thoại không được để trống !';
-                              }
-                              else{
-                                return null;
-                              }
-                            },
-                            onChanged: (value) {
-                              phoneNumber = value;
-                            },
-                            decoration: InputDecoration(
-                              hintText: "0123456789",
-                            ),
-                          )),
-                        ],
-                      ),
+                        )),
+                      ],
                     ),
                     SizedBox(
                       height: 20.h,
@@ -131,32 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if(_formKey.currentState!.validate()){
-                                return await FirebaseAuth.instance.verifyPhoneNumber(
-                                  phoneNumber: '${vietNamCode + phoneNumber}',
-                                  timeout: const Duration(seconds: 60),
-                                  verificationCompleted:
-                                      (PhoneAuthCredential credential) {},
-                                  verificationFailed: (FirebaseAuthException e) {
-                                    if (e.code == 'invalid-phone-number') {
-                                      print(
-                                          'The provided phone number is not valid.');
-                                    }
-                                  },
-                                  codeSent:
-                                      (String verificationId, int? resendToken) {
-                                    LoginScreen.verify = verificationId;
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                          const OtpConfirmation()),
-                                    );
-                                  },
-                                  codeAutoRetrievalTimeout:
-                                      (String verificationId) {},
-                                );
+                                AppAuthentication().getOTP(context, vietNamCode, phoneNumber);
                               }
-
                             },
                             style: ElevatedButton.styleFrom(
                               primary: AppColors.signInBtn,
@@ -227,13 +201,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'SFProDisplay')),
                       onPressed: () {
-                        //TODO
+                        AppAuthentication().siginWithGoogle(auth, context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_circle,
                         color: Colors.red,
                       ),
-                      label: Text(
+                      label: const Text(
                         "Đăng nhập với Google",
                         style: TextStyle(
                           color: Colors.black,

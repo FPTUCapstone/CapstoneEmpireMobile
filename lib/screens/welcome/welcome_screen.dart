@@ -23,7 +23,7 @@ class WelcomeScreen extends StatelessWidget {
             child: Container(
               width: 290,
               height: 106,
-              child: Image.asset('assets/image/empirelogo.png'),
+              child: Image.asset('assets/image/app-logo/empirelogo.png'),
             )
         ),
       ),

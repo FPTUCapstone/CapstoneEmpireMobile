@@ -1,11 +1,45 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../screens/login/login_screen.dart';
+import '../../screens/login/otp_confirmation.dart';
 import '../../screens/user_profile/profile.dart';
 
 class AppAuthentication {
   AppAuthentication() {}
+
+  Future<void> getOTP(BuildContext context, String vietNamCode, var phoneNumber) async{
+    try{
+      return await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '${vietNamCode + phoneNumber}',
+        timeout: const Duration(seconds: 60),
+        verificationCompleted:
+            (PhoneAuthCredential credential) {},
+        verificationFailed: (FirebaseAuthException e) {
+          if (e.code == 'invalid-phone-number') {
+            print(
+                'The provided phone number is not valid.');
+          }
+        },
+        codeSent:
+            (String verificationId, int? resendToken) {
+          LoginScreen.verify = verificationId;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                const OtpConfirmation()),
+          );
+        },
+        codeAutoRetrievalTimeout:
+            (String verificationId) {},
+      );
+    }
+    catch(e){
+      print("Can not get OTP");
+    }
+  }
 
   Future<void> confirmOTP(
       String otpCode, FirebaseAuth auth, BuildContext context) async {
@@ -22,5 +56,31 @@ class AppAuthentication {
     } catch (e) {
       print("Wrong OTP");
     }
+  }
+
+  Future<void> siginWithGoogle(FirebaseAuth auth, BuildContext context) async{
+    try{
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      await auth.signInWithCredential(credential);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const UserProfile()),
+      );
+    }
+    catch(e){
+      print("Fail to Login with Google");
+    }
+
+
   }
 }
