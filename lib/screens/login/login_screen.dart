@@ -3,6 +3,7 @@ import 'package:empiregarage_mobile/utilities/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
   static String vietNamCode = "+84";
@@ -99,14 +99,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         Expanded(
                             child: TextFormField(
                           keyboardType: TextInputType.phone,
-                          validator: (value){
-                            if(value!.length > 9 || value.length < 9){
+                          validator: (value) {
+                            if (value!.length > 9 || value.length < 9) {
                               return 'Số điện thoại không hợp lệ !';
-                            }
-                            else if(value.isEmpty){
+                            } else if (value.isEmpty) {
                               return 'Số điện thoại không được để trống !';
-                            }
-                            else{
+                            } else {
                               return null;
                             }
                           },
@@ -128,8 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () async {
-                              if(_formKey.currentState!.validate()){
-                                AppAuthentication().getOTP(context, vietNamCode, phoneNumber);
+                              if (_formKey.currentState!.validate()) {
+                                AppAuthentication()
+                                    .getOTP(context, vietNamCode, phoneNumber);
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -203,15 +202,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         AppAuthentication().siginWithGoogle(auth, context);
                       },
-                      icon: const Icon(
-                        Icons.add_circle,
+                      icon: FaIcon(
+                        FontAwesomeIcons.google,
                         color: Colors.red,
                       ),
-                      label: const Text(
+                      label: Text(
                         "Đăng nhập với Google",
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
+                            style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'SFProDisplay'),
                       ),
                     ),
                   ],
