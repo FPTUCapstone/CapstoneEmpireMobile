@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/utilities/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -9,7 +10,19 @@ class UserProfile extends StatefulWidget {
   State<UserProfile> createState() => _UserProfileState();
 }
 
+enum SingingCharacter { male, female }
+
 class _UserProfileState extends State<UserProfile> {
+
+  SingingCharacter? _character = SingingCharacter.male;
+  TextEditingController dateinput = TextEditingController();
+
+  @override
+  void initState() {
+    dateinput.text = ""; //set the initial value of text field
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -89,19 +102,102 @@ class _UserProfileState extends State<UserProfile> {
                     ),
                   ),
                   Row(
-                    children:  [
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Expanded(
-                        child: TextField(
-                          decoration: const InputDecoration(
-                            hintText: "Nguyễn Văn A",
+                        child: ListTile(
+                          title:Text(
+                              'Nam',
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
                           ),
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
+                          leading: Radio<SingingCharacter>(
+                            value: SingingCharacter.male,
+                            groupValue: _character,
+                            onChanged: (SingingCharacter? value) {
+                              setState(() {
+                                _character = value;
+                              });
+                            },
                           ),
                         ),
+                      ),
+                      Expanded(
+                        child: ListTile(
+                          title:Text(
+                              'Nữ',
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                          leading: Radio<SingingCharacter>(
+                            value: SingingCharacter.female,
+                            groupValue: _character,
+                            onChanged: (SingingCharacter? value) {
+                              setState(() {
+                                _character = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    "Ngày sinh",
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.lightTextColor,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Container(
+                              height:50,
+                              child:Center(
+                                  child:TextField(
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                    controller: dateinput, //editing controller of this TextField
+                                    readOnly: true,  //set it true, so that user will not able to edit text
+                                    onTap: () async {
+                                      DateTime? pickedDate = await showDatePicker(
+                                          context: context, initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
+                                          lastDate: DateTime(2023)
+                                      );
+                                      if(pickedDate != null ){
+                                        print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                                        String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                        print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                                        //you can implement different kind of Date Format here according to your requirement
+                                        setState(() {
+                                          dateinput.text = formattedDate; //set output date to TextField value.
+                                        });
+                                      }else{
+                                        print("Date is not selected");
+                                      }
+                                    },
+                                  )
+                              )
+                          ),
                       ),
                     ],
                   ),
@@ -109,7 +205,7 @@ class _UserProfileState extends State<UserProfile> {
                     height: 15.h,
                   ),
                   Text(
-                    "Giới tính",
+                    "Email",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
@@ -122,7 +218,7 @@ class _UserProfileState extends State<UserProfile> {
                       Expanded(
                         child: TextField(
                           decoration: const InputDecoration(
-                            hintText: "Nguyễn Văn A",
+                            hintText: "abc@gmail.com",
                           ),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
@@ -138,36 +234,7 @@ class _UserProfileState extends State<UserProfile> {
                     height: 15.h,
                   ),
                   Text(
-                    "Giới tính",
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextColor,
-                    ),
-                  ),
-                  Row(
-                    children:  [
-                      Expanded(
-                        child: TextField(
-                          decoration: const InputDecoration(
-                            hintText: "Nguyễn Văn A",
-                          ),
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Text(
-                    "Giới tính",
+                    "Số điện thoại",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
