@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:empiregarage_mobile/application_layer/screens/login/login_screen.dart';
-import 'package:empiregarage_mobile/utilities/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../common/colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

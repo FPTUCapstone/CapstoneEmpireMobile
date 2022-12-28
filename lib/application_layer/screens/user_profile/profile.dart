@@ -1,7 +1,8 @@
-import 'package:empiregarage_mobile/utilities/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+
+import '../../../common/colors.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
@@ -271,7 +272,7 @@ class _UserProfileState extends State<UserProfile> {
                             //TODO
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: AppColors.signInBtn,
+                            primary: AppColors.buttonColor,
                             fixedSize: Size.fromHeight(50.w),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -288,6 +289,9 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 40.h,
                   ),
                 ],
               ),

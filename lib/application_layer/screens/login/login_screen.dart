@@ -1,9 +1,10 @@
 import 'package:empiregarage_mobile/services/authen_firebase_services/AppAuthentication.dart';
-import 'package:empiregarage_mobile/utilities/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../common/colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -132,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: AppColors.signInBtn,
+                              primary: AppColors.buttonColor,
                               fixedSize: Size.fromHeight(50.w),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),

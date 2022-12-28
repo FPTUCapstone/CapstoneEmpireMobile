@@ -12,6 +12,6 @@ class AppColors{
   static const Color lightTextColor = const Color(0xFF666666);
 
   //Button Color
-  static const Color signInBtn = const Color(0xFF2C53D2);
-
+  static const Color buttonColor = const Color(0xFF2C53D2);
+  static const Color unselectedBtn = const Color(0xFF666666);
 }

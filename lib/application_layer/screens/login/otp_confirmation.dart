@@ -4,7 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
-import '../../../utilities/colors.dart';
+import '../../../common/colors.dart';
+
 
 
 class OtpConfirmation extends StatefulWidget {
@@ -102,7 +103,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                         onPressed: () => AppAuthentication()
                             .confirmOTP(otpCode, auth, context),
                         style: ElevatedButton.styleFrom(
-                          primary: AppColors.signInBtn,
+                          primary: AppColors.buttonColor,
                           fixedSize: Size.fromHeight(50.w),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
