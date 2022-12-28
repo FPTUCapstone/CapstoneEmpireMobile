@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:empiregarage_mobile/screens/login/login_screen.dart';
+import 'package:empiregarage_mobile/application_layer/screens/login/login_screen.dart';
 import 'package:empiregarage_mobile/utilities/colors.dart';
 import 'package:flutter/material.dart';
 

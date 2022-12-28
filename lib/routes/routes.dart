@@ -1,5 +1,6 @@
-import 'package:empiregarage_mobile/screens/welcome/welcome_screen.dart';
 import 'package:get/get.dart';
+
+import '../application_layer/screens/welcome/welcome_screen.dart';
 
 class RouteClass{
   static String welcomeScreen = "/";

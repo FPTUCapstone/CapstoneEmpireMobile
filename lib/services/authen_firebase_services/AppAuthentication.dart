@@ -1,10 +1,10 @@
+import 'package:empiregarage_mobile/application_layer/screens/user_profile/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../screens/login/login_screen.dart';
-import '../../screens/login/otp_confirmation.dart';
-import '../../screens/user_profile/profile.dart';
+import '../../application_layer/screens/login/login_screen.dart';
+import '../../application_layer/screens/login/otp_confirmation.dart';
 
 class AppAuthentication {
   AppAuthentication() {}

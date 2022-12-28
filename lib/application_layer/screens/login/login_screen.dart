@@ -1,4 +1,4 @@
-import 'package:empiregarage_mobile/common/functions/AppAuthentication.dart';
+import 'package:empiregarage_mobile/services/authen_firebase_services/AppAuthentication.dart';
 import 'package:empiregarage_mobile/utilities/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
