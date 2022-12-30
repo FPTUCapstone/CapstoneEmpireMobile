@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 50.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -154,68 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Expanded(
-                              child: Divider(
-                            color: AppColors.blackTextColor,
-                          )),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Text(
-                            "hoặc",
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.lightTextColor,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          const Expanded(
-                              child: Divider(
-                            color: AppColors.blackTextColor,
-                          )),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          minimumSize:
-                              Size(MediaQuery.of(context).size.width, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          textStyle: TextStyle(
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'SFProDisplay')),
-                      onPressed: () {
-                        AppAuthentication().siginWithGoogle(auth, context);
-                      },
-                      icon: FaIcon(
-                        FontAwesomeIcons.google,
-                        color: Colors.red,
-                      ),
-                      label: Text(
-                        "Đăng nhập với Google",
-                            style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'SFProDisplay'),
-                      ),
-                    ),
+
                   ],
                 ),
               ),

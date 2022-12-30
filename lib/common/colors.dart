@@ -10,8 +10,12 @@ class AppColors{
   //Text Color
   static const Color blackTextColor = const Color(0xFF000000);
   static const Color lightTextColor = const Color(0xFF666666);
+  static const Color blueTextColor = const Color(0xFF2C53D2);
 
   //Button Color
   static const Color buttonColor = const Color(0xFF2C53D2);
   static const Color unselectedBtn = const Color(0xFF666666);
+
+  //Search Bar Background
+  static const Color searchBarColor = const Color(0xFFEFEFF4);
 }
