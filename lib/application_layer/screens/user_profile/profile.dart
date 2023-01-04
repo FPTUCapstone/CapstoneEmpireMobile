@@ -24,6 +24,19 @@ class _UserProfileState extends State<UserProfile> {
     super.initState();
   }
 
+  int calculateAge(DateTime birthDate) {
+    DateTime currentDate = DateTime.now();
+    int age = currentDate.year - birthDate.year;
+    if (birthDate.month > currentDate.month) {
+      age--;
+    } else if (currentDate.month == birthDate.month) {
+      if (birthDate.day > currentDate.day) {
+        age--;
+      }
+    }
+    return age;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -166,10 +179,10 @@ class _UserProfileState extends State<UserProfile> {
                   Row(
                     children: [
                       Expanded(
-                          child: Container(
+                          child: SizedBox(
                               height:50,
                               child:Center(
-                                  child:TextField(
+                                  child:TextFormField(
                                     style: TextStyle(
                                       fontFamily: 'SFProDisplay',
                                       fontSize: 17.sp,
@@ -177,23 +190,32 @@ class _UserProfileState extends State<UserProfile> {
                                       color: AppColors.blackTextColor,
                                     ),
                                     controller: dateinput, //editing controller of this TextField
-                                    readOnly: true,  //set it true, so that user will not able to edit text
+                                    readOnly: true,
+                                    validator: (value) {
+                                      if (calculateAge(DateTime.parse(value!)) < 18 || value.isEmpty) {
+                                        return 'Tuổi phải lớn hơn 18';
+                                      }
+                                      return null;
+                                    },
+                                    //set it true, so that user will not able to edit text
                                     onTap: () async {
                                       DateTime? pickedDate = await showDatePicker(
-                                          context: context, initialDate: DateTime.now(),
+                                          context: context,
+                                          initialDate: DateTime.now(),
                                           firstDate: DateTime(1900), //DateTime.now() - not to allow to choose before today.
-                                          lastDate: DateTime(2023)
+                                          lastDate: DateTime.now().add(new Duration(days: 0))
                                       );
-                                      if(pickedDate != null ){
+                                      if(calculateAge(pickedDate!) < 18){
+                                        print('Tuổi phải lớn hơn 18');
+                                      }
+                                      else{
                                         print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                                        String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
+                                        String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
                                         print(formattedDate); //formatted date output using intl package =>  2021-03-16
                                         //you can implement different kind of Date Format here according to your requirement
                                         setState(() {
                                           dateinput.text = formattedDate; //set output date to TextField value.
                                         });
-                                      }else{
-                                        print("Date is not selected");
                                       }
                                     },
                                   )
@@ -247,8 +269,9 @@ class _UserProfileState extends State<UserProfile> {
                     children:  [
                       Expanded(
                         child: TextField(
+                          keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
-                            hintText: "Nguyễn Văn A",
+                            hintText: "0123456789",
                           ),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
