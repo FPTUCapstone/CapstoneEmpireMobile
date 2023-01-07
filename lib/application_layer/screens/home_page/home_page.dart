@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/widgets/search_bar.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/service_filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,18 +23,6 @@ class _HomePageState extends State<HomePage> {
       return 'Chào buổi chiều,';
     }
     return 'Chào buổi tối,';
-  }
-
-  MaterialStateProperty<Color> getColor (Color color, Color colorPressed){
-    final getColor = (Set<MaterialState> states){
-      if(states.contains(MaterialState.pressed)){
-        return colorPressed;
-      }
-      else{
-        return color;
-      }
-    };
-    return MaterialStateProperty.resolveWith(getColor);
   }
 
   @override
@@ -217,152 +206,27 @@ class _HomePageState extends State<HomePage> {
                             color: AppColors.blackTextColor,
                             fontFamily: 'SFProDisplay'),
                       ),
+                      Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          //TODO
+                        },
+                        child: Text(
+                          "Xem tất cả",
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.blueTextColor,
+                            fontFamily: 'SFProDisplay',
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(
                     height: 15.h,
                   ),
-                  SizedBox(
-                    height: 30.h,
-                    child: ListView(
-                      // This next line does the trick.
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        Column(
-                            children: [
-                              SizedBox(
-                                width: 120.w,
-                                height: 30.h,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      //TODO
-                                    },
-                                    style: ButtonStyle(
-                                      foregroundColor: getColor(AppColors.buttonColor, AppColors.whiteButtonColor),
-                                      backgroundColor: getColor(AppColors.whiteButtonColor, AppColors.buttonColor),
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
-                                          side: BorderSide(width: 1.w, color: AppColors.buttonColor),
-                                        )
-                                      ),
-                                    ),
-                                    child: Text(
-                                        'Bảo dưỡng',
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: 'SFProDisplay'),
-                                    ),
-                                  )
-                                ),
-                              ),]
-                        ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Column(
-                            children: [
-                              SizedBox(
-                                width: 120.w,
-                                height: 30.h,
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        //TODO
-                                      },
-                                      style: ButtonStyle(
-                                        foregroundColor: getColor(AppColors.buttonColor, AppColors.whiteButtonColor),
-                                        backgroundColor: getColor(AppColors.whiteButtonColor, AppColors.buttonColor),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                              side: BorderSide(width: 1.w, color: AppColors.buttonColor),
-                                            )
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Sửa chữa',
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: 'SFProDisplay'),
-                                      ),
-                                    )
-                                ),
-                              ),]
-                        ),
-                        Column(
-                            children: [
-                              SizedBox(
-                                width: 120.w,
-                                height: 30.h,
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        //TODO
-                                      },
-                                      style: ButtonStyle(
-                                        foregroundColor: getColor(AppColors.buttonColor, AppColors.whiteButtonColor),
-                                        backgroundColor: getColor(AppColors.whiteButtonColor, AppColors.buttonColor),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                              side: BorderSide(width: 1.w, color: AppColors.buttonColor),
-                                            )
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Tân trang',
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: 'SFProDisplay'),
-                                      ),
-                                    )
-                                ),
-                              ),]
-                        ),
-
-                        Column(
-                            children: [
-                              SizedBox(
-                                width: 120.w,
-                                height: 30.h,
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        //TODO
-                                      },
-                                      style: ButtonStyle(
-                                        foregroundColor: getColor(AppColors.buttonColor, AppColors.whiteButtonColor),
-                                        backgroundColor: getColor(AppColors.whiteButtonColor, AppColors.buttonColor),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                              side: BorderSide(width: 1.w, color: AppColors.buttonColor),
-                                            )
-                                        ),
-                                      ),
-                                      child: Text(
-                                        'Cứu hộ',
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: 'SFProDisplay'),
-                                      ),
-                                    )
-                                ),
-                              ),]
-                        ),
-                      ],
-                    ),
-                  ),
+                  ServiceFilterList(),
                 ],
               ),
             ),
