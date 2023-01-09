@@ -20,4 +20,7 @@ class AppColors{
 
   //Search Bar Background
   static const Color searchBarColor = const Color(0xFFEFEFF4);
+
+  //Icon color
+  static const Color settingIcon = Color(0xFF2C53D2);
 }

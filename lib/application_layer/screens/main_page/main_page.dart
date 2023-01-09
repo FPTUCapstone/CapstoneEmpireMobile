@@ -1,11 +1,12 @@
 
-import 'package:empiregarage_mobile/application_layer/booking/booking.dart';
 import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../activities/activities.dart';
+
+import '../activities/activities.dart';
+import '../booking/booking.dart';
 import '../home_page/home_page.dart';
 import '../user_profile/profile.dart';
 

@@ -136,32 +136,45 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Container(
-                    height: 93.h,
+                  SizedBox(
+                    height: 70.h,
                     child: ListView(
                       // This next line does the trick.
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         Container(
                          child: Column(
+                           mainAxisAlignment: MainAxisAlignment.center,
                              children: [
-                               Text("Put your Text Here!!!!"),
-                               Container(
-                                 width: 10,
-                                 height: 15,
-                                 color: Colors.blue,
-                                 child: Align(
-                                   alignment: Alignment.center,
-                                   child: Text(
-                                     'Car or sport car',
-                                     maxLines: 3,
-                                     textAlign: TextAlign.center,
-                                     style: TextStyle(
-                                       fontSize: 15,
-                                     ),
-                                   ),
+                               Ink(
+                                 decoration: ShapeDecoration(
+                                   color: Colors.green,
+                                   shape: RoundedRectangleBorder(),
                                  ),
-                               ),]
+                                 child: IconButton(
+                                   icon: const Icon(
+                                     Icons.settings,
+                                     color: AppColors.settingIcon,
+                                   ),
+                                   onPressed: () {
+                                     setState(() {
+
+                                     });
+                                   },
+                                 ),
+                               ),
+                               SizedBox(
+                                 height: 10.h,
+                               ),
+                               Text(
+                                 'Bảo dưỡng',
+                                 style: TextStyle(
+                                     fontSize: 15.sp,
+                                     fontWeight: FontWeight.w600,
+                                     color: AppColors.blackTextColor,
+                                     fontFamily: 'SFProDisplay'),
+                               ),
+                             ]
                          ),
                         ),
                         SizedBox(
@@ -224,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   SizedBox(
-                    height: 15.h,
+                    height: 5.h,
                   ),
                   ServiceFilterList(),
                 ],

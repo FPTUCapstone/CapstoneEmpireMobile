@@ -145,20 +145,20 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                       ),
                     ),
                     const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        //TODO
-                      },
-                      child: Text(
-                        "Gửi lại mã",
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.blackTextColor,
-                          fontFamily: 'SFProDisplay',
-                        ),
-                      ),
-                    )
+                    // TextButton(
+                    //   onPressed: () {
+                    //     AppAuthentication().getOTP(context, vietNamCode, phoneNumber)
+                    //   },
+                    //   child: Text(
+                    //     "Gửi lại mã",
+                    //     style: TextStyle(
+                    //       fontSize: 14.sp,
+                    //       fontWeight: FontWeight.w700,
+                    //       color: AppColors.blackTextColor,
+                    //       fontFamily: 'SFProDisplay',
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ],
