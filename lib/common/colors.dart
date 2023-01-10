@@ -23,4 +23,10 @@ class AppColors{
 
   //Icon color
   static const Color settingIcon = Color(0xFF2C53D2);
+  static const Color handymanIcon = Color(0xFFFF981F);
+  static const Color nocrashIcon = Color(0xFFFCD433);
+  static const Color errorIcon = Color(0xFFEC1B22);
+
+  //HomePage Service Button Color
+  static const Color homepageServiceBtn = Color(0xFFEFEFF4);
 }

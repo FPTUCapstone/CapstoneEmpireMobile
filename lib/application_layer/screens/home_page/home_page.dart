@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/search_bar.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/service_filter_list.dart';
 import 'package:flutter/material.dart';
@@ -136,74 +137,8 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  SizedBox(
-                    height: 70.h,
-                    child: ListView(
-                      // This next line does the trick.
-                      scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        Container(
-                         child: Column(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                             children: [
-                               Ink(
-                                 decoration: ShapeDecoration(
-                                   color: Colors.green,
-                                   shape: RoundedRectangleBorder(),
-                                 ),
-                                 child: IconButton(
-                                   icon: const Icon(
-                                     Icons.settings,
-                                     color: AppColors.settingIcon,
-                                   ),
-                                   onPressed: () {
-                                     setState(() {
 
-                                     });
-                                   },
-                                 ),
-                               ),
-                               SizedBox(
-                                 height: 10.h,
-                               ),
-                               Text(
-                                 'Bảo dưỡng',
-                                 style: TextStyle(
-                                     fontSize: 15.sp,
-                                     fontWeight: FontWeight.w600,
-                                     color: AppColors.blackTextColor,
-                                     fontFamily: 'SFProDisplay'),
-                               ),
-                             ]
-                         ),
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        Container(
-                          width: 67.w,
-
-                          color: Colors.green,
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        Container(
-                          width: 67.w,
-
-                          color: Colors.yellow,
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        Container(
-                          width: 67.w,
-
-                          color: Colors.blue,
-                        ),
-                      ],
-                    ),
-                  ),
+                  HomePageServiceIconButton(),
 
                   SizedBox(
                     height: 20.h,
@@ -236,10 +171,25 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
+
                   SizedBox(
                     height: 5.h,
                   ),
+
                   ServiceFilterList(),
+
+                  SizedBox(
+                    height: 20.h,
+                  ),
+
+                  Container(
+                    child: ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container();
+                      },
+
+                    ),
+                  ),
                 ],
               ),
             ),
