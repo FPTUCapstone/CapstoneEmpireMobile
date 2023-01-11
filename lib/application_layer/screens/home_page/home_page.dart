@@ -182,14 +182,35 @@ class _HomePageState extends State<HomePage> {
                     height: 20.h,
                   ),
 
-                  // Container(
-                  //   child: ListView.builder(
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return Container();
-                  //     },
-                  //
-                  //   ),
-                  // ),
+                  SizedBox(
+                    height: 300.h,
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      children: <Widget> [
+                      Column(
+                        children: [
+                          LimitedBox(
+                            maxHeight: 300,
+                            child: Container(
+                              color: Colors.greenAccent,
+                            ),
+                          ),
+                    ],
+                      ),
+                        Column(
+                          children: [
+                            LimitedBox(
+                              maxHeight: 300,
+                              child: Container(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                  ),
                 ],
               ),
             ),

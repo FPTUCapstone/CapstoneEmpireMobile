@@ -57,9 +57,6 @@ class ServiceFilterList extends StatelessWidget {
                   )),
             ),
           ]),
-          SizedBox(
-            width: 5.w,
-          ),
           Column(children: [
             SizedBox(
               width: 120.w,
