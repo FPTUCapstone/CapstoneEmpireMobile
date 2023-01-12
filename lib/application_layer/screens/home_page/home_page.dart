@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/search_bar.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/service_filter_list.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/service_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -178,39 +179,7 @@ class _HomePageState extends State<HomePage> {
 
                   ServiceFilterList(),
 
-                  SizedBox(
-                    height: 20.h,
-                  ),
-
-                  SizedBox(
-                    height: 300.h,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: <Widget> [
-                      Column(
-                        children: [
-                          LimitedBox(
-                            maxHeight: 300,
-                            child: Container(
-                              color: Colors.greenAccent,
-                            ),
-                          ),
-                    ],
-                      ),
-                        Column(
-                          children: [
-                            LimitedBox(
-                              maxHeight: 300,
-                              child: Container(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-
-                  ),
+                  ServiceList(),
                 ],
               ),
             ),
