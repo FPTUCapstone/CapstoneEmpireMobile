@@ -1,3 +1,5 @@
+import 'package:empiregarage_mobile/application_layer/screens/home_page/home_page.dart';
+import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -292,7 +294,11 @@ class _UserProfileState extends State<UserProfile> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            //TODO
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MainPage()),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             primary: AppColors.buttonColor,

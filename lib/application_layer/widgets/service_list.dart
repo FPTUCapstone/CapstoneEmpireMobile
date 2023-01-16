@@ -1,4 +1,6 @@
+import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/colors.dart';
@@ -85,8 +87,11 @@ class ServiceList extends StatelessWidget {
               ),
             ),
             onTap: (){
-              //TODO
-              print("abc");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ServiceDetails()),
+              );
             },
           ),
           GestureDetector(
@@ -161,87 +166,11 @@ class ServiceList extends StatelessWidget {
               ),
             ),
             onTap: (){
-              //TODO
-              print("abc");
-            },
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          GestureDetector(
-            child: Container(
-              child: Column(
-                children: [
-                  LimitedBox(
-                    maxHeight: 132.h,
-                    child: Container(
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            left: 20,
-                            bottom: 20,
-                            child: Row(
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  child: Image.asset(
-                                    "assets/image/service-picture/service-picture1.png",
-                                    width: 140.w,
-                                    height: 90.h,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Container(
-                                  width: 130.w,
-                                  height: 80.h,
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          'Fixing Car',
-                                          style: TextStyle(
-                                            fontSize: 17.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blackTextColor,
-                                            fontFamily: 'SFProDisplay',
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          '250k',
-                                          style: TextStyle(
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blueTextColor,
-                                            fontFamily: 'SFProDisplay',
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onTap: (){
-              //TODO
-              print("abc");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ServiceDetails()),
+              );
             },
           ),
           SizedBox(
@@ -319,8 +248,93 @@ class ServiceList extends StatelessWidget {
               ),
             ),
             onTap: (){
-              //TODO
-              print("abc");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ServiceDetails()),
+              );
+            },
+          ),
+          SizedBox(
+            height: 16.h,
+          ),
+          GestureDetector(
+            child: Container(
+              child: Column(
+                children: [
+                  LimitedBox(
+                    maxHeight: 132.h,
+                    child: Container(
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: 20,
+                            bottom: 20,
+                            child: Row(
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  child: Image.asset(
+                                    "assets/image/service-picture/service-picture1.png",
+                                    width: 140.w,
+                                    height: 90.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Container(
+                                  width: 130.w,
+                                  height: 80.h,
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          'Fixing Car',
+                                          style: TextStyle(
+                                            fontSize: 17.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                            fontFamily: 'SFProDisplay',
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          '250k',
+                                          style: TextStyle(
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blueTextColor,
+                                            fontFamily: 'SFProDisplay',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ServiceDetails()),
+              );
             },
           ),
         ],
