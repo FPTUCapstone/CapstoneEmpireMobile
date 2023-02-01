@@ -54,7 +54,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 52.h,
@@ -67,6 +67,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 5.h,
@@ -79,6 +80,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 30.h,
@@ -93,7 +95,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   },
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 50.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,

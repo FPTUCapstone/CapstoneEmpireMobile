@@ -46,20 +46,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 52.h,
                     ),
                     Text(
-                      "Chào mừng",
+                      "Đăng nhập",
                       style: TextStyle(
-                          fontSize: 40.sp,
+                          fontSize: 28.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
                           fontFamily: 'SFProDisplay'),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 50.h,
                     ),
                     Text(
-                      "Đăng nhập để tiếp tục",
+                      "Vui lòng nhập số điện thoại của bạn để tiếp tục",
                       style: TextStyle(
-                        fontSize: 17.sp,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.lightTextColor,
                         fontFamily: 'SFProDisplay',
@@ -68,15 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 30.h,
                     ),
-                    Text(
-                      "Số điện thoại",
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor,
-                      ),
-                    ),
+                    // Text(
+                    //   "Số điện thoại",
+                    //   style: TextStyle(
+                    //     fontFamily: 'SFProDisplay',
+                    //     fontSize: 17.sp,
+                    //     fontWeight: FontWeight.w400,
+                    //     color: AppColors.lightTextColor,
+                    //   ),
+                    // ),
                     Row(
                       children: [
                         SizedBox(
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             phoneNumber = value;
                           },
                           decoration: const InputDecoration(
-                            hintText: "0123456789",
+                            hintText: "Nhập số điện thoại của bạn",
                           ),
                         )),
                       ],
@@ -136,11 +136,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               primary: AppColors.buttonColor,
                               fixedSize: Size.fromHeight(50.w),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(28),
                               ),
                             ),
                             child: Text(
-                              'Nhận OTP',
+                              'Nhận mã OTP',
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 17.sp,

@@ -75,6 +75,7 @@ flutter:
      - assets/image/app-logo/
      - assets/image/icon-logo/
      - assets/image/service-picture/
+     - assets/image/user-pic/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -90,6 +91,6 @@ flutter:
   fonts:
      - family: SFProDisplay
        fonts:
-         - asset: assets/fonts/SF-Pro-Display-Regular.otf
+         - asset: assets/fonts/SVN-Poppins-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

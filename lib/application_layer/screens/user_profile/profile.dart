@@ -49,17 +49,73 @@ class _UserProfileState extends State<UserProfile> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: SingleChildScrollView(
+              reverse: true,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: 52.h,
                   ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Cập nhật thông tin",
+                      style: TextStyle(
+                        fontFamily: 'SFProDisplay',
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 160.w,
+                      height: 160.h,
+                      child: Stack(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 160.w,
+                            height: 160.h,
+                            child: const CircleAvatar(
+                              child: Text('Avatar'),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 10,
+                            right: 5,
+                            child: Container(
+                              width: 33.w,
+                              height: 33.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: AppColors.buttonColor,
+                                shape: BoxShape.rectangle,
+                              ),
+                              child: IconButton(
+                                onPressed: ()
+                                {
+                                  //TODO
+                                },
+                                icon: Icon(Icons.edit_rounded,color: AppColors.whiteButtonColor,),),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
                   Text(
-                    "Thông tin\nngười dùng",
+                    "Họ và tên",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
-                      fontSize: 40.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
                     ),
@@ -67,39 +123,26 @@ class _UserProfileState extends State<UserProfile> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Text(
-                    "Hãy điền thông tin của bạn",
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.lightTextColor,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Text(
-                    "Tên",
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextColor,
-                    ),
-                  ),
                   Row(
                     children:  [
                       Expanded(
                           child: TextField(
-                            decoration: const InputDecoration(
-                              hintText: "Nguyễn Văn A",
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(12)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.loginScreenBackGround),
+                                  borderRadius: BorderRadius.circular(12)),
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                              filled: true,
+                              hintText: "Nhập họ và tên",
                             ),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
                             ),
                           ),
                       ),
@@ -112,9 +155,9 @@ class _UserProfileState extends State<UserProfile> {
                     "Giới tính",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
-                      fontSize: 17.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextColor,
+                      color: AppColors.blackTextColor,
                     ),
                   ),
                   Row(
@@ -127,8 +170,8 @@ class _UserProfileState extends State<UserProfile> {
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
                             ),
                           ),
                           leading: Radio<SingingCharacter>(
@@ -149,8 +192,8 @@ class _UserProfileState extends State<UserProfile> {
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
                             ),
                           ),
                           leading: Radio<SingingCharacter>(
@@ -173,10 +216,13 @@ class _UserProfileState extends State<UserProfile> {
                     "Ngày sinh",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
-                      fontSize: 17.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextColor,
+                      color: AppColors.blackTextColor,
                     ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Row(
                     children: [
@@ -185,11 +231,22 @@ class _UserProfileState extends State<UserProfile> {
                               height:50,
                               child:Center(
                                   child:TextFormField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius: BorderRadius.circular(12)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: AppColors.loginScreenBackGround),
+                                          borderRadius: BorderRadius.circular(12)),
+                                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                                      filled: true,
+                                      hintText: "Nhập ngày sinh",
+                                    ),
                                     style: TextStyle(
                                       fontFamily: 'SFProDisplay',
-                                      fontSize: 17.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.lightTextColor,
                                     ),
                                     controller: dateinput, //editing controller of this TextField
                                     readOnly: true,
@@ -231,25 +288,36 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                   Text(
                     "Email",
-                    style: TextStyle(
+                    style:  TextStyle(
                       fontFamily: 'SFProDisplay',
-                      fontSize: 17.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextColor,
+                      color: AppColors.blackTextColor,
                     ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Row(
                     children:  [
                       Expanded(
                         child: TextField(
-                          decoration: const InputDecoration(
-                            hintText: "abc@gmail.com",
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(12)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.loginScreenBackGround),
+                                borderRadius: BorderRadius.circular(12)),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            filled: true,
+                            hintText: "Nhập Email",
                           ),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
                           ),
                         ),
                       ),
@@ -262,24 +330,35 @@ class _UserProfileState extends State<UserProfile> {
                     "Số điện thoại",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
-                      fontSize: 17.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.lightTextColor,
+                      color: AppColors.blackTextColor,
                     ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Row(
                     children:  [
                       Expanded(
                         child: TextField(
                           keyboardType: TextInputType.phone,
-                          decoration: const InputDecoration(
-                            hintText: "0123456789",
+                          decoration:InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(12)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: AppColors.loginScreenBackGround),
+                                borderRadius: BorderRadius.circular(12)),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            filled: true,
+                            hintText: "Nhập SĐT",
                           ),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 17.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
                           ),
                         ),
                       ),
@@ -304,7 +383,7 @@ class _UserProfileState extends State<UserProfile> {
                             primary: AppColors.buttonColor,
                             fixedSize: Size.fromHeight(50.w),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(28),
                             ),
                           ),
                           child: Text(
