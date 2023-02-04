@@ -14,23 +14,26 @@ class HomePageServiceIconButton extends StatelessWidget {
       child: ListView(
         // This next line does the trick.
         scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
         children: <Widget>[
-          Container(
+          SizedBox(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                     child: GestureDetector(
                       onTap: (){
                         //TODO
                       },
                       child: InkWell(
-                        child:Image.asset(
-                          "assets/image/icon-logo/homeservice-logo-rescue.png",
-                          height: 40.h,
-                          width: 40.w,
-                        )
+                          child:Image.asset(
+                            "assets/image/icon-logo/homeservice-logo-rescue.png",
+                            height: 40.h,
+                            width: 40.w,
+                          )
                       ),
                     ),
                   ),

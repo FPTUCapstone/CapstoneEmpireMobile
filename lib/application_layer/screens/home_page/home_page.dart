@@ -19,121 +19,123 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      reverse: true,
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 240.h,
-            decoration: BoxDecoration(
-                color: AppColors.welcomeScreenBackGround,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(60.r),
-                  bottomRight: Radius.circular(60.r),
-                )
-            ),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  child: SafeArea(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            children: <Widget>[
-                              Image.asset(
-                                "assets/image/app-logo/homepage-icon.png",
-                                height: 100.h,
-                                width: 90.w,
-                              ),
-                              SizedBox(
-                                width: 200.w,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    shape: BoxShape.rectangle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: Offset(0,1),
-                                        blurRadius: 20,
-                                        color: AppColors.unselectedBtn,
-                                      )
-                                    ]
+    return Material(
+      child: SingleChildScrollView(
+        reverse: true,
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: 240.h,
+              decoration: BoxDecoration(
+                  color: AppColors.welcomeScreenBackGround,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(60.r),
+                    bottomRight: Radius.circular(60.r),
+                  )
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    child: SafeArea(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Row(
+                              children: <Widget>[
+                                Image.asset(
+                                  "assets/image/app-logo/homepage-icon.png",
+                                  height: 100.h,
+                                  width: 90.w,
                                 ),
-                                child: IconButton(
-                                    onPressed: (){
-                                      //TODO
-                                    },
-                                    icon: const Icon(
-                                      Icons.notifications_none_sharp,
-                                      color: AppColors.whiteButtonColor,
-                                    )),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 24),
-                          child: Text(
-                            "Khám phá và đặt dịch vụ mà bạn mong muốn",
-                            style:TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 24.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.whiteTextColor,
+                                SizedBox(
+                                  width: 200.w,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      shape: BoxShape.rectangle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          offset: Offset(0,1),
+                                          blurRadius: 20,
+                                          color: AppColors.unselectedBtn,
+                                        )
+                                      ]
+                                  ),
+                                  child: IconButton(
+                                      onPressed: (){
+                                        //TODO
+                                      },
+                                      icon: const Icon(
+                                        Icons.notifications_none_sharp,
+                                        color: AppColors.whiteButtonColor,
+                                      )),
+                                )
+                              ],
                             ),
                           ),
-                        )
-                      ],
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Text(
+                              "Khám phá và đặt dịch vụ mà bạn mong muốn",
+                              style:TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.whiteTextColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: SearchBar(),
-                )
-              ],
+                  const Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: SearchBar(),
+                  )
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 20.h,),
-          Container(
+            SizedBox(height: 20.h,),
+            Container(
+                margin: const EdgeInsets.symmetric(horizontal: 24),
+                child: HomePageServiceIconButton()
+            ),
+            SizedBox(height: 10.h,),
+            Container(
               margin: const EdgeInsets.symmetric(horizontal: 24),
-              child: HomePageServiceIconButton()
-          ),
-          SizedBox(height: 10.h,),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              children: <Widget>[
-                Text(
-                    "Dịch vụ phổ biến",
-                  style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                      fontFamily: 'SFProDisplay'),
-                ),
-                Spacer(),
-                TextButton(
-                    onPressed: (){},
-                    child: Text(
-                      "Xem tất cả",
-                      style:TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.blueTextColor,
-                          fontFamily: 'SFProDisplay'),
-                    ))
-              ],
+              child: Row(
+                children: <Widget>[
+                  Text(
+                      "Dịch vụ phổ biến",
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                        fontFamily: 'SFProDisplay'),
+                  ),
+                  Spacer(),
+                  TextButton(
+                      onPressed: (){},
+                      child: Text(
+                        "Xem tất cả",
+                        style:TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.blueTextColor,
+                            fontFamily: 'SFProDisplay'),
+                      ))
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 10.h,),
-          HomepageFamousService(),
-        ],
+            SizedBox(height: 10.h,),
+            HomepageFamousService(),
+          ],
+        ),
       ),
     );
   }
