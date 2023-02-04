@@ -101,7 +101,8 @@ class _UserProfileState extends State<UserProfile> {
                                 {
                                   //TODO
                                 },
-                                icon: Icon(Icons.edit_rounded,color: AppColors.whiteButtonColor,),),
+                                icon: Icon(Icons.edit_rounded,color: AppColors.whiteButtonColor,),
+                              ),
                             ),
                           ),
                         ],

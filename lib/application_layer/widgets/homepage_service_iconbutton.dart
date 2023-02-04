@@ -19,131 +19,19 @@ class HomePageServiceIconButton extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Ink(
-                    decoration: ShapeDecoration(
-                      color: AppColors.homepageServiceBtn,
-                      shape: RoundedRectangleBorder(),
-                    ),
-                    child: IconButton(
-                      iconSize: 30,
-                      icon: const Icon(
-                        Icons.settings,
-                        color: AppColors.settingIcon,
-                      ),
-                      onPressed: () {
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: GestureDetector(
+                      onTap: (){
                         //TODO
                       },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Text(
-                    'Bảo dưỡng',
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                        fontFamily: 'SFProDisplay'),
-                  ),
-                ]
-            ),
-          ),
-          SizedBox(
-            width: 20.w,
-          ),
-          Container(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Ink(
-                    decoration: ShapeDecoration(
-                      color: AppColors.homepageServiceBtn,
-                      shape: RoundedRectangleBorder(),
-                    ),
-                    child: IconButton(
-                      iconSize: 30,
-                      icon: const Icon(
-                        Icons.handyman,
-                        color: AppColors.handymanIcon,
+                      child: InkWell(
+                        child:Image.asset(
+                          "assets/image/icon-logo/homeservice-logo-rescue.png",
+                          height: 40.h,
+                          width: 40.w,
+                        )
                       ),
-                      onPressed: () {
-                        //TODO
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Text(
-                    'Sửa chữa',
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                        fontFamily: 'SFProDisplay'),
-                  ),
-                ]
-            ),
-          ),
-          SizedBox(
-            width: 20.w,
-          ),
-          Container(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Ink(
-                    decoration: ShapeDecoration(
-                      color: AppColors.homepageServiceBtn,
-                      shape: RoundedRectangleBorder(),
-                    ),
-                    child: IconButton(
-                      iconSize: 30,
-                      icon: const Icon(
-                        Icons.no_crash,
-                        color: AppColors.nocrashIcon,
-                      ),
-                      onPressed: () {
-                        //TODO
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Text(
-                    'Tân trang',
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                        fontFamily: 'SFProDisplay'),
-                  ),
-                ]
-            ),
-          ),
-          SizedBox(
-            width: 20.w,
-          ),
-          Container(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Ink(
-                    decoration: ShapeDecoration(
-                      color: AppColors.homepageServiceBtn,
-                      shape: RoundedRectangleBorder(),
-                    ),
-                    child: IconButton(
-                      iconSize: 30,
-                      icon: const Icon(
-                        Icons.error_outline,
-                        color: AppColors.errorIcon,
-                      ),
-                      onPressed: () {
-                        //TODO
-                      },
                     ),
                   ),
                   SizedBox(
@@ -152,7 +40,187 @@ class HomePageServiceIconButton extends StatelessWidget {
                   Text(
                     'Cứu hộ',
                     style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                        fontFamily: 'SFProDisplay'),
+                  ),
+                ]
+            ),
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: GestureDetector(
+                      onTap: (){
+                        //TODO
+                      },
+                      child: InkWell(
+                          child:Image.asset(
+                            "assets/image/icon-logo/homeservice-logo-care.png",
+                            height: 40.h,
+                            width: 40.w,
+                          )
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    'Cứu hộ',
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                        fontFamily: 'SFProDisplay'),
+                  ),
+                ]
+            ),
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: GestureDetector(
+                      onTap: (){
+                        //TODO
+                      },
+                      child: InkWell(
+                          child:Image.asset(
+                            "assets/image/icon-logo/homeservice-logo-fixing.png",
+                            height: 40.h,
+                            width: 40.w,
+                          )
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    'Cứu hộ',
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                        fontFamily: 'SFProDisplay'),
+                  ),
+                ]
+            ),
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: GestureDetector(
+                      onTap: (){
+                        //TODO
+                      },
+                      child: InkWell(
+                          child:Image.asset(
+                            "assets/image/icon-logo/homeservice-logo-rescue.png",
+                            height: 40.h,
+                            width: 40.w,
+                          )
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    'Cứu hộ',
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                        fontFamily: 'SFProDisplay'),
+                  ),
+                ]
+            ),
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: GestureDetector(
+                      onTap: (){
+                        //TODO
+                      },
+                      child: InkWell(
+                          child:Image.asset(
+                            "assets/image/icon-logo/homeservice-logo-maintanace.png",
+                            height: 40.h,
+                            width: 40.w,
+                          )
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    'Cứu hộ',
+                    style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                        fontFamily: 'SFProDisplay'),
+                  ),
+                ]
+            ),
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          Container(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: GestureDetector(
+                      onTap: (){
+                        //TODO
+                      },
+                      child: InkWell(
+                          child:Image.asset(
+                            "assets/image/icon-logo/homeservice-logo-accessary.png",
+                            height: 40.h,
+                            width: 40.w,
+                          )
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    'Cứu hộ',
+                    style: TextStyle(
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blackTextColor,
                         fontFamily: 'SFProDisplay'),

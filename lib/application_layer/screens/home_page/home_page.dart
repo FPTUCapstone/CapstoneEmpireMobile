@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/search_bar.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/service_filter_list.dart';
@@ -16,176 +17,124 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  String greeting() {
-    var hour = DateTime.now().hour;
-    if (hour < 12) {
-      return 'Chào buổi sáng,';
-    }
-    if (hour < 17) {
-      return 'Chào buổi chiều,';
-    }
-    return 'Chào buổi tối,';
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: AppColors.loginScreenBackGround,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: SingleChildScrollView(
-              child: Column(
-                children:<Widget> [
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 20.r,
-                          child: ClipRRect(
-                            borderRadius:BorderRadius.circular(50),
-                            child: Image.asset("assets/image/app-logo/empirelogo.png"),
+    return SingleChildScrollView(
+      reverse: true,
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 240.h,
+            decoration: BoxDecoration(
+                color: AppColors.welcomeScreenBackGround,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(60.r),
+                  bottomRight: Radius.circular(60.r),
+                )
+            ),
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  child: SafeArea(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Row(
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/image/app-logo/homepage-icon.png",
+                                height: 100.h,
+                                width: 90.w,
+                              ),
+                              SizedBox(
+                                width: 200.w,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    shape: BoxShape.rectangle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0,1),
+                                        blurRadius: 20,
+                                        color: AppColors.unselectedBtn,
+                                      )
+                                    ]
+                                ),
+                                child: IconButton(
+                                    onPressed: (){
+                                      //TODO
+                                    },
+                                    icon: const Icon(
+                                      Icons.notifications_none_sharp,
+                                      color: AppColors.whiteButtonColor,
+                                    )),
+                              )
+                            ],
                           ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.only(left: 16),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    greeting(),
-                                    style:TextStyle(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w900,
-                                        color: AppColors.lightTextColor,
-                                        fontFamily: 'SFProDisplay'),
-                                  ),
-
-                                ],
-                              )),
-                          Container(
-                            margin: EdgeInsets.only(top: 5, left: 16),
-                            child: Text(
-                              "Gia Minh",
-                              style:TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                  fontFamily: 'SFProDisplay'),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Text(
+                            "Khám phá và đặt dịch vụ mà bạn mong muốn",
+                            style:TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.whiteTextColor,
                             ),
                           ),
-                        ],
-                      ),
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  //Search Bar
-                  SearchBar(),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                          'Khuyến mãi',
-                        style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                            fontFamily: 'SFProDisplay'),
-                      ),
-                      Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          //TODO
-                        },
-                        child: Text(
-                          "Xem tất cả",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.blueTextColor,
-                            fontFamily: 'SFProDisplay',
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  //This space is for PROMOTION
-                  SizedBox(
-                    height: 120.h,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Dịch vụ',
-                        style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                            fontFamily: 'SFProDisplay'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-
-                  HomePageServiceIconButton(),
-
-                  SizedBox(
-                    height: 20.h,
-                  ),
-
-                  Row(
-                    children: [
-                      Text(
-                        'Dịch vụ phổ biến',
-                        style: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                            fontFamily: 'SFProDisplay'),
-                      ),
-                      Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          //TODO
-                        },
-                        child: Text(
-                          "Xem tất cả",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.blueTextColor,
-                            fontFamily: 'SFProDisplay',
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: 5.h,
-                  ),
-
-                  ServiceFilterList(),
-
-                  ServiceList(),
-                ],
-              ),
+                ),
+                const Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: SearchBar(),
+                )
+              ],
             ),
           ),
-        ),
+          SizedBox(height: 20.h,),
+          Container(
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              child: HomePageServiceIconButton()
+          ),
+          SizedBox(height: 10.h,),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              children: <Widget>[
+                Text(
+                    "Dịch vụ phổ biến",
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.blackTextColor,
+                      fontFamily: 'SFProDisplay'),
+                ),
+                Spacer(),
+                TextButton(
+                    onPressed: (){},
+                    child: Text(
+                      "Xem tất cả",
+                      style:TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.blueTextColor,
+                          fontFamily: 'SFProDisplay'),
+                    ))
+              ],
+            ),
+          ),
+          SizedBox(height: 10.h,),
+          HomepageFamousService(),
+        ],
       ),
-      );
+    );
   }
 }
