@@ -14,7 +14,7 @@ class ServiceList extends StatelessWidget {
       height: 300.h,
       child: ListView(
         scrollDirection: Axis.vertical,
-        children: <Widget> [
+        children: <Widget>[
           GestureDetector(
             child: Container(
               child: Column(
@@ -78,7 +78,6 @@ class ServiceList extends StatelessWidget {
                               ],
                             ),
                           )
-
                         ],
                       ),
                     ),
@@ -86,11 +85,13 @@ class ServiceList extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: (){
+            onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ServiceDetails()),
+                    builder: (context) => const ServiceDetails(
+                          itemId: 1,
+                        )),
               );
             },
           ),
@@ -157,7 +158,6 @@ class ServiceList extends StatelessWidget {
                               ],
                             ),
                           )
-
                         ],
                       ),
                     ),
@@ -165,93 +165,13 @@ class ServiceList extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: (){
+            onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ServiceDetails()),
-              );
-            },
-          ),
-          SizedBox(
-            height: 16.h,
-          ),
-          GestureDetector(
-            child: Container(
-              child: Column(
-                children: [
-                  LimitedBox(
-                    maxHeight: 132.h,
-                    child: Container(
-                      child: Stack(
-                        children: <Widget>[
-                          Positioned(
-                            left: 20,
-                            bottom: 20,
-                            child: Row(
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  child: Image.asset(
-                                    "assets/image/service-picture/service-picture1.png",
-                                    width: 140.w,
-                                    height: 90.h,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Container(
-                                  width: 130.w,
-                                  height: 80.h,
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          'Fixing Car',
-                                          style: TextStyle(
-                                            fontSize: 17.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blackTextColor,
-                                            fontFamily: 'SFProDisplay',
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          '250k',
-                                          style: TextStyle(
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blueTextColor,
-                                            fontFamily: 'SFProDisplay',
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onTap: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ServiceDetails()),
+                    builder: (context) => const ServiceDetails(
+                          itemId: 1,
+                        )),
               );
             },
           ),
@@ -321,7 +241,6 @@ class ServiceList extends StatelessWidget {
                               ],
                             ),
                           )
-
                         ],
                       ),
                     ),
@@ -329,17 +248,101 @@ class ServiceList extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: (){
+            onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ServiceDetails()),
+                    builder: (context) => const ServiceDetails(
+                          itemId: 1,
+                        )),
+              );
+            },
+          ),
+          SizedBox(
+            height: 16.h,
+          ),
+          GestureDetector(
+            child: Container(
+              child: Column(
+                children: [
+                  LimitedBox(
+                    maxHeight: 132.h,
+                    child: Container(
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: 20,
+                            bottom: 20,
+                            child: Row(
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  child: Image.asset(
+                                    "assets/image/service-picture/service-picture1.png",
+                                    width: 140.w,
+                                    height: 90.h,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Container(
+                                  width: 130.w,
+                                  height: 80.h,
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          'Fixing Car',
+                                          style: TextStyle(
+                                            fontSize: 17.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                            fontFamily: 'SFProDisplay',
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          '250k',
+                                          style: TextStyle(
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blueTextColor,
+                                            fontFamily: 'SFProDisplay',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ServiceDetails(
+                          itemId: 1,
+                        )),
               );
             },
           ),
         ],
       ),
-
     );
   }
 }

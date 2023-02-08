@@ -17,11 +17,13 @@ class HomepageFamousService extends StatelessWidget {
         child: Row(
           children: [
             GestureDetector(
-              onTap:(){
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ServiceDetails()),
+                      builder: (context) => const ServiceDetails(
+                            itemId: 1,
+                          )),
                 );
               },
               child: Container(
@@ -32,12 +34,11 @@ class HomepageFamousService extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0,5),
+                        offset: Offset(0, 5),
                         blurRadius: 5,
                         color: AppColors.unselectedBtn,
                       )
-                    ]
-                ),
+                    ]),
                 child: Column(
                   children: <Widget>[
                     ClipRRect(
@@ -46,7 +47,9 @@ class HomepageFamousService extends StatelessWidget {
                         "assets/image/service-picture/service-picture1.png",
                       ),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -66,12 +69,11 @@ class HomepageFamousService extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     BoxShadow(
-                                      offset: Offset(0,10),
+                                      offset: Offset(0, 10),
                                       blurRadius: 10,
                                       color: Colors.white10,
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Text(
                                 "20.000",
                                 style: TextStyle(
@@ -79,23 +81,25 @@ class HomepageFamousService extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.greenTextColor,
                                     fontFamily: 'SFProDisplay'),
-                              )
-                          ),
+                              )),
                         ],
                       ),
-
                     )
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 5.w,),
+            SizedBox(
+              width: 5.w,
+            ),
             GestureDetector(
-              onTap:(){
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ServiceDetails()),
+                      builder: (context) => const ServiceDetails(
+                            itemId: 1,
+                          )),
                 );
               },
               child: Container(
@@ -106,12 +110,11 @@ class HomepageFamousService extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0,5),
+                        offset: Offset(0, 5),
                         blurRadius: 5,
                         color: AppColors.unselectedBtn,
                       )
-                    ]
-                ),
+                    ]),
                 child: Column(
                   children: <Widget>[
                     ClipRRect(
@@ -120,7 +123,9 @@ class HomepageFamousService extends StatelessWidget {
                         "assets/image/service-picture/service-picture1.png",
                       ),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -140,12 +145,11 @@ class HomepageFamousService extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     BoxShadow(
-                                      offset: Offset(0,10),
+                                      offset: Offset(0, 10),
                                       blurRadius: 10,
                                       color: Colors.white10,
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Text(
                                 "20.000",
                                 style: TextStyle(
@@ -153,23 +157,25 @@ class HomepageFamousService extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.greenTextColor,
                                     fontFamily: 'SFProDisplay'),
-                              )
-                          ),
+                              )),
                         ],
                       ),
-
                     )
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 5.w,),
+            SizedBox(
+              width: 5.w,
+            ),
             GestureDetector(
-              onTap:(){
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ServiceDetails()),
+                      builder: (context) => const ServiceDetails(
+                            itemId: 1,
+                          )),
                 );
               },
               child: Container(
@@ -180,12 +186,11 @@ class HomepageFamousService extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0,5),
+                        offset: Offset(0, 5),
                         blurRadius: 5,
                         color: AppColors.unselectedBtn,
                       )
-                    ]
-                ),
+                    ]),
                 child: Column(
                   children: <Widget>[
                     ClipRRect(
@@ -194,7 +199,9 @@ class HomepageFamousService extends StatelessWidget {
                         "assets/image/service-picture/service-picture1.png",
                       ),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -214,12 +221,11 @@ class HomepageFamousService extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     BoxShadow(
-                                      offset: Offset(0,10),
+                                      offset: Offset(0, 10),
                                       blurRadius: 10,
                                       color: Colors.white10,
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Text(
                                 "20.000",
                                 style: TextStyle(
@@ -227,23 +233,25 @@ class HomepageFamousService extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.greenTextColor,
                                     fontFamily: 'SFProDisplay'),
-                              )
-                          ),
+                              )),
                         ],
                       ),
-
                     )
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 5.w,),
+            SizedBox(
+              width: 5.w,
+            ),
             GestureDetector(
-              onTap:(){
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ServiceDetails()),
+                      builder: (context) => const ServiceDetails(
+                            itemId: 1,
+                          )),
                 );
               },
               child: Container(
@@ -254,12 +262,11 @@ class HomepageFamousService extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0,5),
+                        offset: Offset(0, 5),
                         blurRadius: 5,
                         color: AppColors.unselectedBtn,
                       )
-                    ]
-                ),
+                    ]),
                 child: Column(
                   children: <Widget>[
                     ClipRRect(
@@ -268,7 +275,9 @@ class HomepageFamousService extends StatelessWidget {
                         "assets/image/service-picture/service-picture1.png",
                       ),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -288,12 +297,11 @@ class HomepageFamousService extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     BoxShadow(
-                                      offset: Offset(0,10),
+                                      offset: Offset(0, 10),
                                       blurRadius: 10,
                                       color: Colors.white10,
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Text(
                                 "20.000",
                                 style: TextStyle(
@@ -301,23 +309,25 @@ class HomepageFamousService extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.greenTextColor,
                                     fontFamily: 'SFProDisplay'),
-                              )
-                          ),
+                              )),
                         ],
                       ),
-
                     )
                   ],
                 ),
               ),
             ),
-            SizedBox(width: 5.w,),
+            SizedBox(
+              width: 5.w,
+            ),
             GestureDetector(
-              onTap:(){
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ServiceDetails()),
+                      builder: (context) => const ServiceDetails(
+                            itemId: 1,
+                          )),
                 );
               },
               child: Container(
@@ -328,12 +338,11 @@ class HomepageFamousService extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0,5),
+                        offset: Offset(0, 5),
                         blurRadius: 5,
                         color: AppColors.unselectedBtn,
                       )
-                    ]
-                ),
+                    ]),
                 child: Column(
                   children: <Widget>[
                     ClipRRect(
@@ -342,7 +351,9 @@ class HomepageFamousService extends StatelessWidget {
                         "assets/image/service-picture/service-picture1.png",
                       ),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
@@ -362,12 +373,11 @@ class HomepageFamousService extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     BoxShadow(
-                                      offset: Offset(0,10),
+                                      offset: Offset(0, 10),
                                       blurRadius: 10,
                                       color: Colors.white10,
                                     )
-                                  ]
-                              ),
+                                  ]),
                               child: Text(
                                 "20.000",
                                 style: TextStyle(
@@ -375,11 +385,9 @@ class HomepageFamousService extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.greenTextColor,
                                     fontFamily: 'SFProDisplay'),
-                              )
-                          ),
+                              )),
                         ],
                       ),
-
                     )
                   ],
                 ),
