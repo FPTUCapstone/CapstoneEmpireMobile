@@ -1,12 +1,13 @@
 
 import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/zalo_bottomsheet.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../widgets/pick_date_booking.dart';
 import '../activities/activities.dart';
-import '../booking/booking.dart';
 import '../home_page/home_page.dart';
 import '../user_profile/profile.dart';
 
@@ -43,10 +44,9 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.calendar_month_outlined),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const Booking()),
+          showModalBottomSheet(
+              context: context,
+              builder: (context) => const PickDateBooking()
           );
         },
 
@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MaterialButton(
-                      minWidth: 40.w,
+                      minWidth: 15.w,
                       onPressed: (){
                         setState(() {
                           currentScreen = HomePage();
@@ -92,7 +92,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   MaterialButton(
-                    minWidth: 40.w,
+                    minWidth: 15.w,
                     onPressed: (){
                       setState(() {
                         currentScreen = Activities();
@@ -125,7 +125,7 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MaterialButton(
-                    minWidth: 40.w,
+                    minWidth: 15.w,
                     onPressed: (){
                       setState(() {
                         currentScreen = Orders();
@@ -152,7 +152,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   MaterialButton(
-                    minWidth: 40.w,
+                    minWidth: 15.w,
                     onPressed: (){
                       setState(() {
                         currentScreen = UserProfile();

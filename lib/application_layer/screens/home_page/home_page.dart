@@ -41,36 +41,37 @@ class _HomePageState extends State<HomePage> {
                         children: <Widget>[
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Row(
+                            child: Stack(
+                              alignment: Alignment.centerLeft,
                               children: <Widget>[
                                 Image.asset(
                                   "assets/image/app-logo/homepage-icon.png",
                                   height: 100.h,
                                   width: 90.w,
                                 ),
-                                SizedBox(
-                                  width: 200.w,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      shape: BoxShape.rectangle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: Offset(0,1),
-                                          blurRadius: 20,
-                                          color: AppColors.unselectedBtn,
-                                        )
-                                      ]
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(100),
+                                        shape: BoxShape.rectangle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(0,1),
+                                            blurRadius: 20,
+                                            color: AppColors.unselectedBtn,
+                                          )
+                                        ]
+                                    ),
+                                    child: IconButton(
+                                        onPressed: (){
+                                          //TODO
+                                        },
+                                        icon: const Icon(
+                                          Icons.notifications_none_sharp,
+                                          color: AppColors.whiteButtonColor,
+                                        )),
                                   ),
-                                  child: IconButton(
-                                      onPressed: (){
-                                        //TODO
-                                      },
-                                      icon: const Icon(
-                                        Icons.notifications_none_sharp,
-                                        color: AppColors.whiteButtonColor,
-                                      )),
                                 )
                               ],
                             ),
