@@ -24,14 +24,18 @@ class _SearchPageState extends State<SearchPage> {
   FocusNode _focusNode = FocusNode();
   final TextEditingController _searchController = TextEditingController();
   List<String> _recentSearches = [
-    "Thay nhớt",
-    "Thay hộp số",
-    "Thay lốp",
-    "Thay gương"
+    // "Thay nhớt",
+    // "Thay hộp số",
+    // "Thay lốp",
+    // "Thay gương"
   ];
 
   @override
   void initState() {
+    if (widget.searchString != null) {
+      _searchController.text = widget.searchString.toString();
+      _recentSearches.add(widget.searchString.toString());
+    }
     _fetchData();
     _focusNode = FocusNode();
     super.initState();
@@ -179,7 +183,8 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                             Expanded(
                               child: ListView(
-                                children: _recentSearches.map((search) {
+                                children:
+                                    _recentSearches.reversed.map((search) {
                                   return ListTile(
                                     title: Text(
                                       search,
