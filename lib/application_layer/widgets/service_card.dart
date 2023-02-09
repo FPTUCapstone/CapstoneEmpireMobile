@@ -35,14 +35,19 @@ class _SerivceCardState extends State<SerivceCard> {
             SizedBox(
               width: double.infinity,
               height: 200,
-              child: ClipRRect(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
-                  widget.backgroundImage,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              child: widget.backgroundImage != "null"
+                  ? ClipRRect(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        widget.backgroundImage,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : Image.asset(
+                      "assets/image/error-image/no-image.png",
+                      fit: BoxFit.fitWidth,
+                    ),
             ),
             Positioned(
               left: 10,
