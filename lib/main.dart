@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: SearchPage(),
+      child: HomePage(),
     );
   }
 }

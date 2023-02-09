@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/search_bar.dart';
@@ -16,7 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -31,8 +31,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(60.r),
                     bottomRight: Radius.circular(60.r),
-                  )
-              ),
+                  )),
               child: Stack(
                 children: <Widget>[
                   Container(
@@ -53,18 +52,18 @@ class _HomePageState extends State<HomePage> {
                                   alignment: Alignment.centerRight,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
                                         shape: BoxShape.rectangle,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
-                                            offset: Offset(0,1),
+                                            offset: Offset(0, 1),
                                             blurRadius: 20,
                                             color: AppColors.unselectedBtn,
                                           )
-                                        ]
-                                    ),
+                                        ]),
                                     child: IconButton(
-                                        onPressed: (){
+                                        onPressed: () {
                                           //TODO
                                         },
                                         icon: const Icon(
@@ -80,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                             margin: const EdgeInsets.symmetric(horizontal: 24),
                             child: Text(
                               "Khám phá và đặt dịch vụ mà bạn mong muốn",
-                              style:TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 24.sp,
                                 fontWeight: FontWeight.w600,
@@ -92,27 +91,73 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  const Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: SearchBar(),
-                  )
+                  Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 12),
+                        width: 330.w,
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            color: AppColors.searchBarColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(26.r)),
+                            boxShadow: const [
+                              BoxShadow(
+                                offset: Offset(0, 5),
+                                blurRadius: 10,
+                                color: AppColors.unselectedBtn,
+                              )
+                            ]),
+                        child: TextField(
+                          onSubmitted: (value) {
+                            if (value.isNotEmpty) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchPage(
+                                          searchString: value,
+                                        )),
+                              );
+                            }
+                          },
+                          //style: searchTextStyle,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
+                            ),
+                            hintText: 'Tìm dịch vụ',
+                            prefixIcon: Icon(
+                              Icons.search,
+                              size: 20.sp,
+                              color: AppColors.lightTextColor,
+                            ),
+                          ),
+                        ),
+                      ))
                 ],
               ),
             ),
-            SizedBox(height: 20.h,),
+            SizedBox(
+              height: 20.h,
+            ),
             Container(
                 margin: const EdgeInsets.symmetric(horizontal: 24),
-                child: HomePageServiceIconButton()
+                child: HomePageServiceIconButton()),
+            SizedBox(
+              height: 10.h,
             ),
-            SizedBox(height: 10.h,),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 24),
               child: Row(
                 children: <Widget>[
                   Text(
-                      "Dịch vụ phổ biến",
+                    "Dịch vụ phổ biến",
                     style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
@@ -121,10 +166,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Spacer(),
                   TextButton(
-                      onPressed: (){},
+                      onPressed: () {},
                       child: Text(
                         "Xem tất cả",
-                        style:TextStyle(
+                        style: TextStyle(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColors.blueTextColor,
@@ -133,7 +178,9 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(
+              height: 10.h,
+            ),
             HomepageFamousService(),
           ],
         ),

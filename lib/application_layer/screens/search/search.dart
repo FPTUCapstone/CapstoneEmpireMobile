@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchPage extends StatefulWidget {
+  final String? searchString;
+
+  const SearchPage({super.key, this.searchString});
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -50,7 +54,15 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _loading = false;
     });
-    _filteredItem = _listItem;
+    if (widget.searchString != null) {
+      _searchString = widget.searchString.toString();
+      _fitlterData(_searchString);
+      if (widget.searchString!.isEmpty) {
+        _filteredItem = _listItem;
+      }
+    } else {
+      _filteredItem = _listItem;
+    }
   }
 
   _fitlterData(seachString) {
@@ -84,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             child: IconButton(
                 onPressed: () {
-                  //TODO
+                  Navigator.pop(context);
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,
@@ -132,66 +144,68 @@ class _SearchPageState extends State<SearchPage> {
           ),
           _searchString.isEmpty
               ? Expanded(
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10.0),
-                          child: ListTile(
-                            title: const Text(
-                              'Tìm kiếm gần đây',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'SFProDisplay',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: _recentSearches.isNotEmpty
-                                ? InkWell(
-                                    onTap: () => {removeRecentSearch()},
-                                    child: const Text(
-                                      "Xóa tất cả",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontFamily: 'SFProDisplay',
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.red),
+                  child: _loading
+                      ? const Loading()
+                      : Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 10.0),
+                                child: ListTile(
+                                  title: const Text(
+                                    'Tìm kiếm gần đây',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'SFProDisplay',
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                  )
-                                : null,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView(
-                          children: _recentSearches.map((search) {
-                            return ListTile(
-                              title: Text(
-                                search,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'SFProDisplay',
-                                  fontWeight: FontWeight.w400,
+                                  ),
+                                  trailing: _recentSearches.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () => {removeRecentSearch()},
+                                          child: const Text(
+                                            "Xóa tất cả",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: 'SFProDisplay',
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.red),
+                                          ),
+                                        )
+                                      : null,
                                 ),
                               ),
-                              leading: search.isNotEmpty
-                                  ? const Icon(Icons.timer_outlined)
-                                  : null,
-                              horizontalTitleGap: 0,
-                              onTap: () {
-                                _searchController.text = search;
-                                setState(() {
-                                  _searchString = search;
-                                });
-                                _fitlterData(search);
-                              },
-                            );
-                          }).toList(),
+                            ),
+                            Expanded(
+                              child: ListView(
+                                children: _recentSearches.map((search) {
+                                  return ListTile(
+                                    title: Text(
+                                      search,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'SFProDisplay',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    leading: search.isNotEmpty
+                                        ? const Icon(Icons.timer_outlined)
+                                        : null,
+                                    horizontalTitleGap: 0,
+                                    onTap: () {
+                                      _searchController.text = search;
+                                      setState(() {
+                                        _searchString = search;
+                                      });
+                                      _fitlterData(search);
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 )
               : Expanded(
                   child: Column(children: [

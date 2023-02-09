@@ -2,31 +2,38 @@ import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class SearchBar extends StatefulWidget {
+  final String? searchString;
+  final action;
+  const SearchBar({Key? key, this.searchString, this.action}) : super(key: key);
 
+  @override
+  State<SearchBar> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       width: 330.w,
       height: 45.h,
       decoration: BoxDecoration(
-        color: AppColors.searchBarColor,
-        borderRadius: BorderRadius.all(Radius.circular(26.r)),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0,5),
-            blurRadius: 10,
-            color: AppColors.unselectedBtn,
-          )
-        ]
-      ),
+          color: AppColors.searchBarColor,
+          borderRadius: BorderRadius.all(Radius.circular(26.r)),
+          boxShadow: const [
+            BoxShadow(
+              offset: Offset(0, 5),
+              blurRadius: 10,
+              color: AppColors.unselectedBtn,
+            )
+          ]),
       child: TextField(
+        onSubmitted: (context) => widget.action(context),
         //style: searchTextStyle,
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintStyle:TextStyle(
+          hintStyle: TextStyle(
             fontFamily: 'SFProDisplay',
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,
