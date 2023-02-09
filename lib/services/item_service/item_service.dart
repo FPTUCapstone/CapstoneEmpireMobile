@@ -21,4 +21,23 @@ class ItemService {
       return null;
     }
   }
+
+  Future<List<ItemResponseModel>?> fetchListItem() async {
+    String apiUrl = '${APIPath.path}/items';
+    final response = await http.get(Uri.parse(apiUrl));
+    if (response.statusCode == 200) {
+      List<dynamic> jsonArray = json.decode(response.body);
+      List<ItemResponseModel> listItems = [];
+      for (var jsonObject in jsonArray) {
+        listItems.add(ItemResponseModel.fromJson(jsonObject));
+      }
+      return listItems;
+    } else {
+      // If the server returns an error, then throw an exception.
+      if (kDebugMode) {
+        print("Failed to load item, status code: ${response.statusCode}");
+      }
+      return null;
+    }
+  }
 }

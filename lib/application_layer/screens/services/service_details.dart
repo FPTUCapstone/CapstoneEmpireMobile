@@ -38,17 +38,26 @@ class _ServiceDetailsState extends State<ServiceDetails> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _loading
-          ? const Loading()
+          ? Loading(
+              backgroundColor: Colors.grey[200],
+            )
           : Scaffold(
               body: Column(
                 children: <Widget>[
                   Container(
                     height: 300.h,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(_item!.photo),
-                      ),
+                      image: _item!.photo != "null"
+                          ? DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(_item!.photo),
+                            )
+                          : const DecorationImage(
+                              image: AssetImage(
+                                "assets/image/error-image/no-image.png",
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                     ),
                     child: Stack(
                       children: <Widget>[
@@ -66,7 +75,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   )),
                               child: IconButton(
                                   onPressed: () {
-                                    //TODO
+                                    Navigator.pop(context);
                                   },
                                   icon: const Icon(
                                     Icons.arrow_back_outlined,
@@ -179,7 +188,9 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                               ),
                               Spacer(),
                               Text(
-                                _item!.prices!.first.price1.toString(),
+                                _item!.prices!.isNotEmpty
+                                    ? _item!.prices!.first.price1.toString()
+                                    : "Liên hệ",
                                 style: TextStyle(
                                     fontSize: 15.sp,
                                     fontWeight: FontWeight.w600,
