@@ -1,13 +1,16 @@
 import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
+import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/search_bar.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/service_filter_list.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/service_list.dart';
+import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors.dart';
+import '../../../models/item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,9 +20,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<ItemResponseModel>? _listItem;
+  List<ItemResponseModel>? _filteredItem;
+  bool _loading = false;
+
+  _fetchData() async {
+    _listItem = await ItemService().fetchListItem();
+    _filteredItem = _listItem;
+    setState(() {
+      _loading = true;
+    });
+  }
+
+  @override
+  void initState() {
+    _fetchData();
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return !_loading ? Scaffold(body: const Center(child: CircularProgressIndicator(),)) : Material(
       child: SingleChildScrollView(
         reverse: true,
         child: Column(
@@ -181,7 +204,42 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10.h,
             ),
-            HomepageFamousService(),
+            SizedBox(
+              height: 250.h,
+              width: 340.w,
+              child: ListView.builder(
+                reverse: true,
+                scrollDirection: Axis.horizontal,
+                physics: ClampingScrollPhysics() ,
+                shrinkWrap: true,
+                itemCount: _filteredItem!.length,
+                itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: (){
+                       Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ServiceDetails(itemId: _filteredItem![index].id)),
+                              );
+                      },
+                      child: HomepageFamousService(
+                          backgroundImage: _filteredItem![index].photo, 
+                          title: _filteredItem![index].name, 
+                          price: _filteredItem![index].prices!.isNotEmpty? _filteredItem![index].prices!.first.price1.toString() : "Liên hệ", 
+                          usageCount: '182', 
+                          rating: '4.4', 
+                          tag: _filteredItem![index]
+                                                            .category !=
+                                                        null
+                                                    ? _filteredItem![index]
+                                                        .category!
+                                                        .name
+                                                    : "Dịch vụ",
+                        ),
+                    );
+                    },
+              ),
+            ),
           ],
         ),
       ),

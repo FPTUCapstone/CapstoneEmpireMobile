@@ -2,11 +2,22 @@ import 'package:empiregarage_mobile/application_layer/screens/booking/booking_in
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 import '../../common/colors.dart';
 
-class PickDateBooking extends StatelessWidget {
-  const PickDateBooking({Key? key}) : super(key: key);
+class PickDateBooking extends StatefulWidget {
+  PickDateBooking({Key? key}) : super(key: key);
+
+  @override
+  State<PickDateBooking> createState() => _PickDateBookingState();
+}
+
+class _PickDateBookingState extends State<PickDateBooking> {
+  DatePickerController _controller = DatePickerController();
+
+  DateTime _selectedValue = DateTime.now();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +29,8 @@ class PickDateBooking extends StatelessWidget {
           color: Colors.white,
           borderRadius: new BorderRadius.only(
               topLeft: const Radius.circular(40.0),
-              topRight: const Radius.circular(40.0)
-          ),
-          boxShadow:[
+              topRight: const Radius.circular(40.0)),
+          boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5), //color of shadow
               spreadRadius: 5, //spread radius
@@ -37,21 +47,14 @@ class PickDateBooking extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 12),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  SizedBox(height: 20.h,),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: SizedBox(
-                      height: 140.h,
-                      width: 140.h,
-                      child: Image.asset("assets/image/icon-logo/zaloicon.png",fit: BoxFit.fill,),
-                    ),
+                  SizedBox(
+                    height: 20.h,
                   ),
-                  SizedBox(height: 20.h,),
                   Text(
-                    "Truy cập Zalo",
+                    "Đặt lịch mới",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 18.sp,
@@ -59,10 +62,13 @@ class PickDateBooking extends StatelessWidget {
                       color: AppColors.blackTextColor,
                     ),
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Center(
                     child: Text(
-                      "Chuyển đến ứng dụng Zalo để được trao đổi",
+                      textAlign: TextAlign.left,
+                      "Vui lòng chọn lịch có sẵn, chỉ đặt được lịch trong tuần này",
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 14.sp,
@@ -71,29 +77,59 @@ class PickDateBooking extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Center(
-                    child: Text(
-                      "trực tiếp với Empire Garage",
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor,
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        textAlign: TextAlign.left,
+                        "Chọn ngày",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.blackTextColor,
+                        ),
                       ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Container(
+                    child: DatePicker(
+                      DateTime.now(),
+                      width: 60,
+                      height: 80,
+                      controller: _controller,
+                      initialSelectedDate: DateTime.now(),
+                      selectionColor: Colors.black,
+                      selectedTextColor: Colors.white,
+                      daysCount: 7,
+                      onDateChange: (date) {
+                        // New date selected
+                        setState(() {
+                          _selectedValue = date;
+                        });
+                      },
                     ),
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => const BookingInfo(),
-                                )
-                            );
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const BookingInfo(),
+                            ));
                           },
                           style: ElevatedButton.styleFrom(
                             primary: AppColors.buttonColor,

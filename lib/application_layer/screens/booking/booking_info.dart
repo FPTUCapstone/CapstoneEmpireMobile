@@ -1,3 +1,5 @@
+import 'package:empiregarage_mobile/models/symptoms.dart';
+import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,17 +19,30 @@ class BookingInfo extends StatefulWidget {
 }
 
 class _BookingInfoState extends State<BookingInfo> {
-  final _symptonList = [
-    "Xe kêu",
-    "Rỉ xăng",
-    "Đảo bánh trước",
-    "Lên ga rung",
-    "Giật ga"
-  ];
-  String? _selectedValue = "Xe kêu";
+  // final _symptonList = [
+  //   "Xe kêu",
+  //   "Rỉ xăng",
+  //   "Đảo bánh trước",
+  //   "Lên ga rung",
+  //   "Giật ga"
+  // ];
 
-  _BookingInfoState() {
-    _selectedValue = _symptonList[0];
+  List<SymptonResponseModel>? _listSymptoms;
+  String? _selectedValue = "";
+  bool _loading = false;
+
+  _getListSymptoms() async{
+    _listSymptoms = await SymptomsService().fetchListSymptoms();
+    setState(() {
+      _loading = true;
+    });
+    print(_listSymptoms);
+  }
+
+  @override
+  void initState() {
+    _getListSymptoms();
+    super.initState();
   }
 
   @override
@@ -52,7 +67,7 @@ class _BookingInfoState extends State<BookingInfo> {
                        children : <Widget>[
                           IconButton(
                             onPressed: (){
-                              //TODO
+                               Navigator.pop(context, false);
                             },
                             icon: Icon(
                               Icons.arrow_back,
@@ -129,47 +144,47 @@ class _BookingInfoState extends State<BookingInfo> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButtonFormField(
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
-                          ),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColors.loginScreenBackGround),
-                                borderRadius: BorderRadius.circular(12)),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            filled: true,
-                          ),
-                          icon: Icon(
-                            Icons.keyboard_arrow_right,
-                            color: AppColors.lightTextColor,
-                          ),
-                          value: _selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedValue = value as String;
-                            });
-                          },
-                          items: _symptonList.map((e) {
-                            return DropdownMenuItem(
-                              child: Text(e),
-                              value: e,
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: DropdownButtonFormField(
+                  //         style: TextStyle(
+                  //           fontFamily: 'SFProDisplay',
+                  //           fontSize: 14.sp,
+                  //           fontWeight: FontWeight.w400,
+                  //           color: AppColors.lightTextColor,
+                  //         ),
+                  //         decoration: InputDecoration(
+                  //           border: OutlineInputBorder(
+                  //               borderSide: BorderSide.none,
+                  //               borderRadius: BorderRadius.circular(12)),
+                  //           focusedBorder: OutlineInputBorder(
+                  //               borderSide: BorderSide(
+                  //                   color: AppColors.loginScreenBackGround),
+                  //               borderRadius: BorderRadius.circular(12)),
+                  //           floatingLabelBehavior: FloatingLabelBehavior.always,
+                  //           filled: true,
+                  //         ),
+                  //         icon: Icon(
+                  //           Icons.keyboard_arrow_right,
+                  //           color: AppColors.lightTextColor,
+                  //         ),
+                  //         value: _selectedValue,
+                  //         onChanged: (value) {
+                  //           setState(() {
+                  //             _selectedValue = value as String;
+                  //           });
+                  //         },
+                  //         items: _listSymptoms!.map((e) {
+                  //           return DropdownMenuItem(
+                  //             child: Text("abc"),
+                  //             value: e,
+                  //           );
+                  //         }).toList(),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(
                     height: 15.h,
                   ),

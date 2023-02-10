@@ -5,397 +5,116 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/colors.dart';
 
-class HomepageFamousService extends StatelessWidget {
-  const HomepageFamousService({Key? key}) : super(key: key);
+class HomepageFamousService extends StatefulWidget {
+  final String backgroundImage;
+  final String title;
+  final String price;
+  final String usageCount;
+  final String rating;
+  final String tag;
+
+  HomepageFamousService({
+    required this.backgroundImage,
+    required this.title,
+    required this.price,
+    required this.usageCount,
+    required this.rating,
+    required this.tag,
+  });
+
+  @override
+  State<HomepageFamousService> createState() => _HomepageFamousServiceState();
+}
+
+class _HomepageFamousServiceState extends State<HomepageFamousService> {
+
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ServiceDetails(
-                            itemId: 1,
-                          )),
-                );
-              },
-              child: Container(
-                height: 230.h,
-                width: 200.w,
-                decoration: BoxDecoration(
-                    color: AppColors.whiteTextColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 5),
-                        blurRadius: 5,
-                        color: AppColors.unselectedBtn,
-                      )
-                    ]),
-                child: Column(
+    return   Row(
+      children: [
+        Container(
+          height: 230.h,
+          width: 200.w,
+          decoration: BoxDecoration(
+              color: AppColors.whiteTextColor,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(
+                  offset: Offset(0, 5),
+                  blurRadius: 5,
+                  color: AppColors.unselectedBtn,
+                )
+              ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              widget.backgroundImage != "null"
+                  ? SizedBox(
+                    height: 125.h,
+                    width: 234.w,
+                    child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.network(
+                      widget.backgroundImage,
+                                    ),
+                                  ),
+                  ): SizedBox(
+                                  height: 125.h,
+                                  width: 234.w,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.asset(
+                                                    "assets/image/error-image/no-image.png",
+                                                    fit: BoxFit.fitHeight,
+                                                  ),
+                                  ),
+                                ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
                   children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        "assets/image/service-picture/service-picture1.png",
-                      ),
+                    Text(
+                      widget.title,
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
+                          fontFamily: 'SFProDisplay'),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    Spacer(),
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            "Đại tu hộp số",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                                fontFamily: 'SFProDisplay'),
-                          ),
-                          Spacer(),
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white10,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(0, 10),
-                                      blurRadius: 10,
-                                      color: Colors.white10,
-                                    )
-                                  ]),
-                              child: Text(
-                                "20.000",
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greenTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )),
-                        ],
-                      ),
-                    )
+                        decoration: BoxDecoration(
+                            color: Colors.white10,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 10),
+                                blurRadius: 10,
+                                color: Colors.white10,
+                              )
+                            ]),
+                        child: Text(
+                          widget.price,
+                          style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.greenTextColor,
+                              fontFamily: 'SFProDisplay'),
+                        )),
                   ],
                 ),
-              ),
-            ),
-            SizedBox(
-              width: 5.w,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ServiceDetails(
-                            itemId: 1,
-                          )),
-                );
-              },
-              child: Container(
-                height: 230.h,
-                width: 200.w,
-                decoration: BoxDecoration(
-                    color: AppColors.whiteTextColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 5),
-                        blurRadius: 5,
-                        color: AppColors.unselectedBtn,
-                      )
-                    ]),
-                child: Column(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        "assets/image/service-picture/service-picture1.png",
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            "Đại tu hộp số",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                                fontFamily: 'SFProDisplay'),
-                          ),
-                          Spacer(),
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white10,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(0, 10),
-                                      blurRadius: 10,
-                                      color: Colors.white10,
-                                    )
-                                  ]),
-                              child: Text(
-                                "20.000",
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greenTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 5.w,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ServiceDetails(
-                            itemId: 1,
-                          )),
-                );
-              },
-              child: Container(
-                height: 230.h,
-                width: 200.w,
-                decoration: BoxDecoration(
-                    color: AppColors.whiteTextColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 5),
-                        blurRadius: 5,
-                        color: AppColors.unselectedBtn,
-                      )
-                    ]),
-                child: Column(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        "assets/image/service-picture/service-picture1.png",
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            "Đại tu hộp số",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                                fontFamily: 'SFProDisplay'),
-                          ),
-                          Spacer(),
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white10,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(0, 10),
-                                      blurRadius: 10,
-                                      color: Colors.white10,
-                                    )
-                                  ]),
-                              child: Text(
-                                "20.000",
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greenTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 5.w,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ServiceDetails(
-                            itemId: 1,
-                          )),
-                );
-              },
-              child: Container(
-                height: 230.h,
-                width: 200.w,
-                decoration: BoxDecoration(
-                    color: AppColors.whiteTextColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 5),
-                        blurRadius: 5,
-                        color: AppColors.unselectedBtn,
-                      )
-                    ]),
-                child: Column(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        "assets/image/service-picture/service-picture1.png",
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            "Đại tu hộp số",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                                fontFamily: 'SFProDisplay'),
-                          ),
-                          Spacer(),
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white10,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(0, 10),
-                                      blurRadius: 10,
-                                      color: Colors.white10,
-                                    )
-                                  ]),
-                              child: Text(
-                                "20.000",
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greenTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 5.w,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ServiceDetails(
-                            itemId: 1,
-                          )),
-                );
-              },
-              child: Container(
-                height: 230.h,
-                width: 200.w,
-                decoration: BoxDecoration(
-                    color: AppColors.whiteTextColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 5),
-                        blurRadius: 5,
-                        color: AppColors.unselectedBtn,
-                      )
-                    ]),
-                child: Column(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        "assets/image/service-picture/service-picture1.png",
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            "Đại tu hộp số",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                                fontFamily: 'SFProDisplay'),
-                          ),
-                          Spacer(),
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white10,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(0, 10),
-                                      blurRadius: 10,
-                                      color: Colors.white10,
-                                    )
-                                  ]),
-                              child: Text(
-                                "20.000",
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greenTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
+              )
+            ],
+          ),
         ),
-      ),
+        SizedBox(
+          width: 5.w,
+        ),
+      ],
     );
   }
 }
