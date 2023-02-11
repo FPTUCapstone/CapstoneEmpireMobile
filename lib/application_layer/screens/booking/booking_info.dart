@@ -1,4 +1,3 @@
-import 'package:empiregarage_mobile/models/symptoms.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,36 +11,47 @@ import '../../widgets/deposit_bottomsheet.dart';
 import '../../widgets/zalo_bottomsheet.dart';
 
 class BookingInfo extends StatefulWidget {
-  const BookingInfo({Key? key}) : super(key: key);
+  final selectedDate;
+  const BookingInfo({Key? key, required this.selectedDate}) : super(key: key);
+
 
   @override
   State<BookingInfo> createState() => _BookingInfoState();
 }
 
 class _BookingInfoState extends State<BookingInfo> {
-  // final _symptonList = [
-  //   "Xe kêu",
-  //   "Rỉ xăng",
-  //   "Đảo bánh trước",
-  //   "Lên ga rung",
-  //   "Giật ga"
-  // ];
+  var _symptonList = [
+    // "Khác"
+    // "Xe kêu",
+    // "Rỉ xăng",
+    // "Đảo bánh trước",
+    // "Lên ga rung",
+    // "Giật ga"
+  ];
 
-  List<SymptonResponseModel>? _listSymptoms;
-  String? _selectedValue = "";
+  TextEditingController _controller = new TextEditingController();
+
   bool _loading = false;
 
-  _getListSymptoms() async{
-    _listSymptoms = await SymptomsService().fetchListSymptoms();
-    setState(() {
-      _loading = true;
-    });
-    print(_listSymptoms);
+  _loadingSymptomsList() async{
+    var result = await SymptomsService().fetchListSymptoms();
+    if(result != null){
+      for(var item in result){
+          _symptonList.add(item.name.toString());
+      }
+      setState(() {
+        _selectedValue = _symptonList.first.toString();
+        _loading = true;
+      });
+    }
   }
+
+  String? _selectedValue; 
 
   @override
   void initState() {
-    _getListSymptoms();
+    _controller.text = widget.selectedDate.toString().substring(0,10);
+    _loadingSymptomsList();
     super.initState();
   }
 
@@ -49,7 +59,7 @@ class _BookingInfoState extends State<BookingInfo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      home: !_loading ? Scaffold(body: const Center(child: CircularProgressIndicator(),)) : Scaffold(
         backgroundColor: AppColors.loginScreenBackGround,
         body: SafeArea(
           child: Padding(
@@ -67,7 +77,7 @@ class _BookingInfoState extends State<BookingInfo> {
                        children : <Widget>[
                           IconButton(
                             onPressed: (){
-                               Navigator.pop(context, false);
+                              Navigator.pop(context);
                             },
                             icon: Icon(
                               Icons.arrow_back,
@@ -107,6 +117,8 @@ class _BookingInfoState extends State<BookingInfo> {
                     children: [
                       Expanded(
                         child: TextField(
+                          enabled: false,
+                          controller: _controller,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
@@ -117,7 +129,6 @@ class _BookingInfoState extends State<BookingInfo> {
                                 borderRadius: BorderRadius.circular(12)),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             filled: true,
-                            hintText: "Get ngày From Date Picker Timeline",
                           ),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
@@ -144,47 +155,47 @@ class _BookingInfoState extends State<BookingInfo> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: DropdownButtonFormField(
-                  //         style: TextStyle(
-                  //           fontFamily: 'SFProDisplay',
-                  //           fontSize: 14.sp,
-                  //           fontWeight: FontWeight.w400,
-                  //           color: AppColors.lightTextColor,
-                  //         ),
-                  //         decoration: InputDecoration(
-                  //           border: OutlineInputBorder(
-                  //               borderSide: BorderSide.none,
-                  //               borderRadius: BorderRadius.circular(12)),
-                  //           focusedBorder: OutlineInputBorder(
-                  //               borderSide: BorderSide(
-                  //                   color: AppColors.loginScreenBackGround),
-                  //               borderRadius: BorderRadius.circular(12)),
-                  //           floatingLabelBehavior: FloatingLabelBehavior.always,
-                  //           filled: true,
-                  //         ),
-                  //         icon: Icon(
-                  //           Icons.keyboard_arrow_right,
-                  //           color: AppColors.lightTextColor,
-                  //         ),
-                  //         value: _selectedValue,
-                  //         onChanged: (value) {
-                  //           setState(() {
-                  //             _selectedValue = value as String;
-                  //           });
-                  //         },
-                  //         items: _listSymptoms!.map((e) {
-                  //           return DropdownMenuItem(
-                  //             child: Text("abc"),
-                  //             value: e,
-                  //           );
-                  //         }).toList(),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DropdownButtonFormField(
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(12)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: AppColors.loginScreenBackGround),
+                                borderRadius: BorderRadius.circular(12)),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            filled: true,
+                          ),
+                          icon: Icon(
+                            Icons.keyboard_arrow_right,
+                            color: AppColors.lightTextColor,
+                          ),
+                          value: _selectedValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value as String;
+                            });
+                          },
+                          items: _symptonList.map((e) {
+                            return DropdownMenuItem(
+                              child: Text(e),
+                              value: e,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: 15.h,
                   ),

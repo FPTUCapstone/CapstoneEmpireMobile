@@ -128,7 +128,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  const BookingInfo(),
+                                  BookingInfo(selectedDate: _selectedValue,),
                             ));
                           },
                           style: ElevatedButton.styleFrom(
