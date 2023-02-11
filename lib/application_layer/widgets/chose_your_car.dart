@@ -1,3 +1,5 @@
+import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
+import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,7 +56,11 @@ class ChoseYourCar extends StatelessWidget {
                       Spacer(),
                       TextButton(
                         onPressed: () {
-                          //TDO
+                          Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => const AddNewCar(),
+                                )
+                            );
                         },
                         child: Text(
                           "Thêm mới",

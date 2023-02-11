@@ -131,10 +131,10 @@ class _UserProfileState extends State<UserProfile> {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(12)),
+                                  borderRadius: BorderRadius.circular(20)),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: AppColors.loginScreenBackGround),
-                                  borderRadius: BorderRadius.circular(12)),
+                                  borderRadius: BorderRadius.circular(20)),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               filled: true,
                               hintText: "Nhập họ và tên",
@@ -235,10 +235,10 @@ class _UserProfileState extends State<UserProfile> {
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.circular(12)),
+                                          borderRadius: BorderRadius.circular(20)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(color: AppColors.loginScreenBackGround),
-                                          borderRadius: BorderRadius.circular(12)),
+                                          borderRadius: BorderRadius.circular(20)),
                                       floatingLabelBehavior: FloatingLabelBehavior.always,
                                       filled: true,
                                       hintText: "Nhập ngày sinh",
@@ -306,10 +306,10 @@ class _UserProfileState extends State<UserProfile> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
+                                borderRadius: BorderRadius.circular(26)),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.loginScreenBackGround),
-                                borderRadius: BorderRadius.circular(12)),
+                                borderRadius: BorderRadius.circular(26)),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             filled: true,
                             hintText: "Nhập Email",
@@ -347,10 +347,10 @@ class _UserProfileState extends State<UserProfile> {
                           decoration:InputDecoration(
                             border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
+                                borderRadius: BorderRadius.circular(26)),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.loginScreenBackGround),
-                                borderRadius: BorderRadius.circular(12)),
+                                borderRadius: BorderRadius.circular(26)),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             filled: true,
                             hintText: "Nhập SĐT",

@@ -168,11 +168,11 @@ class _BookingInfoState extends State<BookingInfo> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
+                                borderRadius: BorderRadius.circular(26)),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: AppColors.loginScreenBackGround),
-                                borderRadius: BorderRadius.circular(12)),
+                                borderRadius: BorderRadius.circular(26)),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             filled: true,
                           ),
