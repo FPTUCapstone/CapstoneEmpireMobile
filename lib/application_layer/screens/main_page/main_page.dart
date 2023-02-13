@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     Activities(),
     Orders(),
-    UserProfile(),
+    UserProfile(userId: 2,),
   ];
 
 
@@ -155,7 +155,7 @@ class _MainPageState extends State<MainPage> {
                     minWidth: 15.w,
                     onPressed: (){
                       setState(() {
-                        currentScreen = UserProfile();
+                        currentScreen = UserProfile(userId: 2,);
                         currentTab = 4;
                       });
                     },

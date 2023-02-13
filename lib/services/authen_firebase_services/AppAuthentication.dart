@@ -29,7 +29,7 @@ class AppAuthentication {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                const OtpConfirmation()),
+                OtpConfirmation()),
           );
         },
         codeAutoRetrievalTimeout:
@@ -51,7 +51,7 @@ class AppAuthentication {
       await auth.signInWithCredential(credential);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const UserProfile()),
+        MaterialPageRoute(builder: (context) => UserProfile(userId: 2,)),
       );
     } catch (e) {
       print("Wrong OTP");
@@ -74,7 +74,7 @@ class AppAuthentication {
       await auth.signInWithCredential(credential);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const UserProfile()),
+        MaterialPageRoute(builder: (context) => const UserProfile(userId: 2,)),
       );
     }
     catch(e){

@@ -99,22 +99,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Expanded(
                             child: TextFormField(
-                          keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            if (value!.length > 9 || value.length < 9) {
-                              return 'Số điện thoại không hợp lệ !';
-                            } else if (value.isEmpty) {
-                              return 'Số điện thoại không được để trống !';
-                            } else {
-                              return null;
-                            }
-                          },
-                          onChanged: (value) {
-                            phoneNumber = value;
-                          },
-                          decoration: const InputDecoration(
-                            hintText: "Nhập số điện thoại của bạn",
-                          ),
+                              controller: textEditingController,
+                              keyboardType: TextInputType.phone,
+                              validator: (value) {
+                                if (value!.length > 9 || value.length < 9) {
+                                  return 'Số điện thoại không hợp lệ !';
+                                } else if (value.isEmpty) {
+                                  return 'Số điện thoại không được để trống !';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  phoneNumber = value;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                hintText: "Nhập số điện thoại của bạn",
+                              ),
                         )),
                       ],
                     ),
@@ -154,7 +157,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
-
                   ],
                 ),
               ),

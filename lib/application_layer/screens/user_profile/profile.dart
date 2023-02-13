@@ -1,5 +1,8 @@
 import 'package:empiregarage_mobile/application_layer/screens/home_page/home_page.dart';
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
+import 'package:empiregarage_mobile/models/user.dart';
+import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +10,8 @@ import 'package:intl/intl.dart';
 import '../../../common/colors.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({Key? key}) : super(key: key);
+  final userId;
+  const UserProfile({Key? key, required this.userId}) : super(key: key);
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -17,13 +21,29 @@ enum SingingCharacter { male, female }
 
 class _UserProfileState extends State<UserProfile> {
 
+  UserResponseModel? _user;
+
+  bool _loading = false;
+
+  
+
   SingingCharacter? _character = SingingCharacter.male;
   TextEditingController dateinput = TextEditingController();
+  TextEditingController _phoneNumber = TextEditingController();
 
   @override
   void initState() {
     dateinput.text = ""; //set the initial value of text field
     super.initState();
+    _getUserById();
+  }
+
+  _getUserById() async{
+    _user = await UserService().getUserById(widget.userId);
+    setState(() {
+      _loading = true;
+    });
+    print(_user);
   }
 
   int calculateAge(DateTime birthDate) {
@@ -43,7 +63,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+      home: !_loading ? Scaffold(body: const Center(child: CircularProgressIndicator(),)) : Scaffold(
         backgroundColor: AppColors.loginScreenBackGround,
         body: SafeArea(
           child: Padding(
@@ -128,6 +148,11 @@ class _UserProfileState extends State<UserProfile> {
                     children:  [
                       Expanded(
                           child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                //TODO
+                              });
+                            },
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
@@ -137,7 +162,7 @@ class _UserProfileState extends State<UserProfile> {
                                   borderRadius: BorderRadius.circular(20)),
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                               filled: true,
-                              hintText: "Nhập họ và tên",
+                              hintText: _user!.fullname,
                             ),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
@@ -312,7 +337,7 @@ class _UserProfileState extends State<UserProfile> {
                                 borderRadius: BorderRadius.circular(26)),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             filled: true,
-                            hintText: "Nhập Email",
+                            hintText: _user!.email,
                           ),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
@@ -343,6 +368,7 @@ class _UserProfileState extends State<UserProfile> {
                     children:  [
                       Expanded(
                         child: TextField(
+                          controller: _phoneNumber,
                           keyboardType: TextInputType.phone,
                           decoration:InputDecoration(
                             border: OutlineInputBorder(
@@ -353,7 +379,7 @@ class _UserProfileState extends State<UserProfile> {
                                 borderRadius: BorderRadius.circular(26)),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             filled: true,
-                            hintText: "Nhập SĐT",
+                            hintText: _user!.phone,
                           ),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
