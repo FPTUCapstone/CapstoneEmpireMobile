@@ -1,3 +1,5 @@
+import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
+import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +14,16 @@ import '../../widgets/zalo_bottomsheet.dart';
 
 class BookingInfo extends StatefulWidget {
   final selectedDate;
-  const BookingInfo({Key? key, required this.selectedDate}) : super(key: key);
 
+  const BookingInfo({Key? key, required this.selectedDate}) : super(key: key);
 
   @override
   State<BookingInfo> createState() => _BookingInfoState();
 }
 
 class _BookingInfoState extends State<BookingInfo> {
+  late BookingRequestModel requestModel;
+
   var _symptonList = [
     // "Khác"
     // "Xe kêu",
@@ -29,15 +33,15 @@ class _BookingInfoState extends State<BookingInfo> {
     // "Giật ga"
   ];
 
-  TextEditingController _controller = new TextEditingController();
+  TextEditingController _dateController = new TextEditingController();
 
   bool _loading = false;
 
-  _loadingSymptomsList() async{
+  _loadingSymptomsList() async {
     var result = await SymptomsService().fetchListSymptoms();
-    if(result != null){
-      for(var item in result){
-          _symptonList.add(item.name.toString());
+    if (result != null) {
+      for (var item in result) {
+        _symptonList.add(item.name.toString());
       }
       setState(() {
         _selectedValue = _symptonList.first.toString();
@@ -46,11 +50,11 @@ class _BookingInfoState extends State<BookingInfo> {
     }
   }
 
-  String? _selectedValue; 
+  String? _selectedValue;
 
   @override
   void initState() {
-    _controller.text = widget.selectedDate.toString().substring(0,10);
+    _dateController.text = widget.selectedDate.toString().substring(0, 10);
     _loadingSymptomsList();
     super.initState();
   }
@@ -59,216 +63,158 @@ class _BookingInfoState extends State<BookingInfo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: !_loading ? Scaffold(body: const Center(child: CircularProgressIndicator(),)) : Scaffold(
-        backgroundColor: AppColors.loginScreenBackGround,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: SingleChildScrollView(
-              reverse: true,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 52.h,
-                  ),
-                  Stack(
-                      alignment: Alignment.centerLeft,
-                       children : <Widget>[
-                          IconButton(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: AppColors.blackTextColor,
-                            ),
+      home: !_loading
+          ? Scaffold(
+              body: const Center(
+              child: CircularProgressIndicator(),
+            ))
+          : Scaffold(
+              backgroundColor: AppColors.loginScreenBackGround,
+              body: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: SingleChildScrollView(
+                    reverse: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 52.h,
+                        ),
+                        Stack(
+                            alignment: Alignment.centerLeft,
+                            children: <Widget>[
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.arrow_back,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Đặt lịch",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                ),
+                              ),
+                            ]),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Text(
+                          "Ngày đặt",
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Đặt lịch",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                enabled: false,
+                                controller: _dateController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              AppColors.loginScreenBackGround),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  filled: true,
+                                ),
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
                               ),
                             ),
-                          ),
-                        ]
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Text(
-                    "Ngày đặt",
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          enabled: false,
-                          controller: _controller,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColors.loginScreenBackGround),
-                                borderRadius: BorderRadius.circular(12)),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            filled: true,
-                          ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Text(
+                          "Triệu chứng",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Text(
-                    "Triệu chứng",
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButtonFormField(
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
-                          ),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(26)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: AppColors.loginScreenBackGround),
-                                borderRadius: BorderRadius.circular(26)),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            filled: true,
-                          ),
-                          icon: Icon(
-                            Icons.keyboard_arrow_right,
-                            color: AppColors.lightTextColor,
-                          ),
-                          value: _selectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedValue = value as String;
-                            });
-                          },
-                          items: _symptonList.map((e) {
-                            return DropdownMenuItem(
-                              child: Text(e),
-                              value: e,
-                            );
-                          }).toList(),
+                        SizedBox(
+                          height: 5.h,
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Phương tiện",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: DropdownButtonFormField(
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(26)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              AppColors.loginScreenBackGround),
+                                      borderRadius: BorderRadius.circular(26)),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  filled: true,
+                                ),
+                                icon: Icon(
+                                  Icons.keyboard_arrow_right,
+                                  color: AppColors.lightTextColor,
+                                ),
+                                value: _selectedValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedValue = value as String;
+                                  });
+                                },
+                                items: _symptonList.map((e) {
+                                  return DropdownMenuItem(
+                                    child: Text(e),
+                                    value: e,
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => const ChoseYourCar()
-                          );
-                        },
-                        child: Text(
-                          "Chọn",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.blueTextColor,
-                          ),
+                        SizedBox(
+                          height: 15.h,
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset: Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/bmw-car-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Text(
-                        "BMW",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                      subtitle: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
+                        Row(
                           children: [
                             Text(
-                              "59D - 123.45",
+                              "Phương tiện",
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 14.sp,
@@ -276,11 +222,51 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.blackTextColor,
                               ),
                             ),
-                            SizedBox(
-                              height: 5.h,
+                            Spacer(),
+                            TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => const ChoseYourCar());
+                              },
+                              child: Text(
+                                "Chọn",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.blueTextColor,
+                                ),
+                              ),
                             ),
-                            Text(
-                              "320i Sportline",
+                          ],
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset:
+                                    Offset(0, 1), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            leading: Image.asset(
+                              "assets/image/icon-logo/bmw-car-icon.png",
+                              height: 50.h,
+                              width: 50.w,
+                            ),
+                            title: Text(
+                              "BMW",
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 12.sp,
@@ -288,88 +274,53 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.lightTextColor,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      isThreeLine: true,
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          Icon(
-                              Icons.radio_button_checked,
-                              color: AppColors.buttonColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Phương thức thanh toán",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                      Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => const ChosePaymentMethod()
-                          );
-                        },
-                        child: Text(
-                          "Chọn",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.blueTextColor,
+                            subtitle: Align(
+                              alignment: Alignment.topLeft,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "59D - 123.45",
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(
+                                    "320i Sportline",
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.lightTextColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            isThreeLine: true,
+                            trailing: Column(
+                              children: [
+                                SizedBox(height: 15.h),
+                                Icon(
+                                  Icons.radio_button_checked,
+                                  color: AppColors.buttonColor,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset: Offset(0, 1), // changes position of shadow
+                        SizedBox(
+                          height: 15.h,
                         ),
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/paypal-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
+                        Row(
                           children: [
                             Text(
-                              "Paypal",
+                              "Phương thức thanh toán",
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 14.sp,
@@ -377,178 +328,260 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.blackTextColor,
                               ),
                             ),
-                            SizedBox(
-                              height: 5.h,
+                            Spacer(),
+                            TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) =>
+                                        const ChosePaymentMethod());
+                              },
+                              child: Text(
+                                "Chọn",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.blueTextColor,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      subtitle: Text(
-                        "1.000.000",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
+                        SizedBox(
+                          height: 5.h,
                         ),
-                      ),
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          Icon(
-                            Icons.radio_button_checked,
-                            color: AppColors.buttonColor,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset:
+                                    Offset(0, 1), // changes position of shadow
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Text(
-                    "Thanh toán",
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Phí đặt chỗ",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.lightTextColor,
+                          child: ListTile(
+                            leading: Image.asset(
+                              "assets/image/icon-logo/paypal-icon.png",
+                              height: 50.h,
+                              width: 50.w,
+                            ),
+                            title: Align(
+                              alignment: Alignment.topLeft,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Paypal",
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            subtitle: Text(
+                              "1.000.000",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.lightTextColor,
+                              ),
+                            ),
+                            trailing: Column(
+                              children: [
+                                SizedBox(height: 15.h),
+                                Icon(
+                                  Icons.radio_button_checked,
+                                  color: AppColors.buttonColor,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      Spacer(),
-                      Text(
-                        "500.000",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.lightTextColor,
+                        SizedBox(
+                          height: 5.h,
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Tổng cộng",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
+                        SizedBox(
+                          height: 15.h,
                         ),
-                      ),
-                      Spacer(),
-                      Text(
-                        "500.000",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
                         Text(
-                          "**Phí đặt chỗ sẽ được khấu trừ vào hóa đơn**",
+                          "Thanh toán",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                           ),
                         ),
-                        TextButton(
-                            onPressed: (){
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => const DepositBottomSheet()
-                              );
-                            },
-                            child: Text(
-                              "Tại sao tôi phải trả phí đặt chỗ ?",
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Phí đặt chỗ",
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
-                                fontSize: 10.sp,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.lightTextColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              "500.000",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.lightTextColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Tổng cộng",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
-                                decoration: TextDecoration.underline,
                               ),
-                            ))
+                            ),
+                            Spacer(),
+                            Text(
+                              "500.000",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: [
+                              Text(
+                                "**Phí đặt chỗ sẽ được khấu trừ vào hóa đơn**",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) =>
+                                            const DepositBottomSheet());
+                                  },
+                                  child: Text(
+                                    "Tại sao tôi phải trả phí đặt chỗ ?",
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  String date = _dateController.text;
+                                  int carId = 1;
+                                  int userId = 2;
+                                  String intendedTime = date;
+                                  int intendedMinutes = 30;
 
+                                  var booking = await BookingService()
+                                      .createBooking(date, carId, userId,
+                                          intendedTime, intendedMinutes);
+
+                                  if (booking != null) {
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) =>
+                                            BookingSuccessfull());
+                                  } else {
+                                    AlertDialog(
+                                      title: Text(
+                                        "Failed To Booking, please try again",
+                                        style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.red),
+                                      ),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: AppColors.buttonColor,
+                                  fixedSize: Size.fromHeight(50.w),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(28),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Đặt lịch',
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) => const BookingSuccessfull()
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: AppColors.buttonColor,
-                            fixedSize: Size.fromHeight(50.w),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(28),
-                            ),
-                          ),
-                          child: Text(
-                            'Đặt lịch',
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

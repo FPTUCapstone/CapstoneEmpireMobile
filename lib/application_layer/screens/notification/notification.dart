@@ -26,7 +26,7 @@ class _NotificationPageState extends State<NotificationPage> {
             ),
             child: IconButton(
                 onPressed: () {
-                  //TODO
+                   Navigator.pop(context);
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,

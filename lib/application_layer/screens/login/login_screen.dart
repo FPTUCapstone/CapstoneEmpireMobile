@@ -99,7 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Expanded(
                             child: TextFormField(
-                              controller: textEditingController,
                               keyboardType: TextInputType.phone,
                               validator: (value) {
                                 if (value!.length > 9 || value.length < 9) {
@@ -113,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   phoneNumber = value;
+                                  print(phoneNumber);
                                 });
                               },
                               decoration: const InputDecoration(
