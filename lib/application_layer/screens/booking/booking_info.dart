@@ -1,5 +1,7 @@
+import 'package:empiregarage_mobile/models/notification.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
+import 'package:empiregarage_mobile/services/notification/notification_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -537,6 +539,13 @@ class _BookingInfoState extends State<BookingInfo> {
                                           intendedTime, intendedMinutes);
 
                                   if (booking != null) {
+                                    var notificationModel = NotificationModel(
+                                        isAndroiodDevice: true,
+                                        title: "Empire Garage",
+                                        body:
+                                            "Your booking has been created successful");
+                                    await NotificationService()
+                                        .sendNotification(notificationModel);
                                     showModalBottomSheet(
                                         context: context,
                                         builder: (context) =>
