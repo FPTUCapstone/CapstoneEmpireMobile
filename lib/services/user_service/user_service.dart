@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:empiregarage_mobile/models/user.dart';
+import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../common/api_part.dart';

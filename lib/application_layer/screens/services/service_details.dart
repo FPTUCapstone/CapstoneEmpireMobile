@@ -1,7 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/move_to_another_app.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
-import 'package:empiregarage_mobile/models/item.dart';
+import 'package:empiregarage_mobile/models/response/item.dart';
 import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 
 import 'package:flutter/material.dart';

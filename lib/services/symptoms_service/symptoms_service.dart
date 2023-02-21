@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:empiregarage_mobile/models/symptoms.dart';
+import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../../common/api_part.dart';

@@ -1,7 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/home_page/home_page.dart';
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
-import 'package:empiregarage_mobile/models/user.dart';
+import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

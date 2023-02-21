@@ -2,7 +2,7 @@ import 'package:empiregarage_mobile/application_layer/screens/services/service_d
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/service_card.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
-import 'package:empiregarage_mobile/models/item.dart';
+import 'package:empiregarage_mobile/models/response/item.dart';
 import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

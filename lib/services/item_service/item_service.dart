@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:empiregarage_mobile/common/api_part.dart';
-import 'package:empiregarage_mobile/models/item.dart';
+import 'package:empiregarage_mobile/models/response/item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
