@@ -1,7 +1,10 @@
+import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors.dart';
+import '../../../models/notification.dart';
+import '../../../services/notification/notification_service.dart';
 import '../../../services/symptoms_service/symptoms_service.dart';
 
 class AddNewCar extends StatefulWidget {
@@ -12,6 +15,10 @@ class AddNewCar extends StatefulWidget {
 }
 
 class _AddNewCarState extends State<AddNewCar> {
+  var carModel = "";
+  var carBrand = "";
+  var carLisenceNo = "";
+
   final _symptonList = [
     // "Khác"
     // "Xe kêu",
@@ -133,6 +140,11 @@ class _AddNewCarState extends State<AddNewCar> {
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.lightTextColor,
                                 ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    carLisenceNo = value;
+                                  });
+                                },
                               ),
                             ),
                           ],
@@ -155,13 +167,7 @@ class _AddNewCarState extends State<AddNewCar> {
                         Row(
                           children: [
                             Expanded(
-                              child: DropdownButtonFormField(
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
-                                ),
+                              child: TextField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
@@ -174,23 +180,19 @@ class _AddNewCarState extends State<AddNewCar> {
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   filled: true,
+                                  hintText: "Nhập hãng xe",
                                 ),
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_right,
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
                                   color: AppColors.lightTextColor,
                                 ),
-                                value: _selectedValue,
                                 onChanged: (value) {
                                   setState(() {
-                                    _selectedValue = value as String;
+                                    carBrand = value;
                                   });
                                 },
-                                items: _symptonList.map((e) {
-                                  return DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e),
-                                  );
-                                }).toList(),
                               ),
                             ),
                           ],
@@ -213,13 +215,7 @@ class _AddNewCarState extends State<AddNewCar> {
                         Row(
                           children: [
                             Expanded(
-                              child: DropdownButtonFormField(
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
-                                ),
+                              child: TextField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
@@ -232,23 +228,19 @@ class _AddNewCarState extends State<AddNewCar> {
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   filled: true,
+                                  hintText: "Nhập dòng xe",
                                 ),
-                                icon: const Icon(
-                                  Icons.keyboard_arrow_right,
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
                                   color: AppColors.lightTextColor,
                                 ),
-                                value: _selectedValue,
                                 onChanged: (value) {
                                   setState(() {
-                                    _selectedValue = value as String;
+                                    carModel = value;
                                   });
                                 },
-                                items: _symptonList.map((e) {
-                                  return DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e),
-                                  );
-                                }).toList(),
                               ),
                             ),
                           ],
@@ -261,8 +253,41 @@ class _AddNewCarState extends State<AddNewCar> {
                           children: <Widget>[
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
+                                onPressed: () async {
+                                  var addNewCar = CarService().addNewCar(
+                                      carLisenceNo, carBrand, carModel);
+
+                                  if (addNewCar == null) {
+                                    AlertDialog(
+                                      title: Text(
+                                        "Failed To Booking, please try again",
+                                        style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.red),
+                                      ),
+                                    );
+                                  } else {
+                                    var notificationModel = NotificationModel(
+                                        isAndroiodDevice: true,
+                                        title: "Empire Garage",
+                                        body:
+                                            "Your booking has been created successful");
+                                    await NotificationService()
+                                        .sendNotification(notificationModel);
+                                    // ignore: use_build_context_synchronously
+                                    AlertDialog(
+                                      title: Text(
+                                        "Success To Add new car",
+                                        style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.red),
+                                      ),
+                                    );
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.buttonColor,
