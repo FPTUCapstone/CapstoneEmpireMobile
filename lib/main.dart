@@ -1,8 +1,7 @@
+import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'application_layer/screens/welcome/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const WelcomeScreen(),
+      child: const MainPage(),
     );
   }
 }

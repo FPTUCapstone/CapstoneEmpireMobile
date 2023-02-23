@@ -35,9 +35,9 @@ class ItemResponseModel {
           json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
       updatedAt:
           json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-      isActived: json['isActived'][0],
-      isPriceHidden: json['isPriceHidden'][0],
-      isService: json['isService'][0],
+      isActived: json['isActived'],
+      isPriceHidden: json['isPriceHidden'],
+      isService: json['isService'],
       description: json['description'] ?? "null",
       photo: json['photo'] ?? "null",
       categoryId: json['categoryId'],
@@ -121,7 +121,7 @@ class PriceResponseModel {
   });
 
   int id;
-  int price1;
+  double? price1;
   DateTime? priceFrom;
   int? itemId;
 
