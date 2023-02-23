@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchBar extends StatefulWidget {
   final String? searchString;
+  // ignore: prefer_typing_uninitialized_variables
   final action;
   const SearchBar({Key? key, this.searchString, this.action}) : super(key: key);
 

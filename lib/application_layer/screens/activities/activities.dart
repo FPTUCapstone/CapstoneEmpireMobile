@@ -13,13 +13,14 @@ class Activities extends StatefulWidget {
 
 class _HomePageState extends State<Activities> {
   MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
-    final getColor = (Set<MaterialState> states) {
+    getColor(Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
         return colorPressed;
       } else {
         return color;
       }
-    };
+    }
+
     return MaterialStateProperty.resolveWith(getColor);
   }
 
@@ -49,15 +50,15 @@ class _HomePageState extends State<Activities> {
                             color: AppColors.blackTextColor,
                             fontFamily: 'SFProDisplay'),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       ElevatedButton.icon(
-                        icon: Icon(Icons.refresh),
+                        icon: const Icon(Icons.refresh),
                         onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) => const ActivityHistory(),
-                              )
-                          );
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const ActivityHistory(),
+                          ));
                         },
                         style: ButtonStyle(
                           foregroundColor: getColor(AppColors.buttonColor,
@@ -104,11 +105,11 @@ class _HomePageState extends State<Activities> {
                       itemCount: 2,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: EdgeInsets.only(top: 15),
+                          padding: const EdgeInsets.only(top: 15),
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                   bottomLeft: Radius.circular(10),
@@ -118,8 +119,8 @@ class _HomePageState extends State<Activities> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 1,
                                   blurRadius: 1,
-                                  offset:
-                                      Offset(0, 1), // changes position of shadow
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -212,11 +213,11 @@ class _HomePageState extends State<Activities> {
                       itemCount: 2,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: EdgeInsets.only(top: 15),
+                          padding: const EdgeInsets.only(top: 15),
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                   bottomLeft: Radius.circular(10),
@@ -226,8 +227,8 @@ class _HomePageState extends State<Activities> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 1,
                                   blurRadius: 1,
-                                  offset:
-                                  Offset(0, 1), // changes position of shadow
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
                                 ),
                               ],
                             ),

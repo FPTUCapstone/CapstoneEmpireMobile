@@ -9,7 +9,8 @@ class SerivceCard extends StatefulWidget {
   final String rating;
   final String tag;
 
-  SerivceCard({
+  const SerivceCard({
+    super.key,
     required this.backgroundImage,
     required this.title,
     required this.price,

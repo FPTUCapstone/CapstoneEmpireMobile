@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 
 class ServiceDetails extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final itemId;
   const ServiceDetails({Key? key, required this.itemId}) : super(key: key);
 
@@ -84,64 +85,58 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                             ),
                           ),
                         ),
-                        Container(
-                          child: SafeArea(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  child: SafeArea(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 12),
-                                          child: Row(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: 100.h,
-                                              ),
-                                            ],
+                        SafeArea(
+                          child: Column(
+                            children: <Widget>[
+                              SafeArea(
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 12),
+                                      child: Row(
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: 100.h,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 100.h,
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 24),
+                                      child: Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Text(
+                                          _item!.name,
+                                          style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 30.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.whiteTextColor,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 100.h,
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 24),
-                                          child: Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Text(
-                                              _item!.name,
-                                              style: TextStyle(
-                                                fontFamily: 'SFProDisplay',
-                                                fontSize: 30.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.whiteTextColor,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                Container(
-                                  child: Card(
-                                    semanticContainer: true,
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    elevation: 5,
-                                    margin: EdgeInsets.all(10),
-                                    child: Container(
-                                      color: Colors.deepOrange,
-                                    ),
-                                  ),
+                              ),
+                              Card(
+                                semanticContainer: true,
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                              ],
-                            ),
+                                elevation: 5,
+                                margin: const EdgeInsets.all(10),
+                                child: Container(
+                                  color: Colors.deepOrange,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -186,7 +181,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   color: AppColors.blackTextColor,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 _item!.prices!.isNotEmpty
                                     ? _item!.prices!.first.price1.toString()
@@ -221,7 +216,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          Container(
+                          SizedBox(
                             width: 343.w,
                             height: 80.h,
                             child: Column(
@@ -261,7 +256,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          Container(
+                          SizedBox(
                             width: 343.w,
                             height: 80.h,
                             child: Column(

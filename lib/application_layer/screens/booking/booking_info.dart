@@ -3,7 +3,6 @@ import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:empiregarage_mobile/services/notification/notification_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,9 +11,9 @@ import '../../widgets/booking_successfull.dart';
 import '../../widgets/chose_payment_method.dart';
 import '../../widgets/chose_your_car.dart';
 import '../../widgets/deposit_bottomsheet.dart';
-import '../../widgets/zalo_bottomsheet.dart';
 
 class BookingInfo extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final selectedDate;
 
   const BookingInfo({Key? key, required this.selectedDate}) : super(key: key);
@@ -26,7 +25,7 @@ class BookingInfo extends StatefulWidget {
 class _BookingInfoState extends State<BookingInfo> {
   late BookingRequestModel requestModel;
 
-  var _symptonList = [
+  final _symptonList = [
     // "Khác"
     // "Xe kêu",
     // "Rỉ xăng",
@@ -35,7 +34,7 @@ class _BookingInfoState extends State<BookingInfo> {
     // "Giật ga"
   ];
 
-  TextEditingController _dateController = new TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
 
   bool _loading = false;
 
@@ -66,8 +65,8 @@ class _BookingInfoState extends State<BookingInfo> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: !_loading
-          ? Scaffold(
-              body: const Center(
+          ? const Scaffold(
+              body: Center(
               child: CircularProgressIndicator(),
             ))
           : Scaffold(
@@ -90,7 +89,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.arrow_back,
                                   color: AppColors.blackTextColor,
                                 ),
@@ -134,7 +133,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(12)),
                                   focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color:
                                               AppColors.loginScreenBackGround),
                                       borderRadius: BorderRadius.circular(12)),
@@ -182,7 +181,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(26)),
                                   focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           color:
                                               AppColors.loginScreenBackGround),
                                       borderRadius: BorderRadius.circular(26)),
@@ -190,7 +189,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                       FloatingLabelBehavior.always,
                                   filled: true,
                                 ),
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.keyboard_arrow_right,
                                   color: AppColors.lightTextColor,
                                 ),
@@ -202,8 +201,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                 },
                                 items: _symptonList.map((e) {
                                   return DropdownMenuItem(
-                                    child: Text(e),
                                     value: e,
+                                    child: Text(e),
                                   );
                                 }).toList(),
                               ),
@@ -224,7 +223,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.blackTextColor,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             TextButton(
                               onPressed: () {
                                 showModalBottomSheet(
@@ -246,7 +245,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10),
                                 bottomLeft: Radius.circular(10),
@@ -256,8 +255,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: Colors.grey.withOpacity(0.5),
                                 spreadRadius: 1,
                                 blurRadius: 1,
-                                offset:
-                                    Offset(0, 1), // changes position of shadow
+                                offset: const Offset(
+                                    0, 1), // changes position of shadow
                               ),
                             ],
                           ),
@@ -308,7 +307,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             trailing: Column(
                               children: [
                                 SizedBox(height: 15.h),
-                                Icon(
+                                const Icon(
                                   Icons.radio_button_checked,
                                   color: AppColors.buttonColor,
                                 ),
@@ -330,7 +329,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.blackTextColor,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             TextButton(
                               onPressed: () {
                                 showModalBottomSheet(
@@ -356,7 +355,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10),
                                 bottomLeft: Radius.circular(10),
@@ -366,8 +365,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: Colors.grey.withOpacity(0.5),
                                 spreadRadius: 1,
                                 blurRadius: 1,
-                                offset:
-                                    Offset(0, 1), // changes position of shadow
+                                offset: const Offset(
+                                    0, 1), // changes position of shadow
                               ),
                             ],
                           ),
@@ -408,7 +407,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             trailing: Column(
                               children: [
                                 SizedBox(height: 15.h),
-                                Icon(
+                                const Icon(
                                   Icons.radio_button_checked,
                                   color: AppColors.buttonColor,
                                 ),
@@ -445,7 +444,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.lightTextColor,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               "500.000",
                               style: TextStyle(
@@ -471,7 +470,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.blackTextColor,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               "500.000",
                               style: TextStyle(
@@ -546,10 +545,11 @@ class _BookingInfoState extends State<BookingInfo> {
                                             "Your booking has been created successful");
                                     await NotificationService()
                                         .sendNotification(notificationModel);
+                                    // ignore: use_build_context_synchronously
                                     showModalBottomSheet(
                                         context: context,
                                         builder: (context) =>
-                                            BookingSuccessfull());
+                                            const BookingSuccessfull());
                                   } else {
                                     AlertDialog(
                                       title: Text(
@@ -564,7 +564,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  primary: AppColors.buttonColor,
+                                  backgroundColor: AppColors.buttonColor,
                                   fixedSize: Size.fromHeight(50.w),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(28),

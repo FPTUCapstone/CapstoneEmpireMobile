@@ -10,10 +10,8 @@ class Orders extends StatefulWidget {
 class _HomePageState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Text(
-          "Orders nè"
-      ),
+    return const SafeArea(
+      child: Text("Orders nè"),
     );
   }
 }

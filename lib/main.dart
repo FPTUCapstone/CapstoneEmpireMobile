@@ -1,17 +1,7 @@
-import 'package:empiregarage_mobile/application_layer/screens/booking/booking_info.dart';
-import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
-import 'package:empiregarage_mobile/application_layer/screens/home_page/home_page.dart';
-import 'package:empiregarage_mobile/application_layer/screens/login/login_screen.dart';
-import 'package:empiregarage_mobile/application_layer/screens/notification/notification.dart';
-import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
-import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
-import 'package:empiregarage_mobile/application_layer/screens/user_profile/profile.dart';
+import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'application_layer/screens/main_page/main_page.dart';
-import 'application_layer/screens/welcome/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +31,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: MainPage(),
+      child: const MainPage(),
     );
   }
 }

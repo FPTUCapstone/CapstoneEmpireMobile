@@ -1,5 +1,3 @@
-import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,7 +11,8 @@ class HomepageFamousService extends StatefulWidget {
   final String rating;
   final String tag;
 
-  HomepageFamousService({
+  const HomepageFamousService({
+    super.key,
     required this.backgroundImage,
     required this.title,
     required this.price,
@@ -27,11 +26,9 @@ class HomepageFamousService extends StatefulWidget {
 }
 
 class _HomepageFamousServiceState extends State<HomepageFamousService> {
-
-
   @override
   Widget build(BuildContext context) {
-    return   Row(
+    return Row(
       children: [
         Container(
           height: 230.h,
@@ -51,25 +48,26 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
             children: <Widget>[
               widget.backgroundImage != "null"
                   ? SizedBox(
-                    height: 125.h,
-                    width: 234.w,
-                    child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.network(
-                      widget.backgroundImage,
-                                    ),
-                                  ),
-                  ): SizedBox(
-                                  height: 125.h,
-                                  width: 234.w,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                                    "assets/image/error-image/no-image.png",
-                                                    fit: BoxFit.fitHeight,
-                                                  ),
-                                  ),
-                                ),
+                      height: 125.h,
+                      width: 234.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(
+                          widget.backgroundImage,
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      height: 125.h,
+                      width: 234.w,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.asset(
+                          "assets/image/error-image/no-image.png",
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
               SizedBox(
                 height: 10.h,
               ),
@@ -85,12 +83,12 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                           color: AppColors.blackTextColor,
                           fontFamily: 'SFProDisplay'),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Container(
                         decoration: BoxDecoration(
                             color: Colors.white10,
                             borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 offset: Offset(0, 10),
                                 blurRadius: 10,
