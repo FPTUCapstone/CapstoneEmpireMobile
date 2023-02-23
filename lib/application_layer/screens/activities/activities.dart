@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/screens/activities/activity_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -124,67 +125,7 @@ class _HomePageState extends State<Activities> {
                                 ),
                               ],
                             ),
-                            child: ListTile(
-                              leading: Image.asset(
-                                "assets/image/icon-logo/calendar-history-icon.png",
-                                height: 50.h,
-                                width: 50.w,
-                              ),
-                              title: Text(
-                                "Còn lại ... ngày",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.blueTextColor,
-                                ),
-                              ),
-                              subtitle: Align(
-                                alignment: Alignment.topLeft,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      "Đặt lịch cho",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      "59D - 123.45",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      "22/01/2023",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.lightTextColor,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              isThreeLine: true,
-                            ),
+                            child: const ActivityChip(),
                           ),
                         );
                       },
@@ -303,6 +244,85 @@ class _HomePageState extends State<Activities> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ActivityChip extends StatelessWidget {
+  const ActivityChip({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) => const ActivityDetailPage(
+                  bookingId: 42,
+                )));
+      },
+      child: ListTile(
+        leading: Image.asset(
+          "assets/image/icon-logo/calendar-history-icon.png",
+          height: 50.h,
+          width: 50.w,
+        ),
+        title: Text(
+          "Còn lại ... ngày",
+          style: TextStyle(
+            fontFamily: 'SFProDisplay',
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w700,
+            color: AppColors.blueTextColor,
+          ),
+        ),
+        subtitle: Align(
+          alignment: Alignment.topLeft,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                "Đặt lịch cho",
+                style: TextStyle(
+                  fontFamily: 'SFProDisplay',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                "59D - 123.45",
+                style: TextStyle(
+                  fontFamily: 'SFProDisplay',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                "22/01/2023",
+                style: TextStyle(
+                  fontFamily: 'SFProDisplay',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextColor,
+                ),
+                textAlign: TextAlign.start,
+              ),
+            ],
+          ),
+        ),
+        isThreeLine: true,
       ),
     );
   }
