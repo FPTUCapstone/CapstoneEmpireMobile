@@ -1,8 +1,8 @@
 import 'package:empiregarage_mobile/services/authen_firebase_services/AppAuthentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../common/colors.dart';
 
@@ -99,25 +99,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Expanded(
                             child: TextFormField(
-                              keyboardType: TextInputType.phone,
-                              validator: (value) {
-                                if (value!.length > 9 || value.length < 9) {
-                                  return 'Số điện thoại không hợp lệ !';
-                                } else if (value.isEmpty) {
-                                  return 'Số điện thoại không được để trống !';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              onChanged: (value) {
-                                setState(() {
-                                  phoneNumber = value;
-                                  print(phoneNumber);
-                                });
-                              },
-                              decoration: const InputDecoration(
-                                hintText: "Nhập số điện thoại của bạn",
-                              ),
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value!.length > 9 || value.length < 9) {
+                              return 'Số điện thoại không hợp lệ !';
+                            } else if (value.isEmpty) {
+                              return 'Số điện thoại không được để trống !';
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              phoneNumber = value;
+                              if (kDebugMode) {
+                                print(phoneNumber);
+                              }
+                            });
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "Nhập số điện thoại của bạn",
+                          ),
                         )),
                       ],
                     ),
@@ -136,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: AppColors.buttonColor,
+                              backgroundColor: AppColors.buttonColor,
                               fixedSize: Size.fromHeight(50.w),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(28),

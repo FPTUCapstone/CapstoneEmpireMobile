@@ -6,8 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import '../../../common/colors.dart';
 
-
-
 class OtpConfirmation extends StatefulWidget {
   const OtpConfirmation({Key? key}) : super(key: key);
 
@@ -20,31 +18,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
 
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme = PinTheme(
-      width: 68.w,
-      height: 64.h,
-      textStyle: const TextStyle(
-          fontSize: 20,
-          color: Color.fromRGBO(30, 60, 87, 1),
-          fontWeight: FontWeight.w600),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.blackTextColor),
-        borderRadius: BorderRadius.circular(20),
-      ),
-    );
-
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
-      borderRadius: BorderRadius.circular(8),
-    );
-
     var otpCode = "";
-
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-        color: Color.fromRGBO(234, 239, 243, 1),
-      ),
-    );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -89,6 +63,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   length: 6,
                   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                   showCursor: true,
+                  // ignore: avoid_print
                   onCompleted: (pin) => print(pin),
                   onChanged: (value) {
                     otpCode = value;
@@ -105,7 +80,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                         onPressed: () => AppAuthentication()
                             .confirmOTP(otpCode, auth, context),
                         style: ElevatedButton.styleFrom(
-                          primary: AppColors.buttonColor,
+                          backgroundColor: AppColors.buttonColor,
                           fixedSize: Size.fromHeight(50.w),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -133,7 +108,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
+                              builder: (context) => const LoginScreen()),
                         );
                       },
                       child: Text(

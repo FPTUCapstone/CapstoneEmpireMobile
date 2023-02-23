@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:empiregarage_mobile/application_layer/widgets/booking_successfull.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/api_part.dart';

@@ -13,6 +13,7 @@ class SearchPage extends StatefulWidget {
   const SearchPage({super.key, this.searchString});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SearchPageState createState() => _SearchPageState();
 }
 
@@ -155,7 +156,7 @@ class _SearchPageState extends State<SearchPage> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: EdgeInsets.only(top: 10.0),
+                                padding: const EdgeInsets.only(top: 10.0),
                                 child: ListTile(
                                   title: const Text(
                                     'Tìm kiếm gần đây',
@@ -217,7 +218,7 @@ class _SearchPageState extends State<SearchPage> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 10.0),
+                        padding: const EdgeInsets.only(top: 10.0),
                         child: ListTile(
                           title: RichText(
                             text: TextSpan(

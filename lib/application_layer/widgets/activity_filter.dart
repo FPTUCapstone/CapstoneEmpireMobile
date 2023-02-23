@@ -7,13 +7,14 @@ class ActivityFilterList extends StatelessWidget {
   const ActivityFilterList({Key? key}) : super(key: key);
 
   MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
-    final getColor = (Set<MaterialState> states) {
+    getColor(Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
         return colorPressed;
       } else {
         return color;
       }
-    };
+    }
+
     return MaterialStateProperty.resolveWith(getColor);
   }
 
@@ -42,8 +43,8 @@ class ActivityFilterList extends StatelessWidget {
                           AppColors.whiteButtonColor, AppColors.buttonColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          )),
+                        borderRadius: BorderRadius.circular(40),
+                      )),
                     ),
                     child: Text(
                       'Đặt lịch',
@@ -72,8 +73,8 @@ class ActivityFilterList extends StatelessWidget {
                           AppColors.whiteButtonColor, AppColors.buttonColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          )),
+                        borderRadius: BorderRadius.circular(40),
+                      )),
                     ),
                     child: Text(
                       'Dịch vụ',
@@ -102,8 +103,8 @@ class ActivityFilterList extends StatelessWidget {
                           AppColors.whiteButtonColor, AppColors.buttonColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          )),
+                        borderRadius: BorderRadius.circular(40),
+                      )),
                     ),
                     child: Text(
                       'Đặt hàng',
@@ -132,8 +133,8 @@ class ActivityFilterList extends StatelessWidget {
                           AppColors.whiteButtonColor, AppColors.buttonColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          )),
+                        borderRadius: BorderRadius.circular(40),
+                      )),
                     ),
                     child: Text(
                       'Cứu hộ',

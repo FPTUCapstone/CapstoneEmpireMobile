@@ -7,13 +7,14 @@ class ServiceFilterList extends StatelessWidget {
   const ServiceFilterList({Key? key}) : super(key: key);
 
   MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
-    final getColor = (Set<MaterialState> states) {
+    getColor(Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
         return colorPressed;
       } else {
         return color;
       }
-    };
+    }
+
     return MaterialStateProperty.resolveWith(getColor);
   }
 

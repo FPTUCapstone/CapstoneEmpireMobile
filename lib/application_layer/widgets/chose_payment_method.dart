@@ -1,4 +1,3 @@
-import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,21 +9,19 @@ class ChosePaymentMethod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff757575), //background color
+      color: const Color(0xff757575), //background color
       child: Container(
         height: 400.h,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: new BorderRadius.only(
-              topLeft: const Radius.circular(40.0),
-              topRight: const Radius.circular(40.0)
-          ),
-          boxShadow:[
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
+          boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5), //color of shadow
               spreadRadius: 5, //spread radius
               blurRadius: 7, // blur radius
-              offset: Offset(0, 2), // changes position of shadow
+              offset: const Offset(0, 2), // changes position of shadow
               //first paramerter of offset is left-right
               //second parameter is top to down
             ),
@@ -39,7 +36,9 @@ class ChosePaymentMethod extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Row(
                     children: [
                       Text(
@@ -51,7 +50,7 @@ class ChosePaymentMethod extends StatelessWidget {
                           color: AppColors.blackTextColor,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       TextButton(
                         onPressed: () {
                           //TODO
@@ -71,18 +70,18 @@ class ChosePaymentMethod extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                      ),
+                          bottomRight: Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 1,
-                          offset: Offset(0, 1), // changes position of shadow
+                          offset:
+                              const Offset(0, 1), // changes position of shadow
                         ),
                       ],
                     ),
@@ -123,7 +122,7 @@ class ChosePaymentMethod extends StatelessWidget {
                       trailing: Column(
                         children: [
                           SizedBox(height: 15.h),
-                          Icon(
+                          const Icon(
                             Icons.radio_button_checked,
                             color: AppColors.buttonColor,
                           ),
@@ -131,22 +130,24 @@ class ChosePaymentMethod extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5.h,),
+                  SizedBox(
+                    height: 5.h,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                      ),
+                          bottomRight: Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 1,
-                          offset: Offset(0, 1), // changes position of shadow
+                          offset:
+                              const Offset(0, 1), // changes position of shadow
                         ),
                       ],
                     ),
@@ -187,7 +188,7 @@ class ChosePaymentMethod extends StatelessWidget {
                       trailing: Column(
                         children: [
                           SizedBox(height: 15.h),
-                          Icon(
+                          const Icon(
                             Icons.radio_button_checked,
                             color: AppColors.buttonColor,
                           ),
@@ -195,22 +196,24 @@ class ChosePaymentMethod extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5.h,),
+                  SizedBox(
+                    height: 5.h,
+                  ),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                      ),
+                          bottomRight: Radius.circular(10)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 1,
-                          offset: Offset(0, 1), // changes position of shadow
+                          offset:
+                              const Offset(0, 1), // changes position of shadow
                         ),
                       ],
                     ),
@@ -251,7 +254,7 @@ class ChosePaymentMethod extends StatelessWidget {
                       trailing: Column(
                         children: [
                           SizedBox(height: 15.h),
-                          Icon(
+                          const Icon(
                             Icons.radio_button_checked,
                             color: AppColors.buttonColor,
                           ),
@@ -259,7 +262,9 @@ class ChosePaymentMethod extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5.h,),
+                  SizedBox(
+                    height: 5.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -267,7 +272,7 @@ class ChosePaymentMethod extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () => Navigator.pop(context, 'Xác nhận'),
                           style: ElevatedButton.styleFrom(
-                            primary: AppColors.buttonColor,
+                            backgroundColor: AppColors.buttonColor,
                             fixedSize: Size.fromHeight(50.w),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(36),

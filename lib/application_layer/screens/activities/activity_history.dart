@@ -1,5 +1,4 @@
 import 'package:empiregarage_mobile/application_layer/widgets/activity_filter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,35 +29,33 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                   SizedBox(
                     height: 52.h,
                   ),
-                  Stack(
-                      alignment: Alignment.centerLeft,
-                      children: <Widget>[
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: AppColors.blackTextColor,
-                          ),
+                  Stack(alignment: Alignment.centerLeft, children: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Lịch sử hoạt động",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Lịch sử hoạt động",
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                        ),
-                      ]),
+                      ),
+                    ),
+                  ]),
                   SizedBox(
                     height: 20.h,
                   ),
-                  ActivityFilterList(),
+                  const ActivityFilterList(),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -70,11 +67,11 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                       itemCount: 2,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: EdgeInsets.only(top: 15),
+                          padding: const EdgeInsets.only(top: 15),
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                   bottomLeft: Radius.circular(10),
@@ -84,8 +81,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                   color: Colors.grey.withOpacity(0.5),
                                   spreadRadius: 1,
                                   blurRadius: 1,
-                                  offset:
-                                  Offset(0, 1), // changes position of shadow
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
                                 ),
                               ],
                             ),

@@ -1,4 +1,5 @@
 import 'package:external_app_launcher/external_app_launcher.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,21 +11,19 @@ class ZaloBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xff757575), //background color
+      color: const Color(0xff757575), //background color
       child: Container(
         height: 330.h,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: new BorderRadius.only(
-              topLeft: const Radius.circular(40.0),
-              topRight: const Radius.circular(40.0)
-          ),
-          boxShadow:[
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
+          boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5), //color of shadow
               spreadRadius: 5, //spread radius
               blurRadius: 7, // blur radius
-              offset: Offset(0, 2), // changes position of shadow
+              offset: const Offset(0, 2), // changes position of shadow
               //first paramerter of offset is left-right
               //second parameter is top to down
             ),
@@ -39,16 +38,23 @@ class ZaloBottomSheet extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 12),
               child: Column(
                 children: [
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: SizedBox(
                       height: 140.h,
                       width: 140.h,
-                      child: Image.asset("assets/image/icon-logo/zaloicon.png",fit: BoxFit.fill,),
+                      child: Image.asset(
+                        "assets/image/icon-logo/zaloicon.png",
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Text(
                     "Truy cập Zalo",
                     style: TextStyle(
@@ -58,7 +64,9 @@ class ZaloBottomSheet extends StatelessWidget {
                       color: AppColors.blackTextColor,
                     ),
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Center(
                     child: Text(
                       "Chuyển đến ứng dụng Zalo để được trao đổi",
@@ -81,23 +89,28 @@ class ZaloBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () async{
+                          onPressed: () async {
                             var openAppResult = await LaunchApp.openApp(
                               androidPackageName: 'com.zing.zalo',
                               iosUrlScheme: 'pulsesecure://',
-                              appStoreLink:'itms-apps://itunes.apple.com/us/app/pulse-secure/id945832041',
-
+                              appStoreLink:
+                                  'itms-apps://itunes.apple.com/us/app/pulse-secure/id945832041',
                             );
-                            print('openAppResult => $openAppResult ${openAppResult.runtimeType}');
+                            if (kDebugMode) {
+                              print(
+                                  'openAppResult => $openAppResult ${openAppResult.runtimeType}');
+                            }
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: AppColors.buttonColor,
+                            backgroundColor: AppColors.buttonColor,
                             fixedSize: Size.fromHeight(50.w),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(36),

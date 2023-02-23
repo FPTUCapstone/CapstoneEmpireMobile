@@ -1,8 +1,5 @@
-
 import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/zalo_bottomsheet.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,18 +16,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
-  List pages =[
-    HomePage(),
-    Activities(),
-    Orders(),
-    UserProfile(userId: 2,),
+  List pages = [
+    const HomePage(),
+    const Activities(),
+    const Orders(),
+    const UserProfile(
+      userId: 2,
+    ),
   ];
 
-
-
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = HomePage();
+  Widget currentScreen = const HomePage();
   int currentTab = 0;
 
   @override
@@ -38,22 +34,19 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: PageStorage(
-        child: currentScreen,
         bucket: bucket,
+        child: currentScreen,
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.calendar_month_outlined),
+        child: const Icon(Icons.calendar_month_outlined),
         onPressed: () {
           showModalBottomSheet(
-              context: context,
-              builder: (context) => PickDateBooking()
-          );
+              context: context, builder: (context) => const PickDateBooking());
         },
-
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
           height: 60.h,
@@ -65,19 +58,21 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MaterialButton(
-                      minWidth: 15.w,
-                      onPressed: (){
-                        setState(() {
-                          currentScreen = HomePage();
-                          currentTab = 1;
-                        });
-                      },
+                    minWidth: 15.w,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen = const HomePage();
+                        currentTab = 1;
+                      });
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.home,
-                          color: currentTab == 1 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                          color: currentTab == 1
+                              ? AppColors.buttonColor
+                              : AppColors.unselectedBtn,
                         ),
                         Text(
                           'Trang chủ',
@@ -85,7 +80,9 @@ class _MainPageState extends State<MainPage> {
                             fontFamily: 'SFProDisplay',
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w600,
-                            color: currentTab == 1 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                            color: currentTab == 1
+                                ? AppColors.buttonColor
+                                : AppColors.unselectedBtn,
                           ),
                         ),
                       ],
@@ -93,9 +90,9 @@ class _MainPageState extends State<MainPage> {
                   ),
                   MaterialButton(
                     minWidth: 15.w,
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
-                        currentScreen = Activities();
+                        currentScreen = const Activities();
                         currentTab = 2;
                       });
                     },
@@ -104,7 +101,9 @@ class _MainPageState extends State<MainPage> {
                       children: [
                         Icon(
                           Icons.description,
-                          color: currentTab == 2 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                          color: currentTab == 2
+                              ? AppColors.buttonColor
+                              : AppColors.unselectedBtn,
                         ),
                         Text(
                           'Hoạt động',
@@ -112,7 +111,9 @@ class _MainPageState extends State<MainPage> {
                             fontFamily: 'SFProDisplay',
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w600,
-                            color: currentTab == 2 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                            color: currentTab == 2
+                                ? AppColors.buttonColor
+                                : AppColors.unselectedBtn,
                           ),
                         ),
                       ],
@@ -126,9 +127,9 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   MaterialButton(
                     minWidth: 15.w,
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
-                        currentScreen = Orders();
+                        currentScreen = const Orders();
                         currentTab = 3;
                       });
                     },
@@ -137,7 +138,9 @@ class _MainPageState extends State<MainPage> {
                       children: [
                         Icon(
                           Icons.account_balance_wallet_outlined,
-                          color: currentTab == 3 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                          color: currentTab == 3
+                              ? AppColors.buttonColor
+                              : AppColors.unselectedBtn,
                         ),
                         Text(
                           'Đơn hàng',
@@ -145,7 +148,9 @@ class _MainPageState extends State<MainPage> {
                             fontFamily: 'SFProDisplay',
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w600,
-                            color: currentTab == 3 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                            color: currentTab == 3
+                                ? AppColors.buttonColor
+                                : AppColors.unselectedBtn,
                           ),
                         ),
                       ],
@@ -153,9 +158,11 @@ class _MainPageState extends State<MainPage> {
                   ),
                   MaterialButton(
                     minWidth: 15.w,
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
-                        currentScreen = UserProfile(userId: 2,);
+                        currentScreen = const UserProfile(
+                          userId: 2,
+                        );
                         currentTab = 4;
                       });
                     },
@@ -164,7 +171,9 @@ class _MainPageState extends State<MainPage> {
                       children: [
                         Icon(
                           Icons.perm_identity,
-                          color: currentTab == 4 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                          color: currentTab == 4
+                              ? AppColors.buttonColor
+                              : AppColors.unselectedBtn,
                         ),
                         Text(
                           'Cá nhân',
@@ -172,7 +181,9 @@ class _MainPageState extends State<MainPage> {
                             fontFamily: 'SFProDisplay',
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w600,
-                            color: currentTab == 4 ? AppColors.buttonColor : AppColors.unselectedBtn ,
+                            color: currentTab == 4
+                                ? AppColors.buttonColor
+                                : AppColors.unselectedBtn,
                           ),
                         ),
                       ],

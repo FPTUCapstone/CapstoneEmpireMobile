@@ -1,10 +1,11 @@
-import 'dart:ui';
-
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class NotificationPage extends StatefulWidget {
+  const NotificationPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _NotificationPageState createState() => _NotificationPageState();
 }
 
@@ -26,7 +27,7 @@ class _NotificationPageState extends State<NotificationPage> {
             ),
             child: IconButton(
                 onPressed: () {
-                   Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,
@@ -60,7 +61,7 @@ class _NotificationPageState extends State<NotificationPage> {
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         centerTitle: true,
-        title: Text('Thông báo',
+        title: const Text('Thông báo',
             style: TextStyle(
               fontFamily: 'SFProDisplay',
               fontWeight: FontWeight.w600,
@@ -77,7 +78,7 @@ class _NotificationPageState extends State<NotificationPage> {
               leading: Container(
                 width: 50,
                 height: 50,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.searchBarColor,
                 ),
@@ -90,7 +91,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       color: AppColors.greenTextColor,
                     )),
               ),
-              title: Text(
+              title: const Text(
                 'Bạn đã đặt dịch vụ thành công',
                 style: TextStyle(
                     fontFamily: 'SFProDisplay',
@@ -101,7 +102,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 alignment: Alignment.centerLeft,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     SizedBox(height: 5),
                     Text("Đặt dịch vụ thành công vào lúc Thứ 2, 07/01/2023",
                         style: TextStyle(

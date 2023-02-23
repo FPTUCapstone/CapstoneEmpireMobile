@@ -3,9 +3,6 @@ import 'package:empiregarage_mobile/application_layer/screens/search/search.dart
 import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/search_bar.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/service_filter_list.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/service_list.dart';
 import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,8 +39,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return !_loading
-        ? Scaffold(
-            body: const Center(
+        ? const Scaffold(
+            body: Center(
             child: CircularProgressIndicator(),
           ))
         : Material(
@@ -61,70 +58,66 @@ class _HomePageState extends State<HomePage> {
                         )),
                     child: Stack(
                       children: <Widget>[
-                        Container(
-                          child: SafeArea(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 12),
-                                  child: Stack(
-                                    alignment: Alignment.centerLeft,
-                                    children: <Widget>[
-                                      Image.asset(
-                                        "assets/image/app-logo/homepage-icon.png",
-                                        height: 100.h,
-                                        width: 90.w,
+                        SafeArea(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                child: Stack(
+                                  alignment: Alignment.centerLeft,
+                                  children: <Widget>[
+                                    Image.asset(
+                                      "assets/image/app-logo/homepage-icon.png",
+                                      height: 100.h,
+                                      width: 90.w,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            shape: BoxShape.rectangle,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                offset: Offset(0, 1),
+                                                blurRadius: 20,
+                                                color: AppColors.unselectedBtn,
+                                              )
+                                            ]),
+                                        child: IconButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const NotificationPage()),
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.notifications_none_sharp,
+                                              color: AppColors.whiteButtonColor,
+                                            )),
                                       ),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              shape: BoxShape.rectangle,
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  offset: Offset(0, 1),
-                                                  blurRadius: 20,
-                                                  color:
-                                                      AppColors.unselectedBtn,
-                                                )
-                                              ]),
-                                          child: IconButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NotificationPage()),
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                Icons.notifications_none_sharp,
-                                                color:
-                                                    AppColors.whiteButtonColor,
-                                              )),
-                                        ),
-                                      )
-                                    ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 24),
+                                child: Text(
+                                  "Khám phá và đặt dịch vụ mà bạn mong muốn",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.whiteTextColor,
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 24),
-                                  child: Text(
-                                    "Khám phá và đặt dịch vụ mà bạn mong muốn",
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 24.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.whiteTextColor,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
                         ),
                         Positioned(
@@ -185,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                       margin: const EdgeInsets.symmetric(horizontal: 24),
-                      child: HomePageServiceIconButton()),
+                      child: const HomePageServiceIconButton()),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -201,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                               color: AppColors.blackTextColor,
                               fontFamily: 'SFProDisplay'),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         TextButton(
                             onPressed: () {},
                             child: Text(
@@ -224,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                     child: ListView.builder(
                       reverse: true,
                       scrollDirection: Axis.horizontal,
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: _filteredItem!.length,
                       itemBuilder: (context, index) {

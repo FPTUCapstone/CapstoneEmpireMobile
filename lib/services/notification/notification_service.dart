@@ -5,26 +5,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empiregarage_mobile/common/api_part.dart';
 import 'package:empiregarage_mobile/models/notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationService {
-  NotificationService() {}
+  NotificationService();
 
   Future<String?> getToken() async {
-    var _token = await FirebaseMessaging.instance.getToken();
-    print(_token);
-    return _token;
+    var token = await FirebaseMessaging.instance.getToken();
+    if (kDebugMode) {
+      print(token);
+    }
+    return token;
   }
 
   Future<void> saveToken(String? uuid) async {
-    var _token = await getToken();
+    var token = await getToken();
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     users
         .add({
           'userId': uuid,
-          'fcmToken': _token,
+          'fcmToken': token,
         })
+        // ignore: avoid_print
         .then((value) => print("User Added"))
+        // ignore: avoid_print
         .catchError((error) => print("Failed to add user: $error"));
   }
 
