@@ -37,7 +37,6 @@ class _AddNewCarState extends State<AddNewCar> {
         _symptonList.add(item.name.toString());
       }
       setState(() {
-        _selectedValue = _symptonList.first.toString();
         _loading = true;
       });
     }
@@ -48,8 +47,6 @@ class _AddNewCarState extends State<AddNewCar> {
     _loadingSymptomsList();
     super.initState();
   }
-
-  String? _selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -257,6 +254,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                   var addNewCar = CarService().addNewCar(
                                       carLisenceNo, carBrand, carModel);
 
+                                  // ignore: unnecessary_null_comparison
                                   if (addNewCar == null) {
                                     AlertDialog(
                                       title: Text(

@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   _fetchData() async {
     _listItem = await ItemService().fetchListItem();
     _filteredItem = _listItem;
+    if (!mounted) return;
     setState(() {
       _loading = true;
     });
