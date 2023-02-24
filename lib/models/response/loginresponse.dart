@@ -17,7 +17,7 @@ class LoginResponseModel {
   String phone;
   String? email;
   String name;
-  String? gender;
+  bool? gender;
   String? image;
   String? birthday;
   String? address;

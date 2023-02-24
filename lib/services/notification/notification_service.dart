@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empiregarage_mobile/common/api_part.dart';
+import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -46,10 +47,14 @@ class NotificationService {
       'Content-Type': 'application/json; charset=UTF-8',
     };
     try {
-      response = await http.post(
-        Uri.parse('${APIPath.path}/notifications/send'),
+      response = await makeHttpRequest(
         headers: headers,
-        body: json.encode(notificationModel.toJson()),
+        '${APIPath.path}/notifications/send',
+        method: 'POST',
+        body: jsonEncode(notificationModel.toJson()),
+      );
+      log(
+        jsonEncode(notificationModel.toJson()),
       );
       if (response.statusCode == 200) {
         log('Notification sent successfully!');

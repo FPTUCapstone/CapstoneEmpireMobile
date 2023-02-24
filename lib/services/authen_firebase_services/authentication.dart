@@ -11,39 +11,55 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../application_layer/screens/login/login_screen.dart';
 import '../../application_layer/screens/login/otp_confirmation.dart';
 import '../../common/api_part.dart';
 
 import 'package:http/http.dart' as http;
 
 // ignore: depend_on_referenced_packages
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppAuthentication {
+  String verificationId = "";
   AppAuthentication();
 
-  Future<void> getOTP(
-      BuildContext context, String vietNamCode, var phoneNumber) async {
+  Future<void> sendOTP(
+      BuildContext context, String countryCode, var phoneNumber) async {
     try {
-      return await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: vietNamCode + phoneNumber,
-        timeout: const Duration(seconds: 60),
-        verificationCompleted: (PhoneAuthCredential credential) {},
-        verificationFailed: (FirebaseAuthException e) {
-          if (e.code == 'invalid-phone-number') {
-            if (kDebugMode) {
-              print('The provided phone number is not valid.');
-            }
+      verificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+        // Auto-retrieve the OTP if verification is done automatically
+        FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
+      }
+
+      verificationFailed(FirebaseAuthException authException) {
+        // Handle verification failed errors
+        if (authException.code == 'invalid-phone-number') {
+          if (kDebugMode) {
+            print('The provided phone number is not valid.');
           }
-        },
-        codeSent: (String verificationId, int? resendToken) {
-          LoginScreen.verify = verificationId;
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const OtpConfirmation()),
-          );
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {},
+        }
+      }
+
+      codeSent(String verificationId, [int? forceResendingToken]) async {
+        // Save the verification ID for later use
+        this.verificationId = verificationId;
+        // Navigate to the OTP verification screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const OtpConfirmation()),
+        );
+      }
+
+      codeAutoRetrievalTimeout(String verificationId) {
+        // Auto-retrieval of OTP timed out
+      }
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: countryCode + phoneNumber,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        timeout: const Duration(seconds: 60),
       );
     } catch (e) {
       if (kDebugMode) {
@@ -66,7 +82,7 @@ class AppAuthentication {
       // }
       // var response =
       //     await signInRequestBE(userRecord.user!.phoneNumber.toString());
-      var response = await signInRequestBE('%2B84929034687');
+      var response = await signInRequestBE('%2B84372015192');
       if (response == null) {
         log("Unauthorized");
         return;
@@ -145,5 +161,10 @@ class AppAuthentication {
       }
     }
     return null;
+  }
+
+  logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    return await prefs.clear();
   }
 }

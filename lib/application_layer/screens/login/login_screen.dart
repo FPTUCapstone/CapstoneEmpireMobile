@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:empiregarage_mobile/services/authen_firebase_services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -18,7 +20,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController textEditingController = TextEditingController();
-  static String vietNamCode = "+84";
+  static String countryCode = "+84";
   var phoneNumber = "";
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -86,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 40.w,
                           child: TextFormField(
                             enabled: false,
-                            initialValue: vietNamCode,
+                            initialValue: countryCode,
                           ),
                         ),
                         const Text(
@@ -101,19 +103,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: TextFormField(
                           keyboardType: TextInputType.phone,
                           validator: (value) {
-                            if (value!.length > 9 || value.length < 9) {
-                              return 'Số điện thoại không hợp lệ !';
-                            } else if (value.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Số điện thoại không được để trống !';
-                            } else {
-                              return null;
                             }
+                            if (value.toString().startsWith('0')) {
+                              value =
+                                  value.toString().substring(1, value.length);
+                            }
+                            if (value.length > 9 || value.length < 9) {
+                              return 'Số điện thoại không hợp lệ !';
+                            }
+                            return null;
                           },
                           onChanged: (value) {
+                            if (value.toString().startsWith('0')) {
+                              value =
+                                  value.toString().substring(1, value.length);
+                            }
                             setState(() {
                               phoneNumber = value;
                               if (kDebugMode) {
-                                print(phoneNumber);
+                                log(phoneNumber);
                               }
                             });
                           },
@@ -133,8 +143,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                AppAuthentication()
-                                    .getOTP(context, vietNamCode, phoneNumber);
+                                await AppAuthentication()
+                                    .sendOTP(context, countryCode, phoneNumber);
                               }
                             },
                             style: ElevatedButton.styleFrom(

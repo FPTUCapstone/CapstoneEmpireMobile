@@ -1,5 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
+import 'package:empiregarage_mobile/application_layer/screens/welcome/welcome_screen.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
+import 'package:empiregarage_mobile/services/authen_firebase_services/authentication.dart';
 import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,12 +34,13 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     dateinput.text = ""; //set the initial value of text field
-    super.initState();
     _getUserById();
+    super.initState();
   }
 
   _getUserById() async {
     _user = await UserService().getUserById(widget.userId);
+    if (!mounted) return;
     setState(() {
       _loading = true;
     });
@@ -447,6 +450,45 @@ class _UserProfileState extends State<UserProfile> {
                                 ),
                                 child: Text(
                                   'Cập nhật thông tin',
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  var response =
+                                      await AppAuthentication().logout();
+                                  if (response) {
+                                    // ignore: use_build_context_synchronously
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const WelcomeScreen()),
+                                        (route) => false);
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.redAccent,
+                                  fixedSize: Size.fromHeight(50.w),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(28),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Đăng xuất',
                                   style: TextStyle(
                                     fontFamily: 'SFProDisplay',
                                     fontSize: 15.sp,
