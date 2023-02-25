@@ -1,8 +1,10 @@
 import 'package:empiregarage_mobile/application_layer/widgets/activity_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
+import '../booking/booking_detail.dart';
 
 class ActivityHistory extends StatefulWidget {
   const ActivityHistory({Key? key}) : super(key: key);
@@ -66,86 +68,95 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                       scrollDirection: Axis.vertical,
                       itemCount: 2,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: const Offset(
-                                      0, 1), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: ListTile(
-                              leading: Image.asset(
-                                "assets/image/icon-logo/calendar-history-icon.png",
-                                height: 50.h,
-                                width: 50.w,
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(PageTransition(
+                                type: PageTransitionType.bottomToTopJoined,
+                                duration: const Duration(milliseconds: 350),
+                                childCurrent: widget,
+                                child: const BookingDetail()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: const Offset(
+                                        0, 1), // changes position of shadow
+                                  ),
+                                ],
                               ),
-                              title: Text(
-                                "Còn lại ... ngày",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.blueTextColor,
+                              child: ListTile(
+                                leading: Image.asset(
+                                  "assets/image/icon-logo/calendar-history-icon.png",
+                                  height: 50.h,
+                                  width: 50.w,
                                 ),
-                              ),
-                              subtitle: Align(
-                                alignment: Alignment.topLeft,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      "Đặt lịch cho",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      "59D - 123.45",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      "22/01/2023",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.lightTextColor,
-                                      ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
+                                title: Text(
+                                  "Còn lại ... ngày",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.blueTextColor,
+                                  ),
                                 ),
+                                subtitle: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        "Đặt lịch cho",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        "59D - 123.45",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        "22/01/2023",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.lightTextColor,
+                                        ),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                isThreeLine: true,
                               ),
-                              isThreeLine: true,
                             ),
                           ),
                         );
