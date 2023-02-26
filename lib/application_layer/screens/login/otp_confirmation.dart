@@ -7,7 +7,11 @@ import 'package:pinput/pinput.dart';
 import '../../../common/colors.dart';
 
 class OtpConfirmation extends StatefulWidget {
-  const OtpConfirmation({Key? key}) : super(key: key);
+  final String countryCode;
+  final String phoneNumber;
+  const OtpConfirmation(
+      {Key? key, required this.countryCode, required this.phoneNumber})
+      : super(key: key);
 
   @override
   State<OtpConfirmation> createState() => _OtpConfirmationState();
@@ -19,6 +23,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
   @override
   Widget build(BuildContext context) {
     var otpCode = "";
+    bool resentOTP = false;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -122,20 +127,29 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                       ),
                     ),
                     const Spacer(),
-                    // TextButton(
-                    //   onPressed: () {
-                    //     AppAuthentication().getOTP(context, vietNamCode, phoneNumber)
-                    //   },
-                    //   child: Text(
-                    //     "Gửi lại mã",
-                    //     style: TextStyle(
-                    //       fontSize: 14.sp,
-                    //       fontWeight: FontWeight.w700,
-                    //       color: AppColors.blackTextColor,
-                    //       fontFamily: 'SFProDisplay',
-                    //     ),
-                    //   ),
-                    // )
+                    TextButton(
+                      onPressed: () async {
+                        if (!resentOTP) {
+                          await AppAuthentication().sendOTP(
+                            context,
+                            widget.countryCode,
+                            widget.phoneNumber,
+                          );
+                          setState(() {
+                            resentOTP == true;
+                          });
+                        }
+                      },
+                      child: Text(
+                        "Gửi lại mã",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.blackTextColor,
+                          fontFamily: 'SFProDisplay',
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ],

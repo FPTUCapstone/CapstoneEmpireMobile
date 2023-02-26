@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/widgets/countdown_timer.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -59,6 +60,7 @@ class _QRCodePageState extends State<QRCodePage> {
                             _qrCodeData.toString(),
                             style: const TextStyle(fontSize: 18),
                           ),
+                          const CountdownTimer(),
                         ],
                       )
                     : const Text("QR Code is invalid!");

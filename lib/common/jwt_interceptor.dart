@@ -1,9 +1,26 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:empiregarage_mobile/models/user_info.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
 import 'package:shared_preferences/shared_preferences.dart';
+
+Future<void> saveUserInfo(UserInfo user) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('user-id', user.userId);
+  await prefs.setString('firebase-uuid', user.firebaseUUID);
+}
+
+Future<int?> getUserId() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('user-id');
+}
+
+Future<String?> getFirebaseUUID() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('firebase-uuid');
+}
 
 // Define a function to save the JWT token in Shared Preferences
 Future<void> saveJwtToken(String jwtToken) async {

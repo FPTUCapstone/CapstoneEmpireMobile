@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empiregarage_mobile/common/api_part.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/notification.dart';
@@ -22,16 +21,15 @@ class NotificationService {
 
   Future<void> saveToken(String? uuid) async {
     var token = await getToken();
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-    users
-        .add({
-          'userId': uuid,
-          'fcmToken': token,
-        })
-        // ignore: avoid_print
-        .then((value) => print("User Added"))
-        // ignore: avoid_print
-        .catchError((error) => print("Failed to add user: $error"));
+    var url =
+        '${APIPath.path}/notifications/fcmtoken/add?userId=$uuid&fcmToken=$token';
+    var response = await makeHttpRequest(url, method: 'POST');
+    if (response.statusCode == 200) {
+      log('Save fcmToken success ${response.statusCode}');
+    } else {
+      log('Save fcmToken fail ${response.statusCode}',
+          error: response.reasonPhrase);
+    }
   }
 
   Future<http.Response?> sendNotification(

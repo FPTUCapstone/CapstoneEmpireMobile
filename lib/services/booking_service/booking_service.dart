@@ -2,18 +2,20 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/qrcode.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<http.Response?> createBooking(String date, int carId, int userId,
-      String intendedTime, int intendedMinutes) async {
+  Future<http.Response?> createBooking(
+      String date, int carId, int userId, int intendedMinutes) async {
     http.Response? response;
     try {
-      response = await http.post(
-        Uri.parse('${APIPath.path}/bookings'),
+      response = await makeHttpRequest(
+        '${APIPath.path}/bookings',
+        method: 'POST',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -21,7 +23,6 @@ class BookingService {
           'date': date,
           'carId': carId,
           'userId': userId,
-          'intendedTime': intendedTime,
           'intendedMinutes': intendedMinutes,
         }),
       );
@@ -58,5 +59,42 @@ class BookingService {
       log(e.toString());
     }
     return null;
+  }
+
+  Future<List<BookingResponseModel>> getOnGoingBooking(int userId) async {
+    String apiUrl =
+        "${APIPath.path}/bookings/on-going-bookings-by-user/$userId";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        List<dynamic> jsonArray = json.decode(response.body);
+        List<BookingResponseModel> list = [];
+        for (var jsonObject in jsonArray) {
+          list.add(BookingResponseModel.fromJson(jsonObject));
+        }
+        return list;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return [];
+  }
+
+  Future<List<BookingResponseModel>> getBookingByUser(int userId) async {
+    String apiUrl = "${APIPath.path}/bookings/bookings-by-user/$userId";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        List<dynamic> jsonArray = json.decode(response.body);
+        List<BookingResponseModel> list = [];
+        for (var jsonObject in jsonArray) {
+          list.add(BookingResponseModel.fromJson(jsonObject));
+        }
+        return list;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return [];
   }
 }
