@@ -8,12 +8,13 @@ import 'package:http/http.dart' as http;
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<http.Response?> createBooking(String date, int carId, int userId,
-      String intendedTime, int intendedMinutes) async {
+  Future<http.Response?> createBooking(
+      String date, int carId, int userId, int intendedMinutes) async {
     http.Response? response;
     try {
-      response = await http.post(
-        Uri.parse('${APIPath.path}/bookings'),
+      response = await makeHttpRequest(
+        '${APIPath.path}/bookings',
+        method: 'POST',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -21,7 +22,6 @@ class BookingService {
           'date': date,
           'carId': carId,
           'userId': userId,
-          'intendedTime': intendedTime,
           'intendedMinutes': intendedMinutes,
         }),
       );

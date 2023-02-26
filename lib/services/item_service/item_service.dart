@@ -4,12 +4,11 @@ import 'package:empiregarage_mobile/common/api_part.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/item.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 
 class ItemService {
   Future<ItemResponseModel?> fetchItems(itemId) async {
     String apiUrl = '${APIPath.path}/items/$itemId';
-    final response = await http.get(Uri.parse('$apiUrl?id=$itemId'));
+    final response = await makeHttpRequest('$apiUrl?id=$itemId');
     if (response.statusCode == 200) {
       // If the server returns a 200 OK response, then parse the JSON.
       var item = ItemResponseModel.fromJson(jsonDecode(response.body));

@@ -4,6 +4,8 @@ import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:flutter/foundation.dart';
 
+// ignore: depend_on_referenced_packages
+
 import '../../common/api_part.dart';
 
 class UserService {

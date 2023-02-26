@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/widgets/booking_fail.dart';
 import 'package:empiregarage_mobile/models/notification.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
@@ -530,14 +531,13 @@ class _BookingInfoState extends State<BookingInfo> {
                                   String date = _dateController.text;
                                   int carId = 1;
                                   int userId = 2;
-                                  String intendedTime = date;
                                   int intendedMinutes = 30;
 
-                                  var booking = await BookingService()
-                                      .createBooking(date, carId, userId,
-                                          intendedTime, intendedMinutes);
+                                  var response = await BookingService()
+                                      .createBooking(
+                                          date, carId, userId, intendedMinutes);
 
-                                  if (booking != null) {
+                                  if (response!.statusCode == 201) {
                                     var notificationModel = NotificationModel(
                                         isAndroiodDevice: true,
                                         title: "Empire Garage",
@@ -551,16 +551,11 @@ class _BookingInfoState extends State<BookingInfo> {
                                         builder: (context) =>
                                             const BookingSuccessfull());
                                   } else {
-                                    AlertDialog(
-                                      title: Text(
-                                        "Failed To Booking, please try again",
-                                        style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.red),
-                                      ),
-                                    );
+                                    // ignore: use_build_context_synchronously
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) =>
+                                            const BookingFailed());
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

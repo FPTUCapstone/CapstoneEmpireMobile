@@ -3,15 +3,17 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:empiregarage_mobile/application_layer/screens/login/otp_confirmation.dart';
 import 'package:empiregarage_mobile/application_layer/screens/user_profile/profile.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/loginresponse.dart';
+import 'package:empiregarage_mobile/models/user_info.dart' as user_info;
+import 'package:empiregarage_mobile/services/notification/notification_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../application_layer/screens/login/otp_confirmation.dart';
 import '../../common/api_part.dart';
 
 import 'package:http/http.dart' as http;
@@ -20,40 +22,46 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppAuthentication {
-  String verificationId = "";
+  String _verificationId = "";
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   AppAuthentication();
 
   Future<void> sendOTP(
       BuildContext context, String countryCode, var phoneNumber) async {
     try {
-      verificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-        // Auto-retrieve the OTP if verification is done automatically
-        FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
-      }
-
       verificationFailed(FirebaseAuthException authException) {
-        // Handle verification failed errors
-        if (authException.code == 'invalid-phone-number') {
-          if (kDebugMode) {
-            print('The provided phone number is not valid.');
-          }
-        }
+        log(authException.code);
+        log(authException.message.toString());
       }
 
       codeSent(String verificationId, [int? forceResendingToken]) async {
-        // Save the verification ID for later use
-        this.verificationId = verificationId;
         // Navigate to the OTP verification screen
+        log("codeSent");
+        log(verificationId);
+        _verificationId = verificationId;
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('verification_id', _verificationId);
+        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const OtpConfirmation()),
+          MaterialPageRoute(
+              builder: (context) => OtpConfirmation(
+                    countryCode: countryCode,
+                    phoneNumber: phoneNumber,
+                  )),
         );
       }
 
       codeAutoRetrievalTimeout(String verificationId) {
-        // Auto-retrieval of OTP timed out
+        log("codeAutoRetrievalTimeout");
+        _verificationId = verificationId;
       }
-      await FirebaseAuth.instance.verifyPhoneNumber(
+
+      verificationCompleted(PhoneAuthCredential phoneAuthCredential) async {
+        log("verificationCompleted");
+      }
+
+      await _auth.verifyPhoneNumber(
         phoneNumber: countryCode + phoneNumber,
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
@@ -62,32 +70,39 @@ class AppAuthentication {
         timeout: const Duration(seconds: 60),
       );
     } catch (e) {
-      if (kDebugMode) {
-        print("Can not get OTP");
-      }
+      log("Can not get OTP");
     }
   }
 
   Future<void> confirmOTP(
       String otpCode, FirebaseAuth auth, BuildContext context) async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      _verificationId = prefs.getString('verification_id').toString();
+
+      log('VerificationID: $_verificationId');
       // Create a PhoneAuthCredential with the code
-      // PhoneAuthCredential credential = PhoneAuthProvider.credential(
-      //     verificationId: LoginScreen.verify, smsCode: otpCode);
-      // // Sign the user in (or link) with the credential
-      // var userRecord = await auth.signInWithCredential(credential);
-      // if (userRecord.user == null) {
-      //   log("Not found user");
-      //   return;
-      // }
-      // var response =
-      //     await signInRequestBE(userRecord.user!.phoneNumber.toString());
-      var response = await signInRequestBE('%2B84372015192');
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: _verificationId, smsCode: otpCode);
+      // Sign the user in (or link) with the credential
+      var userRecord = await auth.signInWithCredential(credential);
+      if (userRecord.user == null) {
+        log("Not found user");
+        return;
+      }
+      log(userRecord.user.toString());
+      var response =
+          await signInRequestBE(userRecord.user!.phoneNumber.toString());
+
+      log(userRecord.user!.phoneNumber.toString());
+      // var response = await signInRequestBE('%2B84372015192');
       if (response == null) {
         log("Unauthorized");
         return;
       }
-
+      await saveUserInfo(user_info.UserInfo(
+          userId: response.id, firebaseUUID: userRecord.user!.uid));
+      await NotificationService().saveToken(userRecord.user!.uid);
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
@@ -135,6 +150,7 @@ class AppAuthentication {
 
   Future<LoginResponseModel?> signInRequestBE(String phone) async {
     log('Signing...');
+    phone = phone.replaceAll("+", "%2B");
     var url = Uri.parse(
         "${APIPath.path}/authentications/phone-method/login?phone=$phone");
     final http.Response response = await http.post(
@@ -147,8 +163,8 @@ class AppAuthentication {
     if (response.statusCode == 200) {
       try {
         var user = LoginResponseModel.fromJson(jsonDecode(response.body));
-        log('Sign in success with user ${user.name}');
         await saveJwtToken(user.accessToken);
+        log('Sign in success with user ${user.name}');
         return user;
       } on Exception catch (_) {
         var jsonBody = jsonDecode(response.body);
@@ -161,6 +177,13 @@ class AppAuthentication {
       }
     }
     return null;
+  }
+
+  Future<void> addFcmToken(String uuid, String fcmToken) async {
+    var url =
+        "${APIPath.path}/notifications/fcmtoken/add?userId=$uuid&fcmToken=$fcmToken";
+    var response = await makeHttpRequest(url, method: 'POST');
+    log(response as String);
   }
 
   logout() async {
