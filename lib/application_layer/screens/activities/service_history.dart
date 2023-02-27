@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/activity_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,14 +7,14 @@ import 'package:page_transition/page_transition.dart';
 import '../../../common/colors.dart';
 import '../booking/booking_detail.dart';
 
-class ActivityHistory extends StatefulWidget {
-  const ActivityHistory({Key? key}) : super(key: key);
+class ServiceHistory extends StatefulWidget {
+  const ServiceHistory({Key? key}) : super(key: key);
 
   @override
-  State<ActivityHistory> createState() => _ActivityHistoryState();
+  State<ServiceHistory> createState() => _ServiceHistoryState();
 }
 
-class _ActivityHistoryState extends State<ActivityHistory> {
+class _ServiceHistoryState extends State<ServiceHistory> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -74,7 +75,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                 type: PageTransitionType.bottomToTopJoined,
                                 duration: const Duration(milliseconds: 350),
                                 childCurrent: widget,
-                                child: const BookingDetail()));
+                                child: const ServiceActivityDetail()));
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 15),
@@ -98,7 +99,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                               ),
                               child: ListTile(
                                 leading: Image.asset(
-                                  "assets/image/icon-logo/calendar-history-icon.png",
+                                  "assets/image/icon-logo/homeservice-logo-maintanace.png",
                                   height: 50.h,
                                   width: 50.w,
                                 ),
@@ -119,7 +120,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                         height: 5.h,
                                       ),
                                       Text(
-                                        "Đặt lịch cho",
+                                        "Dịch vụ cho",
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 14.sp,
@@ -143,7 +144,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                         height: 5.h,
                                       ),
                                       Text(
-                                        "22/01/2023",
+                                        "22/01/2023, 7:30",
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 12.sp,
@@ -155,6 +156,15 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                     ],
                                   ),
                                 ),
+                                trailing:  Text(
+                                  "1.000.000",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                  ),
                                 isThreeLine: true,
                               ),
                             ),
