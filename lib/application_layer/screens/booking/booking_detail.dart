@@ -1,213 +1,253 @@
-import 'package:empiregarage_mobile/application_layer/screens/activities/activity_history.dart';
+import 'package:empiregarage_mobile/application_layer/screens/activities/qrcode.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
+import 'package:empiregarage_mobile/models/response/activity.dart';
+import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 
 class BookingDetail extends StatefulWidget {
-  const BookingDetail({super.key});
+  final ActivityResponseModel data;
+  const BookingDetail({super.key, required this.data});
 
   @override
   State<BookingDetail> createState() => _BookingDetailState();
 }
 
 class _BookingDetailState extends State<BookingDetail> {
+  BookingResponseModel? _booking;
+  bool _loading = true;
+  @override
+  void initState() {
+    _fetchData();
+    super.initState();
+  }
+
+  _fetchData() async {
+    var booking = await BookingService().getBookingById(widget.data.id);
+    if (!mounted) return;
+    setState(() {
+      _booking = booking;
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(PageTransition(
-                    type: PageTransitionType.topToBottomJoined,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 350),
-                    child: const ActivityHistory()));
-              },
-              icon: const Icon(
-                Icons.keyboard_arrow_down_sharp,
-                color: Colors.black,
-              ),
-            ),
-            title: Text(
-              "Ngày 20 tháng 2, 2023",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'SFProDisplay',
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.blackTextColor,
-              ),
-            ),
-            centerTitle: true,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 5.h,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Mã đặt lịch : #BK00001",
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.lightTextColor,
+      home: _loading
+          ? const Loading()
+          : SafeArea(
+              child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.white,
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      color: Colors.black,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                ListTile(
-                  leading: Image.asset(
-                    "assets/image/icon-logo/calendar-history-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                  title: Text(
+                    "Ngày ${widget.data.date!.day} tháng ${widget.data.date!.month}, ${widget.data.date!.year}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.blackTextColor,
+                    ),
                   ),
-                  subtitle: Column(
+                  centerTitle: true,
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
                     children: [
                       SizedBox(
                         height: 5.h,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "Đặt lịch đến ga-ra",
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Mã đặt lịch : #${widget.data.code}",
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25.h,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => QRCodePage(
+                                    bookingId: _booking!.id,
+                                  )));
+                        },
+                        child: ListTile(
+                          leading: Image.asset(
+                            "assets/image/icon-logo/calendar-history-icon.png",
+                            height: 50.h,
+                            width: 50.w,
+                          ),
+                          subtitle: Column(
+                            children: [
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Đặt lịch đến ga-ra",
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    _booking!.isArrived
+                                        ? "Đã check-in vào lúc {_booking.checkinTime}"
+                                        : _booking!.date.substring(0, 10),
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.lightTextColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          trailing: Icon(Icons.qr_code_scanner,
+                              color: AppColors.blueTextColor, size: 30.w),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 35.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Tổng",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              "500.000",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Ví điện tử",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.account_balance_wallet_outlined,
                               color: AppColors.blackTextColor,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
-                        height: 5.h,
+                        height: 20.h,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "Đã check-in vào lúc 8:30, 20/02/2023",
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.lightTextColor,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Xem chi tiết",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blueTextColor,
+                              ),
                             ),
-                          ),
-                        ],
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: AppColors.lightTextColor,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Thông tin cá nhân",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              color: AppColors.lightTextColor,
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Tổng",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        "500.000",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children:  [ 
-                      Text(
-                        "Ví điện tử",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                      const Icon(Icons.account_balance_wallet_outlined,color: AppColors.blackTextColor,),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Xem chi tiết",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blueTextColor,
-                        ),
-                      ),
-                      const Spacer(),
-                      const Icon(Icons.arrow_forward_ios_rounded,color: AppColors.lightTextColor,)
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Thông tin cá nhân",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                      const Spacer(),
-                      const Icon(Icons.arrow_forward_ios_rounded,color: AppColors.lightTextColor,)
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

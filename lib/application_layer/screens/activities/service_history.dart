@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
-import '../booking/booking_detail.dart';
 
 class ServiceHistory extends StatefulWidget {
   const ServiceHistory({Key? key}) : super(key: key);
@@ -156,7 +155,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                     ],
                                   ),
                                 ),
-                                trailing:  Text(
+                                trailing: Text(
                                   "1.000.000",
                                   style: TextStyle(
                                     fontFamily: 'SFProDisplay',
@@ -164,7 +163,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.blackTextColor,
                                   ),
-                                  ),
+                                ),
                                 isThreeLine: true,
                               ),
                             ),

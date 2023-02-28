@@ -125,9 +125,7 @@ class _UserProfileState extends State<UserProfile> {
                                       shape: BoxShape.rectangle,
                                     ),
                                     child: IconButton(
-                                      onPressed: () {
-                                        //TODO
-                                      },
+                                      onPressed: () {},
                                       icon: const Icon(
                                         Icons.edit_rounded,
                                         color: AppColors.whiteButtonColor,
@@ -159,9 +157,7 @@ class _UserProfileState extends State<UserProfile> {
                             Expanded(
                               child: TextField(
                                 onChanged: (value) {
-                                  setState(() {
-                                    //TODO
-                                  });
+                                  setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -175,7 +171,8 @@ class _UserProfileState extends State<UserProfile> {
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   filled: true,
-                                  hintText: _user!.fullname,
+                                  hintText:
+                                      _user != null ? _user!.fullname : "",
                                 ),
                                 style: TextStyle(
                                   fontFamily: 'SFProDisplay',
@@ -369,7 +366,7 @@ class _UserProfileState extends State<UserProfile> {
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   filled: true,
-                                  hintText: _user!.email,
+                                  hintText: _user!.email ?? "",
                                 ),
                                 style: TextStyle(
                                   fontFamily: 'SFProDisplay',

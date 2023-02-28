@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class CountdownTimer extends StatefulWidget {
   final int? senconds;
-  const CountdownTimer({super.key, this.senconds});
+  final Function onCountdownComplete;
+  const CountdownTimer(
+      {super.key, this.senconds, required this.onCountdownComplete});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -11,7 +14,7 @@ class CountdownTimer extends StatefulWidget {
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  int _seconds = 30;
+  int _seconds = 60;
   Timer? _timer;
 
   @override
@@ -27,6 +30,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_seconds == 0) {
         _timer?.cancel();
+        widget.onCountdownComplete();
       } else {
         setState(() {
           _seconds--;
@@ -43,9 +47,12 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '$_seconds',
-      style: const TextStyle(fontSize: 24),
-    );
+    return Text('$_seconds',
+        style: const TextStyle(
+          fontFamily: 'SFProDisplay',
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
+          color: AppColors.lightTextColor,
+        ));
   }
 }

@@ -1,19 +1,21 @@
 class BookingResponseModel {
   BookingResponseModel({
     required this.id,
-    required this.code,
+    this.code,
     required this.date,
     required this.isArrived,
     required this.isActived,
+    this.daysLeft,
     required this.user,
     required this.car,
   });
 
   int id;
-  String code;
+  String? code;
   String date;
   bool isArrived;
   bool isActived;
+  int? daysLeft;
   UserSlimResponse user;
   CarResponseModel car;
 
@@ -24,6 +26,7 @@ class BookingResponseModel {
       date: json['date'],
       isArrived: json['isArrived'],
       isActived: json['isActived'],
+      daysLeft: json['daysLeft'],
       user: UserSlimResponse.fromJson(json['user']),
       car: CarResponseModel.fromJson(json['car']),
     );
@@ -35,6 +38,7 @@ class BookingResponseModel {
         'date': date,
         'isArrived': isArrived,
         'isActived': isActived,
+        'daysLeft': daysLeft,
         'user': user,
         'car': car,
       };
@@ -44,14 +48,14 @@ class UserSlimResponse {
   UserSlimResponse({
     required this.fullname,
     required this.phone,
-    required this.email,
-    required this.gender,
+    this.email,
+    this.gender,
   });
 
   String fullname;
   String phone;
-  String email;
-  bool gender;
+  String? email;
+  bool? gender;
 
   factory UserSlimResponse.fromJson(Map<String, dynamic> json) {
     return UserSlimResponse(

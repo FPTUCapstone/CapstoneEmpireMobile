@@ -1,5 +1,6 @@
 import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
+import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -155,10 +156,11 @@ class _MainPageState extends State<MainPage> {
                   ),
                   MaterialButton(
                     minWidth: 15.w,
-                    onPressed: () {
+                    onPressed: () async {
+                      var userId = await getUserId();
                       setState(() {
-                        currentScreen = const UserProfile(
-                          userId: 2,
+                        currentScreen = UserProfile(
+                          userId: userId as int,
                         );
                         currentTab = 4;
                       });
