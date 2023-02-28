@@ -56,8 +56,9 @@ Future<http.Response> makeHttpRequest(
       return http.post(Uri.parse(url),
           headers: requestHeaders, body: body, encoding: encoding);
     case 'PUT':
-      return http.put(Uri.parse(url),
+      var response = http.put(Uri.parse(url),
           headers: requestHeaders, body: body, encoding: encoding);
+      return response;
     case 'DELETE':
       return http.delete(Uri.parse(url), headers: requestHeaders);
     default:

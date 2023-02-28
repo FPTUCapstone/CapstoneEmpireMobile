@@ -48,11 +48,19 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
       _selectedCar = selectedCar;
       widget.onSelected(selectedCar);
     });
+    Navigator.of(context).pop();
+  }
+
+  void _onCarSelectedv2(int selectedCar) {
+    setState(() {
+      _selectedCar = selectedCar;
+      widget.onSelected(selectedCar);
+    });
   }
 
   void _onCallBack(int selectedCar) async {
     await _getUserCar();
-    _onCarSelected(selectedCar);
+    _onCarSelectedv2(selectedCar);
     widget.onCallBack(selectedCar);
   }
 

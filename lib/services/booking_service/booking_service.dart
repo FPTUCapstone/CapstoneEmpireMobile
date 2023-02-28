@@ -40,12 +40,22 @@ class BookingService {
       var response = await makeHttpRequest(apiUrl);
       if (response.statusCode == 200) {
         //Generate QR-Code
-        var data = {'bookingId': bookingId};
+        var data = jsonEncode(<String, dynamic>{
+          'bookingId': bookingId,
+        });
         var qrCodeResponse =
             QrCodeResponseModel.fromJson(jsonDecode(response.body));
         if (qrCodeResponse.isGenerating == null) {
-          var response = await makeHttpRequest("$apiUrl/generate-qrcode",
-              method: 'PUT', body: data);
+          String apiPutUrl =
+              "${APIPath.path}/booking-qrcode/$bookingId/generate-qrcode";
+          var response = await makeHttpRequest(
+            apiPutUrl,
+            method: 'PUT',
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: data,
+          );
           if (response.statusCode == 200) {
             var qrCodeResponse =
                 QrCodeResponseModel.fromJson(jsonDecode(response.body));
@@ -98,5 +108,21 @@ class BookingService {
       log(e.toString());
     }
     return [];
+  }
+
+  Future<BookingResponseModel?> getBookingById(int bookingId) async {
+    String apiUrl = "${APIPath.path}/bookings/$bookingId";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        dynamic jsonObject = json.decode(response.body);
+        BookingResponseModel booking =
+            BookingResponseModel.fromJson(jsonObject);
+        return booking;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 }

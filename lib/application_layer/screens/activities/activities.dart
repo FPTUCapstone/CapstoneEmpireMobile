@@ -1,10 +1,11 @@
-import 'package:empiregarage_mobile/application_layer/screens/activities/activity_detail.dart';
+import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 import 'activity_history.dart';
@@ -161,12 +162,24 @@ class _HomePageState extends State<Activities> {
                                       ),
                                     ],
                                   ),
-                                  child: ActivityChip(
-                                    carInfo:
-                                        '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                    date: item.date.toString(),
-                                    daysLeft: item.daysLeft,
-                                    isBooking: item.isBooking,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(PageTransition(
+                                          type: PageTransitionType.bottomToTop,
+                                          duration:
+                                              const Duration(milliseconds: 350),
+                                          childCurrent: widget,
+                                          child: BookingDetail(
+                                            data: item,
+                                          )));
+                                    },
+                                    child: ActivityChip(
+                                      carInfo:
+                                          '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                      date: item.date.toString(),
+                                      daysLeft: item.daysLeft,
+                                      isBooking: item.isBooking,
+                                    ),
                                   ),
                                 ),
                               );
@@ -216,12 +229,24 @@ class _HomePageState extends State<Activities> {
                                       ),
                                     ],
                                   ),
-                                  child: ActivityChip(
-                                    carInfo:
-                                        '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                    date: item.date.toString(),
-                                    daysLeft: item.daysLeft,
-                                    isBooking: item.isBooking,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(PageTransition(
+                                          type: PageTransitionType.bottomToTop,
+                                          duration:
+                                              const Duration(milliseconds: 350),
+                                          childCurrent: widget,
+                                          child: BookingDetail(
+                                            data: item,
+                                          )));
+                                    },
+                                    child: ActivityChip(
+                                      carInfo:
+                                          '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                      date: item.date.toString(),
+                                      daysLeft: item.daysLeft,
+                                      isBooking: item.isBooking,
+                                    ),
                                   ),
                                 ),
                               );
@@ -259,81 +284,72 @@ class _ActivityChipState extends State<ActivityChip> {
   @override
   Widget build(BuildContext context) {
     bool isComplete = widget.daysLeft == 0 || widget.daysLeft == null;
-    return InkWell(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => const ActivityDetailPage(
-                  bookingId: 42,
-                )));
-      },
-      child: ListTile(
-        leading: Image.asset(
-          widget.isBooking
-              ? "assets/image/icon-logo/calendar-history-icon.png"
-              : "assets/image/icon-logo/homeservice-logo-maintanace.png",
-          height: 50.h,
-          width: 50.w,
-        ),
-        title: Text(
-          !isComplete ? "Còn lại ${widget.daysLeft} ngày" : "Hoàn Thành",
-          style: TextStyle(
-            fontFamily: 'SFProDisplay',
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w700,
-            color: !isComplete
-                ? AppColors.blueTextColor
-                : AppColors.greenTextColor,
-          ),
-        ),
-        subtitle: Align(
-          alignment: Alignment.topLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                "Đặt lịch cho",
-                style: TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.blackTextColor,
-                ),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                widget.carInfo,
-                style: TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blackTextColor,
-                ),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                widget.date != "null"
-                    ? widget.date.substring(0, widget.date.length - 13)
-                    : widget.date,
-                style: TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.lightTextColor,
-                ),
-                textAlign: TextAlign.start,
-              ),
-            ],
-          ),
-        ),
-        isThreeLine: true,
+    return ListTile(
+      leading: Image.asset(
+        widget.isBooking
+            ? "assets/image/icon-logo/calendar-history-icon.png"
+            : "assets/image/icon-logo/homeservice-logo-maintanace.png",
+        height: 50.h,
+        width: 50.w,
       ),
+      title: Text(
+        !isComplete ? "Còn lại ${widget.daysLeft} ngày" : "Hoàn Thành",
+        style: TextStyle(
+          fontFamily: 'SFProDisplay',
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w700,
+          color:
+              !isComplete ? AppColors.blueTextColor : AppColors.greenTextColor,
+        ),
+      ),
+      subtitle: Align(
+        alignment: Alignment.topLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              "Đặt lịch cho",
+              style: TextStyle(
+                fontFamily: 'SFProDisplay',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.blackTextColor,
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              widget.carInfo,
+              style: TextStyle(
+                fontFamily: 'SFProDisplay',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.blackTextColor,
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              widget.date != "null"
+                  ? widget.date.substring(0, widget.date.length - 13)
+                  : widget.date,
+              style: TextStyle(
+                fontFamily: 'SFProDisplay',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.lightTextColor,
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ],
+        ),
+      ),
+      isThreeLine: true,
     );
   }
 }

@@ -125,9 +125,7 @@ class _UserProfileState extends State<UserProfile> {
                                       shape: BoxShape.rectangle,
                                     ),
                                     child: IconButton(
-                                      onPressed: () {
-                                        //TODO
-                                      },
+                                      onPressed: () {},
                                       icon: const Icon(
                                         Icons.edit_rounded,
                                         color: AppColors.whiteButtonColor,
@@ -159,9 +157,7 @@ class _UserProfileState extends State<UserProfile> {
                             Expanded(
                               child: TextField(
                                 onChanged: (value) {
-                                  setState(() {
-                                    //TODO
-                                  });
+                                  setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(

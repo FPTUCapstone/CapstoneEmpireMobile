@@ -22,8 +22,6 @@ class _AddNewCarState extends State<AddNewCar> {
   var carBrand = "";
   var carLisenceNo = "";
 
-  final bool _loading = false;
-
   @override
   void initState() {
     super.initState();

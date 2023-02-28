@@ -52,9 +52,7 @@ class ChosePaymentMethod extends StatelessWidget {
                       ),
                       const Spacer(),
                       TextButton(
-                        onPressed: () {
-                          //TODO
-                        },
+                        onPressed: () {},
                         child: Text(
                           "Thêm mới",
                           style: TextStyle(

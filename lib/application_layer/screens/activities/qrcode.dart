@@ -1,6 +1,10 @@
 import 'package:empiregarage_mobile/application_layer/widgets/countdown_timer.dart';
+import 'package:empiregarage_mobile/common/colors.dart';
+import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dash/flutter_dash.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QRCodePage extends StatefulWidget {
@@ -15,14 +19,16 @@ class QRCodePage extends StatefulWidget {
 class _QRCodePageState extends State<QRCodePage> {
   Future<String>? _qrCodeFuture;
   String? _qrCodeData;
+  BookingResponseModel? _booking;
   @override
   void initState() {
-    super.initState();
     _qrCodeFuture = _getQrCode();
+    super.initState();
   }
 
   Future<String>? _getQrCode() async {
     var response = await BookingService().getQrCode(widget.bookingId);
+    _booking = await _getBookingData();
     if (!mounted) return '';
     setState(() {
       _qrCodeData = response;
@@ -30,15 +36,54 @@ class _QRCodePageState extends State<QRCodePage> {
     return response.toString();
   }
 
+  _getBookingData() async {
+    var response = await BookingService().getBookingById(widget.bookingId);
+    return response;
+  }
+
+  _onCountdownComplete() {
+    var qrCode = _getQrCode();
+    setState(() {
+      _qrCodeFuture = qrCode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.buttonColor,
       appBar: AppBar(
-        leading: InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: const Icon(Icons.arrow_back)),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+              border: Border.all(
+                color: AppColors.searchBarColor,
+                width: 1.0,
+              ),
+            ),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_outlined,
+                  color: AppColors.searchBarColor,
+                )),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        centerTitle: true,
+        title: const Text('Quét mã QR Code',
+            style: TextStyle(
+              fontFamily: 'SFProDisplay',
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: Colors.white,
+            )),
       ),
       body: Center(
         child: FutureBuilder(
@@ -46,22 +91,199 @@ class _QRCodePageState extends State<QRCodePage> {
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
+                String name = _booking!.user.fullname;
+                String date = _booking!.date.substring(0, 10);
+                String phone = _booking!.user.phone;
+                String car =
+                    '${_booking!.car.carBrand} ${_booking!.car.carModel} ${_booking!.car.carLisenceNo}';
                 return _qrCodeData != null
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          QrImage(
-                            data: _qrCodeData.toString(),
-                            version: QrVersions.auto,
-                            size: 200,
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            _qrCodeData.toString(),
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          const CountdownTimer(),
-                        ],
+                    ? Container(
+                        height: 450.h,
+                        width: 320.w,
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16))),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('Đưa mã này cho nhân viên',
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: AppColors.lightTextColor,
+                                )),
+                            const SizedBox(height: 10),
+                            QrImage(
+                              data: _qrCodeData.toString(),
+                              version: QrVersions.auto,
+                              size: 200,
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('Tự động cập nhật sau ',
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                      color: AppColors.lightTextColor,
+                                    )),
+                                CountdownTimer(
+                                  onCountdownComplete: _onCountdownComplete,
+                                ),
+                                const Text(' giây. ',
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                      color: AppColors.lightTextColor,
+                                    )),
+                                InkWell(
+                                  onTap: () {
+                                    _onCountdownComplete();
+                                  },
+                                  child: const Text('Cập nhật',
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                        color: AppColors.blueTextColor,
+                                      )),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  height: 40,
+                                  width: 20,
+                                  decoration: const BoxDecoration(
+                                      color: AppColors.buttonColor,
+                                      borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20))),
+                                ),
+                                Dash(
+                                    direction: Axis.horizontal,
+                                    length: 250.w,
+                                    dashLength: 6,
+                                    dashGap: 6,
+                                    dashColor: AppColors.searchBarColor,
+                                    dashThickness: 3),
+                                RotatedBox(
+                                  quarterTurns: 2,
+                                  child: Container(
+                                    height: 40,
+                                    width: 20,
+                                    decoration: const BoxDecoration(
+                                        color: AppColors.buttonColor,
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(20),
+                                            bottomRight: Radius.circular(20))),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 22.h,
+                                  child: const ListTile(
+                                    title: Text('Người đặt',
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: AppColors.lightTextColor,
+                                        )),
+                                    trailing: Text('Ngày đặt',
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: AppColors.lightTextColor,
+                                        )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                  child: ListTile(
+                                    title: Text(name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: AppColors.blackTextColor,
+                                        )),
+                                    trailing: Text(date,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: AppColors.blackTextColor,
+                                        )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                SizedBox(
+                                  height: 22.h,
+                                  child: const ListTile(
+                                    title: Text('Số điện thoại',
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: AppColors.lightTextColor,
+                                        )),
+                                    trailing: Text('Phương tiện',
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16,
+                                          color: AppColors.lightTextColor,
+                                        )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 40.h,
+                                  child: ListTile(
+                                    title: Text(phone,
+                                        style: const TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: AppColors.blackTextColor,
+                                        )),
+                                    trailing: SizedBox(
+                                      width: 150.w,
+                                      child: Text(car,
+                                          maxLines: 2,
+                                          textAlign: TextAlign.right,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: AppColors.blackTextColor,
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       )
                     : const Text("QR Code is invalid!");
               } else if (snapshot.hasError) {

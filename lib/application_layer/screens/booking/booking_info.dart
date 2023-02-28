@@ -285,89 +285,100 @@ class _BookingInfoState extends State<BookingInfo> {
                             ),
                           ],
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: const Offset(
-                                    0, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: Image.asset(
-                              "assets/image/icon-logo/bmw-car-icon.png",
-                              height: 50.h,
-                              width: 50.w,
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => ChoseYourCar(
+                                      selectedCar: _selectedCar,
+                                      onSelected: _onCarSelected,
+                                      onCallBack: _onCallBack,
+                                    ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
+                                ),
+                              ],
                             ),
-                            title: Text(
-                              _listCar
-                                  .where(
-                                      (element) => element.id == _selectedCar)
-                                  .first
-                                  .carBrand,
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
+                            child: ListTile(
+                              leading: Image.asset(
+                                "assets/image/icon-logo/bmw-car-icon.png",
+                                height: 50.h,
+                                width: 50.w,
                               ),
-                            ),
-                            subtitle: Align(
-                              alignment: Alignment.topLeft,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              title: Text(
+                                _listCar
+                                    .where(
+                                        (element) => element.id == _selectedCar)
+                                    .first
+                                    .carBrand,
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.lightTextColor,
+                                ),
+                              ),
+                              subtitle: Align(
+                                alignment: Alignment.topLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _listCar
+                                          .where((element) =>
+                                              element.id == _selectedCar)
+                                          .first
+                                          .carLisenceNo,
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.blackTextColor,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    Text(
+                                      _listCar
+                                          .where((element) =>
+                                              element.id == _selectedCar)
+                                          .first
+                                          .carModel,
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.lightTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              isThreeLine: true,
+                              trailing: Column(
                                 children: [
-                                  Text(
-                                    _listCar
-                                        .where((element) =>
-                                            element.id == _selectedCar)
-                                        .first
-                                        .carLisenceNo,
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  Text(
-                                    _listCar
-                                        .where((element) =>
-                                            element.id == _selectedCar)
-                                        .first
-                                        .carModel,
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.lightTextColor,
-                                    ),
+                                  SizedBox(height: 15.h),
+                                  const Icon(
+                                    Icons.radio_button_checked,
+                                    color: AppColors.buttonColor,
                                   ),
                                 ],
                               ),
-                            ),
-                            isThreeLine: true,
-                            trailing: Column(
-                              children: [
-                                SizedBox(height: 15.h),
-                                const Icon(
-                                  Icons.radio_button_checked,
-                                  color: AppColors.buttonColor,
-                                ),
-                              ],
                             ),
                           ),
                         ),
@@ -408,47 +419,55 @@ class _BookingInfoState extends State<BookingInfo> {
                         SizedBox(
                           height: 5.h,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: const Offset(
-                                    0, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: Image.asset(
-                              "assets/image/icon-logo/paypal-icon.png",
-                              height: 50.h,
-                              width: 50.w,
-                            ),
-                            title: Text(
-                              "Paypal",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            trailing: Column(
-                              children: [
-                                SizedBox(height: 15.h),
-                                const Icon(
-                                  Icons.radio_button_checked,
-                                  color: AppColors.buttonColor,
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) =>
+                                    const ChosePaymentMethod());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
                                 ),
                               ],
+                            ),
+                            child: ListTile(
+                              leading: Image.asset(
+                                "assets/image/icon-logo/paypal-icon.png",
+                                height: 50.h,
+                                width: 50.w,
+                              ),
+                              title: Text(
+                                "Paypal",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              trailing: Column(
+                                children: [
+                                  SizedBox(height: 15.h),
+                                  const Icon(
+                                    Icons.radio_button_checked,
+                                    color: AppColors.buttonColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
