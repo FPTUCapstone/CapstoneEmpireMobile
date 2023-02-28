@@ -33,9 +33,7 @@ class ServiceFilterList extends StatelessWidget {
               child: Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    onPressed: () {
-                      //TODO
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       foregroundColor: getColor(
                           AppColors.buttonColor, AppColors.whiteButtonColor),
@@ -65,9 +63,7 @@ class ServiceFilterList extends StatelessWidget {
               child: Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    onPressed: () {
-                      //TODO
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       foregroundColor: getColor(
                           AppColors.buttonColor, AppColors.whiteButtonColor),
@@ -97,9 +93,7 @@ class ServiceFilterList extends StatelessWidget {
               child: Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    onPressed: () {
-                      //TODO
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       foregroundColor: getColor(
                           AppColors.buttonColor, AppColors.whiteButtonColor),
@@ -129,9 +123,7 @@ class ServiceFilterList extends StatelessWidget {
               child: Align(
                   alignment: Alignment.center,
                   child: ElevatedButton(
-                    onPressed: () {
-                      //TODO
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       foregroundColor: getColor(
                           AppColors.buttonColor, AppColors.whiteButtonColor),

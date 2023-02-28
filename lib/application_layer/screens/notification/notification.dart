@@ -48,9 +48,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 ),
               ),
               child: IconButton(
-                  onPressed: () {
-                    //TODO
-                  },
+                  onPressed: () {},
                   icon: const Icon(
                     Icons.settings_outlined,
                     color: AppColors.blackTextColor,
@@ -83,9 +81,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   color: AppColors.searchBarColor,
                 ),
                 child: IconButton(
-                    onPressed: () {
-                      //TODO
-                    },
+                    onPressed: () {},
                     icon: const Icon(
                       Icons.check_circle,
                       color: AppColors.greenTextColor,

@@ -23,9 +23,7 @@ class HomePageServiceIconButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: GestureDetector(
-                  onTap: () {
-                    //TODO
-                  },
+                  onTap: () {},
                   child: InkWell(
                       child: Image.asset(
                     "assets/image/icon-logo/homeservice-logo-rescue.png",
@@ -54,9 +52,7 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {
-                  //TODO
-                },
+                onTap: () {},
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-care.png",
@@ -84,9 +80,7 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {
-                  //TODO
-                },
+                onTap: () {},
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-fixing.png",
@@ -114,9 +108,7 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {
-                  //TODO
-                },
+                onTap: () {},
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-rescue.png",
@@ -144,9 +136,7 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {
-                  //TODO
-                },
+                onTap: () {},
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-maintanace.png",
@@ -174,9 +164,7 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {
-                  //TODO
-                },
+                onTap: () {},
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-accessary.png",

@@ -1,7 +1,11 @@
 import 'package:empiregarage_mobile/application_layer/widgets/booking_fail.dart';
+import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/notification.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
+import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
+import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/notification/notification_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +30,7 @@ class BookingInfo extends StatefulWidget {
 class _BookingInfoState extends State<BookingInfo> {
   late BookingRequestModel requestModel;
 
-  final _symptonList = [
+  List<SymptonResponseModel> _symptonList = [
     // "Khác"
     // "Xe kêu",
     // "Rỉ xăng",
@@ -36,28 +40,60 @@ class _BookingInfoState extends State<BookingInfo> {
   ];
 
   final TextEditingController _dateController = TextEditingController();
-
+  final List<SymptomModel> _listSymptom = [];
   bool _loading = false;
+  late int _selectedCar;
+  List<CarResponseModel> _listCar = [];
 
   _loadingSymptomsList() async {
     var result = await SymptomsService().fetchListSymptoms();
     if (result != null) {
-      for (var item in result) {
-        _symptonList.add(item.name.toString());
-      }
+      _symptonList = result;
       setState(() {
-        _selectedValue = _symptonList.first.toString();
-        _loading = true;
+        _selectedIndex = _symptonList.first.id;
+        _listSymptom.add(SymptomModel(id: _symptonList.first.id));
       });
     }
   }
 
-  String? _selectedValue;
+  _getUserCar() async {
+    var userId = await getUserId();
+    var listCar = await CarService().fetchUserCars(userId as int);
+    if (listCar == null) return;
+    if (!mounted) return;
+    setState(() {
+      _listCar = listCar;
+      _selectedCar = _listCar.first.id;
+      _loading = true;
+    });
+  }
+
+  void _onCarSelected(int selectedCar) {
+    setState(() {
+      _selectedCar = selectedCar;
+    });
+  }
+
+  void _onCallBack(int selectedCar) async {
+    setState(() {
+      _loading = false;
+    });
+    _dateController.text = widget.selectedDate.toString().substring(0, 10);
+    await _loadingSymptomsList();
+    await _getUserCar();
+    setState(() {
+      _loading = true;
+      _selectedCar = selectedCar;
+    });
+  }
+
+  int? _selectedIndex;
 
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
     _loadingSymptomsList();
+    _getUserCar();
     super.initState();
   }
 
@@ -194,16 +230,18 @@ class _BookingInfoState extends State<BookingInfo> {
                                   Icons.keyboard_arrow_right,
                                   color: AppColors.lightTextColor,
                                 ),
-                                value: _selectedValue,
+                                value: _selectedIndex,
                                 onChanged: (value) {
                                   setState(() {
-                                    _selectedValue = value as String;
+                                    _selectedIndex = value as int;
+                                    _listSymptom.add(SymptomModel(
+                                        id: _selectedIndex as int));
                                   });
                                 },
                                 items: _symptonList.map((e) {
                                   return DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e),
+                                    value: e.id,
+                                    child: Text(e.name.toString()),
                                   );
                                 }).toList(),
                               ),
@@ -229,7 +267,11 @@ class _BookingInfoState extends State<BookingInfo> {
                               onPressed: () {
                                 showModalBottomSheet(
                                     context: context,
-                                    builder: (context) => const ChoseYourCar());
+                                    builder: (context) => ChoseYourCar(
+                                          selectedCar: _selectedCar,
+                                          onSelected: _onCarSelected,
+                                          onCallBack: _onCallBack,
+                                        ));
                               },
                               child: Text(
                                 "Chọn",
@@ -243,76 +285,100 @@ class _BookingInfoState extends State<BookingInfo> {
                             ),
                           ],
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: const Offset(
-                                    0, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: Image.asset(
-                              "assets/image/icon-logo/bmw-car-icon.png",
-                              height: 50.h,
-                              width: 50.w,
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => ChoseYourCar(
+                                      selectedCar: _selectedCar,
+                                      onSelected: _onCarSelected,
+                                      onCallBack: _onCallBack,
+                                    ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
+                                ),
+                              ],
                             ),
-                            title: Text(
-                              "BMW",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
+                            child: ListTile(
+                              leading: Image.asset(
+                                "assets/image/icon-logo/bmw-car-icon.png",
+                                height: 50.h,
+                                width: 50.w,
                               ),
-                            ),
-                            subtitle: Align(
-                              alignment: Alignment.topLeft,
-                              child: Column(
+                              title: Text(
+                                _listCar
+                                    .where(
+                                        (element) => element.id == _selectedCar)
+                                    .first
+                                    .carBrand,
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.lightTextColor,
+                                ),
+                              ),
+                              subtitle: Align(
+                                alignment: Alignment.topLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _listCar
+                                          .where((element) =>
+                                              element.id == _selectedCar)
+                                          .first
+                                          .carLisenceNo,
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.blackTextColor,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    Text(
+                                      _listCar
+                                          .where((element) =>
+                                              element.id == _selectedCar)
+                                          .first
+                                          .carModel,
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.lightTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              isThreeLine: true,
+                              trailing: Column(
                                 children: [
-                                  Text(
-                                    "59D - 123.45",
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  Text(
-                                    "320i Sportline",
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.lightTextColor,
-                                    ),
+                                  SizedBox(height: 15.h),
+                                  const Icon(
+                                    Icons.radio_button_checked,
+                                    color: AppColors.buttonColor,
                                   ),
                                 ],
                               ),
-                            ),
-                            isThreeLine: true,
-                            trailing: Column(
-                              children: [
-                                SizedBox(height: 15.h),
-                                const Icon(
-                                  Icons.radio_button_checked,
-                                  color: AppColors.buttonColor,
-                                ),
-                              ],
                             ),
                           ),
                         ),
@@ -353,66 +419,55 @@ class _BookingInfoState extends State<BookingInfo> {
                         SizedBox(
                           height: 5.h,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                offset: const Offset(
-                                    0, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: Image.asset(
-                              "assets/image/icon-logo/paypal-icon.png",
-                              height: 50.h,
-                              width: 50.w,
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) =>
+                                    const ChosePaymentMethod());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: const Offset(
+                                      0, 1), // changes position of shadow
+                                ),
+                              ],
                             ),
-                            title: Align(
-                              alignment: Alignment.topLeft,
-                              child: Column(
+                            child: ListTile(
+                              leading: Image.asset(
+                                "assets/image/icon-logo/paypal-icon.png",
+                                height: 50.h,
+                                width: 50.w,
+                              ),
+                              title: Text(
+                                "Paypal",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              trailing: Column(
                                 children: [
-                                  Text(
-                                    "Paypal",
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
+                                  SizedBox(height: 15.h),
+                                  const Icon(
+                                    Icons.radio_button_checked,
+                                    color: AppColors.buttonColor,
                                   ),
                                 ],
                               ),
-                            ),
-                            subtitle: Text(
-                              "1.000.000",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
-                              ),
-                            ),
-                            trailing: Column(
-                              children: [
-                                SizedBox(height: 15.h),
-                                const Icon(
-                                  Icons.radio_button_checked,
-                                  color: AppColors.buttonColor,
-                                ),
-                              ],
                             ),
                           ),
                         ),
@@ -529,13 +584,17 @@ class _BookingInfoState extends State<BookingInfo> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   String date = _dateController.text;
-                                  int carId = 1;
-                                  int userId = 2;
+                                  int userId = await getUserId() as int;
+                                  int carId = _listCar
+                                      .where((element) =>
+                                          element.id == _selectedCar)
+                                      .first
+                                      .id;
                                   int intendedMinutes = 30;
 
                                   var response = await BookingService()
-                                      .createBooking(
-                                          date, carId, userId, intendedMinutes);
+                                      .createBooking(date, carId, userId,
+                                          intendedMinutes, _listSymptom);
 
                                   if (response!.statusCode == 201) {
                                     var notificationModel = NotificationModel(

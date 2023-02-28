@@ -14,7 +14,7 @@ class UserResponseModel {
   String fullname;
   String? phone;
   String? email;
-  String address;
+  String? address;
   String? roleId;
   bool? gender;
   String? img;
