@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../widgets/pick_date_booking.dart';
 import '../activities/activities.dart';
@@ -37,14 +38,7 @@ class _MainPageState extends State<MainPage> {
         bucket: bucket,
         child: currentScreen,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.calendar_month_outlined),
-        onPressed: () {
-          showModalBottomSheet(
-              context: context, builder: (context) => const PickDateBooking());
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
@@ -57,6 +51,9 @@ class _MainPageState extends State<MainPage> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    width: 20.w,
+                  ),
                   MaterialButton(
                     minWidth: 15.w,
                     onPressed: () {
@@ -69,24 +66,17 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.home,
+                          FontAwesomeIcons.compass,
+                          size: 24,
                           color: currentTab == 1
                               ? AppColors.buttonColor
                               : AppColors.unselectedBtn,
                         ),
-                        Text(
-                          'Trang chủ',
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w600,
-                            color: currentTab == 1
-                                ? AppColors.buttonColor
-                                : AppColors.unselectedBtn,
-                          ),
-                        ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    width: 15.w,
                   ),
                   MaterialButton(
                     minWidth: 15.w,
@@ -100,31 +90,45 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.description,
+                          FontAwesomeIcons.fileLines,
+                          size: 24,
                           color: currentTab == 2
                               ? AppColors.buttonColor
                               : AppColors.unselectedBtn,
                         ),
-                        Text(
-                          'Hoạt động',
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w600,
-                            color: currentTab == 2
-                                ? AppColors.buttonColor
-                                : AppColors.unselectedBtn,
-                          ),
-                        ),
                       ],
                     ),
                   ),
-                ],
-              ),
-              //right tab bar icon
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  Builder(
+                    builder: (context) {
+                      return MaterialButton(
+                        minWidth: 15.w,
+                        shape: CircleBorder(),
+                        color: AppColors.buttonColor,
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) => PickDateBooking());
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              FontAwesomeIcons.calendarPlus,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  ),
+                  SizedBox(
+                    width: 15.w,
+                  ),
                   MaterialButton(
                     minWidth: 15.w,
                     onPressed: () {
@@ -137,24 +141,17 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.account_balance_wallet_outlined,
+                          FontAwesomeIcons.receipt,
+                          size: 24,
                           color: currentTab == 3
                               ? AppColors.buttonColor
                               : AppColors.unselectedBtn,
                         ),
-                        Text(
-                          'Đơn hàng',
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w600,
-                            color: currentTab == 3
-                                ? AppColors.buttonColor
-                                : AppColors.unselectedBtn,
-                          ),
-                        ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    width: 15.w,
                   ),
                   MaterialButton(
                     minWidth: 15.w,
@@ -170,21 +167,11 @@ class _MainPageState extends State<MainPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.perm_identity,
+                          FontAwesomeIcons.user,
+                          size: 24,
                           color: currentTab == 4
                               ? AppColors.buttonColor
                               : AppColors.unselectedBtn,
-                        ),
-                        Text(
-                          'Cá nhân',
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w600,
-                            color: currentTab == 4
-                                ? AppColors.buttonColor
-                                : AppColors.unselectedBtn,
-                          ),
                         ),
                       ],
                     ),
