@@ -5,6 +5,7 @@ class BookingResponseModel {
     required this.date,
     required this.isArrived,
     required this.isActived,
+    this.daysLeft,
     required this.user,
     required this.car,
   });
@@ -14,6 +15,7 @@ class BookingResponseModel {
   String date;
   bool isArrived;
   bool isActived;
+  int? daysLeft;
   UserSlimResponse user;
   CarResponseModel car;
 
@@ -24,6 +26,7 @@ class BookingResponseModel {
       date: json['date'],
       isArrived: json['isArrived'],
       isActived: json['isActived'],
+      daysLeft: json['daysLeft'],
       user: UserSlimResponse.fromJson(json['user']),
       car: CarResponseModel.fromJson(json['car']),
     );
@@ -35,6 +38,7 @@ class BookingResponseModel {
         'date': date,
         'isArrived': isArrived,
         'isActived': isActived,
+        'daysLeft': daysLeft,
         'user': user,
         'car': car,
       };

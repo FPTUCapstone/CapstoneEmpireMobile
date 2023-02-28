@@ -1,7 +1,11 @@
 import 'package:empiregarage_mobile/application_layer/widgets/booking_fail.dart';
+import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/notification.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
+import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
+import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/notification/notification_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +30,7 @@ class BookingInfo extends StatefulWidget {
 class _BookingInfoState extends State<BookingInfo> {
   late BookingRequestModel requestModel;
 
-  final _symptonList = [
+  List<SymptonResponseModel> _symptonList = [
     // "Khác"
     // "Xe kêu",
     // "Rỉ xăng",
@@ -36,28 +40,60 @@ class _BookingInfoState extends State<BookingInfo> {
   ];
 
   final TextEditingController _dateController = TextEditingController();
-
+  final List<SymptomModel> _listSymptom = [];
   bool _loading = false;
+  late int _selectedCar;
+  List<CarResponseModel> _listCar = [];
 
   _loadingSymptomsList() async {
     var result = await SymptomsService().fetchListSymptoms();
     if (result != null) {
-      for (var item in result) {
-        _symptonList.add(item.name.toString());
-      }
+      _symptonList = result;
       setState(() {
-        _selectedValue = _symptonList.first.toString();
-        _loading = true;
+        _selectedIndex = _symptonList.first.id;
+        _listSymptom.add(SymptomModel(id: _symptonList.first.id));
       });
     }
   }
 
-  String? _selectedValue;
+  _getUserCar() async {
+    var userId = await getUserId();
+    var listCar = await CarService().fetchUserCars(userId as int);
+    if (listCar == null) return;
+    if (!mounted) return;
+    setState(() {
+      _listCar = listCar;
+      _selectedCar = _listCar.first.id;
+      _loading = true;
+    });
+  }
+
+  void _onCarSelected(int selectedCar) {
+    setState(() {
+      _selectedCar = selectedCar;
+    });
+  }
+
+  void _onCallBack(int selectedCar) async {
+    setState(() {
+      _loading = false;
+    });
+    _dateController.text = widget.selectedDate.toString().substring(0, 10);
+    await _loadingSymptomsList();
+    await _getUserCar();
+    setState(() {
+      _loading = true;
+      _selectedCar = selectedCar;
+    });
+  }
+
+  int? _selectedIndex;
 
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
     _loadingSymptomsList();
+    _getUserCar();
     super.initState();
   }
 
@@ -194,16 +230,18 @@ class _BookingInfoState extends State<BookingInfo> {
                                   Icons.keyboard_arrow_right,
                                   color: AppColors.lightTextColor,
                                 ),
-                                value: _selectedValue,
+                                value: _selectedIndex,
                                 onChanged: (value) {
                                   setState(() {
-                                    _selectedValue = value as String;
+                                    _selectedIndex = value as int;
+                                    _listSymptom.add(SymptomModel(
+                                        id: _selectedIndex as int));
                                   });
                                 },
                                 items: _symptonList.map((e) {
                                   return DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e),
+                                    value: e.id,
+                                    child: Text(e.name.toString()),
                                   );
                                 }).toList(),
                               ),
@@ -229,7 +267,11 @@ class _BookingInfoState extends State<BookingInfo> {
                               onPressed: () {
                                 showModalBottomSheet(
                                     context: context,
-                                    builder: (context) => const ChoseYourCar());
+                                    builder: (context) => ChoseYourCar(
+                                          selectedCar: _selectedCar,
+                                          onSelected: _onCarSelected,
+                                          onCallBack: _onCallBack,
+                                        ));
                               },
                               child: Text(
                                 "Chọn",
@@ -268,7 +310,11 @@ class _BookingInfoState extends State<BookingInfo> {
                               width: 50.w,
                             ),
                             title: Text(
-                              "BMW",
+                              _listCar
+                                  .where(
+                                      (element) => element.id == _selectedCar)
+                                  .first
+                                  .carBrand,
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 12.sp,
@@ -279,9 +325,14 @@ class _BookingInfoState extends State<BookingInfo> {
                             subtitle: Align(
                               alignment: Alignment.topLeft,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "59D - 123.45",
+                                    _listCar
+                                        .where((element) =>
+                                            element.id == _selectedCar)
+                                        .first
+                                        .carLisenceNo,
                                     style: TextStyle(
                                       fontFamily: 'SFProDisplay',
                                       fontSize: 14.sp,
@@ -293,7 +344,11 @@ class _BookingInfoState extends State<BookingInfo> {
                                     height: 5.h,
                                   ),
                                   Text(
-                                    "320i Sportline",
+                                    _listCar
+                                        .where((element) =>
+                                            element.id == _selectedCar)
+                                        .first
+                                        .carModel,
                                     style: TextStyle(
                                       fontFamily: 'SFProDisplay',
                                       fontSize: 12.sp,
@@ -377,32 +432,13 @@ class _BookingInfoState extends State<BookingInfo> {
                               height: 50.h,
                               width: 50.w,
                             ),
-                            title: Align(
-                              alignment: Alignment.topLeft,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Paypal",
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            subtitle: Text(
-                              "1.000.000",
+                            title: Text(
+                              "Paypal",
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
                               ),
                             ),
                             trailing: Column(
@@ -529,13 +565,17 @@ class _BookingInfoState extends State<BookingInfo> {
                               child: ElevatedButton(
                                 onPressed: () async {
                                   String date = _dateController.text;
-                                  int carId = 1;
-                                  int userId = 2;
+                                  int userId = await getUserId() as int;
+                                  int carId = _listCar
+                                      .where((element) =>
+                                          element.id == _selectedCar)
+                                      .first
+                                      .id;
                                   int intendedMinutes = 30;
 
                                   var response = await BookingService()
-                                      .createBooking(
-                                          date, carId, userId, intendedMinutes);
+                                      .createBooking(date, carId, userId,
+                                          intendedMinutes, _listSymptom);
 
                                   if (response!.statusCode == 201) {
                                     var notificationModel = NotificationModel(

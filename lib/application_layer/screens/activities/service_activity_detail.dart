@@ -1,4 +1,3 @@
-import 'package:empiregarage_mobile/application_layer/screens/activities/activity_history.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -135,7 +134,9 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                           color: AppColors.blackTextColor,
                         ),
                       ),
-                      SizedBox(width: 20.w,),
+                      SizedBox(
+                        width: 20.w,
+                      ),
                       Text(
                         "Thay đèn pha trước",
                         style: TextStyle(
@@ -174,7 +175,9 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                           color: AppColors.blackTextColor,
                         ),
                       ),
-                      SizedBox(width: 20.w,),
+                      SizedBox(
+                        width: 20.w,
+                      ),
                       Text(
                         "Thay lốp",
                         style: TextStyle(
@@ -213,7 +216,9 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                           color: AppColors.blackTextColor,
                         ),
                       ),
-                      SizedBox(width: 20.w,),
+                      SizedBox(
+                        width: 20.w,
+                      ),
                       Text(
                         "Thay gương",
                         style: TextStyle(
@@ -340,7 +345,10 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                         ),
                       ),
                       const Spacer(),
-                      const Icon(Icons.arrow_forward_ios_rounded,color: AppColors.lightTextColor,)
+                      const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: AppColors.lightTextColor,
+                      )
                     ],
                   ),
                 ),

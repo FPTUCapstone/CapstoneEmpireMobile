@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/qrcode.dart';
 import 'package:http/http.dart' as http;
@@ -9,8 +10,8 @@ import 'package:http/http.dart' as http;
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<http.Response?> createBooking(
-      String date, int carId, int userId, int intendedMinutes) async {
+  Future<http.Response?> createBooking(String date, int carId, int userId,
+      int intendedMinutes, List<SymptomModel> symptoms) async {
     http.Response? response;
     try {
       response = await makeHttpRequest(
@@ -24,6 +25,7 @@ class BookingService {
           'carId': carId,
           'userId': userId,
           'intendedMinutes': intendedMinutes,
+          'symtoms': symptoms
         }),
       );
     } catch (e) {

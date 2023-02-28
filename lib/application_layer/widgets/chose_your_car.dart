@@ -1,11 +1,60 @@
 import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
+import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/colors.dart';
 
-class ChoseYourCar extends StatelessWidget {
-  const ChoseYourCar({Key? key}) : super(key: key);
+class ChoseYourCar extends StatefulWidget {
+  final Function(int) onCallBack;
+  final int selectedCar;
+  final Function(int) onSelected;
+  const ChoseYourCar(
+      {Key? key,
+      required this.selectedCar,
+      required this.onSelected,
+      required this.onCallBack})
+      : super(key: key);
+
+  @override
+  State<ChoseYourCar> createState() => _ChoseYourCarState();
+}
+
+class _ChoseYourCarState extends State<ChoseYourCar> {
+  List<CarResponseModel> _listCar = [];
+  late int _selectedCar;
+
+  @override
+  void initState() {
+    _selectedCar = widget.selectedCar;
+    _getUserCar();
+    super.initState();
+  }
+
+  _getUserCar() async {
+    var userId = await getUserId();
+    var listCar = await CarService().fetchUserCars(userId as int);
+    if (listCar == null) return;
+    if (!mounted) return;
+    setState(() {
+      _listCar = listCar;
+    });
+  }
+
+  void _onCarSelected(int selectedCar) {
+    setState(() {
+      _selectedCar = selectedCar;
+      widget.onSelected(selectedCar);
+    });
+  }
+
+  void _onCallBack(int selectedCar) async {
+    await _getUserCar();
+    _onCarSelected(selectedCar);
+    widget.onCallBack(selectedCar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,299 +84,168 @@ class ChoseYourCar extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Phương tiện",
+              child: Column(children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Phương tiện",
+                      style: TextStyle(
+                        fontFamily: 'SFProDisplay',
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => AddNewCar(
+                            onAddCar: _onCallBack,
+                          ),
+                        ));
+                      },
+                      child: Text(
+                        "Thêm mới",
                         style: TextStyle(
                           fontFamily: 'SFProDisplay',
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.blueTextColor,
                         ),
                       ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const AddNewCar(),
-                          ));
-                        },
-                        child: Text(
-                          "Thêm mới",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.blueTextColor,
-                          ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 300.h,
+                  child: ListView.builder(
+                    itemCount: _listCar.length,
+                    itemBuilder: (context, index) => Column(
+                      children: [
+                        CarChip(
+                          car: _listCar[index],
+                          selectedCar: _selectedCar,
+                          onSelected: _onCarSelected,
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset:
-                              const Offset(0, 1), // changes position of shadow
+                        SizedBox(
+                          height: 5.h,
                         ),
                       ],
                     ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/bmw-car-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Text(
-                        "BMW",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                      subtitle: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              "59D - 123.45",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              "320i Sportline",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      isThreeLine: true,
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          const Icon(
-                            Icons.radio_button_checked,
-                            color: AppColors.buttonColor,
-                          ),
-                        ],
-                      ),
-                    ),
                   ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset:
-                              const Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/bmw-car-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Text(
-                        "BMW",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                      subtitle: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              "59D - 123.45",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              "320i Sportline",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      isThreeLine: true,
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          const Icon(
-                            Icons.radio_button_checked,
-                            color: AppColors.buttonColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset:
-                              const Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/bmw-car-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Text(
-                        "BMW",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                      subtitle: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              "59D - 123.45",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              "320i Sportline",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      isThreeLine: true,
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          const Icon(
-                            Icons.radio_button_checked,
-                            color: AppColors.buttonColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => Navigator.pop(context, 'Xác nhận'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            fixedSize: Size.fromHeight(50.w),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(36),
-                            ),
-                          ),
-                          child: Text(
-                            'Xác nhận',
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                ),
+              ]),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CarChip extends StatefulWidget {
+  final CarResponseModel car;
+  final int selectedCar;
+  final Function(int) onSelected;
+  const CarChip(
+      {super.key,
+      required this.car,
+      required this.selectedCar,
+      required this.onSelected});
+
+  @override
+  State<CarChip> createState() => _CarChipState();
+}
+
+class _CarChipState extends State<CarChip> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool isSelected = widget.car.id == widget.selectedCar;
+    return InkWell(
+      onTap: () {
+        widget.onSelected(widget.car.id);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 1), // changes position of shadow
+            ),
+          ],
+        ),
+        child: ListTile(
+          leading: Image.asset(
+            "assets/image/icon-logo/bmw-car-icon.png",
+            height: 50.h,
+            width: 50.w,
+          ),
+          title: Text(
+            widget.car.carBrand,
+            style: TextStyle(
+              fontFamily: 'SFProDisplay',
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.lightTextColor,
+            ),
+          ),
+          subtitle: Align(
+            alignment: Alignment.topLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.car.carLisenceNo,
+                  style: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.blackTextColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  widget.car.carModel,
+                  style: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.lightTextColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          isThreeLine: true,
+          trailing: Column(
+            children: [
+              SizedBox(height: 15.h),
+              Icon(
+                isSelected
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_unchecked,
+                color: AppColors.buttonColor,
+              )
+            ],
           ),
         ),
       ),
