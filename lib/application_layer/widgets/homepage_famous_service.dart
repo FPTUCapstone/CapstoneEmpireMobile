@@ -31,15 +31,15 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
     return Row(
       children: [
         Container(
-          height: 230.h,
-          width: 200.w,
+          height: 300.h,
+          width: 246.w,
           decoration: BoxDecoration(
               color: AppColors.whiteTextColor,
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(25),
               boxShadow: const [
                 BoxShadow(
-                  offset: Offset(0, 5),
-                  blurRadius: 5,
+                  offset: Offset(0, 1),
+                  blurRadius: 1,
                   color: AppColors.unselectedBtn,
                 )
               ]),
@@ -47,24 +47,34 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               widget.backgroundImage != "null"
-                  ? SizedBox(
-                      height: 125.h,
-                      width: 234.w,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.network(
-                          widget.backgroundImage,
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 160.h,
+                        width: 234.w,
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                          child: Transform.scale(
+                            scale: 1.2,
+                            child: Image.network(
+                              widget.backgroundImage,
+                            ),
+                          ),
                         ),
                       ),
                     )
-                  : SizedBox(
-                      height: 125.h,
-                      width: 234.w,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          "assets/image/error-image/no-image.png",
-                          fit: BoxFit.fitHeight,
+                  : Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: SizedBox(
+                        height: 160.h,
+                        width: 234.w,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            "assets/image/error-image/no-image.png",
+                            fit: BoxFit.fitHeight,
+                          ),
                         ),
                       ),
                     ),
@@ -90,9 +100,9 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: const [
                               BoxShadow(
-                                offset: Offset(0, 10),
-                                blurRadius: 10,
-                                color: Colors.white10,
+                                offset: Offset(0, 5),
+                                blurRadius: 20,
+                                color: Colors.green,
                               )
                             ]),
                         child: Text(
@@ -105,7 +115,68 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                         )),
                   ],
                 ),
-              )
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                height: 1,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey, // set the border color to grey
+                      width: 1, // set the border width to 1 pixel
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      widget.usageCount,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.blackTextColor,
+                          fontFamily: 'SFProDisplay'),
+                    ),
+                    SizedBox(width: 3.w,),
+                    Text(
+                      "lượt sử dụng",
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.lightTextColor,
+                          fontFamily: 'SFProDisplay'),
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: <Widget>[
+                        const Icon(
+                          Icons.star,
+                          size: 19,
+                          color: Colors.yellow,
+                        ),
+                        Text(
+                          widget.rating,
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.lightTextColor,
+                              fontFamily: 'SFProDisplay'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

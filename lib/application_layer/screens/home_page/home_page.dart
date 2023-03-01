@@ -136,8 +136,8 @@ class _HomePageState extends State<HomePage> {
                                       BorderRadius.all(Radius.circular(26.r)),
                                   boxShadow: const [
                                     BoxShadow(
-                                      offset: Offset(0, 5),
-                                      blurRadius: 10,
+                                      offset: Offset(0, 1),
+                                      blurRadius: 5,
                                       color: AppColors.unselectedBtn,
                                     )
                                   ]),
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 5.h,
                   ),
                   Container(
                       margin: const EdgeInsets.symmetric(horizontal: 24),
@@ -209,18 +209,19 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
+                 
                   SizedBox(
                     height: 250.h,
                     width: 340.w,
-                    child: ListView.builder(
+                    child: ListView.separated(
                       reverse: true,
                       scrollDirection: Axis.horizontal,
                       physics: const ClampingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: _filteredItem!.length,
+                      separatorBuilder: (context, index) {
+                        return SizedBox(width: 15.w,);
+                      },
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
