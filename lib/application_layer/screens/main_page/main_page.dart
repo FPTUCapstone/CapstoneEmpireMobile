@@ -44,143 +44,168 @@ class _MainPageState extends State<MainPage> {
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
-          height: 60.h,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              //left tab bar icon
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  MaterialButton(
-                    minWidth: 15.w,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const HomePage();
-                        currentTab = 1;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.compass,
-                          size: 24,
-                          color: currentTab == 1
-                              ? AppColors.buttonColor
-                              : AppColors.unselectedBtn,
-                        ),
-                      ],
+          height: 100.h,
+          child: SizedBox(
+            height: 60.h,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                //left tab bar icon
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 10.w,
                     ),
-                  ),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  MaterialButton(
-                    minWidth: 15.w,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const Activities();
-                        currentTab = 2;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.fileLines,
-                          size: 24,
-                          color: currentTab == 2
-                              ? AppColors.buttonColor
-                              : AppColors.unselectedBtn,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  Builder(
-                    builder: (context) {
-                      return MaterialButton(
-                        minWidth: 15.w,
-                        shape: CircleBorder(),
-                        color: AppColors.buttonColor,
+                    SizedBox(
+                      width: 60.w,
+                      height: 60.h,
+                      child: MaterialButton(
+                        minWidth: 60.w,
+                        height: 60.h,
                         onPressed: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => PickDateBooking());
+                          setState(() {
+                            currentScreen = const HomePage();
+                            currentTab = 1;
+                          });
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(
-                              FontAwesomeIcons.calendarPlus,
-                              color: Colors.white,
-                              size: 25,
+                              FontAwesomeIcons.compass,
+                              size: 24,
+                              color: currentTab == 1
+                                  ? AppColors.buttonColor
+                                  : AppColors.grey400,
                             ),
                           ],
                         ),
-                      );
-                    }
-                  ),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  MaterialButton(
-                    minWidth: 15.w,
-                    onPressed: () {
-                      setState(() {
-                        currentScreen = const Orders();
-                        currentTab = 3;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.receipt,
-                          size: 24,
-                          color: currentTab == 3
-                              ? AppColors.buttonColor
-                              : AppColors.unselectedBtn,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  MaterialButton(
-                    minWidth: 15.w,
-                    onPressed: () async {
-                      var userId = await getUserId();
-                      setState(() {
-                        currentScreen = UserProfile(
-                          userId: userId as int,
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    SizedBox(
+                      width: 60.w,
+                      height: 60.h,
+                      child: MaterialButton(
+                        minWidth: 15.w,
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = const Activities();
+                            currentTab = 2;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.fileLines,
+                              size: 24,
+                              color: currentTab == 2
+                                  ? AppColors.buttonColor
+                                  : AppColors.grey400,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Builder(
+                      builder: (context) {
+                        return SizedBox(
+                          height: 60.h,
+                          width: 60.w,
+                          child: MaterialButton(
+                            minWidth: 60.w,
+                            height: 60.h,
+                            shape: const CircleBorder(),
+                            color: AppColors.buttonColor,
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => const PickDateBooking());
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  FontAwesomeIcons.calendarPlus,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ],
+                            ),
+                          ),
                         );
-                        currentTab = 4;
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.user,
-                          size: 24,
-                          color: currentTab == 4
-                              ? AppColors.buttonColor
-                              : AppColors.unselectedBtn,
-                        ),
-                      ],
+                      }
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    SizedBox(
+                      height: 60.h,
+                      width: 60.w,
+                      child: MaterialButton(
+                        minWidth: 60.w,
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = const Orders();
+                            currentTab = 3;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.receipt,
+                              size: 24,
+                              color: currentTab == 3
+                                  ? AppColors.buttonColor
+                                  : AppColors.grey400,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    SizedBox(
+                      height: 60.h,
+                      width: 60.w,
+                      child: MaterialButton(
+                        minWidth: 60.w,
+                        onPressed: () async {
+                          var userId = await getUserId();
+                          setState(() {
+                            currentScreen = UserProfile(
+                              userId: userId as int,
+                            );
+                            currentTab = 4;
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.user,
+                              size: 24,
+                              color: currentTab == 4
+                                  ? AppColors.buttonColor
+                                  : AppColors.grey400,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

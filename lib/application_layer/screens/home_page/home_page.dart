@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_i
 import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/response/item.dart';
@@ -50,12 +51,12 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 240.h,
+                    height: 260.h,
                     decoration: BoxDecoration(
                         color: AppColors.welcomeScreenBackGround,
                         borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(60.r),
-                          bottomRight: Radius.circular(60.r),
+                          bottomLeft: Radius.circular(0.r),
+                          bottomRight: Radius.circular(0.r),
                         )),
                     child: Stack(
                       children: <Widget>[
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget>[
                               Container(
                                 margin:
-                                    const EdgeInsets.symmetric(horizontal: 12),
+                                    const EdgeInsets.symmetric(horizontal: 24),
                                 child: Stack(
                                   alignment: Alignment.centerLeft,
                                   children: <Widget>[
@@ -83,8 +84,8 @@ class _HomePageState extends State<HomePage> {
                                             boxShadow: const [
                                               BoxShadow(
                                                 offset: Offset(0, 1),
-                                                blurRadius: 20,
-                                                color: AppColors.unselectedBtn,
+                                                blurRadius: 1,
+                                                color: AppColors.blue600,
                                               )
                                             ]),
                                         child: IconButton(
@@ -97,7 +98,8 @@ class _HomePageState extends State<HomePage> {
                                               );
                                             },
                                             icon: const Icon(
-                                              Icons.notifications_none_sharp,
+                                              FontAwesomeIcons.bell,
+                                              size: 20,
                                               color: AppColors.whiteButtonColor,
                                             )),
                                       ),
@@ -122,14 +124,14 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Positioned(
-                            bottom: 0,
+                            bottom: 20,
                             left: 0,
                             right: 0,
                             child: Container(
                               margin:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                              width: 330.w,
-                              height: 45.h,
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              width: 335.w,
+                              height: 42.h,
                               decoration: BoxDecoration(
                                   color: AppColors.searchBarColor,
                                   borderRadius:
@@ -141,32 +143,36 @@ class _HomePageState extends State<HomePage> {
                                       color: AppColors.unselectedBtn,
                                     )
                                   ]),
-                              child: TextField(
-                                onSubmitted: (value) {
-                                  if (value.isNotEmpty) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => SearchPage(
-                                                searchString: value,
-                                              )),
-                                    );
-                                  }
-                                },
-                                //style: searchTextStyle,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.lightTextColor,
-                                  ),
-                                  hintText: 'Tìm dịch vụ',
-                                  prefixIcon: Icon(
-                                    Icons.search,
-                                    size: 20.sp,
-                                    color: AppColors.lightTextColor,
+                              child: SizedBox(
+                                width: 104.w,
+                                height: 24.h,
+                                child: TextField(
+                                  onSubmitted: (value) {
+                                    if (value.isNotEmpty) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => SearchPage(
+                                                  searchString: value,
+                                                )),
+                                      );
+                                    }
+                                  },
+                                  //style: searchTextStyle,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.lightTextColor,
+                                    ),
+                                    hintText: 'Tìm dịch vụ',
+                                    prefixIcon: const Icon(
+                                      FontAwesomeIcons.magnifyingGlass,
+                                      size: 20,
+                                      color: AppColors.grey400,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -175,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(
-                    height: 5.h,
+                    height: 20.h,
                   ),
                   Container(
                       margin: const EdgeInsets.symmetric(horizontal: 24),

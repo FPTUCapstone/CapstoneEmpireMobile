@@ -121,12 +121,12 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
-                height: 1,
+                height: 0.1,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey, // set the border color to grey
+                      color: AppColors.grey400, // set the border color to grey
                       width: 1, // set the border width to 1 pixel
                     ),
                   ),

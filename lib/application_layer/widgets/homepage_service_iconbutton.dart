@@ -27,8 +27,8 @@ class HomePageServiceIconButton extends StatelessWidget {
                   child: InkWell(
                       child: Image.asset(
                     "assets/image/icon-logo/homeservice-logo-rescue.png",
-                    height: 40.h,
-                    width: 40.w,
+                    height: 50.h,
+                    width: 50.w,
                   )),
                 ),
               ),
@@ -56,8 +56,8 @@ class HomePageServiceIconButton extends StatelessWidget {
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-care.png",
-                  height: 40.h,
-                  width: 40.w,
+                  height: 50.h,
+                    width: 50.w,
                 )),
               ),
             ),
@@ -84,8 +84,8 @@ class HomePageServiceIconButton extends StatelessWidget {
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-fixing.png",
-                  height: 40.h,
-                  width: 40.w,
+                  height: 50.h,
+                    width: 50.w,
                 )),
               ),
             ),
@@ -112,8 +112,8 @@ class HomePageServiceIconButton extends StatelessWidget {
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-rescue.png",
-                  height: 40.h,
-                  width: 40.w,
+                  height: 50.h,
+                    width: 50.w,
                 )),
               ),
             ),
@@ -140,8 +140,8 @@ class HomePageServiceIconButton extends StatelessWidget {
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-maintanace.png",
-                  height: 40.h,
-                  width: 40.w,
+                  height: 50.h,
+                    width: 50.w,
                 )),
               ),
             ),
@@ -168,8 +168,8 @@ class HomePageServiceIconButton extends StatelessWidget {
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-accessary.png",
-                  height: 40.h,
-                  width: 40.w,
+                 height: 50.h,
+                    width: 50.w,
                 )),
               ),
             ),
