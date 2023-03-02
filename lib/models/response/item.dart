@@ -115,20 +115,21 @@ class GroupServiceResponseModel {
 class PriceResponseModel {
   PriceResponseModel({
     required this.id,
-    required this.price1,
+    this.price,
     this.priceFrom,
     this.itemId,
   });
 
   int id;
-  double? price1;
+  double? price;
   DateTime? priceFrom;
   int? itemId;
 
   factory PriceResponseModel.fromJson(Map<String, dynamic> json) {
     return PriceResponseModel(
       id: json['id'],
-      price1: json['price1'],
+      price:
+          json['price'] != null ? double.parse(json['price'].toString()) : null,
       priceFrom:
           json['priceFrom'] != null ? DateTime.parse(json['priceFrom']) : null,
       itemId: json['itemId'],

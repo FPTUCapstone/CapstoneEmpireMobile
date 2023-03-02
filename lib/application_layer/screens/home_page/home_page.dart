@@ -7,6 +7,7 @@ import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/response/item.dart';
@@ -215,7 +216,6 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                 
                   SizedBox(
                     height: 250.h,
                     width: 340.w,
@@ -226,7 +226,9 @@ class _HomePageState extends State<HomePage> {
                       shrinkWrap: true,
                       itemCount: _filteredItem!.length,
                       separatorBuilder: (context, index) {
-                        return SizedBox(width: 15.w,);
+                        return SizedBox(
+                          width: 15.w,
+                        );
                       },
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -242,10 +244,12 @@ class _HomePageState extends State<HomePage> {
                             backgroundImage: _filteredItem![index].photo,
                             title: _filteredItem![index].name,
                             price: _filteredItem![index].prices!.isNotEmpty
-                                ? _filteredItem![index]
-                                    .prices!
-                                    .first
-                                    .price1
+                                ? NumberFormat.currency(
+                                        decimalDigits: 0, locale: 'vi_VN')
+                                    .format(_filteredItem![index]
+                                        .prices!
+                                        .first
+                                        .price)
                                     .toString()
                                 : "Liên hệ",
                             usageCount: '182',

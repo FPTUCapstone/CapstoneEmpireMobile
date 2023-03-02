@@ -334,7 +334,7 @@ class _SearchPageState extends State<SearchPage> {
                                                   ? _filteredItem![index]
                                                       .prices!
                                                       .first
-                                                      .price1
+                                                      .price
                                                       .toString()
                                                   : "Liên hệ",
                                               usageCount: "182",

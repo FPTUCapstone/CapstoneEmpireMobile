@@ -89,10 +89,12 @@ class _BookingDetailState extends State<BookingDetail> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => QRCodePage(
-                                    bookingId: _booking!.id,
-                                  )));
+                          widget.data.daysLeft == 0
+                              ? Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) => QRCodePage(
+                                        bookingId: _booking!.id,
+                                      )))
+                              : null;
                         },
                         child: ListTile(
                           leading: Image.asset(
@@ -138,8 +140,10 @@ class _BookingDetailState extends State<BookingDetail> {
                               ),
                             ],
                           ),
-                          trailing: Icon(Icons.qr_code_scanner,
-                              color: AppColors.blueTextColor, size: 30.w),
+                          trailing: widget.data.daysLeft == 0
+                              ? Icon(Icons.qr_code_scanner,
+                                  color: AppColors.blueTextColor, size: 30.w)
+                              : null,
                         ),
                       ),
                       SizedBox(

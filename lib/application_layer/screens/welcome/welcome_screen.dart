@@ -34,7 +34,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         builder: (BuildContext context) => const LoginScreen(),
       ));
     }
-    setState(() {});
   }
 
   @override

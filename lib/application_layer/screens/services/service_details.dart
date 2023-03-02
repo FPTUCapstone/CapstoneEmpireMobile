@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
 
 class ServiceDetails extends StatefulWidget {
@@ -161,135 +162,127 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                         )
                       ]),
                   height: 390.h,
-                  child: SingleChildScrollView(
-                    reverse: true,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text(
-                                "182 lượt đặt",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              "182 lượt đặt",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w900,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              _item!.prices!.isNotEmpty
+                                  ? NumberFormat.currency(
+                                          decimalDigits: 0, locale: 'vi_VN')
+                                      .format(_item!.prices!.first.price)
+                                      .toString()
+                                  : "Liên hệ",
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.greenTextColor,
+                                  fontFamily: 'SFProDisplay'),
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                          thickness: 1,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Mô tả chi tiết',
+                              style: TextStyle(
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w900,
                                   color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              const Spacer(),
-                              Text(
-                                _item!.prices!.isNotEmpty
-                                    ? _item!.prices!.first.price1.toString()
-                                    : "Liên hệ",
-                                style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.greenTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              ),
-                            ],
-                          ),
-                          const Divider(
-                            color: Colors.black,
-                            thickness: 1,
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Mô tả chi tiết',
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w900,
-                                    color: AppColors.blackTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          SizedBox(
-                            width: 343.w,
-                            height: 80.h,
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: ReadMoreText(
-                                    _item!.description.toString(),
-                                    style: TextStyle(
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                      fontFamily: 'SFProDisplay',
-                                    ),
-                                    trimLines: 3,
-                                    colorClickableText: AppColors.blueTextColor,
-                                    trimMode: TrimMode.Line,
-                                    trimCollapsedText: ' Read more',
-                                    trimExpandedText: ' Show less',
-                                  ),
-                                ),
-                              ],
+                                  fontFamily: 'SFProDisplay'),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Expanded(
+                          child: ReadMoreText(
+                            _item!.description.toString(),
+                            style: TextStyle(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                              fontFamily: 'SFProDisplay',
                             ),
+                            trimLines: 10,
+                            colorClickableText: AppColors.blueTextColor,
+                            trimMode: TrimMode.Line,
+                            trimCollapsedText: ' Read more',
+                            trimExpandedText: ' Show less',
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                'Đánh giá',
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w900,
-                                    color: AppColors.blackTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          SizedBox(
-                            width: 343.w,
-                            height: 80.h,
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: ReadMoreText(
-                                    'We are a family owned auto repair service center which offers complete automotive repairs on all makes and models of vehicles. Our technicians are ASE Certified and Washington State Emissions Certified. We have ….read more',
-                                    style: TextStyle(
-                                      fontSize: 13.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                      fontFamily: 'SFProDisplay',
-                                    ),
-                                    trimLines: 3,
-                                    colorClickableText: AppColors.blueTextColor,
-                                    trimMode: TrimMode.Line,
-                                    trimCollapsedText: ' Read more',
-                                    trimExpandedText: ' Show less',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 40.h,
-                          ),
-                          const MoveToAnotherApp(),
-                          SizedBox(
-                            height: 40.h,
-                          ),
-                        ],
-                      ),
+                        ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       'Đánh giá',
+                        //       style: TextStyle(
+                        //           fontSize: 17.sp,
+                        //           fontWeight: FontWeight.w900,
+                        //           color: AppColors.blackTextColor,
+                        //           fontFamily: 'SFProDisplay'),
+                        //     )
+                        //   ],
+                        // ),
+                        // SizedBox(
+                        //   height: 20.h,
+                        // ),
+                        // SizedBox(
+                        //   width: 343.w,
+                        //   height: 80.h,
+                        //   child: Column(
+                        //     children: [
+                        //       Align(
+                        //         alignment: Alignment.topLeft,
+                        //         child: ReadMoreText(
+                        //           'We are a family owned auto repair service center which offers complete automotive repairs on all makes and models of vehicles. Our technicians are ASE Certified and Washington State Emissions Certified. We have ….read more',
+                        //           style: TextStyle(
+                        //             fontSize: 13.sp,
+                        //             fontWeight: FontWeight.w600,
+                        //             color: AppColors.blackTextColor,
+                        //             fontFamily: 'SFProDisplay',
+                        //           ),
+                        //           trimLines: 3,
+                        //           colorClickableText: AppColors.blueTextColor,
+                        //           trimMode: TrimMode.Line,
+                        //           trimCollapsedText: ' Read more',
+                        //           trimExpandedText: ' Show less',
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        SizedBox(
+                          height: 40.h,
+                        ),
+                        const MoveToAnotherApp(),
+                        SizedBox(
+                          height: 40.h,
+                        ),
+                      ],
                     ),
                   ),
                 ),

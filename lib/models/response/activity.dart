@@ -6,6 +6,7 @@ class ActivityResponseModel {
     this.daysLeft,
     this.car,
     this.isArrived,
+    this.isActive,
     this.status,
     this.transaction,
     required this.isBooking,
@@ -18,6 +19,7 @@ class ActivityResponseModel {
   final int? daysLeft;
   final CarResponseModel? car;
   final bool? isArrived;
+  final bool? isActive;
   final int? status;
   final TransactionSlimResponse? transaction;
   final bool isBooking;
@@ -34,6 +36,7 @@ class ActivityResponseModel {
           ? null
           : CarResponseModel.fromJson(json['car'] as Map<String, dynamic>),
       isArrived: json['isArrived'] as bool?,
+      isActive: json['isActive'] as bool?,
       status: json['status'] as int?,
       transaction: json['transaction'] == null
           ? null
@@ -52,6 +55,7 @@ class ActivityResponseModel {
     data['daysLeft'] = daysLeft;
     data['car'] = car?.toJson();
     data['isArrived'] = isArrived;
+    data['isActive'] = isActive;
     data['status'] = status;
     data['transaction'] = transaction?.toJson();
     data['isBooking'] = isBooking;

@@ -155,6 +155,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                   date: item.date.toString(),
                                   daysLeft: item.daysLeft,
                                   isBooking: item.isBooking,
+                                  item: item,
                                 ),
                               ),
                             ),
