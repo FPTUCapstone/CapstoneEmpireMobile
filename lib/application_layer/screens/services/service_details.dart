@@ -63,11 +63,13 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                     ),
                     child: Stack(
                       children: <Widget>[
-                        AppBar(
-                          backgroundColor: Colors.transparent,
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: AppBar(
+                            backgroundColor: Colors.transparent,
+                            leading: Container(
+                              height: 42.h,
+                              width: 42.h,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.transparent,
@@ -81,6 +83,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   },
                                   icon: const Icon(
                                     Icons.arrow_back_outlined,
+                                    size: 24,
                                     color: AppColors.whiteButtonColor,
                                   )),
                             ),
@@ -170,32 +173,47 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              "182 lượt đặt",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w900,
-                                color: AppColors.blackTextColor,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                "182 lượt đặt",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blackTextColor,
+                                ),
                               ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              _item!.prices!.isNotEmpty
-                                  ? NumberFormat.currency(
-                                          decimalDigits: 0, locale: 'vi_VN')
-                                      .format(_item!.prices!.first.price)
-                                      .toString()
-                                  : "Liên hệ",
-                              style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.greenTextColor,
-                                  fontFamily: 'SFProDisplay'),
-                            ),
-                          ],
+                              const Spacer(),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white10,
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 5),
+                                        blurRadius: 10,
+                                        color: AppColors.green50,
+                                      )
+                                    ]),
+                                child: Text(
+                                  _item!.prices!.isNotEmpty
+                                      ? NumberFormat.currency(
+                                              decimalDigits: 0, locale: 'vi_VN')
+                                          .format(_item!.prices!.first.price)
+                                          .toString()
+                                      : "Liên hệ",
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.greenTextColor,
+                                      fontFamily: 'SFProDisplay'),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const Divider(
                           color: Colors.black,
@@ -204,35 +222,38 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              'Mô tả chi tiết',
-                              style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w900,
-                                  color: AppColors.blackTextColor,
-                                  fontFamily: 'SFProDisplay'),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Mô tả chi tiết',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w900,
+                                    color: AppColors.blackTextColor,
+                                    fontFamily: 'SFProDisplay'),
+                              )
+                            ],
+                          ),
                         ),
                         Expanded(
-                          child: ReadMoreText(
-                            _item!.description.toString(),
-                            style: TextStyle(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                              fontFamily: 'SFProDisplay',
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            child: ReadMoreText(
+                              _item!.description.toString(),
+                              style: TextStyle(
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.blackTextColor,
+                                fontFamily: 'SFProDisplay',
+                              ),
+                              trimLines: 5,
+                              colorClickableText: AppColors.blueTextColor,
+                              trimMode: TrimMode.Line,
+                              trimCollapsedText: ' Read more',
+                              trimExpandedText: ' Show less',
                             ),
-                            trimLines: 10,
-                            colorClickableText: AppColors.blueTextColor,
-                            trimMode: TrimMode.Line,
-                            trimCollapsedText: ' Read more',
-                            trimExpandedText: ' Show less',
                           ),
                         ),
                         // Row(
@@ -278,9 +299,12 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                         SizedBox(
                           height: 40.h,
                         ),
-                        const MoveToAnotherApp(),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          child: MoveToAnotherApp(),
+                        ),
                         SizedBox(
-                          height: 40.h,
+                          height: 24.h,
                         ),
                       ],
                     ),

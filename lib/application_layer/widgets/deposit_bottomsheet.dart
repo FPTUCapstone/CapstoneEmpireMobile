@@ -76,28 +76,28 @@ class DepositBottomSheet extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => Navigator.pop(context, 'Xác nhận'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            fixedSize: Size.fromHeight(50.w),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(36),
+                        child: Container(
+                          margin: const EdgeInsets.only(left:20,right: 20),
+                          child: ElevatedButton(
+                            onPressed: () => Navigator.pop(context, 'Xác nhận'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.buttonColor,
+                              fixedSize: Size.fromHeight(50.w),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(36),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            'Xác nhận',
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
+                            child: Text(
+                              'Tôi đã hiểu',
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),

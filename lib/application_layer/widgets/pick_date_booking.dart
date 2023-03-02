@@ -97,8 +97,8 @@ class _PickDateBookingState extends State<PickDateBooking> {
                   ),
                   DatePicker(
                     DateTime.now(),
-                    width: 60,
-                    height: 80,
+                    width: 60.w,
+                    height: 80.h,
                     controller: _controller,
                     initialSelectedDate: DateTime.now(),
                     selectionColor: Colors.black,
@@ -112,7 +112,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                     },
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 50.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -135,10 +135,10 @@ class _PickDateBookingState extends State<PickDateBooking> {
                             ),
                           ),
                           child: Text(
-                            'Xác nhận',
+                            'Tiếp tục',
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
-                              fontSize: 17.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
                           ),

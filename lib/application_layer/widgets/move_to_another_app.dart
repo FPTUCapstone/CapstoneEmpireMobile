@@ -23,14 +23,14 @@ class MoveToAnotherApp extends StatelessWidget {
               backgroundColor: AppColors.buttonColor,
               fixedSize: Size.fromHeight(50.w),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(36),
+                borderRadius: BorderRadius.circular(28),
               ),
             ),
             child: Text(
               'Liên hệ',
               style: TextStyle(
                 fontFamily: 'SFProDisplay',
-                fontSize: 17.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),

@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
 
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomePage();
-  int currentTab = 0;
+  int currentTab = 1;
 
   @override
   Widget build(BuildContext context) {

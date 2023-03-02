@@ -101,8 +101,8 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                             boxShadow: const [
                               BoxShadow(
                                 offset: Offset(0, 5),
-                                blurRadius: 20,
-                                color: Colors.green,
+                                blurRadius: 10,
+                                color: AppColors.green50,
                               )
                             ]),
                         child: Text(

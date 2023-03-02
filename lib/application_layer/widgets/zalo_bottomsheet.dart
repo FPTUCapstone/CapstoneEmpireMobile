@@ -65,16 +65,19 @@ class ZaloBottomSheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 10.h,
                   ),
-                  Center(
-                    child: Text(
-                      "Chuyển đến ứng dụng Zalo để được trao đổi",
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor,
+                  Container(
+                    margin: const EdgeInsets.only(left:15,right: 15),
+                    child: Center(
+                      child: Text(
+                        "Chuyển đến ứng dụng Zalo để được trao đổi",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.lightTextColor,
+                        ),
                       ),
                     ),
                   ),
@@ -96,32 +99,35 @@ class ZaloBottomSheet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            var openAppResult = await LaunchApp.openApp(
-                              androidPackageName: 'com.zing.zalo',
-                              iosUrlScheme: 'pulsesecure://',
-                              appStoreLink:
-                                  'itms-apps://itunes.apple.com/us/app/pulse-secure/id945832041',
-                            );
-                            if (kDebugMode) {
-                              print(
-                                  'openAppResult => $openAppResult ${openAppResult.runtimeType}');
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            fixedSize: Size.fromHeight(50.w),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(36),
+                        child: Container(
+                          margin: const EdgeInsets.only(left:20,right: 20),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              var openAppResult = await LaunchApp.openApp(
+                                androidPackageName: 'com.zing.zalo',
+                                iosUrlScheme: 'pulsesecure://',
+                                appStoreLink:
+                                    'itms-apps://itunes.apple.com/us/app/pulse-secure/id945832041',
+                              );
+                              if (kDebugMode) {
+                                print(
+                                    'openAppResult => $openAppResult ${openAppResult.runtimeType}');
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.buttonColor,
+                              fixedSize: Size.fromHeight(50.w),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(36),
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            'Chuyển đến Zalo',
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
+                            child: Text(
+                              'Chuyển đến Zalo',
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
