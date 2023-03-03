@@ -86,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -120,243 +120,253 @@ class _SearchPageState extends State<SearchPage> {
               color: Colors.black,
             )),
       ),
-      body: Column(
-        children: <Widget>[
-          TextField(
-            focusNode: FocusNode(canRequestFocus: true),
-            onSubmitted: (value) => {
-              _fitlterData(value),
-              setState(() {
-                if (value.replaceAll(" ", "").isNotEmpty) {
-                  _recentSearches.add(value);
-                }
-              }),
-              _searchString = value,
-            },
-            controller: _searchController,
-            decoration: const InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: AppColors.blueTextColor, width: 2),
-                  borderRadius: BorderRadius.all(Radius.circular(26))),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.unselectedBtn),
-                  borderRadius: BorderRadius.all(Radius.circular(26))),
-              focusColor: AppColors.searchBarColor,
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Tìm kiếm...',
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              width: 335.w,
+              height: 45.h,
+              child: TextField(
+                focusNode: FocusNode(canRequestFocus: true),
+                onSubmitted: (value) => {
+                  _fitlterData(value),
+                  setState(() {
+                    if (value.replaceAll(" ", "").isNotEmpty) {
+                      _recentSearches.add(value);
+                    }
+                  }),
+                  _searchString = value,
+                },
+                controller: _searchController,
+                decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: AppColors.blueTextColor, width: 3),
+                      borderRadius: BorderRadius.all(Radius.circular(35))),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey400),
+                      borderRadius: BorderRadius.all(Radius.circular(35))),
+                  focusColor: AppColors.searchBarColor,
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Icon(Icons.search,color: AppColors.blueTextColor,size: 30,),
+                  ),
+                  hintText: 'Tìm kiếm...',
+                ),
+              ),
             ),
-          ),
-          _searchString.isEmpty
-              ? Expanded(
-                  child: _loading
-                      ? const Loading()
-                      : Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: ListTile(
-                                  title: const Text(
-                                    'Tìm kiếm gần đây',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'SFProDisplay',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  trailing: _recentSearches.isNotEmpty
-                                      ? InkWell(
-                                          onTap: () => {removeRecentSearch()},
-                                          child: const Text(
-                                            "Xóa tất cả",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamily: 'SFProDisplay',
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.red),
-                                          ),
-                                        )
-                                      : null,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView(
-                                children:
-                                    _recentSearches.reversed.map((search) {
-                                  return ListTile(
-                                    title: Text(
-                                      search,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'SFProDisplay',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    leading: search.isNotEmpty
-                                        ? const Icon(Icons.timer_outlined)
-                                        : null,
-                                    horizontalTitleGap: 0,
-                                    onTap: () {
-                                      _searchController.text = search;
-                                      setState(() {
-                                        _searchString = search;
-                                      });
-                                      _fitlterData(search);
-                                    },
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ],
-                        ),
-                )
-              : Expanded(
-                  child: Column(children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: ListTile(
-                          title: RichText(
-                            text: TextSpan(
-                                text: 'Kết quả cho "',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontFamily: 'SFProDisplay',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                children: [
-                                  TextSpan(
-                                      text: _searchString,
-                                      style: const TextStyle(
-                                        color: AppColors.blueTextColor,
+            _searchString.isEmpty
+                ? Expanded(
+                    child: _loading
+                        ? const Loading()
+                        : Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: ListTile(
+                                    title: const Text(
+                                      'Tìm kiếm gần đây',
+                                      style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'SFProDisplay',
                                         fontWeight: FontWeight.w600,
                                       ),
-                                      children: const [
-                                        TextSpan(
-                                          text: '"',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontFamily: 'SFProDisplay',
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        )
-                                      ])
-                                ]),
+                                    ),
+                                    trailing: _recentSearches.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () => {removeRecentSearch()},
+                                            child: const Text(
+                                              "Xóa tất cả",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontFamily: 'SFProDisplay',
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.red),
+                                            ),
+                                          )
+                                        : null,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListView(
+                                  children:
+                                      _recentSearches.reversed.map((search) {
+                                    return ListTile(
+                                      title: Text(
+                                        search,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      leading: search.isNotEmpty
+                                          ? const Icon(Icons.timer_outlined)
+                                          : null,
+                                      horizontalTitleGap: 0,
+                                      onTap: () {
+                                        _searchController.text = search;
+                                        setState(() {
+                                          _searchString = search;
+                                        });
+                                        _fitlterData(search);
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ],
                           ),
-                          trailing: Text(
-                            _filteredItem != null
-                                ? "${_filteredItem!.length} tìm kiếm"
-                                : "0 tìm kiếm",
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'SFProDisplay',
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.blueTextColor),
+                  )
+                : Expanded(
+                    child: Column(children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: ListTile(
+                            title: RichText(
+                              text: TextSpan(
+                                  text: 'Kết quả cho "',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontFamily: 'SFProDisplay',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                        text: _searchString,
+                                        style: const TextStyle(
+                                          color: AppColors.blueTextColor,
+                                          fontSize: 16,
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        children: const [
+                                          TextSpan(
+                                            text: '"',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontFamily: 'SFProDisplay',
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          )
+                                        ])
+                                  ]),
+                            ),
+                            trailing: Text(
+                              _filteredItem != null
+                                  ? "${_filteredItem!.length} tìm kiếm"
+                                  : "0 tìm kiếm",
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'SFProDisplay',
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blueTextColor),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: _loading
-                          ? const Loading()
-                          : _filteredItem!.isEmpty
-                              ? ListView(children: [
-                                  Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          "assets/image/error-image/not-founded.png",
-                                        ),
-                                        ListTile(
-                                          title: Padding(
-                                            padding: EdgeInsets.all(30.h),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: const [
-                                                Text(
-                                                  'Không tìm thấy',
-                                                  style: TextStyle(
-                                                    fontSize: 24,
-                                                    fontFamily: 'SFProDisplay',
-                                                    fontWeight: FontWeight.w700,
+                      Expanded(
+                        child: _loading
+                            ? const Loading()
+                            : _filteredItem!.isEmpty
+                                ? ListView(children: [
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            "assets/image/error-image/not-founded.png",
+                                          ),
+                                          ListTile(
+                                            title: Padding(
+                                              padding: EdgeInsets.all(30.h),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: const [
+                                                  Text(
+                                                    'Không tìm thấy',
+                                                    style: TextStyle(
+                                                      fontSize: 24,
+                                                      fontFamily: 'SFProDisplay',
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
+                                            subtitle: const Text(
+                                                'Rất tiếc từ khóa bạn nhập không tìm thấy, vui lòng kiểm tra lại hoặc tìm với từ khóa khác.',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'SFProDisplay',
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                )),
                                           ),
-                                          subtitle: const Text(
-                                              'Rất tiếc từ khóa bạn nhập không tìm thấy, vui lòng kiểm tra lại hoặc tìm với từ khóa khác.',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'SFProDisplay',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                              )),
-                                        ),
-                                      ]),
-                                ])
-                              : ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: _filteredItem!.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Column(
-                                      children: [
-                                        InkWell(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ServiceDetails(
-                                                      itemId:
-                                                          _filteredItem![index]
-                                                              .id,
-                                                    )),
+                                        ]),
+                                  ])
+                                : ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: _filteredItem!.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ServiceDetails(
+                                                        itemId:
+                                                            _filteredItem![index]
+                                                                .id,
+                                                      )),
+                                            ),
+                                            child: SerivceCard(
+                                                backgroundImage:
+                                                    _filteredItem![index].photo,
+                                                title: _filteredItem![index].name,
+                                                price: _filteredItem![index]
+                                                        .prices!
+                                                        .isNotEmpty
+                                                    ? _filteredItem![index]
+                                                        .prices!
+                                                        .first
+                                                        .price
+                                                        .toString()
+                                                    : "Liên hệ",
+                                                usageCount: "182",
+                                                rating: "4.4",
+                                                tag: _filteredItem![index]
+                                                            .category !=
+                                                        null
+                                                    ? _filteredItem![index]
+                                                        .category!
+                                                        .name
+                                                    : "Dịch vụ"),
                                           ),
-                                          child: SerivceCard(
-                                              backgroundImage:
-                                                  _filteredItem![index].photo,
-                                              title: _filteredItem![index].name,
-                                              price: _filteredItem![index]
-                                                      .prices!
-                                                      .isNotEmpty
-                                                  ? _filteredItem![index]
-                                                      .prices!
-                                                      .first
-                                                      .price
-                                                      .toString()
-                                                  : "Liên hệ",
-                                              usageCount: "182",
-                                              rating: "4.4",
-                                              tag: _filteredItem![index]
-                                                          .category !=
-                                                      null
-                                                  ? _filteredItem![index]
-                                                      .category!
-                                                      .name
-                                                  : "Dịch vụ"),
-                                        ),
-                                        const SizedBox(
-                                          height: 25,
-                                        )
-                                      ],
-                                    );
-                                  }),
-                    ),
-                  ]),
-                )
-        ],
+                                          const SizedBox(
+                                            height: 25,
+                                          )
+                                        ],
+                                      );
+                                    }),
+                      ),
+                    ]),
+                  )
+          ],
+        ),
       ),
     );
   }

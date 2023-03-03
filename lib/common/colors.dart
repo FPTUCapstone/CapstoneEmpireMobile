@@ -19,9 +19,11 @@ class AppColors {
   static const Color grey400 = Color(0xFFB6C5CD);
   static const Color blue600 = Color(0xFF2342A8);
   static const Color green50 = Color(0xFFF1FFF4);
+  static const Color white100 = Color(0xFFFAFAFA);
 
   //Search Bar Background
   static const Color searchBarColor = Color(0xFFEFEFFF);
+  static const Color blue100 = Color(0xFFD4DCF6);
 
   //Icon color
   static const Color settingIcon = Color(0xFF2C53D2);

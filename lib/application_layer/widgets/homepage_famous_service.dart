@@ -36,13 +36,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
           decoration: BoxDecoration(
               color: AppColors.whiteTextColor,
               borderRadius: BorderRadius.circular(25),
-              boxShadow: const [
-                BoxShadow(
-                  offset: Offset(0, 1),
-                  blurRadius: 1,
-                  color: AppColors.unselectedBtn,
-                )
-              ]),
+              ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -95,24 +89,23 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                     ),
                     const Spacer(),
                     Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white10,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: const [
-                              BoxShadow(
-                                offset: Offset(0, 5),
-                                blurRadius: 10,
-                                color: AppColors.green50,
-                              )
-                            ]),
-                        child: Text(
-                          widget.price,
-                          style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.greenTextColor,
-                              fontFamily: 'SFProDisplay'),
-                        )),
+              decoration: const BoxDecoration(
+                  color: AppColors.searchBarColor,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              height: 20,
+              width: 80,
+              child: Center(
+                child: Text(
+                  widget.price,
+                  style: const TextStyle(
+                    color: Colors.green,
+                    fontSize: 10,
+                    fontFamily: 'SFProDisplay',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
                   ],
                 ),
               ),

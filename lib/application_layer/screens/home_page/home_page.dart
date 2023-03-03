@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                                     hintText: 'Tìm dịch vụ',
                                     prefixIcon: const Icon(
                                       FontAwesomeIcons.magnifyingGlass,
-                                      size: 20,
+                                      size: 24,
                                       color: AppColors.grey400,
                                     ),
                                   ),
@@ -262,6 +262,7 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
+                  SizedBox(height: 20.h,)
                 ],
               ),
             ),
