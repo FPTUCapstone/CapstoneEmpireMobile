@@ -4,6 +4,7 @@ class AppColors {
   //Background Color
   static const Color welcomeScreenBackGround = Color(0xFF2C53D2);
   static const Color loginScreenBackGround = Color(0xFFFFFFFF);
+  static const Color lightGrey = Color(0xFFFAFAFA);
 
   //Text Color
   static const Color blackTextColor = Color(0xFF000000);

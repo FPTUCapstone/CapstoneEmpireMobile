@@ -103,6 +103,7 @@ class _BookingDetailState extends State<BookingDetail> {
                             width: 50.w,
                           ),
                           subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
                                 height: 5.h,
@@ -123,20 +124,18 @@ class _BookingDetailState extends State<BookingDetail> {
                               SizedBox(
                                 height: 5.h,
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    _booking!.isArrived
-                                        ? "Đã check-in vào lúc {_booking.checkinTime}"
-                                        : _booking!.date.substring(0, 10),
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.lightTextColor,
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                _booking!.isArrived
+                                    ? 'Đã check-in vào lúc ${_booking!.arrivedDateTime!.replaceAll('T', " ").substring(0, 19)}'
+                                    : _booking!.date.substring(0, 10),
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
                               ),
                             ],
                           ),

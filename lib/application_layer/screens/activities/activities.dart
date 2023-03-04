@@ -67,7 +67,7 @@ class _HomePageState extends State<Activities> {
       home: _loading
           ? const Loading()
           : Scaffold(
-              backgroundColor: AppColors.loginScreenBackGround,
+              backgroundColor: AppColors.lightGrey,
               appBar: AppBar(
                 titleSpacing: 24.w,
                 backgroundColor: Colors.transparent,
@@ -79,7 +79,7 @@ class _HomePageState extends State<Activities> {
                     child: Padding(
                       padding: EdgeInsets.only(right: 24.w),
                       child: ElevatedButton.icon(
-                        icon: const Icon(Icons.refresh),
+                        icon: Icon(Icons.refresh, size: 18.sp),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) =>
@@ -87,10 +87,12 @@ class _HomePageState extends State<Activities> {
                           ));
                         },
                         style: ButtonStyle(
-                          foregroundColor: getColor(AppColors.buttonColor,
+                          shadowColor:
+                              getColor(Colors.transparent, Colors.transparent),
+                          foregroundColor: getColor(AppColors.blackTextColor,
                               AppColors.whiteButtonColor),
-                          backgroundColor: getColor(AppColors.whiteButtonColor,
-                              AppColors.buttonColor),
+                          backgroundColor: getColor(
+                              AppColors.blue100, AppColors.buttonColor),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -119,22 +121,23 @@ class _HomePageState extends State<Activities> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      Text(
-                        "Đang hoạt động",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                            fontFamily: 'SFProDisplay'),
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
                       _listOnGoing.isEmpty
-                          ? Text(
-                              'Chưa có hoạt động nào',
-                              style: AppStyles.text400(fontsize: 15.sp),
-                            )
+                          ? Container()
+                          : Text(
+                              "Đang hoạt động",
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                  fontFamily: 'SFProDisplay'),
+                            ),
+                      _listOnGoing.isEmpty
+                          ? Container()
+                          : SizedBox(
+                              height: 10.h,
+                            ),
+                      _listOnGoing.isEmpty
+                          ? Container()
                           : SizedBox(
                               width: 337.w,
                               height: 200.h,
@@ -147,22 +150,13 @@ class _HomePageState extends State<Activities> {
                                   return Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             topRight: Radius.circular(10),
                                             bottomLeft: Radius.circular(10),
                                             bottomRight: Radius.circular(10)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: const Offset(0,
-                                                1), // changes position of shadow
-                                          ),
-                                        ],
                                       ),
                                       child: GestureDetector(
                                         onTap: () {
@@ -191,9 +185,11 @@ class _HomePageState extends State<Activities> {
                                 },
                               ),
                             ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
+                      _listOnGoing.isEmpty
+                          ? Container()
+                          : SizedBox(
+                              height: 15.h,
+                            ),
                       Text(
                         "Gần đây",
                         style: TextStyle(
@@ -219,22 +215,13 @@ class _HomePageState extends State<Activities> {
                                   return Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             topRight: Radius.circular(10),
                                             bottomLeft: Radius.circular(10),
                                             bottomRight: Radius.circular(10)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            offset: const Offset(0,
-                                                1), // changes position of shadow
-                                          ),
-                                        ],
                                       ),
                                       child: GestureDetector(
                                         onTap: () {

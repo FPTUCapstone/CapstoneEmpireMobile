@@ -36,12 +36,11 @@ class _MainPageState extends State<MainPage> {
         bucket: bucket,
         child: currentScreen,
       ),
-
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
-          height: 100.h,
+          height: 80.h,
           child: SizedBox(
             height: 60.h,
             child: Row(
@@ -111,35 +110,33 @@ class _MainPageState extends State<MainPage> {
                     SizedBox(
                       width: 10.w,
                     ),
-                    Builder(
-                      builder: (context) {
-                        return SizedBox(
+                    Builder(builder: (context) {
+                      return SizedBox(
+                        height: 60.h,
+                        width: 60.w,
+                        child: MaterialButton(
+                          minWidth: 60.w,
                           height: 60.h,
-                          width: 60.w,
-                          child: MaterialButton(
-                            minWidth: 60.w,
-                            height: 60.h,
-                            shape: const CircleBorder(),
-                            color: AppColors.buttonColor,
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => const PickDateBooking());
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  FontAwesomeIcons.calendarPlus,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                              ],
-                            ),
+                          shape: const CircleBorder(),
+                          color: AppColors.buttonColor,
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => const PickDateBooking());
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                FontAwesomeIcons.calendarPlus,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            ],
                           ),
-                        );
-                      }
-                    ),
+                        ),
+                      );
+                    }),
                     SizedBox(
                       width: 10.w,
                     ),
@@ -158,8 +155,8 @@ class _MainPageState extends State<MainPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              FontAwesomeIcons.receipt,
-                              size: 24,
+                              Icons.receipt_outlined,
+                              size: 30,
                               color: currentTab == 3
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
