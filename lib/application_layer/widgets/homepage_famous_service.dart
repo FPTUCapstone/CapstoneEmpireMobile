@@ -31,7 +31,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
     return Row(
       children: [
         Container(
-          height: 300.h,
+          height: 330.h,
           width: 246.w,
           decoration: BoxDecoration(
               color: AppColors.whiteTextColor,
@@ -113,14 +113,14 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                 height: 16.h,
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.only(left: 15,right: 15),
                 height: 0.1,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
                       color: AppColors.grey400, // set the border color to grey
-                      width: 1, // set the border width to 1 pixel
+                      width: 0.5, // set the border width to 1 pixel
                     ),
                   ),
                 ),

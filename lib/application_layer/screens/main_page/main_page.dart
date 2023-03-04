@@ -1,6 +1,6 @@
 import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart';
+import 'package:empiregarage_mobile/application_layer/screens/user_profile/user_profile_setting.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
-import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../widgets/pick_date_booking.dart';
 import '../activities/activities.dart';
 import '../home_page/home_page.dart';
-import '../user_profile/profile.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -22,9 +21,7 @@ class _MainPageState extends State<MainPage> {
     const HomePage(),
     const Activities(),
     const Orders(),
-    const UserProfile(
-      userId: 2,
-    ),
+    const UserProfileSettings(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -180,11 +177,8 @@ class _MainPageState extends State<MainPage> {
                       child: MaterialButton(
                         minWidth: 60.w,
                         onPressed: () async {
-                          var userId = await getUserId();
                           setState(() {
-                            currentScreen = UserProfile(
-                              userId: userId as int,
-                            );
+                            currentScreen = const UserProfileSettings();
                             currentTab = 4;
                           });
                         },
