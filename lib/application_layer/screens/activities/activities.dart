@@ -22,6 +22,7 @@ class _HomePageState extends State<Activities> {
   bool _loading = true;
   List<ActivityResponseModel?> _listOnGoing = [];
   List<ActivityResponseModel?> _listRecent = [];
+  int _length = 1;
 
   MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
     getColor(Set<MaterialState> states) {
@@ -45,6 +46,7 @@ class _HomePageState extends State<Activities> {
     var listActivity = await ActivityService().fetchActivity(userId);
     if (!mounted) return;
     setState(() {
+      _length = listActivity.length;
       _listOnGoing =
           listActivity.where((element) => element!.isOnGoing == true).toList();
       _listOnGoing.sort(((a, b) => a!.daysLeft!.compareTo(b!.daysLeft as num)));
@@ -113,146 +115,148 @@ class _HomePageState extends State<Activities> {
                 ],
               ),
               body: SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : Text(
-                              "Đang hoạt động",
-                              style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                  fontFamily: 'SFProDisplay'),
-                            ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : SizedBox(
-                              height: 10.h,
-                            ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : SizedBox(
-                              width: 337.w,
-                              height: 200.h,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: _listOnGoing.length,
-                                itemBuilder: (context, index) {
-                                  var item = _listOnGoing[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10)),
-                                      ),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              PageTransition(
-                                                  type: PageTransitionType
-                                                      .bottomToTop,
-                                                  duration: const Duration(
-                                                      milliseconds: 350),
-                                                  childCurrent: widget,
-                                                  child: BookingDetail(
-                                                    data: item,
-                                                  )));
-                                        },
-                                        child: ActivityChip(
-                                          carInfo:
-                                              '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                          date: item.date.toString(),
-                                          daysLeft: item.daysLeft,
-                                          isBooking: item.isBooking,
-                                          item: item,
+                child: ListView(children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints.expand(height: 95.h * _length),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          _listOnGoing.isEmpty
+                              ? Container()
+                              : Text(
+                                  "Đang hoạt động",
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                      fontFamily: 'SFProDisplay'),
+                                ),
+                          _listOnGoing.isEmpty
+                              ? Container()
+                              : SizedBox(
+                                  height: 10.h,
+                                ),
+                          _listOnGoing.isEmpty
+                              ? Container()
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ScrollPhysics(
+                                      parent: NeverScrollableScrollPhysics()),
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: _listOnGoing.length,
+                                  itemBuilder: (context, index) {
+                                    var item = _listOnGoing[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10)),
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                PageTransition(
+                                                    type: PageTransitionType
+                                                        .bottomToTop,
+                                                    duration: const Duration(
+                                                        milliseconds: 350),
+                                                    childCurrent: widget,
+                                                    child: BookingDetail(
+                                                      data: item,
+                                                    )));
+                                          },
+                                          child: ActivityChip(
+                                            carInfo:
+                                                '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                            date: item.date.toString(),
+                                            daysLeft: item.daysLeft,
+                                            isBooking: item.isBooking,
+                                            item: item,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : SizedBox(
-                              height: 15.h,
-                            ),
-                      Text(
-                        "Gần đây",
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                            fontFamily: 'SFProDisplay'),
-                      ),
-                      _listRecent.isEmpty
-                          ? Text(
-                              'Chưa có hoạt động nào',
-                              style: AppStyles.text400(fontsize: 15.sp),
-                            )
-                          : Expanded(
-                              // width: 337.w,
-                              // height: 200.h,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: _listRecent.length,
-                                itemBuilder: (context, index) {
-                                  var item = _listRecent[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(10)),
-                                      ),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              PageTransition(
-                                                  type: PageTransitionType
-                                                      .bottomToTop,
-                                                  duration: const Duration(
-                                                      milliseconds: 350),
-                                                  childCurrent: widget,
-                                                  child: BookingDetail(
-                                                    data: item,
-                                                  )));
-                                        },
-                                        child: ActivityChip(
-                                          carInfo:
-                                              '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                          date: item.date.toString(),
-                                          daysLeft: item.daysLeft,
-                                          isBooking: item.isBooking,
-                                          item: item,
+                                    );
+                                  },
+                                ),
+                          _listOnGoing.isEmpty
+                              ? Container()
+                              : SizedBox(
+                                  height: 15.h,
+                                ),
+                          Text(
+                            "Gần đây",
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                                fontFamily: 'SFProDisplay'),
+                          ),
+                          _listRecent.isEmpty
+                              ? Text(
+                                  'Chưa có hoạt động nào',
+                                  style: AppStyles.text400(fontsize: 15.sp),
+                                )
+                              : ListView.builder(
+                                  physics: const ScrollPhysics(
+                                      parent: NeverScrollableScrollPhysics()),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: _listRecent.length,
+                                  itemBuilder: (context, index) {
+                                    var item = _listRecent[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 15),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10)),
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                PageTransition(
+                                                    type: PageTransitionType
+                                                        .bottomToTop,
+                                                    duration: const Duration(
+                                                        milliseconds: 350),
+                                                    childCurrent: widget,
+                                                    child: BookingDetail(
+                                                      data: item,
+                                                    )));
+                                          },
+                                          child: ActivityChip(
+                                            carInfo:
+                                                '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                            date: item.date.toString(),
+                                            daysLeft: item.daysLeft,
+                                            isBooking: item.isBooking,
+                                            item: item,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                    ],
+                                    );
+                                  },
+                                ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ]),
               ),
             ),
     );

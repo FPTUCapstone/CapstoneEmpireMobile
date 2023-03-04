@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,79 +76,69 @@ class _ActivityHistoryState extends State<ActivityHistory> {
       home: _loading
           ? const Loading()
           : Scaffold(
-              backgroundColor: AppColors.loginScreenBackGround,
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 52.h,
-                    ),
-                    Stack(alignment: Alignment.centerLeft, children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: AppColors.blackTextColor,
-                        ),
+              backgroundColor: AppColors.lightGrey,
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 52.h,
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Lịch sử hoạt động",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
+                      Stack(alignment: Alignment.centerLeft, children: <Widget>[
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
                             color: AppColors.blackTextColor,
                           ),
                         ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Lịch sử hoạt động",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                        ),
+                      ]),
+                      ListFilter(
+                        onSelectedFilter: _onSelectedFilter,
                       ),
-                    ]),
-                    ListFilter(
-                      onSelectedFilter: _onSelectedFilter,
-                    ),
-                    SizedBox(
-                      width: 337.w,
-                      height: 540.h,
-                      child: ListView.builder(
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: _listFiltered.length,
                         itemBuilder: (context, index) {
                           var item = _listFiltered[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(PageTransition(
-                                  type: PageTransitionType.bottomToTop,
-                                  duration: const Duration(milliseconds: 350),
-                                  childCurrent: widget,
-                                  child: BookingDetail(
-                                    data: item,
-                                  )));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 15),
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(PageTransition(
+                                    type: PageTransitionType.bottomToTop,
+                                    duration: const Duration(milliseconds: 350),
+                                    childCurrent: widget,
+                                    child: BookingDetail(
+                                      data: item,
+                                    )));
+                              },
                               child: Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: const BorderRadius.only(
+                                  borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       topRight: Radius.circular(10),
                                       bottomLeft: Radius.circular(10),
                                       bottomRight: Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 1,
-                                      offset: const Offset(
-                                          0, 1), // changes position of shadow
-                                    ),
-                                  ],
                                 ),
                                 child: ActivityChip(
                                   carInfo:
@@ -162,8 +153,11 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                           );
                         },
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: 20.h,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -191,10 +185,22 @@ class _ListFilterState extends State<ListFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: _filterOptions.map((option) {
         return FilterChip(
-          label: Text(option),
+          label: Text(
+            option,
+            style: AppStyles.text400(
+                color: _selectedFilters.isNotEmpty &&
+                        _selectedFilters.first.compareTo(option) == 0
+                    ? Colors.white
+                    : AppColors.blueTextColor,
+                fontsize: 12.sp),
+          ),
+          selectedColor: AppColors.blueTextColor,
+          showCheckmark: false,
+          backgroundColor: AppColors.blue100,
           selected: _selectedFilters.contains(option),
           onSelected: (selected) {
             setState(() {
