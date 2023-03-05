@@ -26,7 +26,7 @@ class AppAuthentication {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AppAuthentication();
 
-  Future<void> sendOTP(
+  Future<String> sendOTP(
       BuildContext context, String countryCode, var phoneNumber) async {
     try {
       verificationFailed(FirebaseAuthException authException) {
@@ -42,7 +42,7 @@ class AppAuthentication {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('verification_id', _verificationId);
         // ignore: use_build_context_synchronously
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => OtpConfirmation(
@@ -71,10 +71,12 @@ class AppAuthentication {
       );
     } catch (e) {
       log("Can not get OTP");
+      return "Can not get OTP";
     }
+    return "";
   }
 
-  Future<void> confirmOTP(
+  Future<String> confirmOTP(
       String otpCode, FirebaseAuth auth, BuildContext context) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -88,7 +90,7 @@ class AppAuthentication {
       var userRecord = await auth.signInWithCredential(credential);
       if (userRecord.user == null) {
         log("Not found user");
-        return;
+        return "Not found user";
       }
       log(userRecord.user.toString());
       var response =
@@ -98,13 +100,13 @@ class AppAuthentication {
       // var response = await signInRequestBE('%2B84372015192');
       if (response == null) {
         log("Unauthorized");
-        return;
+        return "Unauthorized";
       }
       await saveUserInfo(user_info.UserInfo(
           userId: response.id, firebaseUUID: userRecord.user!.uid));
       await NotificationService().saveToken(userRecord.user!.uid);
       // ignore: use_build_context_synchronously
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => UserProfile(
@@ -114,8 +116,10 @@ class AppAuthentication {
     } catch (e) {
       if (kDebugMode) {
         print(e);
+        return e.toString();
       }
     }
+    return "";
   }
 
   Future<void> siginWithGoogle(FirebaseAuth auth, BuildContext context) async {

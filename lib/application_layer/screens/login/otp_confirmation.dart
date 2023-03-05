@@ -1,8 +1,10 @@
 import 'package:empiregarage_mobile/application_layer/screens/login/login_screen.dart';
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/authen_firebase_services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pinput/pinput.dart';
 import '../../../common/colors.dart';
 
@@ -19,6 +21,8 @@ class OtpConfirmation extends StatefulWidget {
 
 class _OtpConfirmationState extends State<OtpConfirmation> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  bool _loading = false;
+  String _error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -76,30 +80,65 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                 ),
                 SizedBox(
                   height: 50.h,
+                  child: Center(
+                    child: Text(
+                      _error,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          AppStyles.text400(fontsize: 12.sp, color: Colors.red),
+                    ),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => AppAuthentication()
-                            .confirmOTP(otpCode, auth, context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.buttonColor,
-                          fixedSize: Size.fromHeight(50.w),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          'Xác thực',
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
+                      child: !_loading
+                          ? ElevatedButton(
+                              onPressed: () async {
+                                setState(() {
+                                  _loading = true;
+                                  // _error = "";
+                                });
+                                var message = await AppAuthentication()
+                                    .confirmOTP(otpCode, auth, context);
+                                if (message != "") {
+                                  setState(() {
+                                    _error = message;
+                                    _loading = false;
+                                  });
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonColor,
+                                fixedSize: Size.fromHeight(50.w),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: Text(
+                                'Xác thực',
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            )
+                          : ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonColor,
+                                fixedSize: Size.fromHeight(50.w),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const SpinKitThreeBounce(
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
                     ),
                   ],
                 ),
@@ -110,7 +149,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const LoginScreen()),

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../common/colors.dart';
 
@@ -23,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   static String countryCode = "+84";
   var phoneNumber = "";
   final FirebaseAuth auth = FirebaseAuth.instance;
+  bool _loading = false;
 
   @override
   void initState() {
@@ -140,29 +142,52 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Expanded(
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                await AppAuthentication()
-                                    .sendOTP(context, countryCode, phoneNumber);
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.buttonColor,
-                              fixedSize: Size.fromHeight(50.w),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28),
-                              ),
-                            ),
-                            child: Text(
-                              'Nhận mã OTP',
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 17.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
+                          child: !_loading
+                              ? ElevatedButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        _loading = true;
+                                      });
+                                      var message = await AppAuthentication()
+                                          .sendOTP(context, countryCode,
+                                              phoneNumber);
+                                      if (message != "") {
+                                        setState(() {
+                                          _loading = false;
+                                        });
+                                      }
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.buttonColor,
+                                    fixedSize: Size.fromHeight(50.w),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(28),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Nhận mã OTP',
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                )
+                              : ElevatedButton(
+                                  onPressed: () async {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.buttonColor,
+                                    fixedSize: Size.fromHeight(50.w),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(28),
+                                    ),
+                                  ),
+                                  child: const SpinKitThreeBounce(
+                                    color: Colors.white,
+                                    size: 20,
+                                  )),
                         ),
                       ],
                     ),
