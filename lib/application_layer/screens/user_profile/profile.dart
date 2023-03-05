@@ -42,9 +42,6 @@ class _UserProfileState extends State<UserProfile> {
     setState(() {
       _loading = true;
     });
-    if (kDebugMode) {
-      print(_user);
-    }
   }
 
   int calculateAge(DateTime birthDate) {
@@ -430,11 +427,12 @@ class _UserProfileState extends State<UserProfile> {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const MainPage()),
-                                  );
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const MainPage(),
+                                      ),
+                                      (route) => false);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.buttonColor,

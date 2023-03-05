@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
+import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -69,6 +70,10 @@ class _ActivityHistoryState extends State<ActivityHistory> {
     super.initState();
   }
 
+  Future reload() {
+    return _fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -77,88 +82,93 @@ class _ActivityHistoryState extends State<ActivityHistory> {
           ? const Loading()
           : Scaffold(
               backgroundColor: AppColors.lightGrey,
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 52.h,
-                      ),
-                      Stack(alignment: Alignment.centerLeft, children: <Widget>[
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Lịch sử hoạt động",
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                        ),
-                      ]),
-                      ListFilter(
-                        onSelectedFilter: _onSelectedFilter,
-                      ),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: _listFiltered.length,
-                        itemBuilder: (context, index) {
-                          var item = _listFiltered[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(PageTransition(
-                                    type: PageTransitionType.bottomToTop,
-                                    duration: const Duration(milliseconds: 350),
-                                    childCurrent: widget,
-                                    child: BookingDetail(
-                                      data: item,
-                                    )));
-                              },
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10)),
-                                ),
-                                child: ActivityChip(
-                                  carInfo:
-                                      '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                  date: item.date.toString(),
-                                  daysLeft: item.daysLeft,
-                                  isBooking: item.isBooking,
-                                  item: item,
+              body: RefreshIndicator(
+                onRefresh: reload,
+                child: ListView(children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                            alignment: Alignment.centerLeft,
+                            children: <Widget>[
+                              IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  color: AppColors.blackTextColor,
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      )
-                    ],
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Lịch sử hoạt động",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                ),
+                              ),
+                            ]),
+                        ListFilter(
+                          onSelectedFilter: _onSelectedFilter,
+                        ),
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: _listFiltered.length,
+                          itemBuilder: (context, index) {
+                            var item = _listFiltered[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration:
+                                          const Duration(milliseconds: 350),
+                                      childCurrent: widget,
+                                      child: item.isBooking
+                                          ? BookingDetail(
+                                              data: item,
+                                            )
+                                          : const ServiceActivityDetail()));
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(10)),
+                                  ),
+                                  child: ActivityChip(
+                                    carInfo:
+                                        '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                    date: item.date.toString(),
+                                    daysLeft: item.daysLeft,
+                                    isBooking: item.isBooking,
+                                    item: item,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        )
+                      ],
+                    ),
                   ),
-                ),
+                ]),
               ),
             ),
     );

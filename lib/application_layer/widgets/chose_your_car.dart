@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
@@ -25,6 +26,7 @@ class ChoseYourCar extends StatefulWidget {
 class _ChoseYourCarState extends State<ChoseYourCar> {
   List<CarResponseModel> _listCar = [];
   late int _selectedCar;
+  bool _loading = true;
 
   @override
   void initState() {
@@ -40,6 +42,7 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
     if (!mounted) return;
     setState(() {
       _listCar = listCar;
+      _loading = false;
     });
   }
 
@@ -64,6 +67,11 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
     widget.onCallBack(selectedCar);
   }
 
+  Future refresh() {
+    _selectedCar = widget.selectedCar;
+    return _getUserCar();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,7 +79,7 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
       child: Container(
         height: 400.h,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.lightGrey,
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
           boxShadow: [
@@ -130,20 +138,25 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
                 ),
                 SizedBox(
                   height: 300.h,
-                  child: ListView.builder(
-                    itemCount: _listCar.length,
-                    itemBuilder: (context, index) => Column(
-                      children: [
-                        CarChip(
-                          car: _listCar[index],
-                          selectedCar: _selectedCar,
-                          onSelected: _onCarSelected,
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                      ],
-                    ),
+                  child: RefreshIndicator(
+                    onRefresh: refresh,
+                    child: _loading
+                        ? const Loading()
+                        : ListView.builder(
+                            itemCount: _listCar.length,
+                            itemBuilder: (context, index) => Column(
+                              children: [
+                                CarChip(
+                                  car: _listCar[index],
+                                  selectedCar: _selectedCar,
+                                  onSelected: _onCarSelected,
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                              ],
+                            ),
+                          ),
                   ),
                 ),
               ]),
@@ -183,21 +196,13 @@ class _CarChipState extends State<CarChip> {
         widget.onSelected(widget.car.id);
       },
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: const Offset(0, 1), // changes position of shadow
-            ),
-          ],
         ),
         child: ListTile(
           leading: Image.asset(

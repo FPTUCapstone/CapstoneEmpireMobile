@@ -1,7 +1,5 @@
-import 'package:empiregarage_mobile/application_layer/screens/activities/service_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 
@@ -23,11 +21,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
             backgroundColor: Colors.white,
             leading: IconButton(
               onPressed: () {
-                Navigator.of(context).push(PageTransition(
-                    type: PageTransitionType.topToBottomJoined,
-                    childCurrent: widget,
-                    duration: const Duration(milliseconds: 350),
-                    child: const ServiceHistory()));
+                Navigator.of(context).pop();
               },
               icon: const Icon(
                 Icons.keyboard_arrow_down_sharp,
