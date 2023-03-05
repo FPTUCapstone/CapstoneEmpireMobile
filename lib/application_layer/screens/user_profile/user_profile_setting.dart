@@ -48,21 +48,19 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Padding(
-            padding: const EdgeInsets.all(24),
-            child: SizedBox(
-              height: 40.h,
-              width: 108.w,
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (BuildContext context) => const MainPage()));
-                },
-                child: Image.asset(
-                  "assets/image/app-logo/homepage-icon.png",
-                  fit: BoxFit.fill,
-                ),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          title: SizedBox(
+            height: 40.h,
+            width: 108.w,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => const MainPage()));
+              },
+              child: Image.asset(
+                "assets/image/app-logo/homepage-icon.png",
+                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -111,40 +109,39 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                height: 57.h,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: _loading
-                          ? Container()
-                          : Text(
-                              _user!.fullname,
-                              style: TextStyle(
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'SFProDisplay',
-                                  color: AppColors.blackTextColor),
-                            ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: _loading
-                          ? Container()
-                          : Text(
-                              _user!.phone.toString(),
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'SFProDisplay',
-                                  color: AppColors.blackTextColor),
-                            ),
-                    ),
-                  ],
-                ),
+            Padding(
+              padding: EdgeInsets.only(top: 8.h),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: _loading
+                        ? Container()
+                        : Text(
+                            _user!.fullname,
+                            style: TextStyle(
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'SFProDisplay',
+                                color: AppColors.blackTextColor),
+                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: _loading
+                        ? Container()
+                        : Text(
+                            _user!.phone.toString(),
+                            style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'SFProDisplay',
+                                color: AppColors.blackTextColor),
+                          ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
