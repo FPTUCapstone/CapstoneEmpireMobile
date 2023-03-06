@@ -1,4 +1,3 @@
-import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -90,11 +89,7 @@ class BookingFailed extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const MainPage(),
-                            ));
+                            Navigator.of(context).pop();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,
@@ -104,7 +99,7 @@ class BookingFailed extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            'Trở về trang chính',
+                            'Thử lại',
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 14.sp,

@@ -76,49 +76,57 @@ class _HomePageState extends State<Activities> {
           ? const Loading()
           : Scaffold(
               backgroundColor: AppColors.lightGrey,
-              appBar: AppBar(
-                titleSpacing: 24.w,
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                title: Text('Hoạt động',
-                    style: AppStyles.header600(fontsize: 22.sp)),
-                actions: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 24.w),
-                      child: ElevatedButton.icon(
-                        icon: Icon(Icons.refresh, size: 18.sp),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const ActivityHistory(),
-                          ));
-                        },
-                        style: ButtonStyle(
-                          shadowColor:
-                              getColor(Colors.transparent, Colors.transparent),
-                          foregroundColor: getColor(AppColors.blackTextColor,
-                              AppColors.whiteButtonColor),
-                          backgroundColor: getColor(
-                              AppColors.blue100, AppColors.buttonColor),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(100),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 20.h),
+                  child: AppBar(
+                    titleSpacing: 24.w,
+                    toolbarHeight: 100.h,
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    title: Text('Hoạt động',
+                        style: AppStyles.header600(fontsize: 22.sp)),
+                    actions: [
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 24.w),
+                          child: ElevatedButton.icon(
+                            icon: Icon(Icons.refresh, size: 18.sp),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    const ActivityHistory(),
+                              ));
+                            },
+                            style: ButtonStyle(
+                              shadowColor: getColor(
+                                  Colors.transparent, Colors.transparent),
+                              foregroundColor: getColor(
+                                  AppColors.blackTextColor,
+                                  AppColors.whiteButtonColor),
+                              backgroundColor: getColor(
+                                  AppColors.blue100, AppColors.buttonColor),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          )),
+                                borderRadius: BorderRadius.circular(40),
+                              )),
+                            ),
+                            label: Text(
+                              'Lịch sử',
+                              style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'SFProDisplay',
+                                  color: AppColors.blackTextColor),
+                            ),
+                          ),
                         ),
-                        label: Text(
-                          'Lịch sử',
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'SFProDisplay',
-                              color: AppColors.blackTextColor),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+                      )
+                    ],
+                  ),
+                ),
               ),
               body: SafeArea(
                 child: RefreshIndicator(
@@ -128,7 +136,7 @@ class _HomePageState extends State<Activities> {
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: ConstrainedBox(
                         constraints: BoxConstraints.expand(
-                            height: 95.h * _length + 100.h),
+                            height: 110.h * _length + 30.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -322,85 +330,88 @@ class _ActivityChipState extends State<ActivityChip> {
   Widget build(BuildContext context) {
     var item = widget.item;
     bool isComplete = item.isArrived == true || item.status == 2;
-    return ListTile(
-      leading: Image.asset(
-        widget.isBooking
-            ? "assets/image/icon-logo/calendar-history-icon.png"
-            : "assets/image/icon-logo/homeservice-logo-maintanace.png",
-        height: 50.h,
-        width: 50.w,
-      ),
-      title: Text(
-        isComplete
-            ? "Hoàn Thành"
-            : item.isBooking
-                ? item.isActive == false
-                    ? "Đã hủy"
-                    : item.daysLeft == 0
-                        ? "Hôm nay"
-                        : "Còn lại ${widget.daysLeft} ngày"
-                : _getStatus(item.status as int),
-        style: TextStyle(
-          fontFamily: 'SFProDisplay',
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w700,
-          color: isComplete
-              ? AppColors.greenTextColor
-              : item.isActive == false
-                  ? AppColors.errorIcon
-                  : AppColors.blueTextColor,
+    return Padding(
+      padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
+      child: ListTile(
+        leading: Image.asset(
+          widget.isBooking
+              ? "assets/image/icon-logo/calendar-history-icon.png"
+              : "assets/image/icon-logo/homeservice-logo-maintanace.png",
+          height: 50.h,
+          width: 50.w,
         ),
-      ),
-      subtitle: Align(
-        alignment: Alignment.topLeft,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              widget.isBooking ? "Đặt lịch cho" : "Dịch vụ cho",
-              style: TextStyle(
-                fontFamily: 'SFProDisplay',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: AppColors.blackTextColor,
-              ),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              widget.carInfo,
-              style: TextStyle(
-                fontFamily: 'SFProDisplay',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.blackTextColor,
-              ),
-            ),
-            widget.date != "null"
-                ? SizedBox(
-                    height: 5.h,
-                  )
-                : Container(),
-            widget.date != "null"
-                ? Text(
-                    widget.date.substring(0, widget.date.length - 13),
-                    style: TextStyle(
-                      fontFamily: 'SFProDisplay',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.lightTextColor,
-                    ),
-                    textAlign: TextAlign.start,
-                  )
-                : Container(),
-          ],
+        title: Text(
+          isComplete
+              ? "Hoàn Thành"
+              : item.isBooking
+                  ? item.isActive == false
+                      ? "Đã hủy"
+                      : item.daysLeft == 0
+                          ? "Hôm nay"
+                          : "Còn lại ${widget.daysLeft} ngày"
+                  : _getStatus(item.status as int),
+          style: TextStyle(
+            fontFamily: 'SFProDisplay',
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w700,
+            color: isComplete
+                ? AppColors.greenTextColor
+                : item.isActive == false
+                    ? AppColors.errorIcon
+                    : AppColors.blueTextColor,
+          ),
         ),
+        subtitle: Align(
+          alignment: Alignment.topLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                widget.isBooking ? "Đặt lịch cho" : "Dịch vụ cho",
+                style: TextStyle(
+                  fontFamily: 'SFProDisplay',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                widget.carInfo,
+                style: TextStyle(
+                  fontFamily: 'SFProDisplay',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+              widget.date != "null"
+                  ? SizedBox(
+                      height: 5.h,
+                    )
+                  : Container(),
+              widget.date != "null"
+                  ? Text(
+                      widget.date.substring(0, widget.date.length - 13),
+                      style: TextStyle(
+                        fontFamily: 'SFProDisplay',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.lightTextColor,
+                      ),
+                      textAlign: TextAlign.start,
+                    )
+                  : Container(),
+            ],
+          ),
+        ),
+        isThreeLine: true,
       ),
-      isThreeLine: true,
     );
   }
 }

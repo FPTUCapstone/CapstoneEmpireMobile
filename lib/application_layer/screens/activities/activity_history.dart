@@ -220,8 +220,8 @@ class _ListFilterState extends State<ListFilter> {
               } else {
                 _selectedFilters.remove(option);
               }
-              widget.onSelectedFilter(_selectedFilters);
             });
+            widget.onSelectedFilter(_selectedFilters);
           },
         );
       }).toList(),
