@@ -1,5 +1,5 @@
+import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
-import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/notification/notification.dart';
 import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
@@ -240,7 +240,7 @@ class _HomePageState extends State<HomePage> {
                                             ? BookingDetail(
                                                 data: item,
                                               )
-                                            : const ServiceActivityDetail()));
+                                            : const OnGoingService()));
                                   },
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(

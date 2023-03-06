@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
@@ -138,7 +139,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                           ? BookingDetail(
                                               data: item,
                                             )
-                                          : const ServiceActivityDetail()));
+                                          : const OnGoingService()));
                                 },
                                 child: Container(
                                   decoration: const BoxDecoration(

@@ -1,4 +1,4 @@
-import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
+import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
@@ -193,7 +193,7 @@ class _HomePageState extends State<Activities> {
                                                           ? BookingDetail(
                                                               data: item,
                                                             )
-                                                          : const ServiceActivityDetail()));
+                                                          : const OnGoingService()));
                                             },
                                             child: ActivityChip(
                                               carInfo:
@@ -259,7 +259,7 @@ class _HomePageState extends State<Activities> {
                                                           ? BookingDetail(
                                                               data: item,
                                                             )
-                                                          : const ServiceActivityDetail()));
+                                                          : const OnGoingService()));
                                             },
                                             child: ActivityChip(
                                               carInfo:
