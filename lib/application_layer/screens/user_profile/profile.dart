@@ -392,6 +392,7 @@ class _UserProfileState extends State<UserProfile> {
                           children: [
                             Expanded(
                               child: TextField(
+                                enabled: false,
                                 controller: _phoneNumber,
                                 keyboardType: TextInputType.phone,
                                 decoration: InputDecoration(
