@@ -78,7 +78,7 @@ class CategoryResponseModel {
           json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
       updatedAt:
           json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-      isActived: json['isActived'][0],
+      isActived: json['isActived'][0] as bool,
       groupServiceId: json['groupServiceId'],
       groupService: GroupServiceResponseModel.fromJson(json['groupService']),
     );
@@ -89,25 +89,15 @@ class GroupServiceResponseModel {
   GroupServiceResponseModel(
       {required this.id,
       this.name,
-      this.createdAt,
-      this.updatedAt,
-      this.isActived});
+d});
 
   int id;
   String? name;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  bool? isActived;
 
   factory GroupServiceResponseModel.fromJson(Map<String, dynamic> json) {
     return GroupServiceResponseModel(
       id: json['id'],
       name: json['name'] ?? "null",
-      createdAt:
-          json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
-      updatedAt:
-          json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-      isActived: json['isActived'][0],
     );
   }
 }

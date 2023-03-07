@@ -240,7 +240,7 @@ class _HomePageState extends State<HomePage> {
                                             ? BookingDetail(
                                                 data: item,
                                               )
-                                            : const OnGoingService()));
+                                            : OnGoingService(servicesId: item.id,)));
                                   },
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(

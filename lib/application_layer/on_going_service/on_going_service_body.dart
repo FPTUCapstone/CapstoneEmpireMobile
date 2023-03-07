@@ -1,10 +1,12 @@
+import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/colors.dart';
 
 class OnGoingServiceBody extends StatefulWidget {
-  const OnGoingServiceBody({super.key});
+  final OrderServicesResponseModel order;
+  const OnGoingServiceBody({super.key, required this.order});
 
   @override
   State<OnGoingServiceBody> createState() => _OnGoingServiceBodyState();
@@ -48,7 +50,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                     width: 50.w,
                   ),
                   title: Text(
-                    "Tran Van A",
+                    "Nguyễn Văn A",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 12.sp,
@@ -62,7 +64,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Ky thuat vien",
+                          "Kỹ thuật viên",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 14.sp,
@@ -84,7 +86,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                     width: 50.w,
                   ),
                   title: Text(
-                    "Name",
+                    widget.order.car.carBrand,
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 12.sp,
@@ -97,8 +99,11 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: 5.h,
+                        ),
                         Text(
-                          "Model",
+                          widget.order.car.carLisenceNo,
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 14.sp,
@@ -110,7 +115,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                           height: 5.h,
                         ),
                         Text(
-                          "Brand",
+                          widget.order.car.carModel,
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 12.sp,

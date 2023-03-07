@@ -183,7 +183,7 @@ class _HomePageState extends State<Activities> {
                                                     ? BookingDetail(
                                                         data: item,
                                                       )
-                                                    : const OnGoingService()));
+                                                    :  OnGoingService(servicesId: item.id,)));
                                       },
                                       child: ActivityChip(
                                         carInfo:
@@ -248,7 +248,7 @@ class _HomePageState extends State<Activities> {
                                                     ? BookingDetail(
                                                         data: item,
                                                       )
-                                                    : const OnGoingService()));
+                                                    :  OnGoingService(servicesId: item.id,)));
                                       },
                                       child: SizedBox(
                                         height: 90.h,

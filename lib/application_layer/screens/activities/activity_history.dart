@@ -138,7 +138,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                           ? BookingDetail(
                                               data: item,
                                             )
-                                          : const OnGoingService()));
+                                          :  OnGoingService(servicesId: item.id,)));
                                 },
                                 child: Container(
                                   decoration: const BoxDecoration(

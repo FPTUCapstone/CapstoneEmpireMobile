@@ -6,7 +6,8 @@ import '../../common/colors.dart';
 import '../widgets/chose_payment_method.dart';
 
 class OnGoingPaymentService extends StatefulWidget {
-  const OnGoingPaymentService({super.key});
+  final Function onGoingPaymentCallBack;
+  const OnGoingPaymentService({super.key, required this.onGoingPaymentCallBack});
 
   @override
   State<OnGoingPaymentService> createState() => _OnGoingPaymentServiceState();
@@ -494,7 +495,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 height: 52.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    //TODO
+                    widget.onGoingPaymentCallBack();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.grey600,
