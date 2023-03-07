@@ -220,7 +220,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: SizedBox(
-                        height: 112.h * _listOngoingActivity.length,
+                        height: 102.h * _listOngoingActivity.length,
                         child: Center(
                           child: ListView.builder(
                             itemCount: _listOngoingActivity.length,
@@ -248,20 +248,23 @@ class _HomePageState extends State<HomePage> {
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 0.9,
+                                            spreadRadius: 1.h,
                                             blurRadius: 1.2,
-                                            offset: const Offset(0, 4),
+                                            offset: Offset(0, 4.h),
                                           )
                                         ],
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(16))),
-                                    child: ActivityChip(
-                                      carInfo:
-                                          '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                      date: item.date.toString(),
-                                      daysLeft: item.daysLeft,
-                                      isBooking: item.isBooking,
-                                      item: item,
+                                    child: SizedBox(
+                                      height: 90.h,
+                                      child: ActivityChip(
+                                        carInfo:
+                                            '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                        date: item.date.toString(),
+                                        daysLeft: item.daysLeft,
+                                        isBooking: item.isBooking,
+                                        item: item,
+                                      ),
                                     ),
                                   ),
                                 ),

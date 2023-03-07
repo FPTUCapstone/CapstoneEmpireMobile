@@ -49,6 +49,7 @@ dependencies:
   http: ^0.13.5
   page_transition: ^2.0.9
   easy_stepper: ^0.3.2
+  lottie: ^2.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -89,6 +90,7 @@ flutter:
      - assets/image/service-picture/
      - assets/image/user-pic/
      - assets/image/error-image/
+     - assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

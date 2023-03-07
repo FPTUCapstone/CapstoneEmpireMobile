@@ -8,10 +8,12 @@ class Orders extends StatefulWidget {
 }
 
 class _HomePageState extends State<Orders> {
+  // ignore: prefer_typing_uninitialized_variables
+  var error;
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Text("Orders nè"),
+    return SafeArea(
+      child: Text(error),
     );
   }
 }

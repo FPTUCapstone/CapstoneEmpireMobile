@@ -24,8 +24,6 @@ class _HomePageState extends State<Activities> {
   List<ActivityResponseModel?> _listOnGoing = [];
   List<ActivityResponseModel?> _listRecent = [];
 
-  int _length = 1;
-
   MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
     getColor(Set<MaterialState> states) {
       if (states.contains(MaterialState.pressed)) {
@@ -48,7 +46,6 @@ class _HomePageState extends State<Activities> {
     var listActivity = await ActivityService().fetchActivity(userId);
     if (!mounted) return;
     setState(() {
-      _length = listActivity.length;
       _listOnGoing =
           listActivity.where((element) => element!.isOnGoing == true).toList();
       _listOnGoing.sort(((a, b) => a!.daysLeft!.compareTo(b!.daysLeft as num)));
@@ -131,154 +128,146 @@ class _HomePageState extends State<Activities> {
               body: SafeArea(
                 child: RefreshIndicator(
                   onRefresh: reload,
-                  child: ListView(children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints.expand(
-                            height: 110.h * _length + 30.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            _listOnGoing.isEmpty
-                                ? Container()
-                                : Text(
-                                    "Đang hoạt động",
-                                    style: TextStyle(
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.blackTextColor,
-                                        fontFamily: 'SFProDisplay'),
-                                  ),
-                            _listOnGoing.isEmpty
-                                ? Container()
-                                : SizedBox(
-                                    height: 10.h,
-                                  ),
-                            _listOnGoing.isEmpty
-                                ? Container()
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const ScrollPhysics(
-                                        parent: NeverScrollableScrollPhysics()),
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: _listOnGoing.length,
-                                    itemBuilder: (context, index) {
-                                      var item = _listOnGoing[index];
-                                      return Padding(
-                                        padding: const EdgeInsets.only(top: 15),
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10),
-                                                bottomLeft: Radius.circular(10),
-                                                bottomRight:
-                                                    Radius.circular(10)),
-                                          ),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.of(context).push(
-                                                  PageTransition(
-                                                      type: PageTransitionType
-                                                          .bottomToTop,
-                                                      duration: const Duration(
-                                                          milliseconds: 350),
-                                                      childCurrent: widget,
-                                                      child: item.isBooking
-                                                          ? BookingDetail(
-                                                              data: item,
-                                                            )
-                                                          : const OnGoingService()));
-                                            },
-                                            child: ActivityChip(
-                                              carInfo:
-                                                  '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                              date: item.date.toString(),
-                                              daysLeft: item.daysLeft,
-                                              isBooking: item.isBooking,
-                                              item: item,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                            _listOnGoing.isEmpty
-                                ? Container()
-                                : SizedBox(
-                                    height: 15.h,
-                                  ),
-                            Text(
-                              "Gần đây",
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: ListView(children: [
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      _listOnGoing.isEmpty
+                          ? Container()
+                          : Text(
+                              "Đang hoạt động",
                               style: TextStyle(
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.blackTextColor,
                                   fontFamily: 'SFProDisplay'),
                             ),
-                            _listRecent.isEmpty
-                                ? Text(
-                                    'Chưa có hoạt động nào',
-                                    style: AppStyles.text400(fontsize: 15.sp),
-                                  )
-                                : ListView.builder(
-                                    physics: const ScrollPhysics(
-                                        parent: NeverScrollableScrollPhysics()),
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: _listRecent.length,
-                                    itemBuilder: (context, index) {
-                                      var item = _listRecent[index];
-                                      return Padding(
-                                        padding: const EdgeInsets.only(top: 15),
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10),
-                                                bottomLeft: Radius.circular(10),
-                                                bottomRight:
-                                                    Radius.circular(10)),
-                                          ),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.of(context).push(
-                                                  PageTransition(
-                                                      type: PageTransitionType
-                                                          .bottomToTop,
-                                                      duration: const Duration(
-                                                          milliseconds: 350),
-                                                      childCurrent: widget,
-                                                      child: item.isBooking
-                                                          ? BookingDetail(
-                                                              data: item,
-                                                            )
-                                                          : const OnGoingService()));
-                                            },
-                                            child: ActivityChip(
-                                              carInfo:
-                                                  '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                              date: item.date.toString(),
-                                              daysLeft: item.daysLeft,
-                                              isBooking: item.isBooking,
-                                              item: item,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
+                      _listOnGoing.isEmpty
+                          ? Container()
+                          : SizedBox(
+                              height: 10.h,
+                            ),
+                      _listOnGoing.isEmpty
+                          ? Container()
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ScrollPhysics(
+                                  parent: NeverScrollableScrollPhysics()),
+                              scrollDirection: Axis.vertical,
+                              itemCount: _listOnGoing.length,
+                              itemBuilder: (context, index) {
+                                var item = _listOnGoing[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10)),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            PageTransition(
+                                                type: PageTransitionType
+                                                    .bottomToTop,
+                                                duration: const Duration(
+                                                    milliseconds: 350),
+                                                childCurrent: widget,
+                                                child: item.isBooking
+                                                    ? BookingDetail(
+                                                        data: item,
+                                                      )
+                                                    : const OnGoingService()));
+                                      },
+                                      child: ActivityChip(
+                                        carInfo:
+                                            '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                        date: item.date.toString(),
+                                        daysLeft: item.daysLeft,
+                                        isBooking: item.isBooking,
+                                        item: item,
+                                      ),
+                                    ),
                                   ),
-                          ],
-                        ),
+                                );
+                              },
+                            ),
+                      _listOnGoing.isEmpty
+                          ? Container()
+                          : SizedBox(
+                              height: 15.h,
+                            ),
+                      Text(
+                        "Gần đây",
+                        style: TextStyle(
+                            fontSize: 18.h,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
+                            fontFamily: 'SFProDisplay'),
                       ),
-                    ),
-                  ]),
+                      _listRecent.isEmpty
+                          ? Text(
+                              'Chưa có hoạt động nào',
+                              style: AppStyles.text400(fontsize: 15.h),
+                            )
+                          : ListView.builder(
+                              physics: const ScrollPhysics(
+                                  parent: NeverScrollableScrollPhysics()),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: _listRecent.length,
+                              itemBuilder: (context, index) {
+                                var item = _listRecent[index];
+                                return Padding(
+                                  padding: EdgeInsets.only(top: 15.h),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10)),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            PageTransition(
+                                                type: PageTransitionType
+                                                    .bottomToTop,
+                                                duration: const Duration(
+                                                    milliseconds: 350),
+                                                childCurrent: widget,
+                                                child: item.isBooking
+                                                    ? BookingDetail(
+                                                        data: item,
+                                                      )
+                                                    : const OnGoingService()));
+                                      },
+                                      child: SizedBox(
+                                        height: 90.h,
+                                        child: ActivityChip(
+                                          carInfo:
+                                              '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                          date: item.date.toString(),
+                                          daysLeft: item.daysLeft,
+                                          isBooking: item.isBooking,
+                                          item: item,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                    ]),
+                  ),
                 ),
               ),
             ),
@@ -361,56 +350,50 @@ class _ActivityChipState extends State<ActivityChip> {
                     : AppColors.blueTextColor,
           ),
         ),
-        subtitle: Align(
-          alignment: Alignment.topLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              widget.isBooking ? "Đặt lịch cho" : "Dịch vụ cho",
+              style: TextStyle(
+                fontFamily: 'SFProDisplay',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.blackTextColor,
+              ),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              widget.carInfo,
+              style: TextStyle(
+                fontFamily: 'SFProDisplay',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.blackTextColor,
+              ),
+            ),
+            if (widget.date != "null")
               SizedBox(
                 height: 5.h,
               ),
+            if (widget.date != "null")
               Text(
-                widget.isBooking ? "Đặt lịch cho" : "Dịch vụ cho",
+                widget.date.substring(0, widget.date.length - 13),
                 style: TextStyle(
                   fontFamily: 'SFProDisplay',
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.blackTextColor,
+                  color: AppColors.lightTextColor,
                 ),
+                textAlign: TextAlign.start,
               ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                widget.carInfo,
-                style: TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blackTextColor,
-                ),
-              ),
-              widget.date != "null"
-                  ? SizedBox(
-                      height: 5.h,
-                    )
-                  : Container(),
-              widget.date != "null"
-                  ? Text(
-                      widget.date.substring(0, widget.date.length - 13),
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.lightTextColor,
-                      ),
-                      textAlign: TextAlign.start,
-                    )
-                  : Container(),
-            ],
-          ),
+          ],
         ),
-        isThreeLine: true,
       ),
     );
   }
