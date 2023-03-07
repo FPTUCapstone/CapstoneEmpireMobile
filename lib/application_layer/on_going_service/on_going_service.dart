@@ -12,6 +12,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../common/colors.dart';
 import '../../models/response/orderservices.dart';
 
+class Status {
+  final int id;
+  final String text;
+
+  Status(this.id, this.text);
+}
+
 class OnGoingService extends StatefulWidget {
   final int servicesId;
   const OnGoingService({
@@ -84,6 +91,19 @@ class _OnGoingServiceState extends State<OnGoingService> {
     });
   }
 
+  List<Status> statuses = [
+    Status(0, "Đang phân tích"),
+    Status(1, "Xác nhận & thanh toán"),
+    Status(2, "Đang thực hiện"),
+    Status(3, "Đợi lấy xe"),
+    Status(4, "Hoàn thành"),
+    Status(-1, "Đã hủy"),
+  ];
+
+  _getStatus(int id) {
+    return statuses.where((element) => element.id == id).first.text;
+  }
+
   @override
   Widget build(BuildContext context) {
     return _loading
@@ -101,7 +121,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
                 ),
               ),
               title: Text(
-                "Đang kiểm tra",
+                _getStatus(_response!.status),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'SFProDisplay',

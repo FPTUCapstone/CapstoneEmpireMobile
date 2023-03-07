@@ -1,7 +1,5 @@
-import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
-import 'package:empiregarage_mobile/models/request/update_user_request_model.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/foundation.dart';
@@ -43,6 +41,7 @@ class _UserProfileState extends State<UserProfile> {
     _user = await UserService().getUserById(widget.userId);
     if (!mounted) return;
     setState(() {
+      if (_user!.gender == null) _user!.gender = true;
       _loading = true;
     });
   }
@@ -438,19 +437,19 @@ class _UserProfileState extends State<UserProfile> {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  UpdateUserRequestModel model =
-                                      UpdateUserRequestModel(
-                                          id: _user!.id,
-                                          fullname: _user!.fullname,
-                                          phone: _user!.phone.toString(),
-                                          roleId: _user!.roleId.toString(),
-                                          gender: _user!.gender as bool);
-                                  var response =
-                                      await UserService().updateUser(model);
-                                  if (response == null ||
-                                      response.statusCode != 204) {
-                                    log("error when update user");
-                                  } else {
+                                  // UpdateUserRequestModel model =
+                                  //     UpdateUserRequestModel(
+                                  //         id: _user!.id,
+                                  //         fullname: _user!.fullname,
+                                  //         phone: _user!.phone.toString(),
+                                  //         roleId: _user!.roleId.toString(),
+                                  //         gender: _user!.gender as bool);
+                                  // var response =
+                                  //     await UserService().updateUser(model);
+                                  // if (response == null ||
+                                  //     response.statusCode != 204) {
+                                  //   log("error when update user");
+                                  // } else {
                                     // ignore: use_build_context_synchronously
                                     Navigator.pushAndRemoveUntil(
                                         context,
@@ -459,7 +458,7 @@ class _UserProfileState extends State<UserProfile> {
                                               const MainPage(),
                                         ),
                                         (route) => false);
-                                  }
+                                  // }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.buttonColor,

@@ -33,6 +33,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   }
 
   _onSelectTab(selectedTab) {
+    if (widget.activeStep < selectedTab) return;
     widget.callBack(selectedTab);
   }
 
@@ -57,7 +58,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                '${widget.order.car.carBrand} ${widget.order.car.carModel}',
+                '${widget.order.car.carBrand} ${widget.order.car.carModel} ',
                 style: TextStyle(
                   fontFamily: 'SFProDisplay',
                   fontSize: 12.sp,
