@@ -42,6 +42,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
   int _selectedTab = 0;
   List<dynamic> _tabs = [];
 
+
   _getOrderServices() async {
     var orderResponseModel =
         await OrderServices().getOrderServicesById(widget.servicesId);
@@ -52,7 +53,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
       OnGoingServiceBody(order: orderResponseModel),
       OnGoingServiceBody(order: orderResponseModel),
       RecommendChoseService(
-        onRecommendChoseServicecallBack: _onRecommendChoseServicecallBack,
+        onRecommendChoseServicecallBack: _onRecommendChoseServicecallBack, servicesId: widget.servicesId,
       ),
       const OnDoingService(),
       const OnDoingService()
@@ -79,14 +80,14 @@ class _OnGoingServiceState extends State<OnGoingService> {
   _onRecommendChoseServicecallBack() {
     setState(() {
       _tabs[2] = OnGoingPaymentService(
-          onGoingPaymentCallBack: _onGoingPaymentCallBack);
+          onGoingPaymentCallBack: _onGoingPaymentCallBack, servicesId: widget.servicesId,);
     });
   }
 
   _onGoingPaymentCallBack() {
     setState(() {
       _tabs[2] = RecommendChoseService(
-        onRecommendChoseServicecallBack: _onRecommendChoseServicecallBack,
+        onRecommendChoseServicecallBack: _onRecommendChoseServicecallBack, servicesId: widget.servicesId,
       );
     });
   }

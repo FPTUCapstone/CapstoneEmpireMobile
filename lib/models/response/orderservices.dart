@@ -2,17 +2,17 @@ class OrderServicesResponseModel {
   int id;
   int status;
   Car car;
-  // HealthCarRecord? healthCarRecord;
+  HealthCarRecord? healthCarRecord;
   Order order;
-  // List<OrderServiceDetails>? orderServiceDetails;
+  List<OrderServiceDetails>? orderServiceDetails;
 
   OrderServicesResponseModel({
     required this.id,
     required this.status,
     required this.car,
-    // required this.healthCarRecord,
+    required this.healthCarRecord,
     required this.order,
-    // required this.orderServiceDetails,
+    required this.orderServiceDetails,
   });
 
   factory OrderServicesResponseModel.fromJson(Map<String, dynamic> json) {
@@ -20,9 +20,9 @@ class OrderServicesResponseModel {
       id: json['id'],
       status: json['status'],
       car: Car.fromJson(json['car']),
-      // healthCarRecord: HealthCarRecord.fromJson(json['healthCarRecord']),
+      healthCarRecord: HealthCarRecord.fromJson(json['healthCarRecord']),
       order: Order.fromJson(json['order']),
-      // orderServiceDetails: List<OrderServiceDetails>.from(json['orderServiceDetails'].map((x) => OrderServiceDetails.fromJson(x))),
+      orderServiceDetails: List<OrderServiceDetails>.from(json['orderServiceDetails'].map((x) => OrderServiceDetails.fromJson(x))),
     );
   }
 }
@@ -140,26 +140,93 @@ class Transaction {
 }
 
 class OrderServiceDetails {
-  int id;
-  int price;
-  bool isConfirmed;
+  int? id;
+  int? price;
+  bool? isConfirmed;
+  Item? item;
 
+  OrderServiceDetails({this.id, this.price, this.isConfirmed, this.item});
 
-  OrderServiceDetails({
-    required this.id,
-    required this.price,
-    required this.isConfirmed,
-    
-  });
+  OrderServiceDetails.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    price = json['price'];
+    isConfirmed = json['isConfirmed'];
+    item = json['item'] != null ? Item.fromJson(json['item']) : null;
+  }
 
-  factory OrderServiceDetails.fromJson(Map<String, dynamic> json) {
-    return OrderServiceDetails(
-      id: json['id'],
-      price: json['price'],
-      isConfirmed: json['isConfirmed'],
-      
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['price'] = price;
+    data['isConfirmed'] = isConfirmed;
+    if (item != null) {
+      data['item'] = item!.toJson();
+    }
+    return data;
   }
 }
 
+class Item {
+  int? id;
+  String? name;
+  String? createdAt;
+  String? updatedAt;
+  String? description;
+  String? photo;
+  Category? category;
+
+  Item(
+      {this.id,
+      this.name,
+      this.createdAt,
+      this.updatedAt,
+      this.description,
+      this.photo,
+      this.category});
+
+  Item.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    description = json['description'];
+    photo = json['photo'];
+    category = json['category'] != null
+        ? Category.fromJson(json['category'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['description'] = description;
+    data['photo'] = photo;
+    if (category != null) {
+      data['category'] = category!.toJson();
+    }
+    return data;
+  }
+}
+
+class Category {
+  int? id;
+  String? name;
+
+  Category({this.id, this.name});
+
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    return data;
+  }
+}
 

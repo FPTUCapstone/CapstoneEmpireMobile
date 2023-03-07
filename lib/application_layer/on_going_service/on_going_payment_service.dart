@@ -3,11 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
+import '../../models/response/orderservices.dart';
+import '../../services/order_services/order_services.dart';
 import '../widgets/chose_payment_method.dart';
 
 class OnGoingPaymentService extends StatefulWidget {
+  final int servicesId;
   final Function onGoingPaymentCallBack;
-  const OnGoingPaymentService({super.key, required this.onGoingPaymentCallBack});
+  const OnGoingPaymentService(
+      {super.key, required this.onGoingPaymentCallBack, required this.servicesId});
 
   @override
   State<OnGoingPaymentService> createState() => _OnGoingPaymentServiceState();
@@ -15,6 +19,9 @@ class OnGoingPaymentService extends StatefulWidget {
 
 class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   int count = 1;
+  int sum = 30000;
+  int sumAfter = 25000;
+  List<OrderServiceDetails> _listOrderServiceDetails = [];
 
   List<String> serviceNames = [
     'Thay lốp',
@@ -31,9 +38,27 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     "200000"
   ];
 
-  int sum = 30000;
+  _getOrderServices() async {
+    var listOrderServiceDetails =
+        await OrderServices().getOrderServicesById(widget.servicesId);
+    List<OrderServiceDetails>? list =
+        listOrderServiceDetails!.orderServiceDetails;
+    try {
+      if (list != null) {
+        setState(() {
+          _listOrderServiceDetails = list;
+        });
+      }
+    } catch (e) {
+      e.toString();
+    }
+  }
 
-  int sumAfter = 25000;
+  @override
+  void initState() {
+    _getOrderServices();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +164,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
               ),
             );
           },
-          itemCount: 3,
+          itemCount: _listOrderServiceDetails.length,
         ),
         SizedBox(
           height: 40.h,

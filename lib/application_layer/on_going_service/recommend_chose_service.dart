@@ -1,3 +1,5 @@
+import 'package:empiregarage_mobile/models/response/orderservices.dart';
+import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
@@ -5,8 +7,12 @@ import 'package:readmore/readmore.dart';
 import '../../common/colors.dart';
 
 class RecommendChoseService extends StatefulWidget {
+  final int servicesId;
   final Function onRecommendChoseServicecallBack;
-  const RecommendChoseService({super.key, required this.onRecommendChoseServicecallBack});
+  const RecommendChoseService(
+      {super.key,
+      required this.onRecommendChoseServicecallBack,
+      required this.servicesId});
 
   @override
   State<RecommendChoseService> createState() => _RecommendChoseServiceState();
@@ -14,6 +20,9 @@ class RecommendChoseService extends StatefulWidget {
 
 class _RecommendChoseServiceState extends State<RecommendChoseService> {
   bool isSelected = true;
+  final int _totalPrice = 0;
+
+  List<OrderServiceDetails> _listOrderServiceDetails = [];
   List<String> serviceNames = [
     'Thay lốp',
     'Thay nhớt',
@@ -29,8 +38,32 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     "200000"
   ];
 
+  _getOrderServices() async {
+    var listOrderServiceDetails =
+        await OrderServices().getOrderServicesById(widget.servicesId);
+    List<OrderServiceDetails>? list =
+        listOrderServiceDetails!.orderServiceDetails;
+    try {
+      if (list != null) {
+        setState(() {
+          _listOrderServiceDetails = list;
+        });
+      }
+    } catch (e) {
+      e.toString();
+    }
+  }
+
+ 
+
   _onContinue() {
     widget.onRecommendChoseServicecallBack();
+  }
+
+  @override
+  void initState() {
+    _getOrderServices();
+    super.initState();
   }
 
   @override
@@ -92,7 +125,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            itemCount: _listOrderServiceDetails.length,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
@@ -114,7 +147,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     ),
                     child: ListTile(
                       title: Text(
-                        serviceNames[index],
+                        _listOrderServiceDetails[index].item!.name.toString(),
                         style: TextStyle(
                           fontFamily: 'SFProDisplay',
                           fontSize: 14.sp,
@@ -124,11 +157,20 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                       ),
                       subtitle: Align(
                         alignment: Alignment.topLeft,
-                        child: Column(
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              servicePrices[index],
+                              "Giá : ",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.lightTextColor,
+                              ),
+                            ),
+                            Text(
+                              _listOrderServiceDetails[index].price!.toString(),
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 12.sp,
@@ -174,7 +216,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
               ),
               const Spacer(),
               Text(
-                "30.000.000",
+                "3.000.000",
                 style: TextStyle(
                   fontFamily: 'SFProDisplay',
                   fontSize: 16.sp,
