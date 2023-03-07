@@ -4,14 +4,14 @@ import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
 
-class RecommendChoseService extends StatefulWidget {
-  const RecommendChoseService({super.key});
+class RemoveRecommendService extends StatefulWidget {
+  const RemoveRecommendService({super.key});
 
   @override
-  State<RecommendChoseService> createState() => _RecommendChoseServiceState();
+  State<RemoveRecommendService> createState() => _RemoveRecommendServiceState();
 }
 
-class _RecommendChoseServiceState extends State<RecommendChoseService> {
+class _RemoveRecommendServiceState extends State<RemoveRecommendService> {
   bool isSelected = true;
   List<String> serviceNames = [
     'Thay lốp',
@@ -92,7 +92,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 5,
+          itemCount: 3,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
@@ -148,6 +148,75 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
           },
         ),
         Container(
+          margin: const EdgeInsets.only(left: 30),
+          width: 375.w,
+          child: Text(
+            "Đã bỏ chọn",
+            style: TextStyle(
+              fontFamily: 'SFProDisplay',
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.blackTextColor,
+            ),
+          ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 2,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                //TODO
+              },
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 16, right: 56, left: 56),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: ListTile(
+                  title: Text(
+                    serviceNames[index],
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.blackTextColor,
+                    ),
+                  ),
+                  subtitle: Align(
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          servicePrices[index],
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  trailing: Column(
+                    children: [
+                      SizedBox(height: 15.h),
+                      const Icon(
+                        Icons.radio_button_unchecked,
+                        color: AppColors.buttonColor,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+        Container(
           margin: const EdgeInsets.only(left: 30, right: 30),
           width: 375.w,
           child: Row(
@@ -163,7 +232,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
               ),
               const Spacer(),
               Text(
-                "30.000.000",
+                "23.000.000",
                 style: TextStyle(
                   fontFamily: 'SFProDisplay',
                   fontSize: 16.sp,
@@ -181,7 +250,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
           width: 335.w,
           height: 52.h,
           child: ElevatedButton(
-            onPressed: (){
+            onPressed: () {
               //TODO
             },
             style: ElevatedButton.styleFrom(
@@ -195,13 +264,15 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
               'Tiếp tục',
               style: TextStyle(
                 fontFamily: 'SFProDisplay',
-                fontSize: 17.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
         ),
-        SizedBox(height: 25.h,),
+        SizedBox(
+          height: 25.h,
+        ),
       ],
     );
   }
