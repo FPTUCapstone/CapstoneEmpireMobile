@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/models/request/update_user_request_model.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 // ignore: depend_on_referenced_packages
 
@@ -21,5 +24,22 @@ class UserService {
       }
       return null;
     }
+  }
+
+  Future<http.Response?> updateUser(UpdateUserRequestModel model) async {
+    http.Response? response;
+    try {
+      response = await makeHttpRequest(
+        '${APIPath.path}/users',
+        method: 'PATCH',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(model.toJson()),
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
   }
 }

@@ -70,15 +70,17 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: <Widget>[
-                Text(
-                  widget.title,
-                  style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                      fontFamily: 'SFProDisplay'),
+                Expanded(
+                  child: Text(
+                    widget.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                        fontFamily: 'SFProDisplay'),
+                  ),
                 ),
-                const Spacer(),
                 Container(
                   decoration: const BoxDecoration(
                       color: AppColors.searchBarColor,

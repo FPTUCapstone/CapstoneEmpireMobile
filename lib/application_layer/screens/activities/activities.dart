@@ -303,10 +303,10 @@ class ActivityChip extends StatefulWidget {
 
 class _ActivityChipState extends State<ActivityChip> {
   List<Status> statuses = [
-    Status(0, "Đang chờ"),
-    Status(1, "Đang kiểm tra"),
-    Status(2, "Đang sửa chữa"),
-    Status(3, "Chờ lấy xe"),
+    Status(0, "Đã check-in"),
+    Status(1, "Đang phân tích"),
+    Status(2, "Xác nhận & thanh toán"),
+    Status(3, "Đang thực hiện"),
     Status(4, "Hoàn thành"),
     Status(-1, "Đã hủy"),
   ];
@@ -377,10 +377,9 @@ class _ActivityChipState extends State<ActivityChip> {
                 color: AppColors.blackTextColor,
               ),
             ),
-            if (widget.date != "null")
-              SizedBox(
-                height: 5.h,
-              ),
+            SizedBox(
+              height: 5.h,
+            ),
             if (widget.date != "null")
               Text(
                 widget.date.substring(0, widget.date.length - 13),
