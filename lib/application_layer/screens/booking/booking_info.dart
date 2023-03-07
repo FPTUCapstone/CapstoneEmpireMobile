@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
+import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/booking_fail.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/notification.dart';
@@ -11,6 +12,7 @@ import 'package:empiregarage_mobile/services/notification/notification_service.d
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 import '../../widgets/booking_successfull.dart';
@@ -124,6 +126,33 @@ class _BookingInfoState extends State<BookingInfo> {
             ))
           : Scaffold(
               backgroundColor: AppColors.lightGrey,
+              appBar: AppBar(
+                centerTitle: true,
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(PageTransition(
+                        type: PageTransitionType.topToBottomPop,
+                        duration: const Duration(milliseconds: 350),
+                        childCurrent: widget,
+                        child: const MainPage()));
+                  },
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    size: 32,
+                    color: AppColors.lightTextColor,
+                  ),
+                ),
+                title: Text(
+                  "Đặt lịch",
+                  style: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.blackTextColor,
+                  ),
+                ),
+              ),
               body: RefreshIndicator(
                 onRefresh: refresh,
                 child: SingleChildScrollView(
@@ -133,34 +162,6 @@ class _BookingInfoState extends State<BookingInfo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Stack(
-                            alignment: Alignment.centerLeft,
-                            children: <Widget>[
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Đặt lịch",
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
-                                  ),
-                                ),
-                              ),
-                            ]),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -314,6 +315,15 @@ class _BookingInfoState extends State<BookingInfo> {
                                   )
                                 : const SizedBox()
                           ],
+                        ),
+                        Text(
+                          "Phương tiện được chọn",
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
+                          ),
                         ),
                         _listCar.isEmpty
                             ? Padding(
@@ -488,6 +498,16 @@ class _BookingInfoState extends State<BookingInfo> {
                             ),
                           ],
                         ),
+                        Text(
+                          "Phương thức được chọn",
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
+                          ),
+                        ),
+                        SizedBox(height: 20.h,),
                         InkWell(
                           onTap: () {
                             showModalBottomSheet(
@@ -641,7 +661,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           ],
                         ),
                         SizedBox(
-                          height: 20.h,
+                          height: 36.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -703,7 +723,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           ],
                         ),
                         SizedBox(
-                          height: 10.h,
+                          height: 36.h,
                         ),
                       ],
                     ),

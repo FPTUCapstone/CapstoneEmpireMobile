@@ -97,6 +97,13 @@ class _PickDateBookingState extends State<PickDateBooking> {
                   ),
                   DatePicker(
                     DateTime.now(),
+                    dayTextStyle: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                    locale: "vi_VN",
                     width: 60.w,
                     height: 80.h,
                     controller: _controller,

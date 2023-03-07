@@ -59,7 +59,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
             margin: const EdgeInsets.only(left: 20, right: 20),
             child: TextButton(
               onPressed: () {
-                //TODO
+                widget.onGoingPaymentCallBack();
               },
               child: Text(
                 "Thay đổi",
