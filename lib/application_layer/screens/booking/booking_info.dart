@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
+import '../../widgets/autocomplete_search.dart';
 import '../../widgets/booking_successfull.dart';
 import '../../widgets/chose_payment_method.dart';
 import '../../widgets/chose_your_car.dart';
@@ -33,6 +34,30 @@ class BookingInfo extends StatefulWidget {
 class _BookingInfoState extends State<BookingInfo> {
   late BookingRequestModel requestModel;
 
+  int index = 0;
+
+  // ignore: prefer_final_fields
+  TextEditingController _symptonController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+
+  List<SymptonResponseModel> options = [
+    SymptonResponseModel(
+      id: 1,
+      name: "Thay lốp",
+    ),
+    SymptonResponseModel(
+      id: 2,
+      name: "Thay nhớt",
+      
+    ),
+    SymptonResponseModel(
+      id: 3,
+      name: "Sửa chữa",
+    )
+  ];
+
+  final List<SymptonResponseModel> _listSuggestService = [];
+
   List<SymptonResponseModel> _symptonList = [
     // "Khác"
     // "Xe kêu",
@@ -42,7 +67,21 @@ class _BookingInfoState extends State<BookingInfo> {
     // "Giật ga"
   ];
 
-  final TextEditingController _dateController = TextEditingController();
+  List<String> _getSuggestions(String query) {
+  List<String> matches =[];
+  matches.addAll(_symptonList.where((s) => s.name.toString().toLowerCase().contains(query.toLowerCase())).map((s) => s.name.toString()));
+  return matches;
+}
+
+void _onSuggestionSelected(String suggestion) {
+  setState(() {
+    _symptonController.text = suggestion;
+  });
+}
+
+
+  
+  
   final List<SymptomModel> _listSymptom = [];
   bool _loading = false;
   late int _selectedCar;
@@ -82,6 +121,13 @@ class _BookingInfoState extends State<BookingInfo> {
     });
   }
 
+  void _onCallBackSymptoms(int int) {
+    setState(() {
+      _listSuggestService
+          .add(options.where((element) => element.id == int).first);
+    });
+  }
+
   void _onCallBack(int selectedCar) async {
     setState(() {
       _loading = false;
@@ -100,6 +146,7 @@ class _BookingInfoState extends State<BookingInfo> {
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
+
     _loadingSymptomsList();
     _getUserCar();
     super.initState();
@@ -227,52 +274,11 @@ class _BookingInfoState extends State<BookingInfo> {
                           height: 5.h,
                         ),
                         SizedBox(
-                          height: 55.h,
+                          height: 200.h,
                           child: Row(
-                            children: [
+                            children: <Widget>[
                               Expanded(
-                                child: DropdownButtonFormField(
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.lightTextColor,
-                                  ),
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: AppColors
-                                                .loginScreenBackGround),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                    filled: true,
-                                  ),
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_right,
-                                    color: AppColors.lightTextColor,
-                                  ),
-                                  value: _selectedIndex,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _selectedIndex = value as int;
-                                      _listSymptom.add(SymptomModel(
-                                          id: _selectedIndex as int));
-                                    });
-                                  },
-                                  items: _symptonList.map((e) {
-                                    return DropdownMenuItem(
-                                      value: e.id,
-                                      child: Text(e.name.toString()),
-                                    );
-                                  }).toList(),
-                                ),
+                                  child: SearchableDropdown(options: options, onSelectedItem: _onCallBackSymptoms),
                               ),
                             ],
                           ),
@@ -507,7 +513,9 @@ class _BookingInfoState extends State<BookingInfo> {
                             color: AppColors.lightTextColor,
                           ),
                         ),
-                        SizedBox(height: 20.h,),
+                        SizedBox(
+                          height: 20.h,
+                        ),
                         InkWell(
                           onTap: () {
                             showModalBottomSheet(
