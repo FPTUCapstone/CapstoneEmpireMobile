@@ -1,25 +1,29 @@
 import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/booking_fail.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
-import 'package:empiregarage_mobile/models/notification.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
-import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
-import 'package:empiregarage_mobile/services/notification/notification_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/colors.dart';
+import '../../../models/notification.dart';
+import '../../../models/request/payment_request_model.dart';
+import '../../../services/booking_service/booking_service.dart';
+import '../../../services/notification/notification_service.dart';
+import '../../../services/payment_services/payment_services.dart';
 import '../../widgets/autocomplete_search.dart';
+import '../../widgets/booking_fail.dart';
 import '../../widgets/booking_successfull.dart';
 import '../../widgets/chose_payment_method.dart';
 import '../../widgets/chose_your_car.dart';
 import '../../widgets/deposit_bottomsheet.dart';
+import 'booking_payment.dart';
 
 class BookingInfo extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -48,7 +52,6 @@ class _BookingInfoState extends State<BookingInfo> {
     SymptonResponseModel(
       id: 2,
       name: "Thay nhớt",
-      
     ),
     SymptonResponseModel(
       id: 3,
@@ -67,21 +70,40 @@ class _BookingInfoState extends State<BookingInfo> {
     // "Giật ga"
   ];
 
+  PaymentRequestModel model = PaymentRequestModel(
+      orderType: '', amount: 0, orderDescription: '', name: '');
+
+  _payBookingFee(PaymentRequestModel model) async {
+    var response = await PaymentServices().createNewPaymentForBooking(model);
+    if (response!.statusCode == 500) {
+      throw Exception("Can not pay booking fee");
+    }
+    return response.body;
+  }
+
+  _launchURL(url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   List<String> _getSuggestions(String query) {
-  List<String> matches =[];
-  matches.addAll(_symptonList.where((s) => s.name.toString().toLowerCase().contains(query.toLowerCase())).map((s) => s.name.toString()));
-  return matches;
-}
+    List<String> matches = [];
+    matches.addAll(_symptonList
+        .where((s) =>
+            s.name.toString().toLowerCase().contains(query.toLowerCase()))
+        .map((s) => s.name.toString()));
+    return matches;
+  }
 
-void _onSuggestionSelected(String suggestion) {
-  setState(() {
-    _symptonController.text = suggestion;
-  });
-}
+  void _onSuggestionSelected(String suggestion) {
+    setState(() {
+      _symptonController.text = suggestion;
+    });
+  }
 
-
-  
-  
   final List<SymptomModel> _listSymptom = [];
   bool _loading = false;
   late int _selectedCar;
@@ -146,7 +168,6 @@ void _onSuggestionSelected(String suggestion) {
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
-
     _loadingSymptomsList();
     _getUserCar();
     super.initState();
@@ -160,6 +181,43 @@ void _onSuggestionSelected(String suggestion) {
 
   Future refresh() {
     return _loadData();
+  }
+
+  _onCallBackFromPayment() async {
+    setState(() {
+      _loading = false;
+    });
+    String date = _dateController.text;
+    int userId = await getUserId() as int;
+    int carId =
+        _listCar.where((element) => element.id == _selectedCar).first.id;
+    int intendedMinutes = 30;
+    var response = await BookingService()
+        .createBooking(date, carId, userId, intendedMinutes, _listSymptom);
+
+    if (response!.statusCode == 201) {
+      var notificationModel = NotificationModel(
+          isAndroiodDevice: true,
+          title: "Empire Garage",
+          body: "Your booking has been created successful");
+      await NotificationService().sendNotification(notificationModel);
+      setState(() {
+        _loading = true;
+      });
+      // ignore: use_build_context_synchronously
+      showModalBottomSheet(
+          context: context, builder: (context) => const BookingSuccessfull());
+    } else {
+      setState(() {
+        _loading = true;
+      });
+      // ignore: use_build_context_synchronously
+      showModalBottomSheet(
+          context: context,
+          builder: (context) => const BookingFailed(
+                message: 'Đặt lịch thất bại, vui lòng thử lại',
+              ));
+    }
   }
 
   @override
@@ -278,7 +336,9 @@ void _onSuggestionSelected(String suggestion) {
                           child: Row(
                             children: <Widget>[
                               Expanded(
-                                  child: SearchableDropdown(options: options, onSelectedItem: _onCallBackSymptoms),
+                                child: SearchableDropdown(
+                                    options: options,
+                                    onSelectedItem: _onCallBackSymptoms),
                               ),
                             ],
                           ),
@@ -535,12 +595,12 @@ void _onSuggestionSelected(String suggestion) {
                             ),
                             child: ListTile(
                               leading: Image.asset(
-                                "assets/image/icon-logo/paypal-icon.png",
+                                "assets/image/icon-logo/vnpay.png",
                                 height: 50.h,
                                 width: 50.w,
                               ),
                               title: Text(
-                                "Paypal",
+                                "VNPAY",
                                 style: TextStyle(
                                   fontFamily: 'SFProDisplay',
                                   fontSize: 14.sp,
@@ -677,39 +737,23 @@ void _onSuggestionSelected(String suggestion) {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  String date = _dateController.text;
-                                  int userId = await getUserId() as int;
-                                  int carId = _listCar
-                                      .where((element) =>
-                                          element.id == _selectedCar)
-                                      .first
-                                      .id;
-                                  int intendedMinutes = 30;
+                                  PaymentRequestModel paymentRequestModel =
+                                      PaymentRequestModel(
+                                          amount: 500000,
+                                          name: 'Trung',
+                                          orderDescription: 'ABC',
+                                          orderType: 'VNpay');
+                                  var responsePayment =
+                                      await _payBookingFee(paymentRequestModel);
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => BookingPayment(
+                                      url: responsePayment,
+                                      callback: _onCallBackFromPayment,
+                                    ),
+                                  ));
 
-                                  var response = await BookingService()
-                                      .createBooking(date, carId, userId,
-                                          intendedMinutes, _listSymptom);
-
-                                  if (response!.statusCode == 201) {
-                                    var notificationModel = NotificationModel(
-                                        isAndroiodDevice: true,
-                                        title: "Empire Garage",
-                                        body:
-                                            "Your booking has been created successful");
-                                    await NotificationService()
-                                        .sendNotification(notificationModel);
-                                    // ignore: use_build_context_synchronously
-                                    showModalBottomSheet(
-                                        context: context,
-                                        builder: (context) =>
-                                            const BookingSuccessfull());
-                                  } else {
-                                    // ignore: use_build_context_synchronously
-                                    showModalBottomSheet(
-                                        context: context,
-                                        builder: (context) =>
-                                            const BookingFailed());
-                                  }
+                                  // }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.buttonColor,

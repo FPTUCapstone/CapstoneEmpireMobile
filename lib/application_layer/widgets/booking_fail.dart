@@ -3,9 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/colors.dart';
 
-class BookingFailed extends StatelessWidget {
-  const BookingFailed({Key? key}) : super(key: key);
+class BookingFailed extends StatefulWidget {
+  final String message;
+  const BookingFailed({Key? key, required this.message}) : super(key: key);
 
+  @override
+  State<BookingFailed> createState() => _BookingFailedState();
+}
+
+class _BookingFailedState extends State<BookingFailed> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,7 +75,7 @@ class BookingFailed extends StatelessWidget {
                     width: 300.w,
                     child: Center(
                       child: Text(
-                        "Đặt lịch thất bại. Vui lòng thử lại",
+                        widget.message,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'SFProDisplay',

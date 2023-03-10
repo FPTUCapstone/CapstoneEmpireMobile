@@ -65,200 +65,66 @@ class ChosePaymentMethod extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset:
-                              const Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/paypal-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              "Paypal",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: const Offset(
+                                  0, 1), // changes position of shadow
                             ),
                           ],
                         ),
-                      ),
-                      subtitle: Text(
-                        "1.000.000",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          const Icon(
-                            Icons.radio_button_checked,
-                            color: AppColors.buttonColor,
+                        child: ListTile(
+                          leading: Image.asset(
+                            "assets/image/icon-logo/vnpay.png",
+                            height: 50.h,
+                            width: 50.w,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset:
-                              const Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/paypal-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              "Paypal",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
+                          title: Align(
+                            alignment: Alignment.topLeft,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "VNPAY",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                              ],
+                            ),
+                          ),
+                          trailing: Column(
+                            children: [
+                              SizedBox(height: 15.h),
+                              const Icon(
+                                Icons.radio_button_checked,
+                                color: AppColors.buttonColor,
                               ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                          ],
-                        ),
-                      ),
-                      subtitle: Text(
-                        "1.000.000",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          const Icon(
-                            Icons.radio_button_checked,
-                            color: AppColors.buttonColor,
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 1,
-                          offset:
-                              const Offset(0, 1), // changes position of shadow
                         ),
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(
-                        "assets/image/icon-logo/paypal-icon.png",
-                        height: 50.h,
-                        width: 50.w,
-                      ),
-                      title: Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              "Paypal",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                          ],
-                        ),
-                      ),
-                      subtitle: Text(
-                        "1.000.000",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                      trailing: Column(
-                        children: [
-                          SizedBox(height: 15.h),
-                          const Icon(
-                            Icons.radio_button_checked,
-                            color: AppColors.buttonColor,
-                          ),
-                        ],
-                      ),
-                    ),
+                      );
+                    },
                   ),
                   SizedBox(
                     height: 5.h,
