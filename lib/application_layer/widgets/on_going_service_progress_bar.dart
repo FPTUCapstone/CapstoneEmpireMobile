@@ -122,7 +122,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 21),
           width: 375.w,
-          height: 80.h,
+          height: 90.h,
           child: EasyStepper(
             activeStep: _activeStep,
             lineType: LineType.normal,

@@ -9,7 +9,7 @@ class HomePageServiceIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 70.h,
+      height: 80.h,
       child: ListView(
         // This next line does the trick.
         scrollDirection: Axis.horizontal,
@@ -23,7 +23,9 @@ class HomePageServiceIconButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    //TODO
+                  },
                   child: Image.asset(
                     "assets/image/icon-logo/homeservice-logo-rescue.png",
                     height: 50.h,
@@ -64,7 +66,7 @@ class HomePageServiceIconButton extends StatelessWidget {
               height: 10.h,
             ),
             Text(
-              'Cứu hộ',
+              'Chăm sóc',
               style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w600,
@@ -92,35 +94,7 @@ class HomePageServiceIconButton extends StatelessWidget {
               height: 10.h,
             ),
             Text(
-              'Cứu hộ',
-              style: TextStyle(
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blackTextColor,
-                  fontFamily: 'SFProDisplay'),
-            ),
-          ]),
-          SizedBox(
-            width: 40.w,
-          ),
-          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: GestureDetector(
-                onTap: () {},
-                child: InkWell(
-                    child: Image.asset(
-                  "assets/image/icon-logo/homeservice-logo-rescue.png",
-                  height: 50.h,
-                  width: 50.w,
-                )),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Text(
-              'Cứu hộ',
+              'Sửa chữa',
               style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w600,
@@ -148,7 +122,7 @@ class HomePageServiceIconButton extends StatelessWidget {
               height: 10.h,
             ),
             Text(
-              'Cứu hộ',
+              'Bảo dưỡng',
               style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w600,
@@ -176,7 +150,7 @@ class HomePageServiceIconButton extends StatelessWidget {
               height: 10.h,
             ),
             Text(
-              'Cứu hộ',
+              'Phụ tùng',
               style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w600,
