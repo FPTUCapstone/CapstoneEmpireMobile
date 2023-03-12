@@ -19,6 +19,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/response/item.dart';
+import '../../../services/group_services/group_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,8 +31,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<ItemResponseModel>? _listItem;
   List<ItemResponseModel>? _filteredItem;
+
+  List<GroupServiceResponseModel>? _listGroupServices;
+  List<GroupServiceResponseModel>? _filterGroupServices;
+
   late List<ActivityResponseModel?> _listOngoingActivity;
   bool _loading = false;
+
+  bool isService = true;
 
   _fetchData() async {
     _listItem = await ItemService().fetchListItem();
@@ -48,8 +55,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  _getListGroupServices() async{
+    _listGroupServices = (await GroupServices().fetchGroupServices(isService))?.cast<GroupServiceResponseModel>();
+    _filterGroupServices = _listGroupServices;
+    if(!mounted) return;
+    setState(() {
+      _loading = true;
+    });
+  }
+
   @override
   void initState() {
+    _getListGroupServices();
     _fetchData();
     super.initState();
   }
