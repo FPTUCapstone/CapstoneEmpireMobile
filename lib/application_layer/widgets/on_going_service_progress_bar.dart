@@ -25,7 +25,7 @@ class OnGoingServiceProgressBar extends StatefulWidget {
 
 class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   int _activeStep = 0;
-  late UserResponseModel? _expert;
+  UserResponseModel? _expert;
 
   @override
   void initState() {
@@ -42,11 +42,10 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   }
 
   _getExpert() async {
-    _expert = await UserService().getUserById(widget.order.expertId);
+    var expert = await UserService().getUserById(widget.order.expertId);
     if (!mounted) return;
-    if (_expert == null) throw Exception("Not found expert");
     setState(() {
-      _expert = _expert;
+      _expert = expert;
     });
   }
 
@@ -67,37 +66,40 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
           ),
         ),
         SizedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '${widget.order.car.carBrand} ${widget.order.car.carModel} ',
-                style: TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.lightTextColor,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  '${widget.order.car.carBrand} ${widget.order.car.carModel} ',
+                  style: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightTextColor,
+                  ),
                 ),
-              ),
-              Text(
-                '${widget.order.car.carLisenceNo} ',
-                style: TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.lightTextColor,
+                Text(
+                  '${widget.order.car.carLisenceNo} ',
+                  style: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.lightTextColor,
+                  ),
                 ),
-              ),
-              Text(
-                "\u2022 ${widget.order.order.user.fullname}",
-                style: TextStyle(
-                  fontFamily: 'SFProDisplay',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.lightTextColor,
+                Text(
+                  "\u2022 ${widget.order.order.user.fullname}",
+                  style: TextStyle(
+                    fontFamily: 'SFProDisplay',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightTextColor,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         SizedBox(
@@ -119,7 +121,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
               width: 4.w,
             ),
             Text(
-              _expert!.fullname,
+              _expert == null ? "Chưa có kỹ thuật viên" : _expert!.fullname,
               style: TextStyle(
                 fontFamily: 'SFProDisplay',
                 fontSize: 12.sp,

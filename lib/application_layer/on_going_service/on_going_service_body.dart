@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
+import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,7 +7,8 @@ import '../../common/colors.dart';
 
 class OnGoingServiceBody extends StatefulWidget {
   final OrderServicesResponseModel order;
-  const OnGoingServiceBody({super.key, required this.order});
+  final UserResponseModel? expert;
+  const OnGoingServiceBody({super.key, required this.order, this.expert});
 
   @override
   State<OnGoingServiceBody> createState() => _OnGoingServiceBodyState();
@@ -52,7 +54,9 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
             width: 50.w,
           ),
           title: Text(
-            "Nguyễn Văn A",
+            widget.expert == null
+                ? "Chưa có kỹ thuật viên"
+                : widget.expert!.fullname,
             style: TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 12.sp,

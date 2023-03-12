@@ -55,13 +55,10 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  _getListGroupServices() async{
-    _listGroupServices = (await GroupServices().fetchGroupServices(isService))?.cast<GroupServiceResponseModel>();
+  _getListGroupServices() async {
+    _listGroupServices = (await GroupServices().fetchGroupServices(isService))
+        ?.cast<GroupServiceResponseModel>();
     _filterGroupServices = _listGroupServices;
-    if(!mounted) return;
-    setState(() {
-      _loading = true;
-    });
   }
 
   @override
@@ -257,7 +254,9 @@ class _HomePageState extends State<HomePage> {
                                             ? BookingDetail(
                                                 data: item,
                                               )
-                                            : OnGoingService(servicesId: item.id,)));
+                                            : OnGoingService(
+                                                servicesId: item.id,
+                                              )));
                                   },
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
