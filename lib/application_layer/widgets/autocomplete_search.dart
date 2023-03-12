@@ -17,7 +17,7 @@ class SearchableDropdown extends StatefulWidget {
 }
 
 class _SearchableDropdownState extends State<SearchableDropdown> {
-  String _selectedOption = '';
+  // String _selectedOption = '';
   String _searchQuery = '';
   bool _dropdownOpened = false;
 
@@ -27,9 +27,10 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
   void _selectOption(int option) {
     setState(() {
       widget.onSelectedItem(option);
-      _selectedOption =
+      // _selectedOption =
+      //     widget.options.where((element) => element.id == option).first.name!;
+      _searchController.text =
           widget.options.where((element) => element.id == option).first.name!;
-      _searchController.text = widget.options.where((element) => element.id == option).first.name!;
       _dropdownOpened = false;
     });
   }
@@ -56,11 +57,11 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
     super.dispose();
   }
 
-  void _handleTapOutside() {
-    if (_focusNode.hasFocus) {
-      _focusNode.unfocus();
-    }
-  }
+  // void _handleTapOutside() {
+  //   if (_focusNode.hasFocus) {
+  //     _focusNode.unfocus();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

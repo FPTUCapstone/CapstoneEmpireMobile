@@ -20,7 +20,6 @@ class RecommendChoseService extends StatefulWidget {
 
 class _RecommendChoseServiceState extends State<RecommendChoseService> {
   bool isSelected = true;
-  final int _totalPrice = 0;
 
   List<OrderServiceDetails> _listOrderServiceDetails = [];
   List<String> serviceNames = [
@@ -53,8 +52,6 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
       e.toString();
     }
   }
-
- 
 
   _onContinue() {
     widget.onRecommendChoseServicecallBack();
@@ -128,9 +125,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
             itemCount: _listOrderServiceDetails.length,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {
-                  //TODO
-                },
+                onTap: () {},
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 15.h),
                   child: DecoratedBox(

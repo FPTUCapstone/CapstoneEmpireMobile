@@ -1,6 +1,7 @@
 class OrderServicesResponseModel {
   int id;
   int status;
+  int? expertId;
   Car car;
   HealthCarRecord? healthCarRecord;
   Order order;
@@ -9,8 +10,9 @@ class OrderServicesResponseModel {
   OrderServicesResponseModel({
     required this.id,
     required this.status,
+    this.expertId,
     required this.car,
-    required this.healthCarRecord,
+    this.healthCarRecord,
     required this.order,
     required this.orderServiceDetails,
   });
@@ -19,10 +21,16 @@ class OrderServicesResponseModel {
     return OrderServicesResponseModel(
       id: json['id'],
       status: json['status'],
+      expertId: json['expertId'],
       car: Car.fromJson(json['car']),
-      healthCarRecord: HealthCarRecord.fromJson(json['healthCarRecord']),
+      healthCarRecord: json['healthCarRecord'] != null
+          ? HealthCarRecord.fromJson(json['healthCarRecord'])
+          : null,
       order: Order.fromJson(json['order']),
-      orderServiceDetails: List<OrderServiceDetails>.from(json['orderServiceDetails'].map((x) => OrderServiceDetails.fromJson(x))),
+      orderServiceDetails: json['orderServiceDetails'] != null
+          ? List<OrderServiceDetails>.from(json['orderServiceDetails']
+              .map((x) => OrderServiceDetails.fromJson(x)))
+          : null,
     );
   }
 }
@@ -94,7 +102,9 @@ class Order {
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
       user: User.fromJson(json['user']),
-      transaction: json['transaction'] != null ? Transaction.fromJson(json['transaction']) : null,
+      transaction: json['transaction'] != null
+          ? Transaction.fromJson(json['transaction'])
+          : null,
     );
   }
 }
@@ -191,9 +201,8 @@ class Item {
     updatedAt = json['updatedAt'];
     description = json['description'];
     photo = json['photo'];
-    category = json['category'] != null
-        ? Category.fromJson(json['category'])
-        : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -229,4 +238,3 @@ class Category {
     return data;
   }
 }
-

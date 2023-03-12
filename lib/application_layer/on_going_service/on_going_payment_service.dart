@@ -11,7 +11,9 @@ class OnGoingPaymentService extends StatefulWidget {
   final int servicesId;
   final Function onGoingPaymentCallBack;
   const OnGoingPaymentService(
-      {super.key, required this.onGoingPaymentCallBack, required this.servicesId});
+      {super.key,
+      required this.onGoingPaymentCallBack,
+      required this.servicesId});
 
   @override
   State<OnGoingPaymentService> createState() => _OnGoingPaymentServiceState();
@@ -546,9 +548,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 width: 130.w,
                 height: 52.h,
                 child: ElevatedButton(
-                  onPressed: () {
-                    //TODO
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.buttonColor,
                     fixedSize: Size.fromHeight(50.w),

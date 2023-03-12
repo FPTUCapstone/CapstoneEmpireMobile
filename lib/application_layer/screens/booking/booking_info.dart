@@ -9,7 +9,6 @@ import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.d
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/notification.dart';
@@ -41,7 +40,7 @@ class _BookingInfoState extends State<BookingInfo> {
   int index = 0;
 
   // ignore: prefer_final_fields
-  TextEditingController _symptonController = TextEditingController();
+  // TextEditingController _symptonController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
   List<SymptonResponseModel> options = [
@@ -81,28 +80,20 @@ class _BookingInfoState extends State<BookingInfo> {
     return response.body;
   }
 
-  _launchURL(url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  // List<String> _getSuggestions(String query) {
+  //   List<String> matches = [];
+  //   matches.addAll(_symptonList
+  //       .where((s) =>
+  //           s.name.toString().toLowerCase().contains(query.toLowerCase()))
+  //       .map((s) => s.name.toString()));
+  //   return matches;
+  // }
 
-  List<String> _getSuggestions(String query) {
-    List<String> matches = [];
-    matches.addAll(_symptonList
-        .where((s) =>
-            s.name.toString().toLowerCase().contains(query.toLowerCase()))
-        .map((s) => s.name.toString()));
-    return matches;
-  }
-
-  void _onSuggestionSelected(String suggestion) {
-    setState(() {
-      _symptonController.text = suggestion;
-    });
-  }
+  // void _onSuggestionSelected(String suggestion) {
+  //   setState(() {
+  //     _symptonController.text = suggestion;
+  //   });
+  // }
 
   final List<SymptomModel> _listSymptom = [];
   bool _loading = false;
@@ -114,7 +105,7 @@ class _BookingInfoState extends State<BookingInfo> {
     if (result != null) {
       _symptonList = result;
       setState(() {
-        _selectedIndex = _symptonList.first.id;
+        // _selectedIndex = _symptonList.first.id;
         _listSymptom.add(SymptomModel(id: _symptonList.first.id));
       });
     }
@@ -163,7 +154,7 @@ class _BookingInfoState extends State<BookingInfo> {
     });
   }
 
-  int? _selectedIndex;
+  // int? _selectedIndex;
 
   @override
   void initState() {

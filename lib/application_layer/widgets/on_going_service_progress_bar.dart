@@ -1,5 +1,7 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
+import 'package:empiregarage_mobile/models/response/user.dart';
+import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,9 +25,11 @@ class OnGoingServiceProgressBar extends StatefulWidget {
 
 class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   int _activeStep = 0;
+  late UserResponseModel? _expert;
 
   @override
   void initState() {
+    _getExpert();
     setState(() {
       _activeStep = widget.activeStep;
     });
@@ -35,6 +39,15 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   _onSelectTab(selectedTab) {
     if (widget.activeStep < selectedTab) return;
     widget.callBack(selectedTab);
+  }
+
+  _getExpert() async {
+    _expert = await UserService().getUserById(widget.order.expertId);
+    if (!mounted) return;
+    if (_expert == null) throw Exception("Not found expert");
+    setState(() {
+      _expert = _expert;
+    });
   }
 
   @override
@@ -106,7 +119,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
               width: 4.w,
             ),
             Text(
-              "Nguyễn Văn A",
+              _expert!.fullname,
               style: TextStyle(
                 fontFamily: 'SFProDisplay',
                 fontSize: 12.sp,

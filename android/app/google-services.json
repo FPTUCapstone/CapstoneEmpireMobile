@@ -8,6 +8,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:120247352484:android:569729a420c85ff080fa31",
+        "android_client_info": {
+          "package_name": "com.example.empire_expert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120247352484-cso9020emuaommi9n888gsr85ljl7tca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSogN-07rkrgPkR8esgxDrr6FoX1u2X18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120247352484-cso9020emuaommi9n888gsr85ljl7tca.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "120247352484-btcggcit9ms4o3gtrr8ugjh6jj0a25n8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.empireExpert"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:120247352484:android:ec12f135e1ecbff080fa31",
         "android_client_info": {
           "package_name": "com.example.empiregarage_mobile"
@@ -54,6 +90,13 @@
             {
               "client_id": "120247352484-cso9020emuaommi9n888gsr85ljl7tca.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "120247352484-btcggcit9ms4o3gtrr8ugjh6jj0a25n8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.empireExpert"
+              }
             }
           ]
         }

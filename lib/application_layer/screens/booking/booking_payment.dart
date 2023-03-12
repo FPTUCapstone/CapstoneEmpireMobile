@@ -11,7 +11,8 @@ class BookingPayment extends StatefulWidget {
   final Function callback;
   final String url;
 
-  const BookingPayment({Key? key, required this.url, required this.callback}) : super(key: key);
+  const BookingPayment({Key? key, required this.url, required this.callback})
+      : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -33,6 +34,7 @@ class _BookingPaymentState extends State<BookingPayment> {
           },
           onPageFinished: (String url) async {
             final String json =
+                // ignore: deprecated_member_use
                 await _controller.evaluateJavascript('document.body.innerText');
             if (isJson(json)) {
               final decoded = jsonDecode(json);
@@ -55,7 +57,9 @@ class _BookingPaymentState extends State<BookingPayment> {
                   // ignore: use_build_context_synchronously
                   showModalBottomSheet(
                       context: context,
-                      builder: (context) => const BookingFailed(message: 'Thanh toán thất bại',));
+                      builder: (context) => const BookingFailed(
+                            message: 'Thanh toán thất bại',
+                          ));
                 }
               } catch (e) {
                 e.toString();
