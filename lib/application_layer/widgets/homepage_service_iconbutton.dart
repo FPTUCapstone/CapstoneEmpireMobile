@@ -2,9 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/colors.dart';
+import '../../models/response/groupservices.dart';
+import '../../services/group_services/group_services.dart';
 
-class HomePageServiceIconButton extends StatelessWidget {
+class HomePageServiceIconButton extends StatefulWidget {
   const HomePageServiceIconButton({Key? key}) : super(key: key);
+
+  @override
+  State<HomePageServiceIconButton> createState() =>
+      _HomePageServiceIconButtonState();
+}
+
+class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
+  bool isService = true;
+
+  List<GroupServicesResponseModel>? _listGroupServices;
+  List<GroupServicesResponseModel>? _filterGroupServices;
+
+  _getListGroupServices() async {
+    _listGroupServices = await GroupServices().fetchGroupServices(isService);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _getListGroupServices();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +48,9 @@ class HomePageServiceIconButton extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    //TODO
+                    _filterGroupServices = _listGroupServices
+                        ?.where((item) => item.name!.contains('Cứu hộ'))
+                        .toList();
                   },
                   child: Image.asset(
                     "assets/image/icon-logo/homeservice-logo-rescue.png",
@@ -53,7 +79,11 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _filterGroupServices = _listGroupServices
+                      ?.where((item) => item.name!.contains('Chăm sóc'))
+                      .toList();
+                },
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-care.png",
@@ -109,7 +139,14 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _filterGroupServices = _listGroupServices
+                      ?.where((item) => item.name!.contains('Bảo dưỡng'))
+                      .toList();
+                  if(_filterGroupServices != null){
+                    print("Trung debug");
+                  }
+                },
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-maintanace.png",
@@ -137,7 +174,11 @@ class HomePageServiceIconButton extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _filterGroupServices = _listGroupServices
+                      ?.where((item) => item.name!.contains('Phụ tùng'))
+                      .toList();
+                },
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-accessary.png",
