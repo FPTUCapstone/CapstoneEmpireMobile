@@ -1,7 +1,7 @@
 class OrderServicesResponseModel {
   int id;
   int status;
-  int? expertId;
+  Expert? expert;
   Car car;
   HealthCarRecord? healthCarRecord;
   Order order;
@@ -10,7 +10,7 @@ class OrderServicesResponseModel {
   OrderServicesResponseModel({
     required this.id,
     required this.status,
-    this.expertId,
+    this.expert,
     required this.car,
     this.healthCarRecord,
     required this.order,
@@ -21,7 +21,7 @@ class OrderServicesResponseModel {
     return OrderServicesResponseModel(
       id: json['id'],
       status: json['status'],
-      expertId: json['expertId'],
+      expert: json['expert'] != null ? Expert.fromJson(json['expert']) : null,
       car: Car.fromJson(json['car']),
       healthCarRecord: json['healthCarRecord'] != null
           ? HealthCarRecord.fromJson(json['healthCarRecord'])
@@ -33,6 +33,40 @@ class OrderServicesResponseModel {
           : null,
     );
   }
+}
+
+class Expert {
+  int id;
+  String fullname;
+  String? phone; // nullable property
+  String email;
+  String? gender; // nullable property
+
+  Expert({
+    required this.id,
+    required this.fullname,
+    this.phone,
+    required this.email,
+    this.gender,
+  });
+
+  factory Expert.fromJson(Map<String, dynamic> json) {
+    return Expert(
+      id: json['id'],
+      fullname: json['fullname'],
+      phone: json['phone'],
+      email: json['email'],
+      gender: json['gender'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'fullname': fullname,
+        'phone': phone,
+        'email': email,
+        'gender': gender,
+      };
 }
 
 class Car {

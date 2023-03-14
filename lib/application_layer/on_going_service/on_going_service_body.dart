@@ -1,5 +1,4 @@
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
-import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,7 +6,7 @@ import '../../common/colors.dart';
 
 class OnGoingServiceBody extends StatefulWidget {
   final OrderServicesResponseModel order;
-  final UserResponseModel? expert;
+  final Expert? expert;
   const OnGoingServiceBody({super.key, required this.order, this.expert});
 
   @override

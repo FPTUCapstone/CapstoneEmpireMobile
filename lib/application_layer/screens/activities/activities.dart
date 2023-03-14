@@ -307,11 +307,12 @@ class ActivityChip extends StatefulWidget {
 
 class _ActivityChipState extends State<ActivityChip> {
   List<Status> statuses = [
-    Status(0, "Đang phân tích"),
-    Status(1, "Xác nhận & thanh toán"),
-    Status(2, "Đang thực hiện"),
-    Status(3, "Đợi lấy xe"),
-    Status(4, "Hoàn thành"),
+    Status(0, "Đang chờ nhân viên"),
+    Status(1, "Đang phân tích"),
+    Status(2, "Xác nhận & thanh toán"),
+    Status(3, "Đang thực hiện"),
+    Status(4, "Đợi lấy xe"),
+    Status(5, "Hoàn thành"),
     Status(-1, "Đã hủy"),
   ];
 
@@ -322,7 +323,8 @@ class _ActivityChipState extends State<ActivityChip> {
   @override
   Widget build(BuildContext context) {
     var item = widget.item;
-    bool isComplete = item.isArrived == true || item.status == 2;
+    bool isComplete =
+        item.isArrived == true || item.status == 4 || item.status == 5;
     return Padding(
       padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
       child: ListTile(

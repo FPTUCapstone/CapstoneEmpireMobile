@@ -49,8 +49,10 @@ class _OnGoingServiceState extends State<OnGoingService> {
       throw Exception("Error when load order");
     }
     _tabs = [
-      OnGoingServiceBody(order: orderResponseModel),
-      OnGoingServiceBody(order: orderResponseModel),
+      OnGoingServiceBody(
+          order: orderResponseModel, expert: orderResponseModel.expert),
+      OnGoingServiceBody(
+          order: orderResponseModel, expert: orderResponseModel.expert),
       RecommendChoseService(
         onRecommendChoseServicecallBack: _onRecommendChoseServicecallBack,
         servicesId: widget.servicesId,
@@ -61,7 +63,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
     if (!mounted) return;
     setState(() {
       _response = orderResponseModel;
-      _selectedTab = _response!.status + 1;
+      _selectedTab = _response!.status;
       _loading = false;
     });
   }
@@ -97,11 +99,12 @@ class _OnGoingServiceState extends State<OnGoingService> {
   }
 
   List<Status> statuses = [
-    Status(0, "Đang phân tích"),
-    Status(1, "Xác nhận & thanh toán"),
-    Status(2, "Đang thực hiện"),
-    Status(3, "Đợi lấy xe"),
-    Status(4, "Hoàn thành"),
+    Status(0, "Đang chờ nhân viên"),
+    Status(1, "Đang phân tích"),
+    Status(2, "Xác nhận & thanh toán"),
+    Status(3, "Đang thực hiện"),
+    Status(4, "Đợi lấy xe"),
+    Status(5, "Hoàn thành"),
     Status(-1, "Đã hủy"),
   ];
 
@@ -141,7 +144,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
               child: Column(
                 children: [
                   OnGoingServiceProgressBar(
-                    activeStep: _response!.status + 1,
+                    activeStep: _response!.status,
                     order: _response!,
                     callBack: _onCallBack,
                   ),

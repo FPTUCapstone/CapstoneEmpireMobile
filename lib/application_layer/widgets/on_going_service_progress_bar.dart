@@ -42,7 +42,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   }
 
   _getExpert() async {
-    var expert = await UserService().getUserById(widget.order.expertId);
+    var expert = await UserService().getUserById(widget.order.expert!.id);
     if (!mounted) return;
     setState(() {
       _expert = expert;
