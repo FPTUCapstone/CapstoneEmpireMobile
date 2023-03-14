@@ -26,7 +26,6 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _getListGroupServices();
     super.initState();
   }
@@ -92,14 +91,14 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                   _filterGroupServices = _listGroupServices
                       ?.where((item) => item.name!.contains('Chăm sóc'))
                       .first;
-                      if (_filterGroupServices != null) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => FilterGroupService(
-                          filterGroupServices: _filterGroupServices
-                              as GroupServicesResponseModel,
-                        ),
-                      ));
-                    }
+                  if (_filterGroupServices != null) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => FilterGroupService(
+                        filterGroupServices:
+                            _filterGroupServices as GroupServicesResponseModel,
+                      ),
+                    ));
+                  }
                 },
                 child: InkWell(
                     child: Image.asset(
@@ -129,17 +128,17 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
                 onTap: () {
-                   _filterGroupServices = _listGroupServices
+                  _filterGroupServices = _listGroupServices
                       ?.where((item) => item.name!.contains('Sửa chữa'))
                       .first;
-                      if (_filterGroupServices != null) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => FilterGroupService(
-                          filterGroupServices: _filterGroupServices
-                              as GroupServicesResponseModel,
-                        ),
-                      ));
-                    }
+                  if (_filterGroupServices != null) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => FilterGroupService(
+                        filterGroupServices:
+                            _filterGroupServices as GroupServicesResponseModel,
+                      ),
+                    ));
+                  }
                 },
                 child: InkWell(
                     child: Image.asset(

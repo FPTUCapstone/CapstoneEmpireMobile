@@ -1,6 +1,5 @@
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/colors.dart';
@@ -24,22 +23,6 @@ class _NotificationPageState extends State<NotificationPage> {
     super.initState();
     // sendNotification("Hello from flutter 33333", "Send notification success 1");
     // listenForNotifications();
-  }
-
-  Future _getNoti() async {
-    final ref = FirebaseDatabase.instance.ref();
-    final snapshot =
-        await ref.child('users/${widget.userId}/notifications').get();
-    if (snapshot.exists) {
-      if (kDebugMode) {
-        print(snapshot.value);
-      }
-    } else {
-      if (kDebugMode) {
-        print('No data available.');
-      }
-    }
-    return snapshot.value;
   }
 
   @override

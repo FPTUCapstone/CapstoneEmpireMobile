@@ -57,8 +57,12 @@ class _OnGoingServiceState extends State<OnGoingService> {
         onRecommendChoseServicecallBack: _onRecommendChoseServicecallBack,
         servicesId: widget.servicesId,
       ),
-      const OnDoingService(),
-      const OnDoingService()
+      OnDoingService(
+        servicesId: widget.servicesId,
+      ),
+      OnDoingService(
+        servicesId: widget.servicesId,
+      ),
     ];
     if (!mounted) return;
     setState(() {
