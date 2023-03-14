@@ -20,6 +20,7 @@ class ActivityService {
   }
 
   Future<List<ActivityResponseModel?>> fetchOnGoingActivity(int userId) async {
+    return [];
     final url = '${APIPath.path}/activity/on-going/$userId';
     final response = await makeHttpRequest(url);
     if (response.statusCode == 200) {

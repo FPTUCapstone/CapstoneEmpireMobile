@@ -183,7 +183,9 @@ class _HomePageState extends State<Activities> {
                                                     ? BookingDetail(
                                                         data: item,
                                                       )
-                                                    :  OnGoingService(servicesId: item.id,)));
+                                                    : OnGoingService(
+                                                        servicesId: item.id,
+                                                      )));
                                       },
                                       child: ActivityChip(
                                         carInfo:
@@ -248,7 +250,9 @@ class _HomePageState extends State<Activities> {
                                                     ? BookingDetail(
                                                         data: item,
                                                       )
-                                                    :  OnGoingService(servicesId: item.id,)));
+                                                    : OnGoingService(
+                                                        servicesId: item.id,
+                                                      )));
                                       },
                                       child: SizedBox(
                                         height: 90.h,
@@ -370,6 +374,7 @@ class _ActivityChipState extends State<ActivityChip> {
             ),
             Text(
               widget.carInfo,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: 'SFProDisplay',
                 fontSize: 14.sp,

@@ -136,8 +136,8 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 300.h,
+                Expanded(
+                  // height: 300.h,
                   child: RefreshIndicator(
                     onRefresh: refresh,
                     child: _loading

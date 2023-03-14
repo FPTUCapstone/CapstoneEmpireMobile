@@ -1,5 +1,5 @@
-import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
@@ -19,9 +19,9 @@ import '../../../services/payment_services/payment_services.dart';
 import '../../widgets/autocomplete_search.dart';
 import '../../widgets/booking_fail.dart';
 import '../../widgets/booking_successfull.dart';
-import '../../widgets/chose_payment_method.dart';
 import '../../widgets/chose_your_car.dart';
 import '../../widgets/deposit_bottomsheet.dart';
+import '../car/add_new_car.dart';
 import 'booking_payment.dart';
 
 class BookingInfo extends StatefulWidget {
@@ -43,20 +43,7 @@ class _BookingInfoState extends State<BookingInfo> {
   // TextEditingController _symptonController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
-  List<SymptonResponseModel> options = [
-    SymptonResponseModel(
-      id: 1,
-      name: "Thay lốp",
-    ),
-    SymptonResponseModel(
-      id: 2,
-      name: "Thay nhớt",
-    ),
-    SymptonResponseModel(
-      id: 3,
-      name: "Sửa chữa",
-    )
-  ];
+  List<SymptonResponseModel> options = [];
 
   final List<SymptonResponseModel> _listSuggestService = [];
 
@@ -111,6 +98,15 @@ class _BookingInfoState extends State<BookingInfo> {
     }
   }
 
+  _loadOptions() async {
+    var result = await SymptomsService().fetchListSymptoms();
+    if (result != null) {
+      setState(() {
+        options = result;
+      });
+    }
+  }
+
   _getUserCar() async {
     var userId = await getUserId();
     var listCar = await CarService().fetchUserCars(userId as int);
@@ -159,6 +155,7 @@ class _BookingInfoState extends State<BookingInfo> {
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
+    _loadOptions();
     _loadingSymptomsList();
     _getUserCar();
     super.initState();
@@ -251,283 +248,339 @@ class _BookingInfoState extends State<BookingInfo> {
               ),
               body: RefreshIndicator(
                 onRefresh: refresh,
-                child: SingleChildScrollView(
-                  reverse: false,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 20.h,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: ListView(
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Text(
+                        "Ngày đặt",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
                         ),
-                        Text(
-                          "Ngày đặt",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        SizedBox(
-                          height: 55.h,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  enabled: false,
-                                  controller: _dateController,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide.none,
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: AppColors.lightGrey),
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                    filled: true,
-                                  ),
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.lightTextColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Text(
-                          "Triệu chứng",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        SizedBox(
-                          height: 200.h,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: SearchableDropdown(
-                                    options: options,
-                                    onSelectedItem: _onCallBackSymptoms),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      SizedBox(
+                        height: 55.h,
+                        child: Row(
                           children: [
-                            Text(
-                              "Phương tiện",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
+                            Expanded(
+                              child: TextField(
+                                enabled: false,
+                                controller: _dateController,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: AppColors.lightGrey),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  filled: true,
+                                ),
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
                               ),
                             ),
-                            _listCar.isNotEmpty
-                                ? TextButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) => ChoseYourCar(
-                                                selectedCar: _selectedCar,
-                                                onSelected: _onCarSelected,
-                                                onCallBack: _onCallBack,
-                                              ));
-                                    },
-                                    child: Text(
-                                      "Chọn",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.blueTextColor,
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox()
                           ],
                         ),
-                        Text(
-                          "Phương tiện được chọn",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
-                          ),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Text(
+                        "Triệu chứng",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
                         ),
-                        _listCar.isEmpty
-                            ? Padding(
-                                padding: EdgeInsets.only(top: 10.h),
-                                child: InkWell(
-                                  onTap: () {
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: SearchableDropdown(
+                                options: options,
+                                onSelectedItem: _onCallBackSymptoms),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Phương tiện",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                          _listCar.isNotEmpty
+                              ? TextButton(
+                                  onPressed: () {
                                     showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        isDismissible: false,
                                         context: context,
-                                        builder: (context) => AddNewCar(
-                                              // ignore: avoid_types_as_parameter_names
-                                              onAddCar: (int) {
-                                                _loadData();
-                                              },
+                                        builder: (context) => ChoseYourCar(
+                                              selectedCar: _selectedCar,
+                                              onSelected: _onCarSelected,
+                                              onCallBack: _onCallBack,
                                             ));
                                   },
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                    child: SizedBox(
-                                      height: 55.h,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                            Icons.add_circle_outline,
-                                            color: AppColors.blueTextColor,
-                                          ),
-                                          SizedBox(
-                                            width: 10.w,
-                                          ),
-                                          Text(
-                                            "Thêm phương tiện",
-                                            style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.blueTextColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                  child: Text(
+                                    "Chọn",
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.blueTextColor,
                                     ),
                                   ),
-                                ),
-                              )
-                            : InkWell(
+                                )
+                              : const SizedBox()
+                        ],
+                      ),
+                      Text(
+                        "Phương tiện được chọn",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.lightTextColor,
+                        ),
+                      ),
+                      _listCar.isEmpty
+                          ? Padding(
+                              padding: EdgeInsets.only(top: 10.h),
+                              child: InkWell(
                                 onTap: () {
                                   showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      isDismissible: false,
                                       context: context,
-                                      builder: (context) => ChoseYourCar(
-                                            selectedCar: _selectedCar,
-                                            onSelected: _onCarSelected,
-                                            onCallBack: _onCallBack,
+                                      builder: (context) => AddNewCar(
+                                            // ignore: avoid_types_as_parameter_names
+                                            onAddCar: (int) {
+                                              _loadData();
+                                            },
                                           ));
                                 },
                                 child: Container(
                                   decoration: const BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                   ),
-                                  child: ListTile(
-                                    leading: Image.asset(
-                                      "assets/image/icon-logo/bmw-car-icon.png",
-                                      height: 50.h,
-                                      width: 50.w,
-                                    ),
-                                    title: Text(
-                                      _listCar
-                                          .where((element) =>
-                                              element.id == _selectedCar)
-                                          .first
-                                          .carBrand,
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.lightTextColor,
-                                      ),
-                                    ),
-                                    subtitle: Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            _listCar
-                                                .where((element) =>
-                                                    element.id == _selectedCar)
-                                                .first
-                                                .carLisenceNo,
-                                            style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.blackTextColor,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                          Text(
-                                            _listCar
-                                                .where((element) =>
-                                                    element.id == _selectedCar)
-                                                .first
-                                                .carModel,
-                                            style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: AppColors.lightTextColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    isThreeLine: true,
-                                    trailing: Column(
+                                  child: SizedBox(
+                                    height: 55.h,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        SizedBox(height: 15.h),
                                         const Icon(
-                                          Icons.radio_button_checked,
-                                          color: AppColors.buttonColor,
+                                          Icons.add_circle_outline,
+                                          color: AppColors.blueTextColor,
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        Text(
+                                          "Thêm phương tiện",
+                                          style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blueTextColor,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                        SizedBox(
-                          height: 15.h,
+                            )
+                          : InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => ChoseYourCar(
+                                          selectedCar: _selectedCar,
+                                          onSelected: _onCarSelected,
+                                          onCallBack: _onCallBack,
+                                        ));
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
+                                ),
+                                child: ListTile(
+                                  leading: Image.asset(
+                                    "assets/image/icon-logo/bmw-car-icon.png",
+                                    height: 50.h,
+                                    width: 50.w,
+                                  ),
+                                  title: Text(
+                                    _listCar
+                                        .where((element) =>
+                                            element.id == _selectedCar)
+                                        .first
+                                        .carBrand,
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.lightTextColor,
+                                    ),
+                                  ),
+                                  subtitle: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          _listCar
+                                              .where((element) =>
+                                                  element.id == _selectedCar)
+                                              .first
+                                              .carLisenceNo,
+                                          style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
+                                        Text(
+                                          _listCar
+                                              .where((element) =>
+                                                  element.id == _selectedCar)
+                                              .first
+                                              .carModel,
+                                          style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.lightTextColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  isThreeLine: true,
+                                  trailing: Column(
+                                    children: [
+                                      SizedBox(height: 15.h),
+                                      const Icon(
+                                        Icons.radio_button_checked,
+                                        color: AppColors.buttonColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Phương thức thanh toán",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) =>
+                                      const ChosePaymentMethod());
+                            },
+                            child: Text(
+                              "Chọn",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.blueTextColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Phương thức được chọn",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.lightTextColor,
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              "Phương thức thanh toán",
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) => const ChosePaymentMethod());
+                        },
+                        child: Container(
+                          height: 55.h,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                          ),
+                          child: ListTile(
+                            leading: Image.asset(
+                              "assets/image/icon-logo/vnpay.png",
+                              height: 50.h,
+                              width: 50.w,
+                            ),
+                            title: Text(
+                              "VNPAY",
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 14.sp,
@@ -535,241 +588,176 @@ class _BookingInfoState extends State<BookingInfo> {
                                 color: AppColors.blackTextColor,
                               ),
                             ),
-                            const Spacer(),
-                            TextButton(
-                              onPressed: () {
+                            trailing: Column(
+                              children: [
+                                SizedBox(height: 15.h),
+                                const Icon(
+                                  Icons.radio_button_checked,
+                                  color: AppColors.buttonColor,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Text(
+                        "Thanh toán",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Phí đặt chỗ",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            "500.000",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 22.h,
+                        child: const Divider(
+                          thickness: 1,
+                          color: AppColors.searchBarColor,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Tổng cộng",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            "500.000",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 8.h),
+                            child: Text(
+                              "**Phí đặt chỗ sẽ được khấu trừ vào hóa đơn**",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                              onTap: () {
                                 showModalBottomSheet(
                                     context: context,
                                     builder: (context) =>
-                                        const ChosePaymentMethod());
+                                        const DepositBottomSheet());
                               },
                               child: Text(
-                                "Chọn",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.blueTextColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          "Phương thức được chọn",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) =>
-                                    const ChosePaymentMethod());
-                          },
-                          child: Container(
-                            height: 55.h,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10)),
-                            ),
-                            child: ListTile(
-                              leading: Image.asset(
-                                "assets/image/icon-logo/vnpay.png",
-                                height: 50.h,
-                                width: 50.w,
-                              ),
-                              title: Text(
-                                "VNPAY",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              trailing: Column(
-                                children: [
-                                  SizedBox(height: 15.h),
-                                  const Icon(
-                                    Icons.radio_button_checked,
-                                    color: AppColors.buttonColor,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Text(
-                          "Thanh toán",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Phí đặt chỗ",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.lightTextColor,
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              "500.000",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.lightTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 22.h,
-                          child: const Divider(
-                            thickness: 1,
-                            color: AppColors.searchBarColor,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Tổng cộng",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            const Spacer(),
-                            Text(
-                              "500.000",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 8.h),
-                              child: Text(
-                                "**Phí đặt chỗ sẽ được khấu trừ vào hóa đơn**",
+                                "Tại sao tôi phải trả phí đặt chỗ ?",
                                 style: TextStyle(
                                   fontFamily: 'SFProDisplay',
                                   fontSize: 10.sp,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w600,
                                   color: AppColors.blackTextColor,
+                                  decoration: TextDecoration.underline,
                                 ),
-                              ),
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) =>
-                                          const DepositBottomSheet());
-                                },
-                                child: Text(
-                                  "Tại sao tôi phải trả phí đặt chỗ ?",
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
-                                    decoration: TextDecoration.underline,
+                              ))
+                        ],
+                      ),
+                      SizedBox(
+                        height: 36.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                PaymentRequestModel paymentRequestModel =
+                                    PaymentRequestModel(
+                                        amount: 500000,
+                                        name: 'Trung',
+                                        orderDescription: 'ABC',
+                                        orderType: 'VNpay');
+                                var responsePayment =
+                                    await _payBookingFee(paymentRequestModel);
+                                // ignore: use_build_context_synchronously
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => BookingPayment(
+                                    url: responsePayment,
+                                    callback: _onCallBackFromPayment,
                                   ),
-                                ))
-                          ],
-                        ),
-                        SizedBox(
-                          height: 36.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  PaymentRequestModel paymentRequestModel =
-                                      PaymentRequestModel(
-                                          amount: 500000,
-                                          name: 'Trung',
-                                          orderDescription: 'ABC',
-                                          orderType: 'VNpay');
-                                  var responsePayment =
-                                      await _payBookingFee(paymentRequestModel);
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => BookingPayment(
-                                      url: responsePayment,
-                                      callback: _onCallBackFromPayment,
-                                    ),
-                                  ));
+                                ));
 
-                                  // }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.buttonColor,
-                                  fixedSize: Size.fromHeight(50.w),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
+                                // }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonColor,
+                                fixedSize: Size.fromHeight(50.w),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28),
                                 ),
-                                child: Text(
-                                  'Đặt lịch',
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                              ),
+                              child: Text(
+                                'Đặt lịch',
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 36.h,
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 36.h,
+                      ),
+                    ],
                   ),
                 ),
               ),

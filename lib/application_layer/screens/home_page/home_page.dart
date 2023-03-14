@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_se
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
+import 'package:empiregarage_mobile/helper/notification_helper.dart';
 import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
 import 'package:empiregarage_mobile/services/item_service/item_service.dart';
@@ -31,12 +32,12 @@ class _HomePageState extends State<HomePage> {
   List<ItemResponseModel>? _listItem;
   List<ItemResponseModel>? _filteredItem;
 
-  
-
   late List<ActivityResponseModel?> _listOngoingActivity;
   bool _loading = false;
 
   bool isService = true;
+
+  int _notificationCount = 0;
 
   _fetchData() async {
     _listItem = await ItemService().fetchListItem();
@@ -47,17 +48,17 @@ class _HomePageState extends State<HomePage> {
         .where((element) => element != null && element.isOnGoing == true)
         .toList();
     _filteredItem = _listItem;
+
+    //count notification
+    _notificationCount = await countNotification();
     if (!mounted) return;
     setState(() {
       _loading = true;
     });
   }
 
-  
-
   @override
   void initState() {
-   
     _fetchData();
     super.initState();
   }
@@ -118,19 +119,42 @@ class _HomePageState extends State<HomePage> {
                                               )
                                             ]),
                                         child: IconButton(
-                                            onPressed: () {
+                                            onPressed: () async {
+                                              var userId = await getUserId();
+                                              if (userId == null) {
+                                                throw Exception(
+                                                    "Not found user");
+                                              }
+                                              // ignore: use_build_context_synchronously
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const NotificationPage()),
+                                                        NotificationPage(
+                                                          userId: userId,
+                                                        )),
                                               );
                                             },
-                                            icon: const Icon(
-                                              FontAwesomeIcons.bell,
-                                              size: 20,
-                                              color: AppColors.whiteButtonColor,
-                                            )),
+                                            icon: Badge(
+                                                backgroundColor:
+                                                    _notificationCount == 0
+                                                        ? Colors.transparent
+                                                        : AppColors.errorIcon,
+                                                label: _notificationCount > 0
+                                                    ? Text(
+                                                        _notificationCount
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    : null,
+                                                child: const Icon(
+                                                  FontAwesomeIcons.bell,
+                                                  size: 20,
+                                                  color: AppColors
+                                                      .whiteButtonColor,
+                                                ))),
                                       ),
                                     )
                                   ],

@@ -80,7 +80,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                   focusNode: _focusNode,
                   controller: _searchController,
                   decoration: const InputDecoration(
-                    hintText: 'Chọn dịch vụ',
+                    hintText: 'Chọn triệu chứng',
                     border: InputBorder.none,
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 12),
