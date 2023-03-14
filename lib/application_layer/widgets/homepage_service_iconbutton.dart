@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../common/colors.dart';
 import '../../models/response/groupservices.dart';
 import '../../services/group_services/group_services.dart';
+import '../screens/search/filter_group_service.dart';
 
 class HomePageServiceIconButton extends StatefulWidget {
   const HomePageServiceIconButton({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
   bool isService = true;
 
   List<GroupServicesResponseModel>? _listGroupServices;
-  List<GroupServicesResponseModel>? _filterGroupServices;
+  GroupServicesResponseModel? _filterGroupServices;
 
   _getListGroupServices() async {
     _listGroupServices = await GroupServices().fetchGroupServices(isService);
@@ -50,7 +51,15 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                   onTap: () {
                     _filterGroupServices = _listGroupServices
                         ?.where((item) => item.name!.contains('Cứu hộ'))
-                        .toList();
+                        .first;
+                    if (_filterGroupServices != null) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => FilterGroupService(
+                          filterGroupServices: _filterGroupServices
+                              as GroupServicesResponseModel,
+                        ),
+                      ));
+                    }
                   },
                   child: Image.asset(
                     "assets/image/icon-logo/homeservice-logo-rescue.png",
@@ -82,7 +91,15 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                 onTap: () {
                   _filterGroupServices = _listGroupServices
                       ?.where((item) => item.name!.contains('Chăm sóc'))
-                      .toList();
+                      .first;
+                      if (_filterGroupServices != null) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => FilterGroupService(
+                          filterGroupServices: _filterGroupServices
+                              as GroupServicesResponseModel,
+                        ),
+                      ));
+                    }
                 },
                 child: InkWell(
                     child: Image.asset(
@@ -111,7 +128,19 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                   _filterGroupServices = _listGroupServices
+                      ?.where((item) => item.name!.contains('Sửa chữa'))
+                      .first;
+                      if (_filterGroupServices != null) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => FilterGroupService(
+                          filterGroupServices: _filterGroupServices
+                              as GroupServicesResponseModel,
+                        ),
+                      ));
+                    }
+                },
                 child: InkWell(
                     child: Image.asset(
                   "assets/image/icon-logo/homeservice-logo-fixing.png",
@@ -142,9 +171,14 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                 onTap: () {
                   _filterGroupServices = _listGroupServices
                       ?.where((item) => item.name!.contains('Bảo dưỡng'))
-                      .toList();
-                  if(_filterGroupServices != null){
-                    print("Trung debug");
+                      .first;
+                  if (_filterGroupServices != null) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => FilterGroupService(
+                        filterGroupServices:
+                            _filterGroupServices as GroupServicesResponseModel,
+                      ),
+                    ));
                   }
                 },
                 child: InkWell(
@@ -177,7 +211,15 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                 onTap: () {
                   _filterGroupServices = _listGroupServices
                       ?.where((item) => item.name!.contains('Phụ tùng'))
-                      .toList();
+                      .first;
+                  if (_filterGroupServices != null) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => FilterGroupService(
+                        filterGroupServices:
+                            _filterGroupServices as GroupServicesResponseModel,
+                      ),
+                    ));
+                  }
                 },
                 child: InkWell(
                     child: Image.asset(
