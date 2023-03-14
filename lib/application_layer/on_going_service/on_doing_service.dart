@@ -52,7 +52,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
           for (var item in list) {
             sum += int.parse(item.price.toString());
           }
-          sumAfter = sum + prepaid;
+          sumAfter = sum - prepaid;
           _loading = false;
         });
       }
