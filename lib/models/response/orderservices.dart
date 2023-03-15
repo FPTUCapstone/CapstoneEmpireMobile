@@ -1,6 +1,7 @@
 class OrderServicesResponseModel {
   int id;
   int status;
+  String? code;
   Expert? expert;
   Car car;
   HealthCarRecord? healthCarRecord;
@@ -11,6 +12,7 @@ class OrderServicesResponseModel {
     required this.id,
     required this.status,
     this.expert,
+    this.code,
     required this.car,
     this.healthCarRecord,
     required this.order,
@@ -21,6 +23,7 @@ class OrderServicesResponseModel {
     return OrderServicesResponseModel(
       id: json['id'],
       status: json['status'],
+      code: json['code'],
       expert: json['expert'] != null ? Expert.fromJson(json['expert']) : null,
       car: Car.fromJson(json['car']),
       healthCarRecord: json['healthCarRecord'] != null
@@ -206,6 +209,13 @@ class OrderServiceDetails {
     if (item != null) {
       data['item'] = item!.toJson();
     }
+    return data;
+  }
+
+  Map<String, dynamic> toJsonLesser() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['isConfirmed'] = isConfirmed;
     return data;
   }
 }

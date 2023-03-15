@@ -1,11 +1,14 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
+import 'package:empiregarage_mobile/services/payment_services/payment_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
+import '../../models/request/payment_request_model.dart';
 import '../../models/response/orderservices.dart';
 import '../../services/order_services/order_services.dart';
+import 'order_payment.dart';
 
 class OnGoingPaymentService extends StatefulWidget {
   final int servicesId;
@@ -36,9 +39,10 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     try {
       if (list != null) {
         setState(() {
-          _listOrderServiceDetails = list;
+          _listOrderServiceDetails =
+              list.where((element) => element.isConfirmed == true).toList();
           _orderServicesResponseModel = listOrderServiceDetails;
-          for (var item in list) {
+          for (var item in _listOrderServiceDetails) {
             sum += int.parse(item.price.toString());
           }
           sumAfter = sum - prepaid;
@@ -48,6 +52,51 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     } catch (e) {
       e.toString();
     }
+  }
+
+  _payBookingFee(PaymentRequestModel model) async {
+    var response = await PaymentServices().createNewPaymentForOrder(model);
+    if (response!.statusCode == 500) {
+      throw Exception("Can not pay order fee");
+    }
+    return response.body;
+  }
+
+  _pay() async {
+    PaymentRequestModel paymentRequestModel = PaymentRequestModel(
+        amount: sumAfter,
+        name: 'OrderService Payment',
+        orderDescription:
+            'OrderService Payment for #${_orderServicesResponseModel!.code}',
+        orderType: 'VNpay');
+    var responsePayment = await _payBookingFee(paymentRequestModel);
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => OrderPayment(
+        url: responsePayment,
+        callback: _onCallBack,
+      ),
+    ));
+  }
+
+  _onCallBack() async {
+    var response2 = await OrderServices().putConfirmPaidOrder(
+        _orderServicesResponseModel!.id, _listOrderServiceDetails);
+    var response =
+        await OrderServices().confirmOrder(_orderServicesResponseModel!.id, 3);
+    if (response == null ||
+        response.statusCode != 201 &&
+            (response2 == null || response.statusCode != 204)) {
+      throw Exception("Error when confirm Order");
+    }
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OnGoingService(
+            servicesId: _orderServicesResponseModel!.id,
+          ),
+        ));
   }
 
   @override
@@ -461,19 +510,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                       height: 52.h,
                       child: ElevatedButton(
                         onPressed: () async {
-                          var response = await OrderServices()
-                              .confirmOrder(_orderServicesResponseModel!.id, 3);
-                          if (response == null || response.statusCode != 201) {
-                            throw Exception("Error when confirm Order");
-                          }
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => OnGoingService(
-                                  servicesId: _orderServicesResponseModel!.id,
-                                ),
-                              ));
+                          await _pay();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.buttonColor,

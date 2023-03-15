@@ -44,4 +44,50 @@ class OrderServices {
     }
     return response;
   }
+
+  Future<http.Response?> putConfirmOrder(
+      int orderServiceId, List<OrderServiceDetails> orderServiceDetails) async {
+    http.Response? response;
+    try {
+      final List<Map<String, dynamic>> jsonList =
+          orderServiceDetails.map((order) => order.toJsonLesser()).toList();
+      response = await makeHttpRequest(
+        '${APIPath.path}/order-services/$orderServiceId/confirm',
+        method: 'PUT',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'orderServiceDetails': jsonList,
+          'paymentMethod': 2
+        }),
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
+  }
+
+  Future<http.Response?> putConfirmPaidOrder(
+      int orderServiceId, List<OrderServiceDetails> orderServiceDetails) async {
+    http.Response? response;
+    try {
+      final List<Map<String, dynamic>> jsonList =
+          orderServiceDetails.map((order) => order.toJsonLesser()).toList();
+      response = await makeHttpRequest(
+        '${APIPath.path}/order-services/$orderServiceId/confirm',
+        method: 'PUT',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'orderServiceDetails': jsonList,
+          'paymentMethod': 2
+        }),
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
+  }
 }

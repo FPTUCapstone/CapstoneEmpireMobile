@@ -47,9 +47,10 @@ class _OnDoingServiceState extends State<OnDoingService> {
     try {
       if (list != null) {
         setState(() {
-          _listOrderServiceDetails = list;
+          _listOrderServiceDetails =
+              list.where((element) => element.isConfirmed == true).toList();
           _orderServicesResponseModel = listOrderServiceDetails;
-          for (var item in list) {
+          for (var item in _listOrderServiceDetails) {
             sum += int.parse(item.price.toString());
           }
           sumAfter = sum - prepaid;

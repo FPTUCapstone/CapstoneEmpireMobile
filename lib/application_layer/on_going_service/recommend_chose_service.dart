@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
   OrderServicesResponseModel? _orderServicesResponseModel;
   int _sum = 0;
   bool _loading = true;
+  String? _error;
 
   List<String> serviceNames = [
     'Thay lốp',
@@ -62,14 +64,36 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     }
   }
 
+  _confirmService(OrderServiceDetails item) {
+    setState(() {
+      _error = null;
+      _listOrderServiceDetails
+          .where((element) => element.id == item.id)
+          .first
+          .isConfirmed = !(item.isConfirmed as bool);
+
+      _sum = item.isConfirmed == false
+          ? _sum - int.parse(item.price.toString())
+          : _sum + int.parse(item.price.toString());
+    });
+  }
+
   _onContinue() {
+    if (_listOrderServiceDetails
+        .where((element) => element.isConfirmed == true)
+        .isEmpty) {
+      setState(() {
+        _error = "Cần phải chọn ít nhất 1 dịch vụ";
+      });
+      return;
+    }
     widget.onRecommendChoseServicecallBack();
   }
 
   @override
   void initState() {
-    _getOrderServices();
     super.initState();
+    _getOrderServices();
   }
 
   @override
@@ -153,57 +177,63 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                               ),
                             ],
                           ),
-                          child: ListTile(
-                            title: Text(
-                              _listOrderServiceDetails[index]
-                                  .item!
-                                  .name
-                                  .toString(),
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
+                          child: InkWell(
+                            onTap: () => _confirmService(
+                                _listOrderServiceDetails[index]),
+                            child: ListTile(
+                              title: Text(
+                                _listOrderServiceDetails[index]
+                                    .item!
+                                    .name
+                                    .toString(),
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
                               ),
-                            ),
-                            subtitle: Align(
-                              alignment: Alignment.topLeft,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              subtitle: Align(
+                                alignment: Alignment.topLeft,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Giá : ",
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.lightTextColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      _listOrderServiceDetails[index]
+                                          .price!
+                                          .toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.lightTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              trailing: Column(
                                 children: [
-                                  Text(
-                                    "Giá : ",
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.lightTextColor,
-                                    ),
-                                  ),
-                                  Text(
+                                  SizedBox(height: 15.h),
+                                  Icon(
                                     _listOrderServiceDetails[index]
-                                        .price!
-                                        .toString(),
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.lightTextColor,
-                                    ),
-                                  ),
+                                                .isConfirmed ==
+                                            true
+                                        ? Icons.radio_button_checked
+                                        : Icons.radio_button_unchecked,
+                                    color: AppColors.buttonColor,
+                                  )
                                 ],
                               ),
-                            ),
-                            trailing: Column(
-                              children: [
-                                SizedBox(height: 15.h),
-                                Icon(
-                                  isSelected
-                                      ? Icons.radio_button_checked
-                                      : Icons.radio_button_unchecked,
-                                  color: AppColors.buttonColor,
-                                )
-                              ],
                             ),
                           ),
                         ),
@@ -242,12 +272,24 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                 SizedBox(
                   height: 25.h,
                 ),
+                if (_error != null)
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.h),
+                    child: Text(_error.toString(),
+                        style: AppStyles.text400(
+                            fontsize: 12.sp, color: Colors.red)),
+                  ),
                 SizedBox(
                   width: 335.w,
                   height: 52.h,
                   child: ElevatedButton(
-                    onPressed: () {
-                      _onContinue();
+                    onPressed: () async {
+                      var response = await OrderServices().putConfirmOrder(
+                          _orderServicesResponseModel!.id,
+                          _listOrderServiceDetails);
+                      if (response != null && response.statusCode == 204) {
+                        _onContinue();
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonColor,

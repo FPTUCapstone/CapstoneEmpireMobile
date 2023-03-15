@@ -44,13 +44,19 @@ class _HomePageState extends State<Activities> {
     // var listOnGoingBooking = await BookingService().getOnGoingBooking(userId);
     // var listBookingByUser = await BookingService().getBookingByUser(userId);
     var listActivity = await ActivityService().fetchActivity(userId);
+    var listOngoingActivity =
+        await ActivityService().fetchOnGoingActivity(userId);
     if (!mounted) return;
     setState(() {
-      _listOnGoing =
-          listActivity.where((element) => element!.isOnGoing == true).toList();
-      _listOnGoing.sort(((a, b) => a!.daysLeft!.compareTo(b!.daysLeft as num)));
-      _listRecent =
-          listActivity.where((element) => element!.isOnGoing == false).toList();
+      _listOnGoing = listOngoingActivity
+          .where((element) => element!.isOnGoing == true)
+          .toList();
+      // _listOnGoing.sort(((a, b) => a!.daysLeft!.compareTo(b!.daysLeft as num)));
+      _listRecent = listActivity
+          .where((element) =>
+              element!.isOnGoing != true &&
+              (element.status == null || element.status == 5))
+          .toList();
       _loading = false;
     });
   }

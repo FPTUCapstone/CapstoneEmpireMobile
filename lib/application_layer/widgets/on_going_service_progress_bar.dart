@@ -80,6 +80,18 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                     fit: BoxFit.fill)),
           ),
         ),
+        Text(
+          '#${widget.order.code}',
+          style: TextStyle(
+            fontFamily: 'SFProDisplay',
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400,
+            color: AppColors.lightTextColor,
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
         SizedBox(
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
