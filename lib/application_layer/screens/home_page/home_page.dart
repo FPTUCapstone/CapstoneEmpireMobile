@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
     var listActivity = await ActivityService().fetchOnGoingActivity(userId);
     _listOngoingActivity = listActivity
         .where((element) => element != null && element.isOnGoing == true)
+        .where((element) => element!.status == null || element.status != 5)
         .toList();
     _filteredItem = _listItem;
 
@@ -294,7 +295,13 @@ class _HomePageState extends State<HomePage> {
                                         carInfo:
                                             '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
                                         date: item.date.toString(),
-                                        daysLeft: item.daysLeft,
+                                        daysLeft: item.date != null
+                                            ? DateTime.now()
+                                                .toLocal()
+                                                .difference(
+                                                    item.date as DateTime)
+                                                .inDays
+                                            : null,
                                         isBooking: item.isBooking,
                                         item: item,
                                       ),
