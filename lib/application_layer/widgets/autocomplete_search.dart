@@ -71,7 +71,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
         Container(
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(26),
           ),
           child: Row(
             children: [

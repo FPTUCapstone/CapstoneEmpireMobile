@@ -1,6 +1,6 @@
 class PaymentRequestModel {
   String orderType;
-  double amount;
+  int amount;
   String orderDescription;
   String name;
 

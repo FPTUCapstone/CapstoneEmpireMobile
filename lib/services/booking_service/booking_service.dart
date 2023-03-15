@@ -125,4 +125,20 @@ class BookingService {
     }
     return null;
   }
+
+  Future<int> getBookingPrice() async {
+    String apiUrl = "${APIPath.path}/bookings/booking-price";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        dynamic jsonObject = json.decode(response.body);
+        int bookingPrice = jsonObject;
+        return bookingPrice;
+      }
+    } catch (e) {
+      e.toString();
+      log("Trung tra tien booking");
+    }
+    return 0;
+  }
 }

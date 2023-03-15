@@ -56,6 +56,8 @@ class _BookingInfoState extends State<BookingInfo> {
     // "Giật ga"
   ];
 
+  int _bookingPrice = 0;
+
   PaymentRequestModel model = PaymentRequestModel(
       orderType: '', amount: 0, orderDescription: '', name: '');
 
@@ -66,6 +68,16 @@ class _BookingInfoState extends State<BookingInfo> {
     }
     return response.body;
   }
+
+  _getBookingPrice()async{
+    var response = await BookingService().getBookingPrice();
+    setState(() {
+      _bookingPrice = response;
+    });
+    return _bookingPrice;
+  }
+
+
 
   // List<String> _getSuggestions(String query) {
   //   List<String> matches = [];
@@ -155,6 +167,7 @@ class _BookingInfoState extends State<BookingInfo> {
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
+    _getBookingPrice();
     _loadOptions();
     _loadingSymptomsList();
     _getUserCar();
@@ -631,7 +644,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                           const Spacer(),
                           Text(
-                            "500.000",
+                            _bookingPrice.toString(),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 14.sp,
@@ -661,7 +674,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                           const Spacer(),
                           Text(
-                            "500.000",
+                            _bookingPrice.toString(),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 14.sp,
@@ -719,7 +732,7 @@ class _BookingInfoState extends State<BookingInfo> {
                               onPressed: () async {
                                 PaymentRequestModel paymentRequestModel =
                                     PaymentRequestModel(
-                                        amount: 500000,
+                                        amount: _bookingPrice,
                                         name: 'Trung',
                                         orderDescription: 'ABC',
                                         orderType: 'VNpay');
