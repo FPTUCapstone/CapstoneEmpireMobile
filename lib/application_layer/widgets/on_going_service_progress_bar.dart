@@ -53,6 +53,21 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        SizedBox(
+                        height: 5.h,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Mã đặt lịch : #${widget.order.id}",
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.lightTextColor,
+                          ),
+                        ),
+                      ),
         Padding(
           padding: EdgeInsets.all(35.w),
           child: Container(
