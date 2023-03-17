@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/qrcode.dart';
+import 'package:empiregarage_mobile/application_layer/screens/booking/see_booking_detail_payment.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors.dart';
+import '../../widgets/pick_date_booking.dart';
 
 class BookingDetail extends StatefulWidget {
   final ActivityResponseModel data;
@@ -203,50 +205,122 @@ class _BookingDetailState extends State<BookingDetail> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 24.w),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Xem chi tiết",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blueTextColor,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const SeeBookingDetailPayment(),
+                            ));
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                "Xem chi tiết thanh toán",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blueTextColor,
+                                ),
                               ),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              color: AppColors.lightTextColor,
-                            )
-                          ],
+                              const Spacer(),
+                              const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: AppColors.lightTextColor,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
                         height: 20.h,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 24.w),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Thông tin cá nhân",
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.arrow_forward_ios_rounded,
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                        ),
+                        child: ListTile(
+                          leading: Image.asset(
+                            "assets/image/icon-logo/bmw-car-icon.png",
+                            height: 50.h,
+                            width: 50.w,
+                          ),
+                          title: Text(
+                            "Brand",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
                               color: AppColors.lightTextColor,
-                            )
-                          ],
+                            ),
+                          ),
+                          subtitle: Align(
+                            alignment: Alignment.topLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "carLisenceNo",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  "carModel",
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.lightTextColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          isThreeLine: true,
                         ),
                       ),
                     ],
+                  ),
+                ),
+                bottomNavigationBar: Padding(
+                  padding: const EdgeInsets.only(bottom: 36,left: 24,right: 24),
+                  child: SizedBox(
+                    width: 335.w,
+                    height: 52.h,
+                    child: ElevatedButton(
+                        onPressed: ()  {
+                           showModalBottomSheet(
+                                context: context,
+                                builder: (context) => const PickDateBooking());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.buttonColor,
+                          fixedSize: Size.fromHeight(50.w),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(36),
+                          ),
+                        ),
+                        child: Text(
+                          'Đặt lịch lại',
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
                   ),
                 ),
               ),
