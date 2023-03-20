@@ -251,7 +251,7 @@ class _BookingDetailState extends State<BookingDetail> {
                             width: 50.w,
                           ),
                           title: Text(
-                            "Brand",
+                            widget.data.car!.carBrand.toString(),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 12.sp,
@@ -265,7 +265,7 @@ class _BookingDetailState extends State<BookingDetail> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "carLisenceNo",
+                                  widget.data.car!.carLisenceNo.toString(),
                                   style: TextStyle(
                                     fontFamily: 'SFProDisplay',
                                     fontSize: 14.sp,
@@ -277,7 +277,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                   height: 5.h,
                                 ),
                                 Text(
-                                  "carModel",
+                                  widget.data.car!.carModel.toString(),
                                   style: TextStyle(
                                     fontFamily: 'SFProDisplay',
                                     fontSize: 12.sp,

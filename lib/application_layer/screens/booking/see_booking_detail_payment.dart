@@ -86,7 +86,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                 Spacer(),
                 Padding(
                   padding: EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text("50000000",
+                  child: Text("500000",
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontWeight: FontWeight.w400,
@@ -111,7 +111,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                 Spacer(),
                 Padding(
                   padding: EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text("50000000",
+                  child: Text("500000",
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontWeight: FontWeight.w600,
@@ -166,7 +166,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                 const Spacer(),
                 const Padding(
                   padding: EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text("50000000",
+                  child: Text("500000",
                       style:TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontWeight: FontWeight.w400,
