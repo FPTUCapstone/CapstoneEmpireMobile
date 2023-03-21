@@ -10,10 +10,11 @@ import 'package:http/http.dart' as http;
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<http.Response?> createBooking(String date, int carId, int userId,
-      int intendedMinutes, List<SymptomModel> symptoms) async {
+  Future<http.Response?> createBooking(String date, int carId, int userId, double bookingPrice,
+      List<SymptomModel> symptoms) async {
     http.Response? response;
     try {
+      List<int> symptomIds = symptoms.map((s) => s.id).toList();
       response = await makeHttpRequest(
         '${APIPath.path}/bookings',
         method: 'POST',
@@ -24,8 +25,8 @@ class BookingService {
           'date': date,
           'carId': carId,
           'userId': userId,
-          'intendedMinutes': intendedMinutes,
-          'symtoms': symptoms
+          'bookingPrice': bookingPrice,
+          'symtoms': symptomIds
         }),
       );
     } catch (e) {

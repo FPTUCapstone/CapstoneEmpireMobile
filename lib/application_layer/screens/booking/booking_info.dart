@@ -1,5 +1,9 @@
+
+import 'dart:developer';
+
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/tag_editor.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
@@ -17,7 +21,6 @@ import '../../../models/request/payment_request_model.dart';
 import '../../../services/booking_service/booking_service.dart';
 import '../../../services/notification/notification_service.dart';
 import '../../../services/payment_services/payment_services.dart';
-import '../../widgets/autocomplete_search.dart';
 import '../../widgets/booking_fail.dart';
 import '../../widgets/booking_successfull.dart';
 import '../../widgets/chose_your_car.dart';
@@ -47,15 +50,6 @@ class _BookingInfoState extends State<BookingInfo> {
   List<SymptonResponseModel> options = [];
 
   final List<SymptonResponseModel> _listSuggestService = [];
-
-  List<SymptonResponseModel> _symptonList = [
-    // "Khác"
-    // "Xe kêu",
-    // "Rỉ xăng",
-    // "Đảo bánh trước",
-    // "Lên ga rung",
-    // "Giật ga"
-  ];
 
   int _bookingPrice = 0;
 
@@ -98,17 +92,6 @@ class _BookingInfoState extends State<BookingInfo> {
   late int _selectedCar;
   List<CarResponseModel> _listCar = [];
 
-  _loadingSymptomsList() async {
-    var result = await SymptomsService().fetchListSymptoms();
-    if (result != null) {
-      _symptonList = result;
-      setState(() {
-        // _selectedIndex = _symptonList.first.id;
-        _listSymptom.add(SymptomModel(id: _symptonList.first.id));
-      });
-    }
-  }
-
   _loadOptions() async {
     var result = await SymptomsService().fetchListSymptoms();
     if (result != null) {
@@ -141,19 +124,12 @@ class _BookingInfoState extends State<BookingInfo> {
     });
   }
 
-  void _onCallBackSymptoms(int int) {
-    setState(() {
-      _listSuggestService
-          .add(options.where((element) => element.id == int).first);
-    });
-  }
-
   void _onCallBack(int selectedCar) async {
     setState(() {
       _loading = false;
     });
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
-    await _loadingSymptomsList();
+    await _loadOptions();
     await _getUserCar();
     setState(() {
       _loading = true;
@@ -168,14 +144,13 @@ class _BookingInfoState extends State<BookingInfo> {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
     _getBookingPrice();
     _loadOptions();
-    _loadingSymptomsList();
     _getUserCar();
     super.initState();
   }
 
   _loadData() async {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
-    await _loadingSymptomsList();
+    await _loadOptions();
     await _getUserCar();
   }
 
@@ -191,13 +166,15 @@ class _BookingInfoState extends State<BookingInfo> {
     int userId = await getUserId() as int;
     int carId =
         _listCar.where((element) => element.id == _selectedCar).first.id;
-    int intendedMinutes = 30;
     var response = await BookingService()
-        .createBooking(date, carId, userId, intendedMinutes, _listSymptom);
+        .createBooking(date, carId, userId, double.parse(_bookingPrice.toString()), _listSymptom);
 
     if (response!.statusCode == 201) {
       sendNotification(
           18, "Empire Garage", "A new booking has been created successful");
+      var userId = await getUserId();
+      sendNotification(userId!, "Empire Garage",
+          "A new booking has been created successful");
       var notificationModel = NotificationModel(
           isAndroiodDevice: true,
           title: "Empire Garage",
@@ -329,14 +306,22 @@ class _BookingInfoState extends State<BookingInfo> {
                       SizedBox(
                         height: 5.h,
                       ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: SearchableDropdown(
-                                options: options,
-                                onSelectedItem: _onCallBackSymptoms),
-                          ),
-                        ],
+                      // Row(
+                      //   children: <Widget>[
+                      //     Expanded(
+                      //       child: SearchableDropdown(
+                      //           options: options,
+                      //           onSelectedItem: _onCallBackSymptoms),
+                      //     ),
+                      //   ],
+                      // ),
+                      TagEditor(
+                        options: options,
+                        onChanged: (tags) {
+                          setState(() {
+                              _listSymptom.add(SymptomModel(id: tags.last.id));
+                          });
+                        },
                       ),
                       SizedBox(
                         height: 15.h,
@@ -731,6 +716,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () async {
+                                log(_listSymptom.length.toString());
                                 PaymentRequestModel paymentRequestModel =
                                     PaymentRequestModel(
                                         amount: _bookingPrice,

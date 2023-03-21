@@ -15,5 +15,4 @@ class SymptonResponseModel{
       name: json['name'], 
       intendedMinutes: json['intendedMinutes']);
   }
-
 }
