@@ -43,9 +43,8 @@ import 'package:flutter/foundation.dart';
 //   });
 // }
 
-void sendNotification(String title, String message) async {
+void sendNotification(int userId, String title, String message) async {
   FirebaseDatabase database = FirebaseDatabase.instance;
-  var userId = await getUserId();
   DatabaseReference reference = database.ref('users/$userId/notifications');
 
   // Push a new notification to the Firebase Realtime Database

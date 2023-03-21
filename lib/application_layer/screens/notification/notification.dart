@@ -21,7 +21,8 @@ class _NotificationPageState extends State<NotificationPage> {
     // _getNoti();
     countNotification();
     super.initState();
-    // sendNotification("Hello from flutter 33333", "Send notification success 1");
+    // sendNotification(
+    //     18, "Hello from flutter 33333", "Send notification success 1");
     // listenForNotifications();
   }
 

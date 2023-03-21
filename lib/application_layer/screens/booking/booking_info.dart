@@ -9,6 +9,7 @@ import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.d
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:empiregarage_mobile/helper/notification_helper.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/notification.dart';
@@ -69,15 +70,13 @@ class _BookingInfoState extends State<BookingInfo> {
     return response.body;
   }
 
-  _getBookingPrice()async{
+  _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
     setState(() {
       _bookingPrice = response;
     });
     return _bookingPrice;
   }
-
-
 
   // List<String> _getSuggestions(String query) {
   //   List<String> matches = [];
@@ -197,6 +196,8 @@ class _BookingInfoState extends State<BookingInfo> {
         .createBooking(date, carId, userId, intendedMinutes, _listSymptom);
 
     if (response!.statusCode == 201) {
+      sendNotification(
+          18, "Empire Garage", "A new booking has been created successful");
       var notificationModel = NotificationModel(
           isAndroiodDevice: true,
           title: "Empire Garage",
