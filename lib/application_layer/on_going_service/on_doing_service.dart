@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
+import '../../services/booking_service/booking_service.dart';
 
 class OnDoingService extends StatefulWidget {
   final int servicesId;
@@ -34,10 +35,18 @@ class _OnDoingServiceState extends State<OnDoingService> {
 
   int sum = 0;
   int sumAfter = 0;
-  int prepaid = 500000;
+  int prepaid = 0;
   List<OrderServiceDetails> _listOrderServiceDetails = [];
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
+
+  _getBookingPrice() async {
+    var response = await BookingService().getBookingPrice();
+    setState(() {
+      prepaid = response;
+    });
+    return prepaid;
+  }
 
   _getOrderServices() async {
     var listOrderServiceDetails =
@@ -64,6 +73,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
 
   @override
   void initState() {
+    _getBookingPrice();
     _getOrderServices();
     super.initState();
   }

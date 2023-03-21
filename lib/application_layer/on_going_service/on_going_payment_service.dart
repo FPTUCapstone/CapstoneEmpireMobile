@@ -7,6 +7,7 @@ import 'package:readmore/readmore.dart';
 import '../../common/colors.dart';
 import '../../models/request/payment_request_model.dart';
 import '../../models/response/orderservices.dart';
+import '../../services/booking_service/booking_service.dart';
 import '../../services/order_services/order_services.dart';
 import 'order_payment.dart';
 
@@ -26,10 +27,18 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   int count = 1;
   int sum = 0;
   int sumAfter = 0;
-  int prepaid = 500000;
+  int prepaid = 0;
   List<OrderServiceDetails> _listOrderServiceDetails = [];
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
+
+  _getBookingPrice() async {
+    var response = await BookingService().getBookingPrice();
+    setState(() {
+      prepaid = response;
+    });
+    return prepaid;
+  }
 
   _getOrderServices() async {
     var listOrderServiceDetails =
@@ -101,6 +110,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
 
   @override
   void initState() {
+    _getBookingPrice();
     _getOrderServices();
     super.initState();
   }

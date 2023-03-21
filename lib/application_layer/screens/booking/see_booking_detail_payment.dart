@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors.dart';
+import '../../../services/booking_service/booking_service.dart';
 
 class SeeBookingDetailPayment extends StatefulWidget {
   const SeeBookingDetailPayment({super.key});
@@ -12,7 +13,21 @@ class SeeBookingDetailPayment extends StatefulWidget {
 }
 
 class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
-  String bookingPrice = "5000000";
+  int _bookingPrice = 0;
+
+  _getBookingPrice() async {
+    var response = await BookingService().getBookingPrice();
+    setState(() {
+      _bookingPrice = response;
+    });
+    return _bookingPrice;
+  }
+
+  @override
+  void initState() {
+    _getBookingPrice();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +87,8 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
           color: AppColors.white100,
           child: Column(children: <Widget>[
             Row(
-              children: const <Widget>[
-                Padding(
+              children: <Widget>[
+                const Padding(
                   padding: EdgeInsets.only(left: 24, bottom: 24),
                   child: Text("Phí đặt chỗ",
                       style: TextStyle(
@@ -83,11 +98,11 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                         color: AppColors.blackTextColor,
                       )),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text("500000",
-                      style: TextStyle(
+                  padding: const EdgeInsets.only(right: 24, bottom: 24),
+                  child: Text(_bookingPrice.toString(),
+                      style: const TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
@@ -97,8 +112,8 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
               ],
             ),
             Row(
-              children: const <Widget>[
-                Padding(
+              children: <Widget>[
+                const Padding(
                   padding: EdgeInsets.only(left: 24, bottom: 24),
                   child: Text("Tổng tiền",
                       style: TextStyle(
@@ -108,11 +123,11 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                         color: AppColors.blackTextColor,
                       )),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text("500000",
-                      style: TextStyle(
+                  padding: const EdgeInsets.only(right: 24, bottom: 24),
+                  child: Text(_bookingPrice.toString(),
+                      style: const TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
@@ -121,7 +136,6 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                 ),
               ],
             ),
-            
           ]),
         ),
         Row(
@@ -146,28 +160,28 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
             Row(
               children: <Widget>[
                 Padding(
-                  padding:  const EdgeInsets.only(left: 24, bottom: 24),
+                  padding: const EdgeInsets.only(left: 24, bottom: 24),
                   child: Row(
-                    children:  const [
+                    children: const [
                       Icon(
-                              Icons.account_balance_wallet_outlined,
-                              color: AppColors.blackTextColor,
-                            ),
+                        Icons.account_balance_wallet_outlined,
+                        color: AppColors.blackTextColor,
+                      ),
                       Text("Ví điện tử",
                           style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: AppColors.blackTextColor,
-                      )),
+                            fontFamily: 'SFProDisplay',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: AppColors.blackTextColor,
+                          )),
                     ],
                   ),
                 ),
                 const Spacer(),
-                const Padding(
-                  padding: EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text("500000",
-                      style:TextStyle(
+                Padding(
+                  padding: const EdgeInsets.only(right: 24, bottom: 24),
+                  child: Text(_bookingPrice.toString(),
+                      style: const TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
@@ -176,11 +190,9 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                 ),
               ],
             ),
-            
           ]),
         ),
       ]),
     );
   }
 }
-
