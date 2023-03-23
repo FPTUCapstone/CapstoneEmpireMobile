@@ -33,9 +33,9 @@ class _OnDoingServiceState extends State<OnDoingService> {
     "200000"
   ];
 
-  int sum = 0;
-  int sumAfter = 0;
-  int prepaid = 0;
+  double sum = 0;
+  double sumAfter = 0;
+  double prepaid = 0;
   List<OrderServiceDetails> _listOrderServiceDetails = [];
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
@@ -193,62 +193,62 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   thickness: 1,
                   color: AppColors.searchBarColor,
                 ),
-                SizedBox(height: 15.h),
-                Row(
-                  children: [
-                    Text(
-                      "Tổng tạm tính",
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      sum.toString(),
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                  ],
-                ),
+                // SizedBox(height: 15.h),
+                // Row(
+                //   children: [
+                //     Text(
+                //       "Tổng tạm tính",
+                //       style: TextStyle(
+                //         fontFamily: 'SFProDisplay',
+                //         fontSize: 16.sp,
+                //         fontWeight: FontWeight.w600,
+                //         color: AppColors.blackTextColor,
+                //       ),
+                //     ),
+                //     const Spacer(),
+                //     Text(
+                //       sum.toString(),
+                //       style: TextStyle(
+                //         fontFamily: 'SFProDisplay',
+                //         fontSize: 16.sp,
+                //         fontWeight: FontWeight.w600,
+                //         color: AppColors.blackTextColor,
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 20),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         "Phí đặt lịch",
+                //         style: TextStyle(
+                //           fontFamily: 'SFProDisplay',
+                //           fontSize: 12.sp,
+                //           fontWeight: FontWeight.w500,
+                //           color: Colors.red,
+                //         ),
+                //       ),
+                //       const Spacer(),
+                //       Text(
+                //         prepaid.toString(),
+                //         style: TextStyle(
+                //           fontFamily: 'SFProDisplay',
+                //           fontSize: 12.sp,
+                //           fontWeight: FontWeight.w500,
+                //           color: Colors.red,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Row(
                     children: [
                       Text(
-                        "Phí đặt lịch",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.red,
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        prepaid.toString(),
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Tổng cộng",
+                        "Đã thanh toán",
                         style: TextStyle(
                           fontFamily: 'SFProDisplay',
                           fontSize: 16.sp,
@@ -258,7 +258,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       ),
                       const Spacer(),
                       Text(
-                        sumAfter.toString(),
+                        sum.toString(),
                         style: TextStyle(
                           fontFamily: 'SFProDisplay',
                           fontSize: 16.sp,

@@ -84,10 +84,11 @@ class _OnGoingServiceState extends State<OnGoingService> {
     });
   }
 
-  _onRecommendChoseServicecallBack() {
+  _onRecommendChoseServicecallBack(listOrderServiceDetail) {
     setState(() {
       _tabs[2] = OnGoingPaymentService(
         onGoingPaymentCallBack: _onGoingPaymentCallBack,
+        listOrderServiceDetail: listOrderServiceDetail,
         servicesId: widget.servicesId,
       );
     });
@@ -96,7 +97,9 @@ class _OnGoingServiceState extends State<OnGoingService> {
   _onGoingPaymentCallBack() {
     setState(() {
       _tabs[2] = RecommendChoseService(
-        onRecommendChoseServicecallBack: _onRecommendChoseServicecallBack,
+        onRecommendChoseServicecallBack: (listOrderServiceDetail) {
+          _onRecommendChoseServicecallBack(listOrderServiceDetail);
+        },
         servicesId: widget.servicesId,
       );
     });

@@ -9,6 +9,7 @@ class TagEditor extends StatefulWidget {
   const TagEditor({super.key, required this.onChanged, required this.options});
 
   @override
+  // ignore: library_private_types_in_public_api
   _TagEditorState createState() => _TagEditorState();
 }
 
@@ -31,11 +32,10 @@ class _TagEditorState extends State<TagEditor> {
         TextFormField(
           controller: _controller,
           decoration: const InputDecoration(
-                    hintText: 'Chọn triệu chứng',
-                    border: InputBorder.none,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  ),
+            hintText: 'Chọn triệu chứng',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          ),
           onChanged: (value) async {
             setState(() {
               // You'll need to replace this with your own logic for
@@ -53,7 +53,9 @@ class _TagEditorState extends State<TagEditor> {
                   return tag.name!.toLowerCase().contains(value.toLowerCase());
                 });
                 if (result.toList().isNotEmpty) {
-                  if (_selectedTags.where((element) => element.id == result.first.id).isEmpty) {
+                  if (_selectedTags
+                      .where((element) => element.id == result.first.id)
+                      .isEmpty) {
                     _selectedTags.add(result.first);
                     widget.onChanged(_selectedTags);
                   }
@@ -95,7 +97,9 @@ class _TagEditorState extends State<TagEditor> {
                   onTap: () {
                     setState(() {
                       _controller.clear();
-                      if (_selectedTags.where((element) => element.id == tag.id).isEmpty) {
+                      if (_selectedTags
+                          .where((element) => element.id == tag.id)
+                          .isEmpty) {
                         _selectedTags.add(tag);
                         widget.onChanged(_selectedTags);
                       }

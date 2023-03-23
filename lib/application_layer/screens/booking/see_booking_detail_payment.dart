@@ -13,7 +13,7 @@ class SeeBookingDetailPayment extends StatefulWidget {
 }
 
 class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
-  int _bookingPrice = 0;
+  double _bookingPrice = 0;
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();

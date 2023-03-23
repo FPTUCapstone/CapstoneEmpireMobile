@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
+
 import '../../common/api_part.dart';
 import '../../common/jwt_interceptor.dart';
 import '../../models/response/orderservices.dart';
@@ -84,6 +86,26 @@ class OrderServices {
           'orderServiceDetails': jsonList,
           'paymentMethod': 2
         }),
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
+  }
+
+  Future<http.Response?> insertOrderDetail(int id, int paymentMethodId,
+      List<OrderServiceDetailRequestModel> listOrderServiceDetails) async {
+    http.Response? response;
+    try {
+      final jsonBody = jsonEncode(
+          listOrderServiceDetails.map((order) => order.toJson()).toList());
+      response = await makeHttpRequest(
+        '${APIPath.path}/order-services/$id/order-service-details?paymentMethodId=$paymentMethodId',
+        method: 'PUT',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonBody,
       );
     } catch (e) {
       log(e.toString());

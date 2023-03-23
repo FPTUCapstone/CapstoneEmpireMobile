@@ -96,24 +96,82 @@ class Car {
 }
 
 class HealthCarRecord {
-  int id;
+  int? id;
   String? symptom;
-  String createdAt;
-  String updatedAt;
+  List<HealthCarRecordProblem>? healthCarRecordProblems;
 
   HealthCarRecord({
     required this.id,
     this.symptom,
-    required this.createdAt,
-    required this.updatedAt,
+    this.healthCarRecordProblems,
   });
 
-  factory HealthCarRecord.fromJson(Map<String, dynamic> json) {
-    return HealthCarRecord(
+  HealthCarRecord.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    symptom = json['symptom'];
+    if (json['healthCarRecordProblems'] != null) {
+      healthCarRecordProblems = <HealthCarRecordProblem>[];
+      json['healthCarRecordProblems'].forEach((v) {
+        healthCarRecordProblems?.add(HealthCarRecordProblem.fromJson(v));
+      });
+    }
+  }
+}
+
+class HealthCarRecordProblem {
+  Problem problem;
+  HealthCarRecordProblem({required this.problem});
+  factory HealthCarRecordProblem.fromJson(Map<String, dynamic> json) {
+    return HealthCarRecordProblem(
+      problem: Problem.fromJson(json['problem']),
+    );
+  }
+}
+
+class Problem {
+  int? id;
+  String? name;
+  List<Item2>? items;
+
+  Problem({
+    this.id,
+    this.name,
+    this.items,
+  });
+
+  Problem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    if (json['items'] != null) {
+      items = <Item2>[];
+      json['items'].forEach((v) {
+        items?.add(Item2.fromJson(v));
+      });
+    }
+  }
+}
+
+class Item2 {
+  int id;
+  String name;
+  String? photo;
+  double? presentPrice;
+
+  Item2({
+    required this.id,
+    required this.name,
+    this.photo,
+    required this.presentPrice,
+  });
+
+  factory Item2.fromJson(Map<String, dynamic> json) {
+    return Item2(
       id: json['id'],
-      symptom: json['symptom'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
+      name: json['name'],
+      photo: json['photo'],
+      presentPrice: json['presentPrice'] != null
+          ? double.parse(json['presentPrice'].toString())
+          : null,
     );
   }
 }

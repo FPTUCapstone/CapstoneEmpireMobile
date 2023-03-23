@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
@@ -49,9 +48,9 @@ class _BookingInfoState extends State<BookingInfo> {
 
   List<SymptonResponseModel> options = [];
 
-  final List<SymptonResponseModel> _listSuggestService = [];
+  // final List<SymptonResponseModel> _listSuggestService = [];
 
-  int _bookingPrice = 0;
+  double _bookingPrice = 0;
 
   PaymentRequestModel model = PaymentRequestModel(
       orderType: '', amount: 0, orderDescription: '', name: '');
@@ -166,8 +165,8 @@ class _BookingInfoState extends State<BookingInfo> {
     int userId = await getUserId() as int;
     int carId =
         _listCar.where((element) => element.id == _selectedCar).first.id;
-    var response = await BookingService()
-        .createBooking(date, carId, userId, double.parse(_bookingPrice.toString()), _listSymptom);
+    var response = await BookingService().createBooking(date, carId, userId,
+        double.parse(_bookingPrice.toString()), _listSymptom);
 
     if (response!.statusCode == 201) {
       sendNotification(
@@ -319,7 +318,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         options: options,
                         onChanged: (tags) {
                           setState(() {
-                              _listSymptom.add(SymptomModel(id: tags.last.id));
+                            _listSymptom.add(SymptomModel(id: tags.last.id));
                           });
                         },
                       ),
