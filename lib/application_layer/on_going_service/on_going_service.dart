@@ -1,4 +1,5 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:empiregarage_mobile/application_layer/on_going_service/complete_service.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_payment_service.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service_body.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/recommend_chose_service.dart';
@@ -60,7 +61,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
       OnDoingService(
         servicesId: widget.servicesId,
       ),
-      OnDoingService(
+      CompleteService(
         servicesId: widget.servicesId,
       ),
     ];
