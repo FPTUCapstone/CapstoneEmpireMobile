@@ -59,7 +59,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
         Container(
           alignment: Alignment.center,
           child: Text(
-            "ID: #${widget.order.id}",
+            "ID: #${widget.order.code}",
             style: TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 12.sp,
@@ -78,15 +78,6 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                     image: AssetImage(
                         "assets/image/service-picture/ongoingservicepic.png"),
                     fit: BoxFit.fill)),
-          ),
-        ),
-        Text(
-          '#${widget.order.code}',
-          style: TextStyle(
-            fontFamily: 'SFProDisplay',
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w400,
-            color: AppColors.lightTextColor,
           ),
         ),
         SizedBox(
