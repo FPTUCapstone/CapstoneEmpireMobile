@@ -15,19 +15,21 @@ class BookingService {
     http.Response? response;
     try {
       List<int> symptomIds = symptoms.map((s) => s.id).toList();
+      Map<String, dynamic> requestBody = {
+        "date": date,
+        "carId": carId,
+        "userId": userId,
+        "bookingPrice": bookingPrice,
+        "symptoms": symptomIds,
+      };
+
       response = await makeHttpRequest(
         '${APIPath.path}/bookings',
         method: 'POST',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, dynamic>{
-          'date': date,
-          'carId': carId,
-          'userId': userId,
-          'bookingPrice': bookingPrice,
-          'symtoms': symptomIds
-        }),
+        body: jsonEncode(requestBody),
       );
     } catch (e) {
       log(e.toString());
