@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<http.Response?> createBooking(String date, int carId, int userId,
+  Future<BookingResponseModel?> createBooking(String date, int carId, int userId,
       double bookingPrice, List<SymptomModel> symptoms) async {
     http.Response? response;
     try {
@@ -34,7 +34,8 @@ class BookingService {
     } catch (e) {
       log(e.toString());
     }
-    return response;
+    if (response == null) return null;
+    return BookingResponseModel.fromJson(jsonDecode(response.body));
   }
 
   Future<String?> getQrCode(int bookingId) async {

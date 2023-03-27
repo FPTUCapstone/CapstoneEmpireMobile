@@ -168,12 +168,12 @@ class _BookingInfoState extends State<BookingInfo> {
     var response = await BookingService().createBooking(date, carId, userId,
         double.parse(_bookingPrice.toString()), _listSymptom);
 
-    if (response!.statusCode == 201) {
+    if (response != null) {
       sendNotification(
-          18, "Empire Garage", "A new booking has been created successful");
+          18, "Có đặt lịch mới #${response.code}", "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
       var userId = await getUserId();
       sendNotification(userId!, "Empire Garage",
-          "A new booking has been created successful");
+          "Bạn vừa đặt lịch kiểm tra xe thành công");
       var notificationModel = NotificationModel(
           isAndroiodDevice: true,
           title: "Empire Garage",
