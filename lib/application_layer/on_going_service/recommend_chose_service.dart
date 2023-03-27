@@ -205,19 +205,32 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                     ),
                                     child: InkWell(
                                       onTap: () {
-                                        for (var e in healthCarRecordProblem
-                                            .problem.items!) {
-                                          if (_listOrderServiceDetails.any(
-                                              (element) =>
-                                                  element.itemId == e.id)) {
+                                        //remove when click at itself
+                                        if (_listOrderServiceDetails.any(
+                                            (element) =>
+                                                element.itemId == item.id)) {
+                                          setState(() {
                                             _listOrderServiceDetails
                                                 .removeWhere((element) =>
-                                                    element.itemId == e.id);
-                                            _sum -= double.parse(
-                                                e.presentPrice.toString());
+                                                    element.itemId == item.id);
+                                            _sum -= item.presentPrice!;
+                                          });
+                                        } else {
+                                          //reload list in a problem
+                                          for (var e in healthCarRecordProblem
+                                              .problem.items!) {
+                                            if (_listOrderServiceDetails.any(
+                                                (element) =>
+                                                    element.itemId == e.id)) {
+                                              _listOrderServiceDetails
+                                                  .removeWhere((element) =>
+                                                      element.itemId == e.id);
+                                              _sum -= double.parse(
+                                                  e.presentPrice.toString());
+                                            }
                                           }
+                                          _confirmService(item);
                                         }
-                                        _confirmService(item);
                                       },
                                       child: ListTile(
                                         title: Text(
