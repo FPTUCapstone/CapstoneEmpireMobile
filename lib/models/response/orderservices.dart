@@ -181,14 +181,14 @@ class Order {
   String createdAt;
   String updatedAt;
   User user;
-  Transaction? transaction;
+  // Transaction? transaction;
 
   Order({
     required this.id,
     required this.createdAt,
     required this.updatedAt,
     required this.user,
-    required this.transaction,
+    // required this.transaction,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -197,9 +197,9 @@ class Order {
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
       user: User.fromJson(json['user']),
-      transaction: json['transaction'] != null
-          ? Transaction.fromJson(json['transaction'])
-          : null,
+      // transaction: json['transaction'] != null
+      //     ? Transaction.fromJson(json['transaction'])
+      //     : null,
     );
   }
 }

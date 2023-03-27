@@ -8,7 +8,7 @@ class ActivityResponseModel {
     this.isArrived,
     this.isActive,
     this.status,
-    this.transaction,
+    // this.transaction,
     required this.isBooking,
     this.isOnGoing,
   });
@@ -21,7 +21,7 @@ class ActivityResponseModel {
   final bool? isArrived;
   final bool? isActive;
   final int? status;
-  final TransactionSlimResponse? transaction;
+  // final TransactionSlimResponse? transaction;
   final bool isBooking;
   final bool? isOnGoing;
 
@@ -38,10 +38,10 @@ class ActivityResponseModel {
       isArrived: json['isArrived'] as bool?,
       isActive: json['isActive'] as bool?,
       status: json['status'] as int?,
-      transaction: json['transaction'] == null
-          ? null
-          : TransactionSlimResponse.fromJson(
-              json['transaction'] as Map<String, dynamic>),
+      // transaction: json['transaction'] == null
+      //     ? null
+      //     : TransactionSlimResponse.fromJson(
+      //         json['transaction'] as Map<String, dynamic>),
       isBooking: json['isBooking'] as bool,
       isOnGoing: json['isOnGoing'] as bool?,
     );
@@ -57,7 +57,7 @@ class ActivityResponseModel {
     data['isArrived'] = isArrived;
     data['isActive'] = isActive;
     data['status'] = status;
-    data['transaction'] = transaction?.toJson();
+    // data['transaction'] = transaction?.toJson();
     data['isBooking'] = isBooking;
     data['isOnGoing'] = isOnGoing;
     return data;
