@@ -334,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: AppColors.blueTextColor,
+                                  color: AppColors.white100,
                                   fontFamily: 'SFProDisplay'),
                             ))
                       ],

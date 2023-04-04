@@ -54,7 +54,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 5.h,
+          height: 15.h,
         ),
         Container(
           alignment: Alignment.center,

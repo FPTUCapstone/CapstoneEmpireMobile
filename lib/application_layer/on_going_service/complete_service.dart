@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/on_going_service/check_out_qrcode_page.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +110,30 @@ class _CompleteServiceState extends State<CompleteService> {
                       color: AppColors.blackTextColor,
                     ),
                     textAlign: TextAlign.center,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CheckOutQRCodePage(
+                        id: _orderServicesResponseModel!.id,
+                      ),
+                    ));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.buttonColor,
+                    fixedSize: Size.fromWidth(300.w),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(36),
+                    ),
+                  ),
+                  child: Text(
+                    'Quét mã lấy xe',
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 SizedBox(

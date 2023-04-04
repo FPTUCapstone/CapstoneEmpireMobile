@@ -151,6 +151,21 @@ class Problem {
   }
 }
 
+class SlimProblem {
+  int? id;
+  String? name;
+
+  SlimProblem({
+    this.id,
+    this.name,
+  });
+
+  SlimProblem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+}
+
 class Item2 {
   int id;
   String name;
@@ -181,14 +196,14 @@ class Order {
   String createdAt;
   String updatedAt;
   User user;
-  Transaction? transaction;
+  // Transaction? transaction;
 
   Order({
     required this.id,
     required this.createdAt,
     required this.updatedAt,
     required this.user,
-    required this.transaction,
+    // required this.transaction,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -197,9 +212,9 @@ class Order {
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
       user: User.fromJson(json['user']),
-      transaction: json['transaction'] != null
-          ? Transaction.fromJson(json['transaction'])
-          : null,
+      // transaction: json['transaction'] != null
+      //     ? Transaction.fromJson(json['transaction'])
+      //     : null,
     );
   }
 }
@@ -286,6 +301,7 @@ class Item {
   String? description;
   String? photo;
   Category? category;
+  SlimProblem? problem;
 
   Item(
       {this.id,
@@ -294,7 +310,8 @@ class Item {
       this.updatedAt,
       this.description,
       this.photo,
-      this.category});
+      this.category,
+      this.problem});
 
   Item.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -305,6 +322,8 @@ class Item {
     photo = json['photo'];
     category =
         json['category'] != null ? Category.fromJson(json['category']) : null;
+    problem =
+        json['problem'] != null ? SlimProblem.fromJson(json['problem']) : null;
   }
 
   Map<String, dynamic> toJson() {

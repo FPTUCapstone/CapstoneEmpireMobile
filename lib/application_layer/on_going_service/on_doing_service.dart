@@ -161,17 +161,40 @@ class _OnDoingServiceState extends State<OnDoingService> {
                           SizedBox(
                             width: 20.w,
                           ),
-                          Text(
-                            _listOrderServiceDetails[index]
-                                .item!
-                                .name
-                                .toString(),
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.blackTextColor,
-                            ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _listOrderServiceDetails[index]
+                                    .item!
+                                    .name
+                                    .toString(),
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 200.w,
+                                child: Text(
+                                  _listOrderServiceDetails[index]
+                                      .item!
+                                      .problem!
+                                      .name
+                                      .toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.grey600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ],
                           ),
                           const Spacer(),
                           Text(
