@@ -1,5 +1,7 @@
+import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
+import 'package:empiregarage_mobile/models/request/update_user_request_model.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/foundation.dart';
@@ -23,6 +25,7 @@ enum SingingCharacter { male, female }
 
 class _UserProfileState extends State<UserProfile> {
   UserResponseModel? _user;
+  UpdateUserRequestModel? model;
 
   bool _loading = false;
 
@@ -356,7 +359,10 @@ class _UserProfileState extends State<UserProfile> {
                             Expanded(
                               child: TextField(
                                 onChanged: (value) {
-                                  _user!.email = value;
+                                  setState(() {
+                                    _user!.email = value;
+                                    print(value);
+                                  });
                                 },
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -437,19 +443,20 @@ class _UserProfileState extends State<UserProfile> {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  // UpdateUserRequestModel model =
-                                  //     UpdateUserRequestModel(
-                                  //         id: _user!.id,
-                                  //         fullname: _user!.fullname,
-                                  //         phone: _user!.phone.toString(),
-                                  //         roleId: _user!.roleId.toString(),
-                                  //         gender: _user!.gender as bool);
-                                  // var response =
-                                  //     await UserService().updateUser(model);
-                                  // if (response == null ||
-                                  //     response.statusCode != 204) {
-                                  //   log("error when update user");
-                                  // } else {
+                                  UpdateUserRequestModel model =
+                                      UpdateUserRequestModel(
+                                          id: _user!.id,
+                                          fullname: _user!.fullname,
+                                          email: _user!.email,
+                                          phone: _user!.phone.toString(),
+                                          roleId: _user!.roleId.toString(),
+                                          gender: _user!.gender as bool);
+                                  var response =
+                                      await UserService().updateUser(model);
+                                  if (response == null ||
+                                      response.statusCode != 204) {
+                                    log("error when update user");
+                                  } else {
                                     // ignore: use_build_context_synchronously
                                     Navigator.pushAndRemoveUntil(
                                         context,
@@ -458,7 +465,7 @@ class _UserProfileState extends State<UserProfile> {
                                               const MainPage(),
                                         ),
                                         (route) => false);
-                                  // }
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.buttonColor,

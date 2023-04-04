@@ -149,7 +149,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 24),
-              height: 76.h,
+              height: 180.h,
               child: Column(
                 children: [
                   InkWell(
@@ -172,12 +172,80 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                           ),
                         ),
                         Text(
-                          "Thông tin cá nhân",
+                          "Chỉnh sửa thông tin",
                           style: TextStyle(
-                              fontSize: 18.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'SFProDisplay',
                               color: AppColors.blackTextColor),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.navigate_next,
+                          size: 20,
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      //TODO
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(right: 24),
+                          child: Icon(
+                            FontAwesomeIcons.car,
+                            size: 20,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Quản lý phương tiện",
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'SFProDisplay',
+                              color: Colors.black),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.navigate_next,
+                          size: 20,
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      //TODO
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(right: 24),
+                          child: Icon(
+                            Icons.content_paste_rounded,
+                            size: 20,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Kết quả chuẩn đoán",
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'SFProDisplay',
+                              color: Colors.black),
                         ),
                         const Spacer(),
                         const Icon(
@@ -215,7 +283,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                         Text(
                           "Đăng xuất",
                           style: TextStyle(
-                              fontSize: 18.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'SFProDisplay',
                               color: Colors.red),
