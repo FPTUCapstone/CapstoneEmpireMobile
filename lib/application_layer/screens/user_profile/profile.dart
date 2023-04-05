@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
+import '../../../services/firebase_storage_services/storage_services.dart';
 
 class UserProfile extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -64,6 +65,8 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final Storage storage = Storage();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: !_loading
@@ -125,7 +128,41 @@ class _UserProfileState extends State<UserProfile> {
                                       shape: BoxShape.rectangle,
                                     ),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        //TODO
+                                        // final results =
+                                        //     await FilePicker.platform.pickFiles(
+                                        //   allowMultiple: false,
+                                        //   type: FileType.custom,
+                                        //   allowedExtensions: [
+                                        //     'png',
+                                        //     'jpg',
+                                        //     'jpeg'
+                                        //   ],
+                                        // );
+                                        // if (results == null) {
+                                        //   // ignore: use_build_context_synchronously
+                                        //   ScaffoldMessenger.of(context)
+                                        //       .showSnackBar(
+                                        //     const SnackBar(
+                                        //       content: Text('No file selected'),
+                                        //     ),
+                                        //   );
+                                        //   return;
+                                        // }
+                                        // final path = results.files.single.path!;
+                                        // final fileName =
+                                        //     results.files.single.name;
+
+                                        // storage
+                                        //     .uploadFile(fileName, path)
+                                        //     .then((value) {
+                                        //   setState(() {
+                                        //     _user!.img = value!;
+                                        //     log("Ko vui Trung da cang");
+                                        //   });
+                                        // });
+                                      },
                                       icon: const Icon(
                                         Icons.edit_rounded,
                                         color: AppColors.whiteButtonColor,
