@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../common/colors.dart';
+import 'car_management.dart';
 
 class UserProfileSettings extends StatefulWidget {
   const UserProfileSettings({super.key});
@@ -193,7 +194,11 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                   ),
                   InkWell(
                     onTap: () async {
-                      //TODO
+                       Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    CarManagement(onSelected: (int ) {  }, selectedCar: 1,),
+                              ));
+
                     },
                     child: Row(
                       children: <Widget>[
