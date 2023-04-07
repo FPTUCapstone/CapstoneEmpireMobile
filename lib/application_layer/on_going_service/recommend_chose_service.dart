@@ -159,82 +159,24 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                 ),
                 SizedBox(height: 20.h),
                 ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: _listOrderServiceDetails.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {},
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 15.h),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 20,
-                              ),
-                            ],
-                          ),
-                          child: InkWell(
-                            onTap: () => _confirmService(
-                                _listOrderServiceDetails[index]),
-                            child: ListTile(
-                              title: Text(
-                                _listOrderServiceDetails[index]
-                                    .item!
-                                    .name
-                                    .toString(),
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              subtitle: Align(
-                                alignment: Alignment.topLeft,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Giá : ",
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.lightTextColor,
-                                      ),
-                                    ),
-                                    Text(
-                                      servicePrices[index]
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.lightTextColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              trailing: Column(
-                                children: [
-                                  SizedBox(height: 15.h),
-                                  Icon(
-                                    _listOrderServiceDetails[index]
-                                                .isConfirmed ==
-                                            true
-                                        ? Icons.radio_button_checked
-                                        : Icons.radio_button_unchecked,
-                                    color: AppColors.buttonColor,
-                                  )
-                                ],
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _orderServicesResponseModel!
+                        .healthCarRecord!.healthCarRecordProblems!.length,
+                    itemBuilder: (context, index) {
+                      var healthCarRecordProblem = _orderServicesResponseModel!
+                          .healthCarRecord!.healthCarRecordProblems![index];
+                      return ListView(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                            Text(
+                              healthCarRecordProblem.problem.name.toString(),
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
                               ),
                             ),
                             SizedBox(height: 10.h),
