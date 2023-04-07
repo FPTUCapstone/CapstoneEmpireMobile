@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:empiregarage_mobile/models/response/brand.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import '../../../common/colors.dart';
 import '../../../models/notification.dart';
 import '../../../models/response/booking.dart';
 import '../../../services/notification/notification_service.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class AddNewCar extends StatefulWidget {
   final Function(int) onAddCar;
@@ -22,13 +24,40 @@ class _AddNewCarState extends State<AddNewCar> {
   var carBrand = "";
   var carLisenceNo = "";
 
+  List<BrandResponseModel> _brands = [];
+  List<BrandResponseModel> _filteredBrands = [];
+  List<ModelResponseModel> _models = [];
+  List<ModelResponseModel> _filteredModels = [];
+
+  _getBrands() async {
+    var brands = await CarService().getBrand();
+    setState(() {
+      _brands = brands;
+    });
+  }
+
+  _getModels(BrandResponseModel brand) {
+    setState(() {
+      _models = brand.models;
+    });
+  }
+
+  _clearModel() {
+    setState(() {
+      _modelController.clear();
+      carModel = "";
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    _getBrands();
   }
 
   final _lisenceNoController = TextEditingController();
   final _brandController = TextEditingController();
+  final _modelController = TextEditingController();
 
   String? get _errorText {
     // at any time, we can get the text from _controller.value.text
@@ -172,31 +201,53 @@ class _AddNewCarState extends State<AddNewCar> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          controller: _brandController,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(26)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: AppColors.loginScreenBackGround),
-                                  borderRadius: BorderRadius.circular(26)),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              filled: true,
-                              hintText: "Nhập hãng xe",
-                              errorText: _errorBrandText),
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
+                        child: TypeAheadField(
+                          textFieldConfiguration: TextFieldConfiguration(
+                            controller: _brandController,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(26)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: AppColors.loginScreenBackGround),
+                                    borderRadius: BorderRadius.circular(26)),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                filled: true,
+                                hintText: "Nhập hãng xe",
+                                errorText: _errorBrandText),
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                _filteredBrands = _brands
+                                    .where((element) => element.name
+                                        .toLowerCase()
+                                        .contains(value.toLowerCase()))
+                                    .toList();
+                              });
+                            },
                           ),
-                          onChanged: (value) {
+                          suggestionsCallback: (pattern) async {
+                            return _filteredBrands;
+                          },
+                          itemBuilder: (context, suggestion) {
+                            return ListTile(
+                              title: Text(suggestion.name),
+                            );
+                          },
+                          onSuggestionSelected: (suggestion) {
                             setState(() {
-                              carBrand = value;
+                              _brandController.text = suggestion.name;
+                              carBrand = suggestion.name;
+                              _clearModel();
                             });
+                            _getModels(suggestion);
                           },
                         ),
                       ),
@@ -220,28 +271,50 @@ class _AddNewCarState extends State<AddNewCar> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(26)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: AppColors.loginScreenBackGround),
-                                borderRadius: BorderRadius.circular(26)),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            filled: true,
-                            hintText: "Nhập dòng xe",
+                        child: TypeAheadField(
+                          textFieldConfiguration: TextFieldConfiguration(
+                            controller: _modelController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(26)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: AppColors.loginScreenBackGround),
+                                  borderRadius: BorderRadius.circular(26)),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              filled: true,
+                              hintText: "Nhập dòng xe",
+                            ),
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                _filteredModels = _models
+                                    .where((element) => element.name
+                                        .toLowerCase()
+                                        .contains(value.toLowerCase()))
+                                    .toList();
+                              });
+                            },
                           ),
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
-                          ),
-                          onChanged: (value) {
+                          suggestionsCallback: (pattern) async {
+                            return _filteredModels;
+                          },
+                          itemBuilder: (context, suggestion) {
+                            return ListTile(
+                              title: Text(suggestion.name),
+                            );
+                          },
+                          onSuggestionSelected: (suggestion) {
                             setState(() {
-                              carModel = value;
+                              _modelController.text = suggestion.name;
+                              carModel = suggestion.name;
                             });
                           },
                         ),
