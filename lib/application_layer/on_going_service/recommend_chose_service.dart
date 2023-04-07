@@ -208,8 +208,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                       ),
                                     ),
                                     Text(
-                                      _listOrderServiceDetails[index]
-                                          .price!
+                                      servicePrices[index]
                                           .toString(),
                                       style: TextStyle(
                                         fontFamily: 'SFProDisplay',

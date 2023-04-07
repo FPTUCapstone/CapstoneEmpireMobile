@@ -175,7 +175,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                           ),
                           const Spacer(),
                           Text(
-                            _listOrderServiceDetails[index].price.toString(),
+                            servicePrices[index].toString(),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 12.sp,
