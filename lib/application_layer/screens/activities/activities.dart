@@ -394,7 +394,7 @@ class _ActivityChipState extends State<ActivityChip> {
               height: 5.h,
             ),
             Text(
-              widget.carInfo,
+              widget.item.car!.carLisenceNo.toString(),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: 'SFProDisplay',

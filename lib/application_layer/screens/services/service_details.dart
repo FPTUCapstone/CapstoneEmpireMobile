@@ -216,7 +216,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                           ),
                         ),
                         const Divider(
-                          color: Colors.black,
+                          color: AppColors.grey400,
                           thickness: 1,
                         ),
                         SizedBox(
@@ -230,7 +230,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                 'Mô tả chi tiết',
                                 style: TextStyle(
                                     fontSize: 18.sp,
-                                    fontWeight: FontWeight.w900,
+                                    fontWeight: FontWeight.w600,
                                     color: AppColors.blackTextColor,
                                     fontFamily: 'SFProDisplay'),
                               )
@@ -243,7 +243,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                             child: ReadMoreText(
                               _item!.description.toString(),
                               style: TextStyle(
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.blackTextColor,
                                 fontFamily: 'SFProDisplay',

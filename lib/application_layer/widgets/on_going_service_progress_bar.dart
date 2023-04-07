@@ -54,20 +54,20 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
     return Column(
       children: <Widget>[
         SizedBox(
-                        height: 5.h,
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Mã đặt lịch : #${widget.order.id}",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
-                          ),
-                        ),
-                      ),
+          height: 15.h,
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            "ID: #${widget.order.code}",
+            style: TextStyle(
+              fontFamily: 'SFProDisplay',
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              color: AppColors.lightTextColor,
+            ),
+          ),
+        ),
         Padding(
           padding: EdgeInsets.all(35.w),
           child: Container(
@@ -80,15 +80,6 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                     fit: BoxFit.fill)),
           ),
         ),
-        Text(
-          '#${widget.order.code}',
-          style: TextStyle(
-            fontFamily: 'SFProDisplay',
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w400,
-            color: AppColors.lightTextColor,
-          ),
-        ),
         SizedBox(
           height: 10.h,
         ),
@@ -98,15 +89,15 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  '${widget.order.car.carBrand} ${widget.order.car.carModel} ',
-                  style: TextStyle(
-                    fontFamily: 'SFProDisplay',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
+                // Text(
+                //   '${widget.order.car.carBrand} ${widget.order.car.carModel} ',
+                //   style: TextStyle(
+                //     fontFamily: 'SFProDisplay',
+                //     fontSize: 12.sp,
+                //     fontWeight: FontWeight.w400,
+                //     color: AppColors.lightTextColor,
+                //   ),
+                // ),
                 Text(
                   '${widget.order.car.carLisenceNo} ',
                   style: TextStyle(

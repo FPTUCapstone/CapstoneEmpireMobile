@@ -10,29 +10,32 @@ import 'package:http/http.dart' as http;
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<http.Response?> createBooking(String date, int carId, int userId, double bookingPrice,
-      List<SymptomModel> symptoms) async {
+  Future<BookingResponseModel?> createBooking(String date, int carId, int userId,
+      double bookingPrice, List<SymptomModel> symptoms) async {
     http.Response? response;
     try {
       List<int> symptomIds = symptoms.map((s) => s.id).toList();
+      Map<String, dynamic> requestBody = {
+        "date": date,
+        "carId": carId,
+        "userId": userId,
+        "bookingPrice": bookingPrice,
+        "symptoms": symptomIds,
+      };
+
       response = await makeHttpRequest(
         '${APIPath.path}/bookings',
         method: 'POST',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, dynamic>{
-          'date': date,
-          'carId': carId,
-          'userId': userId,
-          'bookingPrice': bookingPrice,
-          'symtoms': symptomIds
-        }),
+        body: jsonEncode(requestBody),
       );
     } catch (e) {
       log(e.toString());
     }
-    return response;
+    if (response == null) return null;
+    return BookingResponseModel.fromJson(jsonDecode(response.body));
   }
 
   Future<String?> getQrCode(int bookingId) async {
@@ -127,18 +130,17 @@ class BookingService {
     return null;
   }
 
-  Future<int> getBookingPrice() async {
+  Future<double> getBookingPrice() async {
     String apiUrl = "${APIPath.path}/bookings/booking-price";
     try {
       var response = await makeHttpRequest(apiUrl);
       if (response.statusCode == 200) {
         dynamic jsonObject = json.decode(response.body);
-        int bookingPrice = jsonObject;
+        double bookingPrice = double.parse(jsonObject.toString());
         return bookingPrice;
       }
     } catch (e) {
       e.toString();
-      log("Trung tra tien booking");
     }
     return 0;
   }

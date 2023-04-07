@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
@@ -49,9 +48,9 @@ class _BookingInfoState extends State<BookingInfo> {
 
   List<SymptonResponseModel> options = [];
 
-  final List<SymptonResponseModel> _listSuggestService = [];
+  // final List<SymptonResponseModel> _listSuggestService = [];
 
-  int _bookingPrice = 0;
+  double _bookingPrice = 0;
 
   PaymentRequestModel model = PaymentRequestModel(
       orderType: '', amount: 0, orderDescription: '', name: '');
@@ -166,15 +165,15 @@ class _BookingInfoState extends State<BookingInfo> {
     int userId = await getUserId() as int;
     int carId =
         _listCar.where((element) => element.id == _selectedCar).first.id;
-    var response = await BookingService()
-        .createBooking(date, carId, userId, double.parse(_bookingPrice.toString()), _listSymptom);
+    var response = await BookingService().createBooking(date, carId, userId,
+        double.parse(_bookingPrice.toString()), _listSymptom);
 
-    if (response!.statusCode == 201) {
+    if (response != null) {
       sendNotification(
-          18, "Empire Garage", "A new booking has been created successful");
+          18, "Có đặt lịch mới #${response.code}", "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
       var userId = await getUserId();
       sendNotification(userId!, "Empire Garage",
-          "A new booking has been created successful");
+          "Bạn vừa đặt lịch kiểm tra xe thành công");
       var notificationModel = NotificationModel(
           isAndroiodDevice: true,
           title: "Empire Garage",
@@ -319,7 +318,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         options: options,
                         onChanged: (tags) {
                           setState(() {
-                              _listSymptom.add(SymptomModel(id: tags.last.id));
+                            _listSymptom.add(SymptomModel(id: tags.last.id));
                           });
                         },
                       ),

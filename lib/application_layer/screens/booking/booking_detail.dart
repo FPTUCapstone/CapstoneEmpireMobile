@@ -18,12 +18,10 @@ class BookingDetail extends StatefulWidget {
 }
 
 class _BookingDetailState extends State<BookingDetail> {
-
-  int _bookingPrice = 0;
+  double _bookingPrice = 0;
 
   BookingResponseModel? _booking;
   bool _loading = true;
-  
 
   _fetchData() async {
     var booking = await BookingService().getBookingById(widget.data.id);

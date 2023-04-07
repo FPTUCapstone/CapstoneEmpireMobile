@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/common/style.dart';
+import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ import '../../common/colors.dart';
 
 class RecommendChoseService extends StatefulWidget {
   final int servicesId;
-  final Function onRecommendChoseServicecallBack;
+  final Function(List<OrderServiceDetailRequestModel>)
+      onRecommendChoseServicecallBack;
   const RecommendChoseService(
       {super.key,
       required this.onRecommendChoseServicecallBack,
@@ -22,9 +24,9 @@ class RecommendChoseService extends StatefulWidget {
 class _RecommendChoseServiceState extends State<RecommendChoseService> {
   bool isSelected = true;
 
-  List<OrderServiceDetails> _listOrderServiceDetails = [];
+  final List<OrderServiceDetailRequestModel> _listOrderServiceDetails = [];
   OrderServicesResponseModel? _orderServicesResponseModel;
-  int _sum = 0;
+  double _sum = 0;
   bool _loading = true;
   String? _error;
 
@@ -51,10 +53,9 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     try {
       if (list != null) {
         setState(() {
-          _listOrderServiceDetails = list;
           _orderServicesResponseModel = listOrderServiceDetails;
           for (var item in list) {
-            _sum += int.parse(item.price.toString());
+            _sum += double.parse(item.price.toString());
           }
           _loading = false;
         });
@@ -64,30 +65,32 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     }
   }
 
-  _confirmService(OrderServiceDetails item) {
+  _confirmService(Item2 item) {
     setState(() {
-      _error = null;
-      _listOrderServiceDetails
-          .where((element) => element.id == item.id)
-          .first
-          .isConfirmed = !(item.isConfirmed as bool);
-
-      _sum = item.isConfirmed == false
-          ? _sum - int.parse(item.price.toString())
-          : _sum + int.parse(item.price.toString());
+      var detail = OrderServiceDetailRequestModel(
+          itemId: item.id, price: double.parse(item.presentPrice.toString()));
+      _listOrderServiceDetails.add(detail);
+      _sum += double.parse(item.presentPrice.toString());
     });
   }
 
+  bool _checkService(Item2 item) {
+    for (var e in _listOrderServiceDetails) {
+      if (e.itemId == item.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   _onContinue() {
-    if (_listOrderServiceDetails
-        .where((element) => element.isConfirmed == true)
-        .isEmpty) {
+    if (_listOrderServiceDetails.isEmpty) {
       setState(() {
         _error = "Cần phải chọn ít nhất 1 dịch vụ";
       });
       return;
     }
-    widget.onRecommendChoseServicecallBack();
+    widget.onRecommendChoseServicecallBack(_listOrderServiceDetails);
   }
 
   @override
@@ -154,7 +157,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     color: AppColors.lightTextColor,
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 20.h),
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -234,12 +237,118 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                 ],
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                            SizedBox(height: 10.h),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount:
+                                  healthCarRecordProblem.problem.items!.length,
+                              itemBuilder: (context, index) {
+                                var item = healthCarRecordProblem
+                                    .problem.items![index];
+                                return Padding(
+                                  padding: EdgeInsets.only(bottom: 15.h),
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(16)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 20,
+                                        ),
+                                      ],
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        //remove when click at itself
+                                        if (_listOrderServiceDetails.any(
+                                            (element) =>
+                                                element.itemId == item.id)) {
+                                          setState(() {
+                                            _listOrderServiceDetails
+                                                .removeWhere((element) =>
+                                                    element.itemId == item.id);
+                                            _sum -= item.presentPrice!;
+                                          });
+                                        } else {
+                                          //reload list in a problem
+                                          for (var e in healthCarRecordProblem
+                                              .problem.items!) {
+                                            if (_listOrderServiceDetails.any(
+                                                (element) =>
+                                                    element.itemId == e.id)) {
+                                              _listOrderServiceDetails
+                                                  .removeWhere((element) =>
+                                                      element.itemId == e.id);
+                                              _sum -= double.parse(
+                                                  e.presentPrice.toString());
+                                            }
+                                          }
+                                          _confirmService(item);
+                                        }
+                                      },
+                                      child: ListTile(
+                                        title: Text(
+                                          item.name.toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                          ),
+                                        ),
+                                        subtitle: Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Giá : ",
+                                                style: TextStyle(
+                                                  fontFamily: 'SFProDisplay',
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      AppColors.lightTextColor,
+                                                ),
+                                              ),
+                                              Text(
+                                                item.presentPrice!.toString(),
+                                                style: TextStyle(
+                                                  fontFamily: 'SFProDisplay',
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      AppColors.lightTextColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        trailing: Column(
+                                          children: [
+                                            SizedBox(height: 15.h),
+                                            Icon(
+                                              _checkService(item)
+                                                  ? Icons.radio_button_checked
+                                                  : Icons
+                                                      .radio_button_unchecked,
+                                              color: AppColors.buttonColor,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ]);
+                    }),
                 const Divider(
                   thickness: 1,
                   color: AppColors.searchBarColor,
@@ -283,12 +392,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                   height: 52.h,
                   child: ElevatedButton(
                     onPressed: () async {
-                      var response = await OrderServices().putConfirmOrder(
-                          _orderServicesResponseModel!.id,
-                          _listOrderServiceDetails);
-                      if (response != null && response.statusCode == 204) {
-                        _onContinue();
-                      }
+                      _onContinue();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonColor,

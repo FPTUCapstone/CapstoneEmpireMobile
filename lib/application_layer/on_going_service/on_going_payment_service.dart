@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
+import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
 import 'package:empiregarage_mobile/services/payment_services/payment_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,10 +15,13 @@ import 'order_payment.dart';
 class OnGoingPaymentService extends StatefulWidget {
   final int servicesId;
   final Function onGoingPaymentCallBack;
-  const OnGoingPaymentService(
-      {super.key,
-      required this.onGoingPaymentCallBack,
-      required this.servicesId});
+  final List<OrderServiceDetailRequestModel> listOrderServiceDetail;
+  const OnGoingPaymentService({
+    super.key,
+    required this.onGoingPaymentCallBack,
+    required this.servicesId,
+    required this.listOrderServiceDetail,
+  });
 
   @override
   State<OnGoingPaymentService> createState() => _OnGoingPaymentServiceState();
@@ -25,10 +29,10 @@ class OnGoingPaymentService extends StatefulWidget {
 
 class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   int count = 1;
-  int sum = 0;
-  int sumAfter = 0;
-  int prepaid = 0;
-  List<OrderServiceDetails> _listOrderServiceDetails = [];
+  double sum = 0;
+  double sumAfter = 0;
+  double prepaid = 0;
+  List<OrderServiceDetailRequestModel> _listOrderServiceDetails = [];
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
 
@@ -48,11 +52,10 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     try {
       if (list != null) {
         setState(() {
-          _listOrderServiceDetails =
-              list.where((element) => element.isConfirmed == true).toList();
+          _listOrderServiceDetails = widget.listOrderServiceDetail;
           _orderServicesResponseModel = listOrderServiceDetails;
           for (var item in _listOrderServiceDetails) {
-            sum += int.parse(item.price.toString());
+            sum += item.price;
           }
           sumAfter = sum - prepaid;
           _loading = false;
@@ -63,7 +66,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     }
   }
 
-  _payBookingFee(PaymentRequestModel model) async {
+  _payOrderFee(PaymentRequestModel model) async {
     var response = await PaymentServices().createNewPaymentForOrder(model);
     if (response!.statusCode == 500) {
       throw Exception("Can not pay order fee");
@@ -78,7 +81,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
         orderDescription:
             'OrderService Payment for #${_orderServicesResponseModel!.code}',
         orderType: 'VNpay');
-    var responsePayment = await _payBookingFee(paymentRequestModel);
+    var responsePayment = await _payOrderFee(paymentRequestModel);
     // ignore: use_build_context_synchronously
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => OrderPayment(
@@ -89,23 +92,30 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   }
 
   _onCallBack() async {
-    var response2 = await OrderServices().putConfirmPaidOrder(
-        _orderServicesResponseModel!.id, _listOrderServiceDetails);
-    var response =
-        await OrderServices().confirmOrder(_orderServicesResponseModel!.id, 3);
-    if (response == null ||
-        response.statusCode != 201 &&
-            (response2 == null || response.statusCode != 204)) {
-      throw Exception("Error when confirm Order");
+    var result = await OrderServices().insertOrderDetail(
+        _orderServicesResponseModel!.id, 2, _listOrderServiceDetails);
+    if (result == null || result.statusCode != 204) {
+      throw Exception("Insert order detail fail");
+    } else {
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OnGoingService(
+              servicesId: _orderServicesResponseModel!.id,
+            ),
+          ));
     }
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OnGoingService(
-            servicesId: _orderServicesResponseModel!.id,
-          ),
-        ));
+  }
+
+  String _getNameOfItem(int itemId) {
+    for (var element in _orderServicesResponseModel!
+        .healthCarRecord!.healthCarRecordProblems!) {
+      for (var e in element.problem.items!) {
+        if (e.id == itemId) return e.name;
+      }
+    }
+    return "";
   }
 
   @override
@@ -165,7 +175,8 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           width: 20.w,
                         ),
                         Text(
-                          _listOrderServiceDetails[index].item!.name.toString(),
+                          _getNameOfItem(
+                              _listOrderServiceDetails[index].itemId),
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
                             fontSize: 12.sp,
@@ -233,7 +244,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     ),
                     const Spacer(),
                     Text(
-                      prepaid.toString(),
+                      '-$prepaid',
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 12.sp,

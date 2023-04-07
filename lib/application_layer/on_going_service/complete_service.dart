@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/on_going_service/check_out_qrcode_page.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +8,15 @@ import 'package:readmore/readmore.dart';
 import '../../common/colors.dart';
 import '../../services/booking_service/booking_service.dart';
 
-class OnDoingService extends StatefulWidget {
+class CompleteService extends StatefulWidget {
   final int servicesId;
-  const OnDoingService({super.key, required this.servicesId});
+  const CompleteService({super.key, required this.servicesId});
 
   @override
-  State<OnDoingService> createState() => _OnDoingServiceState();
+  State<CompleteService> createState() => _CompleteServiceState();
 }
 
-class _OnDoingServiceState extends State<OnDoingService> {
+class _CompleteServiceState extends State<CompleteService> {
   int count = 1;
   bool isSelected = true;
   List<String> serviceNames = [
@@ -90,7 +91,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   height: 10.h,
                 ),
                 Text(
-                  "Kỹ thuật viên đang thực hiện",
+                  "Chúc mừng",
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
                     fontSize: 20.sp,
@@ -101,7 +102,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    " Bạn sẽ nhận được thông báo sau khi sữa chữa hoàn tất",
+                    "Xe của bạn đã được sửa xong",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 12.sp,
@@ -109,6 +110,30 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       color: AppColors.blackTextColor,
                     ),
                     textAlign: TextAlign.center,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CheckOutQRCodePage(
+                        id: _orderServicesResponseModel!.id,
+                      ),
+                    ));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.buttonColor,
+                    fixedSize: Size.fromWidth(300.w),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(36),
+                    ),
+                  ),
+                  child: Text(
+                    'Quét mã lấy xe',
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -161,44 +186,21 @@ class _OnDoingServiceState extends State<OnDoingService> {
                           SizedBox(
                             width: 20.w,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _listOrderServiceDetails[index]
-                                    .item!
-                                    .name
-                                    .toString(),
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 200.w,
-                                child: Text(
-                                  _listOrderServiceDetails[index]
-                                      .item!
-                                      .problem!
-                                      .name
-                                      .toString(),
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.grey600,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            _listOrderServiceDetails[index]
+                                .item!
+                                .name
+                                .toString(),
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blackTextColor,
+                            ),
                           ),
                           const Spacer(),
                           Text(
-                            servicePrices[index].toString(),
+                            _listOrderServiceDetails[index].price.toString(),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 12.sp,

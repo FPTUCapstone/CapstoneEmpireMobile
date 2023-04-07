@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
+import 'package:empiregarage_mobile/models/response/check_out_qr_code_response_model.dart';
+
 import '../../common/api_part.dart';
 import '../../common/jwt_interceptor.dart';
 import '../../models/response/orderservices.dart';
@@ -89,5 +92,60 @@ class OrderServices {
       log(e.toString());
     }
     return response;
+  }
+
+  Future<http.Response?> insertOrderDetail(int id, int paymentMethodId,
+      List<OrderServiceDetailRequestModel> listOrderServiceDetails) async {
+    http.Response? response;
+    try {
+      final jsonBody = jsonEncode(
+          listOrderServiceDetails.map((order) => order.toJson()).toList());
+      response = await makeHttpRequest(
+        '${APIPath.path}/order-services/$id/order-service-details?paymentMethodId=$paymentMethodId',
+        method: 'PUT',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonBody,
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
+  }
+
+  Future<String?> getQrCode(int id) async {
+    String apiUrl = "${APIPath.path}/order-services/$id/checkout-qrcode";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        //Generate QR-Code
+        var qrCodeResponse =
+            CheckOutQrCodeResponseModel.fromJson(jsonDecode(response.body));
+        if (qrCodeResponse.isGenerating == null) {
+          String apiPutUrl =
+              "${APIPath.path}/order-services/$id/generate-checkout-qrcode";
+          var response = await makeHttpRequest(
+            apiPutUrl,
+            method: 'PUT',
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+          );
+          if (response.statusCode == 200) {
+            var qrCodeResponse =
+                CheckOutQrCodeResponseModel.fromJson(jsonDecode(response.body));
+            return qrCodeResponse.qrCode;
+          }
+        } else if (qrCodeResponse.isGenerating == true) {
+          return qrCodeResponse.qrCode;
+        } else {
+          return null;
+        }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 }

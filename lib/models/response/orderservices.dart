@@ -96,24 +96,97 @@ class Car {
 }
 
 class HealthCarRecord {
-  int id;
+  int? id;
   String? symptom;
-  String createdAt;
-  String updatedAt;
+  List<HealthCarRecordProblem>? healthCarRecordProblems;
 
   HealthCarRecord({
     required this.id,
     this.symptom,
-    required this.createdAt,
-    required this.updatedAt,
+    this.healthCarRecordProblems,
   });
 
-  factory HealthCarRecord.fromJson(Map<String, dynamic> json) {
-    return HealthCarRecord(
+  HealthCarRecord.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    symptom = json['symptom'];
+    if (json['healthCarRecordProblems'] != null) {
+      healthCarRecordProblems = <HealthCarRecordProblem>[];
+      json['healthCarRecordProblems'].forEach((v) {
+        healthCarRecordProblems?.add(HealthCarRecordProblem.fromJson(v));
+      });
+    }
+  }
+}
+
+class HealthCarRecordProblem {
+  Problem problem;
+  HealthCarRecordProblem({required this.problem});
+  factory HealthCarRecordProblem.fromJson(Map<String, dynamic> json) {
+    return HealthCarRecordProblem(
+      problem: Problem.fromJson(json['problem']),
+    );
+  }
+}
+
+class Problem {
+  int? id;
+  String? name;
+  List<Item2>? items;
+
+  Problem({
+    this.id,
+    this.name,
+    this.items,
+  });
+
+  Problem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    if (json['items'] != null) {
+      items = <Item2>[];
+      json['items'].forEach((v) {
+        items?.add(Item2.fromJson(v));
+      });
+    }
+  }
+}
+
+class SlimProblem {
+  int? id;
+  String? name;
+
+  SlimProblem({
+    this.id,
+    this.name,
+  });
+
+  SlimProblem.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+}
+
+class Item2 {
+  int id;
+  String name;
+  String? photo;
+  double? presentPrice;
+
+  Item2({
+    required this.id,
+    required this.name,
+    this.photo,
+    required this.presentPrice,
+  });
+
+  factory Item2.fromJson(Map<String, dynamic> json) {
+    return Item2(
       id: json['id'],
-      symptom: json['symptom'],
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
+      name: json['name'],
+      photo: json['photo'],
+      presentPrice: json['presentPrice'] != null
+          ? double.parse(json['presentPrice'].toString())
+          : null,
     );
   }
 }
@@ -123,14 +196,14 @@ class Order {
   String createdAt;
   String updatedAt;
   User user;
-  Transaction? transaction;
+  // Transaction? transaction;
 
   Order({
     required this.id,
     required this.createdAt,
     required this.updatedAt,
     required this.user,
-    required this.transaction,
+    // required this.transaction,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -139,9 +212,9 @@ class Order {
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
       user: User.fromJson(json['user']),
-      transaction: json['transaction'] != null
-          ? Transaction.fromJson(json['transaction'])
-          : null,
+      // transaction: json['transaction'] != null
+      //     ? Transaction.fromJson(json['transaction'])
+      //     : null,
     );
   }
 }
@@ -228,6 +301,7 @@ class Item {
   String? description;
   String? photo;
   Category? category;
+  SlimProblem? problem;
 
   Item(
       {this.id,
@@ -236,7 +310,8 @@ class Item {
       this.updatedAt,
       this.description,
       this.photo,
-      this.category});
+      this.category,
+      this.problem});
 
   Item.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -247,6 +322,8 @@ class Item {
     photo = json['photo'];
     category =
         json['category'] != null ? Category.fromJson(json['category']) : null;
+    problem =
+        json['problem'] != null ? SlimProblem.fromJson(json['problem']) : null;
   }
 
   Map<String, dynamic> toJson() {
