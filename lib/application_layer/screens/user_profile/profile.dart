@@ -398,7 +398,6 @@ class _UserProfileState extends State<UserProfile> {
                                 onChanged: (value) {
                                   setState(() {
                                     _user!.email = value;
-                                    print(value);
                                   });
                                 },
                                 decoration: InputDecoration(
