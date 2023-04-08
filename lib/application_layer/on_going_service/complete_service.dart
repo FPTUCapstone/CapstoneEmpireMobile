@@ -187,43 +187,58 @@ class _CompleteServiceState extends State<CompleteService> {
                                       !showNote;
                                 });
                               },
-                              child: ListTile(
-                                  title: Text(
-                                    _listOrderServiceDetails[index]
-                                        .item!
-                                        .name
-                                        .toString(),
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
+                              child: Row(
+                                children: [
+                                  _listOrderServiceDetails[index].done == true
+                                      ? const Padding(
+                                          padding: EdgeInsets.only(left: 16),
+                                          child: Icon(
+                                            Icons.check_circle,
+                                            color: AppColors.blue600,
+                                          ),
+                                        )
+                                      : Container(),
+                                  Expanded(
+                                    child: ListTile(
+                                        title: Text(
+                                          _listOrderServiceDetails[index]
+                                              .item!
+                                              .name
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'SFProDisplay',
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                          ),
+                                        ),
+                                        subtitle: SizedBox(
+                                          width: 250.w,
+                                          child: Text(
+                                            _listOrderServiceDetails[index]
+                                                .item!
+                                                .problem!
+                                                .name
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontFamily: 'SFProDisplay',
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.grey600,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                                        trailing: Text(
+                                          '${_listOrderServiceDetails[index].price}',
+                                          style: AppStyles.text400(
+                                              fontsize: 12.sp,
+                                              color: AppColors.blackTextColor),
+                                        )),
                                   ),
-                                  subtitle: SizedBox(
-                                    width: 250.w,
-                                    child: Text(
-                                      _listOrderServiceDetails[index]
-                                          .item!
-                                          .problem!
-                                          .name
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.grey600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                  trailing: Text(
-                                    '${_listOrderServiceDetails[index].price}',
-                                    style: AppStyles.text400(
-                                        fontsize: 12.sp,
-                                        color: AppColors.blackTextColor),
-                                  )),
+                                ],
+                              ),
                             ),
                             !_listOrderServiceDetails[index].showNote
                                 ? Container()
