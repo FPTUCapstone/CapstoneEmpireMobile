@@ -263,6 +263,9 @@ class OrderServiceDetails {
   int? id;
   int? price;
   bool? isConfirmed;
+  bool? done;
+  String? note;
+  bool showNote = false;
   Item? item;
 
   OrderServiceDetails({this.id, this.price, this.isConfirmed, this.item});
@@ -271,6 +274,8 @@ class OrderServiceDetails {
     id = json['id'];
     price = json['price'];
     isConfirmed = json['isConfirmed'];
+    done = json['done'];
+    note = json['note'];
     item = json['item'] != null ? Item.fromJson(json['item']) : null;
   }
 
@@ -279,6 +284,8 @@ class OrderServiceDetails {
     data['id'] = id;
     data['price'] = price;
     data['isConfirmed'] = isConfirmed;
+    data['done'] = done;
+    data['note'] = note;
     if (item != null) {
       data['item'] = item!.toJson();
     }

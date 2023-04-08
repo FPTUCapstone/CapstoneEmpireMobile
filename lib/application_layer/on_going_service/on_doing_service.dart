@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
@@ -138,75 +139,95 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(vertical: 8.h),
-                      child: Row(
-                        children: [
-                          Text(
-                            count.toString(),
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                          Text(
-                            "x",
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _listOrderServiceDetails[index]
-                                    .item!
-                                    .name
-                                    .toString(),
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 200.w,
-                                child: Text(
-                                  _listOrderServiceDetails[index]
-                                      .item!
-                                      .problem!
-                                      .name
-                                      .toString(),
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.grey600,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: AppColors.lightGrey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.r)),
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(0, 5),
+                                  blurRadius: 10,
+                                  color: AppColors.grey400,
+                                  blurStyle: BlurStyle.outer)
+                            ]),
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onLongPress: () {
+                                setState(() {
+                                  var showNote =
+                                      _listOrderServiceDetails[index].showNote;
+                                  _listOrderServiceDetails[index].showNote =
+                                      !showNote;
+                                });
+                              },
+                              child: ListTile(
+                                  title: Text(
+                                    _listOrderServiceDetails[index]
+                                        .item!
+                                        .name
+                                        .toString(),
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Text(
-                            servicePrices[index].toString(),
-                            style: TextStyle(
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.blackTextColor,
+                                  subtitle: SizedBox(
+                                    width: 250.w,
+                                    child: Text(
+                                      _listOrderServiceDetails[index]
+                                          .item!
+                                          .problem!
+                                          .name
+                                          .toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.grey600,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                  trailing: Text(
+                                    '${_listOrderServiceDetails[index].price}',
+                                    style: AppStyles.text400(
+                                        fontsize: 12.sp,
+                                        color: AppColors.blackTextColor),
+                                  )),
                             ),
-                          ),
-                        ],
+                            !_listOrderServiceDetails[index].showNote
+                                ? Container()
+                                : const Divider(),
+                            !_listOrderServiceDetails[index].showNote
+                                ? Container()
+                                : ListTile(
+                                    title: Text(
+                                      'Ghi chú của kỹ thuật viên',
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.blackTextColor,
+                                      ),
+                                    ),
+                                    subtitle: Padding(
+                                      padding: EdgeInsets.only(top: 5.h),
+                                      child: Text(
+                                        _listOrderServiceDetails[index].note ??
+                                            "",
+                                        style: AppStyles.text400(
+                                            fontsize: 12.sp,
+                                            color: AppColors.grey600),
+                                      ),
+                                    ),
+                                  )
+                          ],
+                        ),
                       ),
                     );
                   },
