@@ -7,18 +7,19 @@ import '../../../common/jwt_interceptor.dart';
 
 import '../../../models/response/booking.dart';
 import '../../../services/car_service/car_service.dart';
+import 'health_car_record_management_detail.dart';
 
-class CarManagement extends StatefulWidget {
+class HealthCarRecordManagement extends StatefulWidget {
   final int selectedCar;
   final Function(int) onSelected;
-  const CarManagement(
+  const HealthCarRecordManagement(
       {super.key, required this.selectedCar, required this.onSelected});
 
   @override
-  State<CarManagement> createState() => _CarManagementState();
+  State<HealthCarRecordManagement> createState() => _HealthCarRecordManagementState();
 }
 
-class _CarManagementState extends State<CarManagement> {
+class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
   List<CarResponseModel> _listCar = [];
   late int _selectedCar;
   bool _loading = true;
@@ -76,7 +77,7 @@ class _CarManagementState extends State<CarManagement> {
           ),
         ),
         centerTitle: true,
-        title: const Text('Quản lý phương tiện',
+        title: const Text('Kết quả chẩn đoán',
             style: TextStyle(
               fontFamily: 'SFProDisplay',
               fontWeight: FontWeight.w600,
@@ -160,7 +161,10 @@ class _CarChipManagementState extends State<CarChipManagement> {
     bool isSelected = widget.car.id == widget.selectedCar;
     return InkWell(
       onTap: () {
-        //TODO
+        Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const HealthCarRecordManagementDetail(),
+                                ));
       },
       child: Container(
         decoration: const BoxDecoration(
@@ -216,6 +220,28 @@ class _CarChipManagementState extends State<CarChipManagement> {
             ),
           ),
           isThreeLine: true,
+          trailing: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent,
+              border: Border.all(
+                color: Colors.white,
+                width: 1.0,
+              ),
+            ),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const HealthCarRecordManagementDetail(),
+                                ));
+                },
+                icon: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                  color: Colors.black,
+                )),
+          ),
         ),
       ),
     );
