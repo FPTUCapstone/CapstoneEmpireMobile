@@ -59,7 +59,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
         Container(
           alignment: Alignment.center,
           child: Text(
-            "ID: #${widget.order.code}",
+            "Mã hóa đơn: #${widget.order.code}",
             style: TextStyle(
               fontFamily: 'SFProDisplay',
               fontSize: 12.sp,
