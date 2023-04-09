@@ -5,8 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TagEditor extends StatefulWidget {
   final List<SymptonResponseModel> options;
   final void Function(List<SymptonResponseModel>) onChanged;
+  final void Function(bool) emptySymptom;
 
-  const TagEditor({super.key, required this.onChanged, required this.options});
+  const TagEditor(
+      {super.key,
+      required this.onChanged,
+      required this.options,
+      required this.emptySymptom});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -36,6 +41,12 @@ class _TagEditorState extends State<TagEditor> {
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           ),
+          onTap: () {
+            setState(() {
+              _suggestedTags = widget.options;
+            });
+            widget.emptySymptom(false);
+          },
           onChanged: (value) async {
             setState(() {
               // You'll need to replace this with your own logic for
@@ -86,29 +97,28 @@ class _TagEditorState extends State<TagEditor> {
           }).toList(),
         ),
         if (_suggestedTags.isNotEmpty)
-          SizedBox(
-            height: 100.0,
-            child: ListView.builder(
-              itemCount: _suggestedTags.length,
-              itemBuilder: (context, index) {
-                final tag = _suggestedTags[index];
-                return ListTile(
-                  title: Text(tag.name.toString()),
-                  onTap: () {
-                    setState(() {
-                      _controller.clear();
-                      if (_selectedTags
-                          .where((element) => element.id == tag.id)
-                          .isEmpty) {
-                        _selectedTags.add(tag);
-                        widget.onChanged(_selectedTags);
-                      }
-                      _suggestedTags = [];
-                    });
-                  },
-                );
-              },
-            ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _suggestedTags.length,
+            itemBuilder: (context, index) {
+              final tag = _suggestedTags[index];
+              return ListTile(
+                title: Text(tag.name.toString()),
+                onTap: () {
+                  setState(() {
+                    _controller.clear();
+                    if (_selectedTags
+                        .where((element) => element.id == tag.id)
+                        .isEmpty) {
+                      _selectedTags.add(tag);
+                      widget.onChanged(_selectedTags);
+                    }
+                    _suggestedTags = [];
+                  });
+                },
+              );
+            },
           ),
       ],
     );

@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/tag_editor.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
@@ -55,6 +54,8 @@ class _BookingInfoState extends State<BookingInfo> {
   PaymentRequestModel model = PaymentRequestModel(
       orderType: '', amount: 0, orderDescription: '', name: '');
 
+  bool _emptySymtomp = false;
+
   _payBookingFee(PaymentRequestModel model) async {
     var response = await PaymentServices().createNewPaymentForBooking(model);
     if (response!.statusCode == 500) {
@@ -86,7 +87,7 @@ class _BookingInfoState extends State<BookingInfo> {
   //   });
   // }
 
-  final List<SymptomModel> _listSymptom = [];
+  List<SymptonResponseModel> _listSymptom = [];
   bool _loading = false;
   late int _selectedCar;
   List<CarResponseModel> _listCar = [];
@@ -169,11 +170,11 @@ class _BookingInfoState extends State<BookingInfo> {
         double.parse(_bookingPrice.toString()), _listSymptom);
 
     if (response != null) {
-      sendNotification(
-          18, "Có đặt lịch mới #${response.code}", "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
+      sendNotification(18, "Có đặt lịch mới #${response.code}",
+          "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
       var userId = await getUserId();
-      sendNotification(userId!, "Empire Garage",
-          "Bạn vừa đặt lịch kiểm tra xe thành công");
+      sendNotification(
+          userId!, "Empire Garage", "Bạn vừa đặt lịch kiểm tra xe thành công");
       var notificationModel = NotificationModel(
           isAndroiodDevice: true,
           title: "Empire Garage",
@@ -315,13 +316,24 @@ class _BookingInfoState extends State<BookingInfo> {
                       //   ],
                       // ),
                       TagEditor(
-                        options: options,
-                        onChanged: (tags) {
-                          setState(() {
-                            _listSymptom.add(SymptomModel(id: tags.last.id));
-                          });
-                        },
-                      ),
+                          options: options,
+                          onChanged: (tags) {
+                            setState(() {
+                              _listSymptom = tags;
+                            });
+                          },
+                          emptySymptom: (emptySymtomp) {
+                            setState(() {
+                              _emptySymtomp = emptySymtomp;
+                            });
+                          }),
+                      _emptySymtomp
+                          ? Text(
+                              'Vui lòng nhập triệu chứng',
+                              style: AppStyles.text400(
+                                  fontsize: 12.sp, color: AppColors.errorIcon),
+                            )
+                          : Container(),
                       SizedBox(
                         height: 15.h,
                       ),
@@ -715,7 +727,12 @@ class _BookingInfoState extends State<BookingInfo> {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () async {
-                                log(_listSymptom.length.toString());
+                                if (_listSymptom.isEmpty) {
+                                  setState(() {
+                                    _emptySymtomp = true;
+                                  });
+                                  return;
+                                }
                                 PaymentRequestModel paymentRequestModel =
                                     PaymentRequestModel(
                                         amount: _bookingPrice,

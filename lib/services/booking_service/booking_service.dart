@@ -2,16 +2,20 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
-import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/qrcode.dart';
+import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<BookingResponseModel?> createBooking(String date, int carId, int userId,
-      double bookingPrice, List<SymptomModel> symptoms) async {
+  Future<BookingResponseModel?> createBooking(
+      String date,
+      int carId,
+      int userId,
+      double bookingPrice,
+      List<SymptonResponseModel> symptoms) async {
     http.Response? response;
     try {
       List<int> symptomIds = symptoms.map((s) => s.id).toList();
