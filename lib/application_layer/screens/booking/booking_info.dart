@@ -86,7 +86,7 @@ class _BookingInfoState extends State<BookingInfo> {
   //   });
   // }
 
-  final List<SymptomModel> _listSymptom = [];
+  List<SymptonResponseModel> _listSymptom = [];
   bool _loading = false;
   late int _selectedCar;
   List<CarResponseModel> _listCar = [];
@@ -169,11 +169,11 @@ class _BookingInfoState extends State<BookingInfo> {
         double.parse(_bookingPrice.toString()), _listSymptom);
 
     if (response != null) {
-      sendNotification(
-          18, "Có đặt lịch mới #${response.code}", "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
+      sendNotification(18, "Có đặt lịch mới #${response.code}",
+          "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
       var userId = await getUserId();
-      sendNotification(userId!, "Empire Garage",
-          "Bạn vừa đặt lịch kiểm tra xe thành công");
+      sendNotification(
+          userId!, "Empire Garage", "Bạn vừa đặt lịch kiểm tra xe thành công");
       var notificationModel = NotificationModel(
           isAndroiodDevice: true,
           title: "Empire Garage",
@@ -318,7 +318,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         options: options,
                         onChanged: (tags) {
                           setState(() {
-                            _listSymptom.add(SymptomModel(id: tags.last.id));
+                            _listSymptom = tags;
                           });
                         },
                       ),
