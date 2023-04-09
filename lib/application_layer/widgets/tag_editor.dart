@@ -5,8 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TagEditor extends StatefulWidget {
   final List<SymptonResponseModel> options;
   final void Function(List<SymptonResponseModel>) onChanged;
+  final void Function(bool) emptySymptom;
 
-  const TagEditor({super.key, required this.onChanged, required this.options});
+  const TagEditor(
+      {super.key,
+      required this.onChanged,
+      required this.options,
+      required this.emptySymptom});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -40,6 +45,7 @@ class _TagEditorState extends State<TagEditor> {
             setState(() {
               _suggestedTags = widget.options;
             });
+            widget.emptySymptom(false);
           },
           onChanged: (value) async {
             setState(() {
