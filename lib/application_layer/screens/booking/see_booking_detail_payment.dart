@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors.dart';
 import '../../../services/booking_service/booking_service.dart';
+import '../../widgets/loading.dart';
 
 class SeeBookingDetailPayment extends StatefulWidget {
   const SeeBookingDetailPayment({super.key});
@@ -14,11 +15,13 @@ class SeeBookingDetailPayment extends StatefulWidget {
 
 class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
   double _bookingPrice = 0;
+  bool _loading = true;
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
     setState(() {
       _bookingPrice = response;
+      _loading = false;
     });
     return _bookingPrice;
   }
@@ -66,7 +69,9 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
               color: Colors.black,
             )),
       ),
-      body: Column(children: <Widget>[
+      body: _loading
+          ? const Loading()
+          : Column(children: <Widget>[
         Row(
           children: const [
             Padding(
