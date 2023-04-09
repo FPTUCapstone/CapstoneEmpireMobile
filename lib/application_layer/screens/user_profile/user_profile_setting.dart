@@ -122,7 +122,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: _loading
-                          ? Container()
+                          ? const CircularProgressIndicator()
                           : Text(
                               _user!.fullname,
                               style: TextStyle(
@@ -135,7 +135,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: _loading
-                          ? Container()
+                          ? const CircularProgressIndicator()
                           : Text(
                               _user!.phone.toString(),
                               style: TextStyle(
