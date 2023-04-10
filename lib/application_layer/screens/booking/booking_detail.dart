@@ -49,14 +49,17 @@ class _BookingDetailState extends State<BookingDetail> {
 
   @override
   Widget build(BuildContext context) {
-
-    //TODO
-    //Bug đoạn này
     String formattedDate = '';
-    String date = _booking!.date.substring(0, 10);
-    DateTime dateTime = DateTime.parse(date);
-    formattedDate =
-        '${dateTime.day.toString().padLeft(2, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.year.toString()}';
+    if (_booking != null) {
+      String date = _booking!.date.substring(0, 10);
+      DateTime dateTime = DateTime.parse(date);
+      formattedDate =
+          '${dateTime.day.toString().padLeft(2, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.year.toString()}';
+    } else {
+      // handle the case where _booking or _booking!.date is null
+      const Loading();
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _loading
@@ -116,11 +119,12 @@ class _BookingDetailState extends State<BookingDetail> {
                           child: InkWell(
                             onTap: () {
                               widget.data.daysLeft == 0
-                                  ? Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          QRCodePage(
-                                            bookingId: _booking!.id,
-                                          )))
+                                  ? Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              QRCodePage(
+                                                bookingId: _booking!.id,
+                                              )))
                                   : null;
                             },
                             child: ListTile(
@@ -169,7 +173,8 @@ class _BookingDetailState extends State<BookingDetail> {
                               trailing: widget.data.daysLeft == 0 &&
                                       _booking!.isArrived == false
                                   ? Icon(Icons.qr_code_scanner,
-                                      color: AppColors.blueTextColor, size: 30.w)
+                                      color: AppColors.blueTextColor,
+                                      size: 30.w)
                                   : null,
                             ),
                           ),
@@ -178,11 +183,12 @@ class _BookingDetailState extends State<BookingDetail> {
                           height: 20.h,
                         ),
                         Container(
-                          color:Colors.white,
+                          color: Colors.white,
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 24, left: 24,right:24),
+                                padding: const EdgeInsets.only(
+                                    top: 24, left: 24, right: 24),
                                 child: Row(
                                   children: [
                                     Text(
@@ -238,14 +244,16 @@ class _BookingDetailState extends State<BookingDetail> {
                                 padding: EdgeInsets.symmetric(horizontal: 24.w),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           const SeeBookingDetailPayment(),
                                     ));
                                   },
                                   child: SizedBox(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(bottom: 20),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20),
                                       child: Row(
                                         children: [
                                           Text(
