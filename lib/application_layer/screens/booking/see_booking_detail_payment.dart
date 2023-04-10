@@ -75,7 +75,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
         Row(
           children: const [
             Padding(
-              padding: EdgeInsets.only(left: 24, bottom: 24),
+              padding: EdgeInsets.only(left: 24, bottom: 24,top:24),
               child: Text("Thanh toán",
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
