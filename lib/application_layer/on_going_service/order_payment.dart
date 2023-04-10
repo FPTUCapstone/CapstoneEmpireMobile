@@ -49,8 +49,9 @@ class _OrderPaymentState extends State<OrderPayment> {
                   // ignore: use_build_context_synchronously
                   widget.callback();
                 } else {
-                  // ignore: use_build_context_synchronously
                   log("Payment failed");
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
                   // ignore: use_build_context_synchronously
                   showModalBottomSheet(
                       context: context,
