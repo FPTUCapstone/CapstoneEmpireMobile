@@ -33,7 +33,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
     if (!mounted) return;
     setState(() {
       _listActivity = listActivity;
-      _listFiltered = _listActivity;
+      _listFiltered =
+          _listActivity.where((element) => element!.isBooking == true).toList();
       _loading = false;
     });
   }
@@ -43,23 +44,29 @@ class _ActivityHistoryState extends State<ActivityHistory> {
     // 'Dịch vụ',
     // 'Đặt hàng',
     // 'Cứu hộ'
-    for (var element in selectedFilters) {
-      switch (element) {
-        case 'Đặt lịch':
-          setState(() {
-            _listFiltered = _listActivity
-                .where((element) => element!.isBooking == true)
-                .toList();
-          });
-          break;
-        case 'Dịch vụ':
-          setState(() {
-            _listFiltered = _listActivity
-                .where((element) => element!.isBooking == false)
-                .toList();
-          });
-          break;
-        default:
+    if (selectedFilters.isEmpty) {
+      setState(() {
+        _listFiltered = _listActivity;
+      });
+    } else {
+      for (var element in selectedFilters) {
+        switch (element) {
+          case 'Đặt lịch':
+            setState(() {
+              _listFiltered = _listActivity
+                  .where((element) => element!.isBooking == true)
+                  .toList();
+            });
+            break;
+          case 'Dịch vụ':
+            setState(() {
+              _listFiltered = _listActivity
+                  .where((element) => element!.isBooking == false)
+                  .toList();
+            });
+            break;
+          default:
+        }
       }
     }
   }
@@ -138,7 +145,9 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                           ? BookingDetail(
                                               data: item,
                                             )
-                                          :  OnGoingService(servicesId: item.id,)));
+                                          : OnGoingService(
+                                              servicesId: item.id,
+                                            )));
                                 },
                                 child: Container(
                                   decoration: const BoxDecoration(
@@ -191,7 +200,7 @@ class _ListFilterState extends State<ListFilter> {
     'Cứu hộ'
   ];
 
-  final List<String> _selectedFilters = [];
+  final List<String> _selectedFilters = ['Đặt lịch'];
 
   @override
   Widget build(BuildContext context) {

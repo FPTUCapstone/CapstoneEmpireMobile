@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
@@ -332,17 +330,6 @@ class _ActivityChipState extends State<ActivityChip> {
   @override
   Widget build(BuildContext context) {
     var item = widget.item;
-
-    item.date != null
-        ? {
-            log(item.date!
-                .difference(DateTime.now().toLocal())
-                .inDays
-                .toString()),
-            log(item.date!.toString()),
-            log(DateTime.now().toLocal().toString())
-          }
-        : log("");
     bool isComplete = item.isArrived == true || item.status == 5;
     return Padding(
       padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
