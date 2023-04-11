@@ -11,6 +11,8 @@ import '../../../models/response/booking.dart';
 import '../../../services/notification/notification_service.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+import '../../widgets/add_new_car_successfully.dart';
+
 class AddNewCar extends StatefulWidget {
   final Function(int) onAddCar;
   const AddNewCar({super.key, required this.onAddCar});
@@ -340,28 +342,9 @@ class _AddNewCarState extends State<AddNewCar> {
                             if (response == null ||
                                 response.statusCode != 201) {
                               // ignore: use_build_context_synchronously
-                              showDialog(
+                              showModalBottomSheet(
                                   context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text(
-                                        "Failed to add car, please try again",
-                                        style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.red),
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: const Text('OK'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  });
+                                  builder: (context) => const AddNewCarSuccessfully());
                             } else {
                               var notificationModel = NotificationModel(
                                   isAndroiodDevice: true,

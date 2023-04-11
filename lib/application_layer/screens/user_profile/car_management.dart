@@ -108,7 +108,7 @@ class _CarManagementState extends State<CarManagement> {
         ],
       ),
       body: Scaffold(
-        backgroundColor: AppColors.green50,
+        backgroundColor: AppColors.white100,
         body: Column(
           children: <Widget>[
             Expanded(
@@ -116,18 +116,22 @@ class _CarManagementState extends State<CarManagement> {
                 itemCount: _listCar.length,
                 itemBuilder: (context, index) => Column(
                   children: [
-                    CarChipManagement(
-                      car: _listCar[index],
-                      selectedCar: _selectedCar,
-                      onSelected: _onCarSelected,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20,right:20),
+                      child: CarChipManagement(
+                        car: _listCar[index],
+                        selectedCar: _selectedCar,
+                        onSelected: _onCarSelected,
+                      ),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 15.h,
                     ),
                   ],
                 ),
               ),
-            )
+            ),
+            
           ],
         ),
       ),
@@ -166,10 +170,10 @@ class _CarChipManagementState extends State<CarChipManagement> {
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10)),
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)),
         ),
         child: ListTile(
           leading: Image.asset(
