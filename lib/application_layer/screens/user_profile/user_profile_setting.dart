@@ -115,15 +115,15 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 8.h),
-                child: Column(
+                child: _loading
+                          ? const CircularProgressIndicator()
+                          :Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 5),
-                      child: _loading
-                          ? const CircularProgressIndicator()
-                          : Text(
+                      child:  Text(
                               _user!.fullname,
                               style: TextStyle(
                                   fontSize: 24.sp,
@@ -134,9 +134,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
-                      child: _loading
-                          ? const CircularProgressIndicator()
-                          : Text(
+                      child:  Text(
                               _user!.phone.toString(),
                               style: TextStyle(
                                   fontSize: 14.sp,
