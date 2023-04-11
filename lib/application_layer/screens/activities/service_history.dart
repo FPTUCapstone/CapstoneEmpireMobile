@@ -74,7 +74,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                 type: PageTransitionType.bottomToTopJoined,
                                 duration: const Duration(milliseconds: 350),
                                 childCurrent: widget,
-                                child: const ServiceActivityDetail()));
+                                child: const ServiceActivityDetail(servicesId: 1,)));
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 15),

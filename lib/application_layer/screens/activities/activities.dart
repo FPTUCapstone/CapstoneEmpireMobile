@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
+import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
@@ -233,6 +234,8 @@ class _HomePageState extends State<Activities> {
                               itemCount: _listRecent.length,
                               itemBuilder: (context, index) {
                                 var item = _listRecent[index];
+                                bool isComplete =
+                                    item!.isArrived == true || item.status == 5;
                                 return Padding(
                                   padding: EdgeInsets.only(top: 15.h),
                                   child: Container(
@@ -257,15 +260,17 @@ class _HomePageState extends State<Activities> {
                                                     ? BookingDetail(
                                                         data: item,
                                                       )
-                                                    : OnGoingService(
-                                                        servicesId: item.id,
-                                                      )));
+                                                    : isComplete
+                                                        ? ServiceActivityDetail(servicesId: item.id,)
+                                                        : OnGoingService(
+                                                            servicesId: item.id,
+                                                          )));
                                       },
                                       child: SizedBox(
                                         height: 90.h,
                                         child: ActivityChip(
                                           carInfo:
-                                              '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                              '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
                                           date: item.date.toString(),
                                           daysLeft: item.daysLeft,
                                           isBooking: item.isBooking,

@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/colors.dart';
 
 class ServiceActivityDetail extends StatefulWidget {
-  const ServiceActivityDetail({super.key});
+  final int servicesId;
+  const ServiceActivityDetail({super.key, required this.servicesId});
 
   @override
   State<ServiceActivityDetail> createState() => _ServiceActivityDetailState();
@@ -29,7 +30,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
               ),
             ),
             title: Text(
-              "Ngày 20 tháng 2, 2023",
+              "59B-29650",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'SFProDisplay',

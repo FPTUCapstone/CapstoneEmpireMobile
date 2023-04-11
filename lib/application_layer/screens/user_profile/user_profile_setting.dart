@@ -116,14 +116,14 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
               Padding(
                 padding: EdgeInsets.only(top: 8.h),
                 child: _loading
-                          ? const CircularProgressIndicator()
-                          :Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child:  Text(
+                    ? const CircularProgressIndicator()
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
                               _user!.fullname,
                               style: TextStyle(
                                   fontSize: 24.sp,
@@ -131,10 +131,10 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                                   fontFamily: 'SFProDisplay',
                                   color: AppColors.blackTextColor),
                             ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child:  Text(
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(
                               _user!.phone.toString(),
                               style: TextStyle(
                                   fontSize: 14.sp,
@@ -142,9 +142,9 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                                   fontFamily: 'SFProDisplay',
                                   color: AppColors.blackTextColor),
                             ),
-                    ),
-                  ],
-                ),
+                          ),
+                        ],
+                      ),
               ),
               SizedBox(
                 height: 40.h,
@@ -195,11 +195,12 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     ),
                     InkWell(
                       onTap: () async {
-                         Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      CarManagement(onSelected: (int ) {  }, selectedCar: 1,),
-                                ));
-        
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => CarManagement(
+                            onSelected: (int) {},
+                            selectedCar: 1,
+                          ),
+                        ));
                       },
                       child: Row(
                         children: <Widget>[
@@ -233,10 +234,13 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     ),
                     InkWell(
                       onTap: () async {
-                         Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      HealthCarRecordManagement(onSelected: (int ) {  }, selectedCar: 1,),
-                                ));
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              HealthCarRecordManagement(
+                            onSelected: (int) {},
+                            selectedCar: 1,
+                          ),
+                        ));
                       },
                       child: Row(
                         children: <Widget>[
