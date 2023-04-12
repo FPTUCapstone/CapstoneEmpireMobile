@@ -96,7 +96,7 @@ class _BookingDetailState extends State<BookingDetail> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 5.h,
+                          height: 12.h,
                         ),
                         Container(
                           alignment: Alignment.center,
@@ -111,7 +111,7 @@ class _BookingDetailState extends State<BookingDetail> {
                           ),
                         ),
                         SizedBox(
-                          height: 25.h,
+                          height: 12.h,
                         ),
                         Container(
                           color: Colors.white,
@@ -180,7 +180,7 @@ class _BookingDetailState extends State<BookingDetail> {
                           ),
                         ),
                         SizedBox(
-                          height: 20.h,
+                          height: 15.h,
                         ),
                         Container(
                           color: Colors.white,
@@ -238,7 +238,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                 ),
                               ),
                               SizedBox(
-                                height: 20.h,
+                                height: 15.h,
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -280,7 +280,7 @@ class _BookingDetailState extends State<BookingDetail> {
                           ),
                         ),
                         SizedBox(
-                          height: 20.h,
+                          height: 15.h,
                         ),
                         Container(
                           decoration: const BoxDecoration(
