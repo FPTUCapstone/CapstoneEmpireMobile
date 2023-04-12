@@ -152,7 +152,7 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
                                   onSelected: _onCarSelected,
                                 ),
                                 SizedBox(
-                                  height: 5.h,
+                                  height: 16.h,
                                 ),
                               ],
                             ),
@@ -196,14 +196,17 @@ class _CarChipState extends State<CarChip> {
         widget.onSelected(widget.car.id);
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10)),
-        ),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 1.h,
+                blurRadius: 1.2,
+                offset: Offset(0, 4.h),
+              )
+            ],
+            borderRadius: const BorderRadius.all(Radius.circular(16))),
         child: ListTile(
           leading: Image.asset(
             "assets/image/icon-logo/bmw-car-icon.png",
