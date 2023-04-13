@@ -151,21 +151,24 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          spreadRadius: 1.h,
+                                          blurRadius: 1.2,
+                                          offset: Offset(0, 4.h),
+                                        )
+                                      ],
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(16))),
                                   child: ActivityChip(
                                     carInfo:
                                         '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
                                     date: item.date.toString(),
+                                    code: item.code != null
+                                        ? item.code.toString()
+                                        : "##########",
                                     daysLeft: item.daysLeft,
                                     isBooking: item.isBooking,
                                     item: item,

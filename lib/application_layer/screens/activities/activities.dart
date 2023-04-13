@@ -203,6 +203,9 @@ class _HomePageState extends State<Activities> {
                                         carInfo:
                                             '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
                                         date: item.date.toString(),
+                                        code: item.code != null
+                                            ? item.code.toString()
+                                            : "##########",
                                         daysLeft: item.daysLeft,
                                         isBooking: item.isBooking,
                                         item: item,
@@ -269,7 +272,9 @@ class _HomePageState extends State<Activities> {
                                                         data: item,
                                                       )
                                                     : isComplete
-                                                        ? const ServiceActivityDetail()
+                                                        ? ServiceActivityDetail(
+                                                            servicesId: item.id,
+                                                          )
                                                         : OnGoingService(
                                                             servicesId: item.id,
                                                           )));
@@ -280,6 +285,9 @@ class _HomePageState extends State<Activities> {
                                           carInfo:
                                               '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
                                           date: item.date.toString(),
+                                          code: item.code != null
+                                              ? item.code.toString()
+                                              : "##########",
                                           daysLeft: item.daysLeft,
                                           isBooking: item.isBooking,
                                           item: item,
@@ -309,6 +317,7 @@ class Status {
 class ActivityChip extends StatefulWidget {
   final String carInfo;
   final String date;
+  final String code;
   final int? daysLeft;
   final bool isBooking;
   final ActivityResponseModel item;
@@ -317,6 +326,7 @@ class ActivityChip extends StatefulWidget {
     required this.carInfo,
     required this.date,
     required this.daysLeft,
+    required this.code,
     required this.isBooking,
     required this.item,
   });
@@ -417,6 +427,17 @@ class _ActivityChipState extends State<ActivityChip> {
                 ),
                 textAlign: TextAlign.start,
               ),
+            !widget.isBooking
+                ? Text(
+                    widget.code,
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.lightTextColor,
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
