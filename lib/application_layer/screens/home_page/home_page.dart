@@ -304,6 +304,9 @@ class _HomePageState extends State<HomePage> {
                                             : null,
                                         isBooking: item.isBooking,
                                         item: item,
+                                        code: item.code != null
+                                            ? item.code.toString()
+                                            : "#########",
                                       ),
                                     ),
                                   ),

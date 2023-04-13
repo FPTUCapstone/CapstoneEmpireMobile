@@ -148,4 +148,13 @@ class BookingService {
     }
     return 0;
   }
+
+  Future<http.Response> cancelBooking(int bookingId) async {
+    String apiUrl = '${APIPath.path}/bookings/cancel/$bookingId';
+    var response = await makeHttpRequest(
+      apiUrl,
+      method: 'PUT',
+    );
+    return response;
+  }
 }

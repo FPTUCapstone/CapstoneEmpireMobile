@@ -177,6 +177,9 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                     carInfo:
                                         '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
                                     date: item.date.toString(),
+                                    code: item.code != null
+                                        ? item.code.toString()
+                                        : "##########",
                                     daysLeft: item.daysLeft,
                                     isBooking: item.isBooking,
                                     item: item,
