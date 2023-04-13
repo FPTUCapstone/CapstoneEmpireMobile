@@ -1,5 +1,6 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
+import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -32,7 +33,12 @@ class _ActivityHistoryState extends State<ActivityHistory> {
     var listActivity = await ActivityService().fetchActivity(userId);
     if (!mounted) return;
     setState(() {
-      _listActivity = listActivity;
+      _listActivity = listActivity
+          .where((element) =>
+              element != null &&
+              (element.isOnGoing == false ||
+                  ![0, 1, 2, 3, 4].contains(element.status)))
+          .toList();
       _listFiltered =
           _listActivity.where((element) => element!.isBooking == true).toList();
       _loading = false;
@@ -93,7 +99,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                 onRefresh: reload,
                 child: ListView(children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    padding:
+                        const EdgeInsets.only(left: 24, right: 24, top: 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -145,23 +152,27 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                           ? BookingDetail(
                                               data: item,
                                             )
-                                          : OnGoingService(
-                                              servicesId: item.id,
-                                            )));
+                                          : item.status == 5
+                                              ? ServiceActivityDetail(
+                                                  data: item,
+                                                )
+                                              : OnGoingService(
+                                                  servicesId: item.id,
+                                                )));
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          spreadRadius: 1.h,
+                                          blurRadius: 1.2,
+                                          offset: Offset(0, 4.h),
+                                        )
+                                      ],
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(16))),
                                   child: ActivityChip(
                                     carInfo:
                                         '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',

@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
+import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/activity_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,7 +75,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                 type: PageTransitionType.bottomToTopJoined,
                                 duration: const Duration(milliseconds: 350),
                                 childCurrent: widget,
-                                child: const ServiceActivityDetail(servicesId: 1,)));
+                                child: const MainPage()));
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 15),
