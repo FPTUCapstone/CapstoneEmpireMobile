@@ -48,76 +48,76 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          title: SizedBox(
-            height: 40.h,
-            width: 108.w,
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => const MainPage()));
-              },
-              child: Image.asset(
-                "assets/image/app-logo/homepage-icon.png",
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-        ),
-        body: SingleChildScrollView(
-          reverse: true,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: SizedBox(
-                    width: 160.w,
-                    height: 160.h,
-                    child: Stack(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 160.w,
-                          height: 160.h,
-                          child: const CircleAvatar(
-                            backgroundImage:
-                                AssetImage("assets/image/user-pic/user.png"),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          right: 5,
-                          child: Container(
-                            width: 33.w,
-                            height: 33.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: AppColors.buttonColor,
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.edit_rounded,
-                                color: AppColors.whiteButtonColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+      home: _loading
+          ? const CircularProgressIndicator()
+          : Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                title: SizedBox(
+                  height: 40.h,
+                  width: 108.w,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => const MainPage()));
+                    },
+                    child: Image.asset(
+                      "assets/image/app-logo/homepage-icon.png",
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 8.h),
-                child: _loading
-                    ? const CircularProgressIndicator()
-                    : Column(
+              body: SingleChildScrollView(
+                reverse: true,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: SizedBox(
+                          width: 160.w,
+                          height: 160.h,
+                          child: Stack(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 160.w,
+                                height: 160.h,
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                      "assets/image/user-pic/user.png"),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 10,
+                                right: 5,
+                                child: Container(
+                                  width: 33.w,
+                                  height: 33.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: AppColors.buttonColor,
+                                    shape: BoxShape.rectangle,
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.edit_rounded,
+                                      color: AppColors.whiteButtonColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 8.h),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -145,178 +145,180 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                           ),
                         ],
                       ),
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 24),
-                height: 180.h,
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserProfile(
-                                    userId: _user!.id,
-                                  )),
-                        );
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right: 24),
-                            child: Icon(
-                              FontAwesomeIcons.user,
-                              size: 24,
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 24),
+                      height: 180.h,
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UserProfile(
+                                          userId: _user!.id,
+                                        )),
+                              );
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 24),
+                                  child: Icon(
+                                    FontAwesomeIcons.user,
+                                    size: 24,
+                                  ),
+                                ),
+                                Text(
+                                  "Chỉnh sửa thông tin",
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'SFProDisplay',
+                                      color: AppColors.blackTextColor),
+                                ),
+                                const Spacer(),
+                                const Icon(
+                                  Icons.navigate_next,
+                                  size: 20,
+                                  color: Colors.black,
+                                )
+                              ],
                             ),
                           ),
-                          Text(
-                            "Chỉnh sửa thông tin",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'SFProDisplay',
-                                color: AppColors.blackTextColor),
+                          const SizedBox(
+                            height: 20,
                           ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.navigate_next,
-                            size: 20,
-                            color: Colors.black,
+                          InkWell(
+                            onTap: () async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    CarManagement(
+                                  onSelected: (int) {},
+                                  selectedCar: 1,
+                                ),
+                              ));
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 24),
+                                  child: Icon(
+                                    FontAwesomeIcons.car,
+                                    size: 20,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  "Quản lý phương tiện",
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'SFProDisplay',
+                                      color: Colors.black),
+                                ),
+                                const Spacer(),
+                                const Icon(
+                                  Icons.navigate_next,
+                                  size: 20,
+                                  color: Colors.black,
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    HealthCarRecordManagement(
+                                  onSelected: (int) {},
+                                  selectedCar: 1,
+                                ),
+                              ));
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 24),
+                                  child: Icon(
+                                    Icons.content_paste_rounded,
+                                    size: 20,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  "Kết quả chuẩn đoán",
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'SFProDisplay',
+                                      color: Colors.black),
+                                ),
+                                const Spacer(),
+                                const Icon(
+                                  Icons.navigate_next,
+                                  size: 20,
+                                  color: Colors.black,
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              var response = await AppAuthentication().logout();
+                              if (response) {
+                                // ignore: use_build_context_synchronously
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const WelcomeScreen()),
+                                    (route) => false);
+                              }
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.only(right: 24),
+                                  child: Icon(
+                                    Icons.logout,
+                                    size: 24,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                Text(
+                                  "Đăng xuất",
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'SFProDisplay',
+                                      color: Colors.red),
+                                ),
+                                const Spacer(),
+                                const Icon(
+                                  Icons.navigate_next,
+                                  size: 20,
+                                  color: Colors.red,
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => CarManagement(
-                            onSelected: (int) {},
-                            selectedCar: 1,
-                          ),
-                        ));
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right: 24),
-                            child: Icon(
-                              FontAwesomeIcons.car,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            "Quản lý phương tiện",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'SFProDisplay',
-                                color: Colors.black),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.navigate_next,
-                            size: 20,
-                            color: Colors.black,
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              HealthCarRecordManagement(
-                            onSelected: (int) {},
-                            selectedCar: 1,
-                          ),
-                        ));
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right: 24),
-                            child: Icon(
-                              Icons.content_paste_rounded,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            "Kết quả chuẩn đoán",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'SFProDisplay',
-                                color: Colors.black),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.navigate_next,
-                            size: 20,
-                            color: Colors.black,
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      onTap: () async {
-                        var response = await AppAuthentication().logout();
-                        if (response) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => const WelcomeScreen()),
-                              (route) => false);
-                        }
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right: 24),
-                            child: Icon(
-                              Icons.logout,
-                              size: 24,
-                              color: Colors.red,
-                            ),
-                          ),
-                          Text(
-                            "Đăng xuất",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'SFProDisplay',
-                                color: Colors.red),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.navigate_next,
-                            size: 20,
-                            color: Colors.red,
-                          )
-                        ],
-                      ),
-                    )
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

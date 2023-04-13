@@ -290,7 +290,7 @@ class _BookingDetailState extends State<BookingDetail> {
                           ),
                         ),
                         SizedBox(
-                          height: 12.h,
+                          height: 15.h,
                         ),
                         Container(
                           color: Colors.white,
@@ -351,9 +351,12 @@ class _BookingDetailState extends State<BookingDetail> {
                               ),
                               trailing: widget.data.daysLeft == 0 &&
                                       _booking!.isArrived == false
-                                  ? Icon(Icons.qr_code_scanner,
-                                      color: AppColors.blueTextColor,
-                                      size: 30.w)
+                                  ? Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Icon(Icons.qr_code_scanner,
+                                        color: AppColors.blueTextColor,
+                                        size: 30.w),
+                                  )
                                   : null,
                             ),
                           ),
