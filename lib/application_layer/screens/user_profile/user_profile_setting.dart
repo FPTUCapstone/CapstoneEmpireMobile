@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../common/colors.dart';
+import '../../widgets/loading.dart';
 import 'car_management.dart';
 import 'health_car_record_management.dart';
 
@@ -49,7 +50,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _loading
-          ? const CircularProgressIndicator()
+          ? const Loading()
           : Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
