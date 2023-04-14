@@ -138,7 +138,7 @@ class _HealthCarRecordManagementDetailState
                       ),
                     ),
                     SizedBox(
-                      height: 20.h,
+                      height: 15.h,
                     ),
                     Text(
                       "Tên vấn đề",
