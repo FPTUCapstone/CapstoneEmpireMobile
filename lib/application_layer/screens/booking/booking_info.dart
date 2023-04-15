@@ -92,6 +92,7 @@ class _BookingInfoState extends State<BookingInfo> {
   late int _selectedCar;
   List<CarResponseModel> _listCar = [];
   bool _isCarHasHCR = false;
+  bool _loadHCR = false;
 
   _loadOptions() async {
     var result = await SymptomsService().fetchListSymptoms();
@@ -115,11 +116,13 @@ class _BookingInfoState extends State<BookingInfo> {
     setState(() {
       _listCar = listCar;
       _selectedCar = _listCar.first.id;
+      _loadHCR = false;
       _loading = true;
     });
     bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
     setState(() {
       _isCarHasHCR = isCarHasHCR;
+      _loadHCR = true;
     });
   }
 
@@ -131,15 +134,22 @@ class _BookingInfoState extends State<BookingInfo> {
     return false;
   }
 
-  void _onCarSelected(int selectedCar) {
+  void _onCarSelected(int selectedCar) async {
     setState(() {
       _selectedCar = selectedCar;
+      _loadHCR = false;
+    });
+    bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
+    setState(() {
+      _isCarHasHCR = isCarHasHCR;
+      _loadHCR = true;
     });
   }
 
   void _onCallBack(int selectedCar) async {
     setState(() {
       _loading = false;
+      _loadHCR = false;
     });
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
     await _loadOptions();
@@ -147,6 +157,11 @@ class _BookingInfoState extends State<BookingInfo> {
     setState(() {
       _loading = true;
       _selectedCar = selectedCar;
+    });
+    bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
+    setState(() {
+      _isCarHasHCR = isCarHasHCR;
+      _loadHCR = true;
     });
   }
 
@@ -550,34 +565,37 @@ class _BookingInfoState extends State<BookingInfo> {
                                     _isCarHasHCR
                                         ? const Divider()
                                         : Container(),
-                                    _isCarHasHCR
-                                        ? InkWell(
-                                            onTap: () {
-                                              //TO-DO
-                                            },
-                                            child: Container(
-                                              margin: EdgeInsets.all(10.sp),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Lịch sử sửa chữa',
-                                                    style: AppStyles.header600(
-                                                        fontsize: 14.sp,
+                                    _loadHCR
+                                        ? _isCarHasHCR
+                                            ? InkWell(
+                                                onTap: () {
+                                                  //TO-DO
+                                                },
+                                                child: Container(
+                                                  margin: EdgeInsets.all(10.sp),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'Lịch sử sửa chữa',
+                                                        style: AppStyles.header600(
+                                                            fontsize: 14.sp,
+                                                            color: AppColors
+                                                                .blueTextColor),
+                                                      ),
+                                                      const Icon(
+                                                        Icons
+                                                            .navigate_next_outlined,
                                                         color: AppColors
-                                                            .blueTextColor),
+                                                            .blueTextColor,
+                                                      ),
+                                                    ],
                                                   ),
-                                                  const Icon(
-                                                    Icons
-                                                        .navigate_next_outlined,
-                                                    color:
-                                                        AppColors.blueTextColor,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
+                                                ),
+                                              )
+                                            : Container()
                                         : Container(
                                             height: 20.sp,
                                             width: 20.sp,
