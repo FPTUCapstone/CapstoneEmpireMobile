@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors.dart';
-import '../../../common/style.dart';
+import 'booking_history_tab.dart';
 import 'booking_problem_tab.dart';
 
 class BookingProblemHistory extends StatefulWidget {
@@ -73,7 +73,7 @@ class _BookingProblemHistoryState extends State<BookingProblemHistory> {
                                   "Vấn đề",
                                   style: TextStyle(
                                     fontFamily: 'SFProDisplay',
-                                    fontSize: 18.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w800,
                                   ),
                                 ),
@@ -83,7 +83,7 @@ class _BookingProblemHistoryState extends State<BookingProblemHistory> {
                                   "Lịch sử",
                                   style: TextStyle(
                                     fontFamily: 'SFProDisplay',
-                                    fontSize: 18.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w800,
                                   ),
                                 ),
@@ -97,7 +97,7 @@ class _BookingProblemHistoryState extends State<BookingProblemHistory> {
                     BookingProblemTab(),
                     //TODO
                     //Tab View 2
-                    Icon(Icons.directions_transit, size: 350),
+                    BookingHistoryTab(),
                   ]),
                 )),
           ),
