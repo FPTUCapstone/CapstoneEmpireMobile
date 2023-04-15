@@ -16,7 +16,8 @@ class HealthCarRecordManagement extends StatefulWidget {
       {super.key, required this.selectedCar, required this.onSelected});
 
   @override
-  State<HealthCarRecordManagement> createState() => _HealthCarRecordManagementState();
+  State<HealthCarRecordManagement> createState() =>
+      _HealthCarRecordManagementState();
 }
 
 class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
@@ -97,9 +98,10 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
             child: IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    AddNewCar(onAddCar: (int ) {  },),
-                              ));
+                    builder: (BuildContext context) => AddNewCar(
+                      onAddCar: (int) {},
+                    ),
+                  ));
                 },
                 icon: const Icon(
                   Icons.add,
@@ -109,7 +111,6 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
         ],
       ),
       body: Scaffold(
-        backgroundColor: AppColors.green50,
         body: Column(
           children: <Widget>[
             Expanded(
@@ -117,13 +118,31 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
                 itemCount: _listCar.length,
                 itemBuilder: (context, index) => Column(
                   children: [
-                    CarChipManagement(
-                      car: _listCar[index],
-                      selectedCar: _selectedCar,
-                      onSelected: _onCarSelected,
+                    const Text("absaasb"),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24,right: 24),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1.h,
+                                blurRadius: 1.2,
+                                offset: Offset(0, 4.h),
+                              )
+                            ],
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16))),
+                        child: CarChipManagement(
+                          car: _listCar[index],
+                          selectedCar: _selectedCar,
+                          onSelected: _onCarSelected,
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 16.h,
                     ),
                   ],
                 ),
@@ -162,9 +181,9 @@ class _CarChipManagementState extends State<CarChipManagement> {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      const HealthCarRecordManagementDetail(),
-                                ));
+          builder: (BuildContext context) =>
+              const HealthCarRecordManagementDetail(),
+        ));
       },
       child: Container(
         decoration: const BoxDecoration(
@@ -232,9 +251,9 @@ class _CarChipManagementState extends State<CarChipManagement> {
             child: IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      const HealthCarRecordManagementDetail(),
-                                ));
+                    builder: (BuildContext context) =>
+                        const HealthCarRecordManagementDetail(),
+                  ));
                 },
                 icon: const Icon(
                   Icons.arrow_forward_ios,

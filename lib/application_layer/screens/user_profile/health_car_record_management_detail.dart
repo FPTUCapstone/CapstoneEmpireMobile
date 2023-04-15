@@ -65,7 +65,6 @@ class _HealthCarRecordManagementDetailState
             )),
       ),
       body: Scaffold(
-        backgroundColor: AppColors.green50,
         body: SingleChildScrollView(
           reverse: true,
           child: Column(children: [
