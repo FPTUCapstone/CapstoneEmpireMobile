@@ -40,6 +40,7 @@ class _TagEditorState extends State<TagEditor> {
             hintText: 'Chọn triệu chứng',
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            suffixIcon: Icon(Icons.arrow_drop_down_rounded),
           ),
           onTap: () {
             setState(() {

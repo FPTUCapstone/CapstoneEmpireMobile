@@ -1,4 +1,4 @@
-import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -85,69 +85,46 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
               fontSize: 16,
               color: Colors.black,
             )),
-        actions: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-              border: Border.all(
-                color: Colors.white,
-                width: 1.0,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(12.sp),
+        child: ListView(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.sp),
+              child: Text(
+                'Vui lòng chọn phương tiện để xem kết quả chẩn đoán',
+                style: AppStyles.header600(
+                    fontsize: 16.sp, color: AppColors.grey600),
               ),
             ),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => AddNewCar(
-                      onAddCar: (int) {},
-                    ),
-                  ));
-                },
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.black,
-                )),
-          ),
-        ],
-      ),
-      body: Scaffold(
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: _listCar.length,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    const Text("absaasb"),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 24,right: 24),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 1.h,
-                                blurRadius: 1.2,
-                                offset: Offset(0, 4.h),
-                              )
-                            ],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16))),
-                        child: CarChipManagement(
-                          car: _listCar[index],
-                          selectedCar: _selectedCar,
-                          onSelected: _onCarSelected,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                  ],
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: _listCar.length,
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.sp),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 1.h,
+                          blurRadius: 1.2,
+                          offset: Offset(0, 4.h),
+                        )
+                      ],
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16))),
+                  child: CarChipManagement(
+                    car: _listCar[index],
+                    selectedCar: _selectedCar,
+                    onSelected: _onCarSelected,
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -182,7 +159,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) =>
-              const HealthCarRecordManagementDetail(),
+              HealthCarRecordManagementDetail(carId: widget.car.id),
         ));
       },
       child: Container(
@@ -252,7 +229,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        const HealthCarRecordManagementDetail(),
+                        HealthCarRecordManagementDetail(carId: widget.car.id),
                   ));
                 },
                 icon: const Icon(

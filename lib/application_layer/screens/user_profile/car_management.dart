@@ -96,9 +96,10 @@ class _CarManagementState extends State<CarManagement> {
             child: IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    AddNewCar(onAddCar: (int ) {  },),
-                              ));
+                    builder: (BuildContext context) => AddNewCar(
+                      onAddCar: (int) {},
+                    ),
+                  ));
                 },
                 icon: const Icon(
                   Icons.add,
@@ -109,30 +110,16 @@ class _CarManagementState extends State<CarManagement> {
       ),
       body: Scaffold(
         backgroundColor: AppColors.white100,
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: _listCar.length,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20,right:20),
-                      child: CarChipManagement(
-                        car: _listCar[index],
-                        selectedCar: _selectedCar,
-                        onSelected: _onCarSelected,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                  ],
-                ),
-              ),
+        body: ListView.builder(
+          itemCount: _listCar.length,
+          itemBuilder: (context, index) => Padding(
+            padding: EdgeInsets.all(10.sp),
+            child: CarChipManagement(
+              car: _listCar[index],
+              selectedCar: _selectedCar,
+              onSelected: _onCarSelected,
             ),
-            
-          ],
+          ),
         ),
       ),
     );

@@ -316,7 +316,7 @@ class Item {
   String description;
   String photo;
   dynamic category;
-  Problem2 problem;
+  Problem2? problem;
 
   Item({
     required this.id,
@@ -326,7 +326,7 @@ class Item {
     required this.description,
     required this.photo,
     required this.category,
-    required this.problem,
+    this.problem,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
@@ -338,7 +338,8 @@ class Item {
       description: json['description'],
       photo: json['photo'],
       category: json['category'],
-      problem: Problem2.fromJson(json['problem']),
+      problem:
+          json['problem'] != null ? Problem2.fromJson(json['problem']) : null,
     );
   }
 }
