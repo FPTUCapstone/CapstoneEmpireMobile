@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.da
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -188,6 +189,11 @@ class _CarChipState extends State<CarChip> {
     super.initState();
   }
 
+  Future<String?> getBrandPhoto(String brand) async {
+    var photo = await BrandService().getPhoto(brand);
+    return photo;
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isSelected = widget.car.id == widget.selectedCar;
@@ -208,11 +214,29 @@ class _CarChipState extends State<CarChip> {
             ],
             borderRadius: const BorderRadius.all(Radius.circular(16))),
         child: ListTile(
-          leading: Image.asset(
-            "assets/image/icon-logo/bmw-car-icon.png",
-            height: 50.h,
-            width: 50.w,
-          ),
+          leading: FutureBuilder(
+              future: getBrandPhoto(widget.car.carBrand),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Image.network(
+                    snapshot.data.toString(),
+                    height: 50.h,
+                    width: 50.w,
+                  );
+                } else if (snapshot.hasError) {
+                  return Image.asset(
+                    "assets/image/icon-logo/bmw-car-icon.png",
+                    height: 50.h,
+                    width: 50.w,
+                  );
+                } else {
+                  return Image.asset(
+                    "assets/image/icon-logo/bmw-car-icon.png",
+                    height: 50.h,
+                    width: 50.w,
+                  );
+                }
+              }),
           title: Text(
             widget.car.carBrand,
             style: TextStyle(

@@ -22,6 +22,25 @@ class BrandResponseModel {
   }
 }
 
+class BrandSlimModel {
+  BrandSlimModel({
+    required this.id,
+    required this.name,
+    this.photo,
+  });
+
+  final int id;
+  final String name;
+  final String? photo;
+
+  factory BrandSlimModel.fromJson(Map<String, dynamic> json) {
+    return BrandSlimModel(
+        id: json['id'] as int,
+        name: json['name'] as String,
+        photo: json['photo']);
+  }
+}
+
 class ModelResponseModel {
   ModelResponseModel({
     required this.id,

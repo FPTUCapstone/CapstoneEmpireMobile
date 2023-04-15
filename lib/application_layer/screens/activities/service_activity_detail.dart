@@ -1,5 +1,6 @@
 import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
+import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -445,11 +446,30 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                 color: Colors.white,
                               ),
                               child: ListTile(
-                                leading: Image.asset(
-                                  "assets/image/icon-logo/bmw-car-icon.png",
-                                  height: 50.h,
-                                  width: 50.w,
-                                ),
+                                leading: FutureBuilder(
+                                    future: BrandService()
+                                        .getPhoto(_orderServices!.car.carBrand),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Image.network(
+                                          snapshot.data.toString(),
+                                          height: 50.h,
+                                          width: 50.w,
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return Image.asset(
+                                          "assets/image/icon-logo/bmw-car-icon.png",
+                                          height: 50.h,
+                                          width: 50.w,
+                                        );
+                                      } else {
+                                        return Image.asset(
+                                          "assets/image/icon-logo/bmw-car-icon.png",
+                                          height: 50.h,
+                                          width: 50.w,
+                                        );
+                                      }
+                                    }),
                                 title: Text(
                                   _orderServices!.car.carBrand.toString(),
                                   style: TextStyle(

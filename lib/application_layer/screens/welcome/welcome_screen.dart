@@ -2,9 +2,13 @@ import 'dart:async';
 import 'package:empiregarage_mobile/application_layer/screens/login/login_screen.dart';
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/colors.dart';
+
+// ignore: depend_on_referenced_packages
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -18,8 +22,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   var _route;
   @override
   void initState() {
+    _getBrands();
     _getToken();
     super.initState();
+  }
+
+  _getBrands() async {
+    var json = await BrandService().getBrandsJson();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('brands', json);
   }
 
   _getToken() async {

@@ -1,5 +1,6 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
+import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/payment_services/payment_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -390,11 +391,30 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     height: 10.h,
                   ),
                   ListTile(
-                    leading: Image.asset(
-                      "assets/image/icon-logo/bmw-car-icon.png",
-                      height: 50.h,
-                      width: 50.w,
-                    ),
+                    leading: FutureBuilder(
+                        future: BrandService().getPhoto(
+                            _orderServicesResponseModel!.car.carBrand),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Image.network(
+                              snapshot.data.toString(),
+                              height: 50.h,
+                              width: 50.w,
+                            );
+                          } else if (snapshot.hasError) {
+                            return Image.asset(
+                              "assets/image/icon-logo/bmw-car-icon.png",
+                              height: 50.h,
+                              width: 50.w,
+                            );
+                          } else {
+                            return Image.asset(
+                              "assets/image/icon-logo/bmw-car-icon.png",
+                              height: 50.h,
+                              width: 50.w,
+                            );
+                          }
+                        }),
                     title: Text(
                       _orderServicesResponseModel!.car.carBrand,
                       style: TextStyle(

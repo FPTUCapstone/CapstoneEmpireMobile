@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
+import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
@@ -225,6 +226,11 @@ class _BookingInfoState extends State<BookingInfo> {
                 message: 'Đặt lịch thất bại, vui lòng thử lại',
               ));
     }
+  }
+
+  Future<String?> getBrandPhoto(String brand) async {
+    var photo = await BrandService().getPhoto(brand);
+    return photo;
   }
 
   @override
@@ -493,11 +499,33 @@ class _BookingInfoState extends State<BookingInfo> {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Image.asset(
-                                        "assets/image/icon-logo/bmw-car-icon.png",
-                                        height: 50.h,
-                                        width: 50.w,
-                                      ),
+                                      leading: FutureBuilder(
+                                          future: getBrandPhoto(_listCar
+                                              .where((element) =>
+                                                  element.id == _selectedCar)
+                                              .first
+                                              .carBrand),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasData) {
+                                              return Image.network(
+                                                snapshot.data.toString(),
+                                                height: 50.h,
+                                                width: 50.w,
+                                              );
+                                            } else if (snapshot.hasError) {
+                                              return Image.asset(
+                                                "assets/image/icon-logo/bmw-car-icon.png",
+                                                height: 50.h,
+                                                width: 50.w,
+                                              );
+                                            } else {
+                                              return Image.asset(
+                                                "assets/image/icon-logo/bmw-car-icon.png",
+                                                height: 50.h,
+                                                width: 50.w,
+                                              );
+                                            }
+                                          }),
                                       title: Text(
                                         _listCar
                                             .where((element) =>

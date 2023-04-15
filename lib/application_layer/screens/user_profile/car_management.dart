@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
+import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -163,11 +164,29 @@ class _CarChipManagementState extends State<CarChipManagement> {
               bottomRight: Radius.circular(16)),
         ),
         child: ListTile(
-          leading: Image.asset(
-            "assets/image/icon-logo/bmw-car-icon.png",
-            height: 50.h,
-            width: 50.w,
-          ),
+          leading: FutureBuilder(
+              future: BrandService().getPhoto(widget.car.carBrand),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Image.network(
+                    snapshot.data.toString(),
+                    height: 50.h,
+                    width: 50.w,
+                  );
+                } else if (snapshot.hasError) {
+                  return Image.asset(
+                    "assets/image/icon-logo/bmw-car-icon.png",
+                    height: 50.h,
+                    width: 50.w,
+                  );
+                } else {
+                  return Image.asset(
+                    "assets/image/icon-logo/bmw-car-icon.png",
+                    height: 50.h,
+                    width: 50.w,
+                  );
+                }
+              }),
           title: Text(
             widget.car.carBrand,
             style: TextStyle(
