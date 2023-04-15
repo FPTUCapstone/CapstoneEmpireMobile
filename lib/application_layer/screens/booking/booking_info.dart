@@ -91,6 +91,7 @@ class _BookingInfoState extends State<BookingInfo> {
   bool _loading = false;
   late int _selectedCar;
   List<CarResponseModel> _listCar = [];
+  bool _isCarHasHCR = false;
 
   _loadOptions() async {
     var result = await SymptomsService().fetchListSymptoms();
@@ -116,6 +117,18 @@ class _BookingInfoState extends State<BookingInfo> {
       _selectedCar = _listCar.first.id;
       _loading = true;
     });
+    bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
+    setState(() {
+      _isCarHasHCR = isCarHasHCR;
+    });
+  }
+
+  Future<bool> _checkCarHasHCR(int carId) async {
+    var car = await CarService().getCarProfle(carId);
+    if (car != null && car.healthCarRecords.isNotEmpty) {
+      return true;
+    }
+    return false;
   }
 
   void _onCarSelected(int selectedCar) {
@@ -400,17 +413,17 @@ class _BookingInfoState extends State<BookingInfo> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          spreadRadius: 1.h,
+                                          blurRadius: 1.2,
+                                          offset: Offset(0, 4.h),
+                                        )
+                                      ],
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(16))),
                                   child: SizedBox(
                                     height: 55.h,
                                     child: Row(
@@ -451,84 +464,129 @@ class _BookingInfoState extends State<BookingInfo> {
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
-                                child: ListTile(
-                                  leading: Image.asset(
-                                    "assets/image/icon-logo/bmw-car-icon.png",
-                                    height: 50.h,
-                                    width: 50.w,
-                                  ),
-                                  title: Text(
-                                    _listCar
-                                        .where((element) =>
-                                            element.id == _selectedCar)
-                                        .first
-                                        .carBrand,
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.lightTextColor,
-                                    ),
-                                  ),
-                                  subtitle: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          _listCar
-                                              .where((element) =>
-                                                  element.id == _selectedCar)
-                                              .first
-                                              .carLisenceNo,
-                                          style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blackTextColor,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5.h,
-                                        ),
-                                        Text(
-                                          _listCar
-                                              .where((element) =>
-                                                  element.id == _selectedCar)
-                                              .first
-                                              .carModel,
-                                          style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color: AppColors.lightTextColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  isThreeLine: true,
-                                  trailing: Column(
-                                    children: [
-                                      SizedBox(height: 15.h),
-                                      const Icon(
-                                        Icons.radio_button_checked,
-                                        color: AppColors.buttonColor,
-                                      ),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        spreadRadius: 1.h,
+                                        blurRadius: 1.2,
+                                        offset: Offset(0, 4.h),
+                                      )
                                     ],
-                                  ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(16))),
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Image.asset(
+                                        "assets/image/icon-logo/bmw-car-icon.png",
+                                        height: 50.h,
+                                        width: 50.w,
+                                      ),
+                                      title: Text(
+                                        _listCar
+                                            .where((element) =>
+                                                element.id == _selectedCar)
+                                            .first
+                                            .carBrand,
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.lightTextColor,
+                                        ),
+                                      ),
+                                      subtitle: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              _listCar
+                                                  .where((element) =>
+                                                      element.id ==
+                                                      _selectedCar)
+                                                  .first
+                                                  .carLisenceNo,
+                                              style: TextStyle(
+                                                fontFamily: 'SFProDisplay',
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.blackTextColor,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 5.h,
+                                            ),
+                                            Text(
+                                              _listCar
+                                                  .where((element) =>
+                                                      element.id ==
+                                                      _selectedCar)
+                                                  .first
+                                                  .carModel,
+                                              style: TextStyle(
+                                                fontFamily: 'SFProDisplay',
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColors.lightTextColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      isThreeLine: true,
+                                      trailing: Column(
+                                        children: [
+                                          SizedBox(height: 15.h),
+                                          const Icon(
+                                            Icons.radio_button_checked,
+                                            color: AppColors.buttonColor,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    _isCarHasHCR
+                                        ? const Divider()
+                                        : Container(),
+                                    _isCarHasHCR
+                                        ? InkWell(
+                                            onTap: () {
+                                              //TO-DO
+                                            },
+                                            child: Container(
+                                              margin: EdgeInsets.all(10.sp),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Lịch sử sửa chữa',
+                                                    style: AppStyles.header600(
+                                                        fontsize: 14.sp,
+                                                        color: AppColors
+                                                            .blueTextColor),
+                                                  ),
+                                                  const Icon(
+                                                    Icons
+                                                        .navigate_next_outlined,
+                                                    color:
+                                                        AppColors.blueTextColor,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        : Container(
+                                            height: 20.sp,
+                                            width: 20.sp,
+                                            margin: EdgeInsets.all(8.sp),
+                                            child:
+                                                const CircularProgressIndicator
+                                                    .adaptive(),
+                                          )
+                                  ],
                                 ),
                               ),
                             ),
@@ -587,17 +645,17 @@ class _BookingInfoState extends State<BookingInfo> {
                         child: Container(
                           height: 55.h,
                           decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 1.h,
+                                  blurRadius: 1.2,
+                                  offset: Offset(0, 4.h),
+                                )
+                              ],
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16))),
                           child: ListTile(
                             leading: Image.asset(
                               "assets/image/icon-logo/vnpay.png",

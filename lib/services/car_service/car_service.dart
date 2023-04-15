@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/brand.dart';
+import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/api_part.dart';
@@ -61,6 +62,19 @@ class CarService {
       // If the server returns an error, then throw an exception.
       log("Failed to load item, status code: ${response.statusCode}");
       return [];
+    }
+  }
+
+  Future<CarProfile?> getCarProfle(int carId) async {
+    String apiUrl = '${APIPath.path}/cars/$carId/profile';
+    final response = await makeHttpRequest(apiUrl);
+    if (response.statusCode == 200) {
+      var car = CarProfile.fromJson(json.decode(response.body));
+      return car;
+    } else {
+      // If the server returns an error, then throw an exception.
+      log("Failed to load car, status code: ${response.statusCode}");
+      return null;
     }
   }
 }
