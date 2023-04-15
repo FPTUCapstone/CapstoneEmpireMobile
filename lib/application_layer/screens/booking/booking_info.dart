@@ -25,6 +25,7 @@ import '../../widgets/chose_your_car.dart';
 import '../../widgets/deposit_bottomsheet.dart';
 import '../car/add_new_car.dart';
 import 'booking_payment.dart';
+import 'booking_problem_history.dart';
 
 class BookingInfo extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -553,7 +554,11 @@ class _BookingInfoState extends State<BookingInfo> {
                                     _isCarHasHCR
                                         ? InkWell(
                                             onTap: () {
-                                              //TO-DO
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const BookingProblemHistory(),
+                                              ));
                                             },
                                             child: Container(
                                               margin: EdgeInsets.all(10.sp),

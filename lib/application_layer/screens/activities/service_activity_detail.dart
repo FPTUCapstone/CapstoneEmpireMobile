@@ -85,7 +85,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
             home: SafeArea(
               child: Scaffold(
                 appBar: AppBar(
-                  backgroundColor: AppColors.green50,
+                  backgroundColor: AppColors.white100,
                   leading: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
