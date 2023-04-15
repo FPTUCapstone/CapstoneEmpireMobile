@@ -5,6 +5,7 @@ import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
@@ -95,6 +96,7 @@ class _BookingInfoState extends State<BookingInfo> {
   List<CarResponseModel> _listCar = [];
   bool _isCarHasHCR = false;
   bool _loadHCR = false;
+  late CarProfile _carProfile;
 
   _loadOptions() async {
     var result = await SymptomsService().fetchListSymptoms();
@@ -175,6 +177,7 @@ class _BookingInfoState extends State<BookingInfo> {
     _getBookingPrice();
     _loadOptions();
     _getUserCar();
+    
     super.initState();
   }
 
@@ -601,7 +604,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                                   Navigator.of(context)
                                                       .push(MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const BookingProblemHistory(),
+                                                        BookingProblemHistory(
+                                                            carId: _selectedCar),
                                                   ));
                                                 },
                                                 child: Container(
