@@ -4,12 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/colors.dart';
 import '../../../common/style.dart';
 import '../../../models/response/car.dart';
-import '../../../services/car_service/car_service.dart';
 import '../../widgets/loading.dart';
 
 class BookingProblemTab extends StatefulWidget {
-  final int carId;
-  const BookingProblemTab({super.key, required this.carId});
+  final CarProfile? car;
+  final Function(List<UnresolvedProblem>) onChooseUnresolvedProblemsCallBack;
+  const BookingProblemTab(
+      {super.key,
+      required this.car,
+      required this.onChooseUnresolvedProblemsCallBack});
 
   @override
   State<BookingProblemTab> createState() => _BookingProblemTabState();
@@ -18,9 +21,10 @@ class BookingProblemTab extends StatefulWidget {
 class _BookingProblemTabState extends State<BookingProblemTab> {
   bool _loading = true;
   CarProfile? _carProfile;
+  final List<UnresolvedProblem> _selectedUnresolvedProblems = [];
 
   _getCarProfile() async {
-    var carProfile = await CarService().getCarProfle(widget.carId);
+    var carProfile = widget.car;
     if (carProfile == null) {
       setState(() {
         _loading = true;
@@ -43,78 +47,71 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
   Widget build(BuildContext context) {
     return _loading == true
         ? const Loading()
-        : Scaffold(
-            backgroundColor: AppColors.white100,
-            body: Padding(
-              padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 24.h),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 335.w,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "Vấn đề chưa sửa chữa",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "Chọn vấn đề bạn muốn sửa chữa",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                        ],
+        : SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(24.w),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Text(
+                        "Vấn đề chưa sửa chữa",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
+                        ),
                       ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    "Vui lòng chọn vấn đề bạn muốn để đặt lịch sửa chữa",
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.lightTextColor,
                     ),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: _carProfile!.healthCarRecords.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.only(top: 20.h),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 1.h,
-                                    blurRadius: 1.2,
-                                    offset: Offset(0, 4.h),
-                                  )
-                                ],
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(16))),
-                            child: Column(
-                              children: [
-                                ListTile(
+                  ),
+                  ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _carProfile!.unresolvedProblems.length,
+                    itemBuilder: (context, index) {
+                      var item = _carProfile!.unresolvedProblems[index];
+                      return Padding(
+                        padding: EdgeInsets.only(top: 20.h),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 1.h,
+                                  blurRadius: 1.2,
+                                  offset: Offset(0, 4.h),
+                                )
+                              ],
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16))),
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (_selectedUnresolvedProblems
+                                        .contains(item)) {
+                                      _selectedUnresolvedProblems.remove(item);
+                                    } else {
+                                      _selectedUnresolvedProblems.add(item);
+                                    }
+                                  });
+                                },
+                                child: ListTile(
                                   title: Align(
                                     alignment: Alignment.topLeft,
                                     child: Column(
@@ -122,8 +119,7 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          _carProfile!
-                                              .healthCarRecords[index].symptom,
+                                          item.name,
                                           style: TextStyle(
                                             fontFamily: 'SFProDisplay',
                                             fontSize: 14.sp,
@@ -134,43 +130,72 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                                       ],
                                     ),
                                   ),
-                                  trailing: Column(
-                                    children: [
-                                      SizedBox(height: 15.h),
-                                      const Icon(
-                                        Icons.radio_button_unchecked,
-                                        color: AppColors.buttonColor,
-                                      )
-                                    ],
+                                  trailing: Icon(
+                                    _selectedUnresolvedProblems.contains(item)
+                                        ? Icons.check_circle_rounded
+                                        : Icons.radio_button_unchecked,
+                                    color: AppColors.buttonColor,
                                   ),
                                 ),
-                                const Divider(),
-                                Container(
-                                  margin: EdgeInsets.all(10.sp),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Xem chi tiết',
-                                        style: AppStyles.header600(
-                                            fontsize: 14.sp,
-                                            color: AppColors.blueTextColor),
-                                      ),
-                                      const Icon(
-                                        Icons.navigate_next_outlined,
-                                        color: AppColors.blueTextColor,
-                                      ),
-                                    ],
-                                  ),
+                              ),
+                              const Divider(),
+                              Container(
+                                margin: EdgeInsets.all(10.sp),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Xem chi tiết',
+                                      style: AppStyles.header600(
+                                          fontsize: 14.sp,
+                                          color: AppColors.blueTextColor),
+                                    ),
+                                    const Icon(
+                                      Icons.navigate_next_outlined,
+                                      color: AppColors.blueTextColor,
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: 36.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            widget.onChooseUnresolvedProblemsCallBack(
+                                _selectedUnresolvedProblems);
+                            Navigator.of(context).pop();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.buttonColor,
+                            fixedSize: Size.fromHeight(50.w),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(28),
                             ),
                           ),
-                        );
-                      },
-                    )
-                  ],
-                ),
+                          child: Text(
+                            'Đặt lịch',
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           );

@@ -7,6 +7,7 @@ import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 
 import '../../../common/colors.dart';
 import '../main_page/main_page.dart';
@@ -269,10 +270,10 @@ class _BookingDetailState extends State<BookingDetail> {
                   ],
                 ),
                 body: SingleChildScrollView(
-                  reverse: true,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           height: 12.h,
@@ -352,11 +353,11 @@ class _BookingDetailState extends State<BookingDetail> {
                               trailing: widget.data.daysLeft == 0 &&
                                       _booking!.isArrived == false
                                   ? Padding(
-                                    padding: const EdgeInsets.only(top: 8),
-                                    child: Icon(Icons.qr_code_scanner,
-                                        color: AppColors.blueTextColor,
-                                        size: 30.w),
-                                  )
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Icon(Icons.qr_code_scanner,
+                                          color: AppColors.blueTextColor,
+                                          size: 30.w),
+                                    )
                                   : null,
                             ),
                           ),
@@ -469,11 +470,30 @@ class _BookingDetailState extends State<BookingDetail> {
                             color: Colors.white,
                           ),
                           child: ListTile(
-                            leading: Image.asset(
-                              "assets/image/icon-logo/bmw-car-icon.png",
-                              height: 50.h,
-                              width: 50.w,
-                            ),
+                            leading: FutureBuilder(
+                                future: BrandService().getPhoto(
+                                    widget.data.car!.carBrand.toString()),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Image.network(
+                                      snapshot.data.toString(),
+                                      height: 50.h,
+                                      width: 50.w,
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return Image.asset(
+                                      "assets/image/icon-logo/bmw-car-icon.png",
+                                      height: 50.h,
+                                      width: 50.w,
+                                    );
+                                  } else {
+                                    return Image.asset(
+                                      "assets/image/icon-logo/bmw-car-icon.png",
+                                      height: 50.h,
+                                      width: 50.w,
+                                    );
+                                  }
+                                }),
                             title: Text(
                               widget.data.car!.carBrand.toString(),
                               style: TextStyle(
@@ -513,6 +533,62 @@ class _BookingDetailState extends State<BookingDetail> {
                               ),
                             ),
                             isThreeLine: true,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 22.sp),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text('Triệu chứng', style: AppStyles.header600()),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _booking!.symptoms.length,
+                                itemBuilder: (context, index) {
+                                  var item = _booking!.symptoms[index];
+                                  return Container(
+                                      padding: EdgeInsets.all(5.sp),
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 5.sp),
+                                      // decoration:
+                                      //     BoxDecoration(color: Colors.grey[300]),
+                                      child: Text(
+                                        item.name.toString(),
+                                        style:
+                                            AppStyles.text400(fontsize: 12.sp),
+                                      ));
+                                },
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text('Vấn đề tái sửa chữa',
+                                  style: AppStyles.header600()),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _booking!.unresolvedProblems.length,
+                                itemBuilder: (context, index) {
+                                  var item =
+                                      _booking!.unresolvedProblems[index];
+                                  return Container(
+                                      padding: EdgeInsets.all(5.sp),
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 5.sp),
+                                      // decoration:
+                                      //     BoxDecoration(color: Colors.grey[300]),
+                                      child: Text(
+                                        item.name.toString(),
+                                        style:
+                                            AppStyles.text400(fontsize: 12.sp),
+                                      ));
+                                },
+                              )
+                            ],
                           ),
                         ),
                       ],

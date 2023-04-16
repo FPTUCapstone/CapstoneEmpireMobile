@@ -96,7 +96,8 @@ class _BookingInfoState extends State<BookingInfo> {
   List<CarResponseModel> _listCar = [];
   bool _isCarHasHCR = false;
   bool _loadHCR = false;
-  late CarProfile _carProfile;
+  CarProfile? _carProfile;
+  List<UnresolvedProblem> _unresolvedProblems = [];
 
   _loadOptions() async {
     var result = await SymptomsService().fetchListSymptoms();
@@ -133,12 +134,23 @@ class _BookingInfoState extends State<BookingInfo> {
   Future<bool> _checkCarHasHCR(int carId) async {
     var car = await CarService().getCarProfle(carId);
     if (car != null && car.healthCarRecords.isNotEmpty) {
+      _carProfile = car;
       return true;
     }
     return false;
   }
 
+  _onCarChange(selectedCar) {
+    if (_selectedCar != selectedCar) {
+      setState(() {
+        _listSymptom.clear();
+        _unresolvedProblems.clear();
+      });
+    }
+  }
+
   void _onCarSelected(int selectedCar) async {
+    _onCarChange(selectedCar);
     setState(() {
       _selectedCar = selectedCar;
       _loadHCR = false;
@@ -158,6 +170,7 @@ class _BookingInfoState extends State<BookingInfo> {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
     await _loadOptions();
     await _getUserCar();
+    _onCarChange(selectedCar);
     setState(() {
       _loading = true;
       _selectedCar = selectedCar;
@@ -177,7 +190,7 @@ class _BookingInfoState extends State<BookingInfo> {
     _getBookingPrice();
     _loadOptions();
     _getUserCar();
-    
+
     super.initState();
   }
 
@@ -199,8 +212,13 @@ class _BookingInfoState extends State<BookingInfo> {
     int userId = await getUserId() as int;
     int carId =
         _listCar.where((element) => element.id == _selectedCar).first.id;
-    var response = await BookingService().createBooking(date, carId, userId,
-        double.parse(_bookingPrice.toString()), _listSymptom);
+    var response = await BookingService().createBooking(
+        date,
+        carId,
+        userId,
+        double.parse(_bookingPrice.toString()),
+        _listSymptom,
+        _unresolvedProblems);
 
     if (response != null) {
       sendNotification(18, "Có đặt lịch mới #${response.code}",
@@ -328,52 +346,6 @@ class _BookingInfoState extends State<BookingInfo> {
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Text(
-                        "Triệu chứng",
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      // Row(
-                      //   children: <Widget>[
-                      //     Expanded(
-                      //       child: SearchableDropdown(
-                      //           options: options,
-                      //           onSelectedItem: _onCallBackSymptoms),
-                      //     ),
-                      //   ],
-                      // ),
-                      TagEditor(
-                          options: options,
-                          onChanged: (tags) {
-                            setState(() {
-                              _listSymptom = tags;
-                            });
-                          },
-                          emptySymptom: (emptySymtomp) {
-                            setState(() {
-                              _emptySymtomp = emptySymtomp;
-                            });
-                          }),
-                      _emptySymtomp
-                          ? Text(
-                              'Vui lòng nhập triệu chứng',
-                              style: AppStyles.text400(
-                                  fontsize: 12.sp, color: AppColors.errorIcon),
-                            )
-                          : Container(),
-                      SizedBox(
-                        height: 15.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -605,7 +577,15 @@ class _BookingInfoState extends State<BookingInfo> {
                                                       .push(MaterialPageRoute(
                                                     builder: (context) =>
                                                         BookingProblemHistory(
-                                                            carId: _selectedCar),
+                                                      car: _carProfile,
+                                                      onChooseUnresolvedProblemsCallBack:
+                                                          (unresolvedProblems) {
+                                                        setState(() {
+                                                          _unresolvedProblems =
+                                                              unresolvedProblems;
+                                                        });
+                                                      },
+                                                    ),
                                                   ));
                                                 },
                                                 child: Container(
@@ -646,8 +626,123 @@ class _BookingInfoState extends State<BookingInfo> {
                               ),
                             ),
                       SizedBox(
+                        height: 20.h,
+                      ),
+                      Text(
+                        "Triệu chứng",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      // Row(
+                      //   children: <Widget>[
+                      //     Expanded(
+                      //       child: SearchableDropdown(
+                      //           options: options,
+                      //           onSelectedItem: _onCallBackSymptoms),
+                      //     ),
+                      //   ],
+                      // ),
+                      TagEditor(
+                          options: options,
+                          onChanged: (tags) {
+                            setState(() {
+                              _listSymptom = tags;
+                            });
+                          },
+                          emptySymptom: (emptySymtomp) {
+                            setState(() {
+                              _emptySymtomp = emptySymtomp;
+                            });
+                          }),
+                      _emptySymtomp
+                          ? Text(
+                              'Vui lòng nhập triệu chứng',
+                              style: AppStyles.text400(
+                                  fontsize: 12.sp, color: AppColors.errorIcon),
+                            )
+                          : Container(),
+                      SizedBox(
                         height: 15.h,
                       ),
+                      _unresolvedProblems.isNotEmpty
+                          ? Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Vấn đề tái sửa chữa",
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.blackTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: _unresolvedProblems.length,
+                                  itemBuilder: (context, index) {
+                                    var item = _unresolvedProblems[index];
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: 10.h),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(16))),
+                                        child: Column(
+                                          children: [
+                                            ListTile(
+                                              title: Text(
+                                                item.name,
+                                                style: TextStyle(
+                                                  fontFamily: 'SFProDisplay',
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      AppColors.blackTextColor,
+                                                ),
+                                              ),
+                                              trailing: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _unresolvedProblems
+                                                        .remove(item);
+                                                  });
+                                                },
+                                                child: const Icon(
+                                                  Icons.cancel,
+                                                  color:
+                                                      AppColors.blackTextColor,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                              ],
+                            )
+                          : Container(),
                       Row(
                         children: [
                           Text(

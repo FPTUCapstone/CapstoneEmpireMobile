@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppStyles {
   static String fontFamily = 'SFProDisplay';
 
-  static TextStyle text400({double fontsize = 22, Color color = Colors.black}) {
+  static TextStyle text400({double fontsize = 16, Color color = Colors.black}) {
     return TextStyle(
       fontSize: fontsize,
       fontWeight: FontWeight.w400,
@@ -13,7 +13,7 @@ class AppStyles {
   }
 
   static TextStyle header600(
-      {double fontsize = 22, Color color = Colors.black}) {
+      {double fontsize = 16, Color color = Colors.black}) {
     return TextStyle(
       fontSize: fontsize,
       fontWeight: FontWeight.w600,

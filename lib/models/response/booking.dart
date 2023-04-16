@@ -1,3 +1,6 @@
+import 'package:empiregarage_mobile/models/response/car.dart';
+import 'package:empiregarage_mobile/models/response/symptoms.dart';
+
 class BookingResponseModel {
   BookingResponseModel({
     required this.id,
@@ -9,6 +12,8 @@ class BookingResponseModel {
     this.daysLeft,
     required this.user,
     required this.car,
+    required this.symptoms,
+    required this.unresolvedProblems,
   });
 
   int id;
@@ -20,6 +25,8 @@ class BookingResponseModel {
   int? daysLeft;
   UserSlimResponse user;
   CarResponseModel car;
+  List<SymptonResponseModel> symptoms = [];
+  List<UnresolvedProblem> unresolvedProblems = [];
 
   factory BookingResponseModel.fromJson(Map<String, dynamic> json) {
     return BookingResponseModel(
@@ -32,6 +39,12 @@ class BookingResponseModel {
       daysLeft: json['daysLeft'],
       user: UserSlimResponse.fromJson(json['user']),
       car: CarResponseModel.fromJson(json['car']),
+      symptoms: (json['symptoms'] as List)
+          .map((e) => SymptonResponseModel.fromJson(e))
+          .toList(),
+      unresolvedProblems: (json['unresolvedProblems'] as List)
+          .map((e) => UnresolvedProblem.fromJson2(e))
+          .toList(),
     );
   }
 

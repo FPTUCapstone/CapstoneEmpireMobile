@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:empiregarage_mobile/models/response/qrcode.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,8 @@ class BookingService {
       int carId,
       int userId,
       double bookingPrice,
-      List<SymptonResponseModel> symptoms) async {
+      List<SymptonResponseModel> symptoms,
+      List<UnresolvedProblem> unresolvedProblems) async {
     http.Response? response;
     try {
       List<int> symptomIds = symptoms.map((s) => s.id).toList();
@@ -25,7 +27,9 @@ class BookingService {
         "userId": userId,
         "bookingPrice": bookingPrice,
         "symptoms": symptomIds,
+        "unresolvedProblems": unresolvedProblems
       };
+      log(jsonEncode(requestBody));
 
       response = await makeHttpRequest(
         '${APIPath.path}/bookings',

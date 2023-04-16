@@ -60,6 +60,20 @@ class UnresolvedProblem {
       diagnoseRecord: diagnoseRecord,
     );
   }
+
+  factory UnresolvedProblem.fromJson2(Map<String, dynamic> json) {
+    return UnresolvedProblem(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      diagnoseRecord: [],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['problemId'] = id;
+    return data;
+  }
 }
 
 class HealthCarRecord {
