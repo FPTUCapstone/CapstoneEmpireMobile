@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
+import '../../../services/booking_service/booking_service.dart';
 import '../../../services/order_services/order_services.dart';
 import '../../widgets/loading.dart';
 
@@ -20,6 +21,7 @@ class ServiceActivityDetail extends StatefulWidget {
 class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
   bool _loading = true;
   OrderServicesResponseModel? _orderServices;
+  double _bookingPrice = 0;
 
   List<String> serviceNames = [
     'Thay lốp',
@@ -36,6 +38,16 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
     "200000"
   ];
 
+  _getBookingPrice() async {
+    var response = await BookingService().getBookingPrice();
+    if (!mounted) return;
+    setState(() {
+      _bookingPrice = response;
+      _loading = false;
+    });
+    return _bookingPrice;
+  }
+
   _fetchData() async {
     var orderServices =
         await OrderServices().getOrderServicesById(widget.data.id);
@@ -49,6 +61,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
   @override
   void initState() {
     _fetchData();
+    _getBookingPrice();
     super.initState();
   }
 
@@ -304,7 +317,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "500.000",
+                                        _bookingPrice.toString(),
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 12.sp,
@@ -364,7 +377,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "-500.000",
+                                        "- ${_bookingPrice.toString()}",
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 12.sp,
