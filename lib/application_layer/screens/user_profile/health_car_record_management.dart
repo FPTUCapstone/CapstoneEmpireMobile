@@ -39,7 +39,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
     if (listCar == null) return;
     if (!mounted) return;
     setState(() {
-      _listCar = listCar;
+      _listCar = listCar.where((element) => element.isNew == false).toList();
       _loading = false;
     });
   }
