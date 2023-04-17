@@ -227,7 +227,7 @@ class Order {
   String createdAt;
   String updatedAt;
   dynamic user;
-  dynamic transaction;
+  Transaction? transaction;
 
   Order(
       {required this.id,
@@ -242,7 +242,9 @@ class Order {
         createdAt: json['createdAt'] ?? "",
         updatedAt: json['updatedAt'] ?? "",
         user: json['user'],
-        transaction: json['transaction']);
+        transaction: json['transaction'] != null
+            ? Transaction.fromJson(json['transaction'])
+            : null);
   }
 
   Map<String, dynamic> toJson() {
@@ -253,6 +255,23 @@ class Order {
     data['user'] = user;
     data['transaction'] = transaction;
     return data;
+  }
+}
+
+class Transaction {
+  double total;
+  // int paymentMethod;
+
+  Transaction({
+    required this.total,
+    // required this.paymentMethod,
+  });
+
+  factory Transaction.fromJson(Map<String, dynamic> json) {
+    return Transaction(
+      total: json['total'],
+      // paymentMethod: json['paymentMethod'],
+    );
   }
 }
 

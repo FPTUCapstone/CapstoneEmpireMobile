@@ -108,7 +108,13 @@ class _BookingHistoryTabState extends State<BookingHistoryTab> {
                                 ),
                               ),
                               subtitle: Text(
-                                '{total}',
+                                _carProfile!.orderServices[index].order!
+                                            .transaction !=
+                                        null
+                                    ? _carProfile!.orderServices[index].order!
+                                        .transaction!.total
+                                        .toString()
+                                    : "Chưa thanh toán",
                                 style: TextStyle(
                                   fontFamily: 'SFProDisplay',
                                   fontSize: 12.sp,
