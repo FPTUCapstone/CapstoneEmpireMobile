@@ -469,125 +469,189 @@ class _BookingDetailState extends State<BookingDetail> {
                           decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
-                          child: ListTile(
-                            leading: FutureBuilder(
-                                future: BrandService().getPhoto(
-                                    widget.data.car!.carBrand.toString()),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Image.network(
-                                      snapshot.data.toString(),
-                                      height: 50.h,
-                                      width: 50.w,
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Image.asset(
-                                      "assets/image/icon-logo/bmw-car-icon.png",
-                                      height: 50.h,
-                                      width: 50.w,
-                                    );
-                                  } else {
-                                    return Image.asset(
-                                      "assets/image/icon-logo/bmw-car-icon.png",
-                                      height: 50.h,
-                                      width: 50.w,
-                                    );
-                                  }
-                                }),
-                            title: Text(
-                              widget.data.car!.carBrand.toString(),
-                              style: TextStyle(
-                                fontFamily: 'SFProDisplay',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.lightTextColor,
-                              ),
-                            ),
-                            subtitle: Align(
-                              alignment: Alignment.topLeft,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    widget.data.car!.carLisenceNo.toString(),
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  Text(
-                                    widget.data.car!.carModel.toString(),
-                                    style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.lightTextColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            isThreeLine: true,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 22.sp),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
                                 height: 15.h,
                               ),
-                              Text('Triệu chứng', style: AppStyles.header600()),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: _booking!.symptoms.length,
-                                itemBuilder: (context, index) {
-                                  var item = _booking!.symptoms[index];
-                                  return Container(
-                                      padding: EdgeInsets.all(5.sp),
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 5.sp),
-                                      // decoration:
-                                      //     BoxDecoration(color: Colors.grey[300]),
-                                      child: Text(
-                                        item.name.toString(),
-                                        style:
-                                            AppStyles.text400(fontsize: 12.sp),
-                                      ));
-                                },
+                              Padding(
+                                padding: const EdgeInsets.only(left: 24),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Phương tiện',
+                                      style: AppStyles.header600()),
+                                ),
                               ),
                               SizedBox(
                                 height: 15.h,
                               ),
-                              Text('Vấn đề tái sửa chữa',
-                                  style: AppStyles.header600()),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: _booking!.unresolvedProblems.length,
-                                itemBuilder: (context, index) {
-                                  var item =
-                                      _booking!.unresolvedProblems[index];
-                                  return Container(
-                                      padding: EdgeInsets.all(5.sp),
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 5.sp),
-                                      // decoration:
-                                      //     BoxDecoration(color: Colors.grey[300]),
-                                      child: Text(
-                                        item.name.toString(),
-                                        style:
-                                            AppStyles.text400(fontsize: 12.sp),
-                                      ));
-                                },
-                              )
+                              Padding(
+                                padding: const EdgeInsets.only(left: 24),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Phương tiện bạn đã chọn',
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.lightTextColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              ListTile(
+                                leading: FutureBuilder(
+                                    future: BrandService().getPhoto(
+                                        widget.data.car!.carBrand.toString()),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Image.network(
+                                          snapshot.data.toString(),
+                                          height: 50.h,
+                                          width: 50.w,
+                                        );
+                                      } else if (snapshot.hasError) {
+                                        return Image.asset(
+                                          "assets/image/icon-logo/bmw-car-icon.png",
+                                          height: 50.h,
+                                          width: 50.w,
+                                        );
+                                      } else {
+                                        return Image.asset(
+                                          "assets/image/icon-logo/bmw-car-icon.png",
+                                          height: 50.h,
+                                          width: 50.w,
+                                        );
+                                      }
+                                    }),
+                                title: Text(
+                                  widget.data.car!.carBrand.toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.lightTextColor,
+                                  ),
+                                ),
+                                subtitle: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.data.car!.carLisenceNo
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        widget.data.car!.carModel.toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.lightTextColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                isThreeLine: true,
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 22.sp),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Text('Tình trạng xe',
+                                        style: AppStyles.header600()),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      'Tình trạng bạn đã chọn',
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.lightTextColor,
+                                      ),
+                                    ),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: _booking!.symptoms.length,
+                                      itemBuilder: (context, index) {
+                                        var item = _booking!.symptoms[index];
+                                        return Container(
+                                            padding: EdgeInsets.all(5.sp),
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5.sp),
+                                            // decoration:
+                                            //     BoxDecoration(color: Colors.grey[300]),
+                                            child: Text(
+                                              item.name.toString(),
+                                              style: AppStyles.text400(
+                                                  fontsize: 14.sp),
+                                            ));
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Text('Vấn đề tái sửa chữa',
+                                        style: AppStyles.header600()),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      'Vấn đề bạn đã chọn',
+                                      style: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.lightTextColor,
+                                      ),
+                                    ),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount:
+                                          _booking!.unresolvedProblems.length,
+                                      itemBuilder: (context, index) {
+                                        var item =
+                                            _booking!.unresolvedProblems[index];
+                                        return Container(
+                                            padding: EdgeInsets.all(5.sp),
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 5.sp),
+                                            // decoration:
+                                            //     BoxDecoration(color: Colors.grey[300]),
+                                            child: Text(
+                                              item.name.toString(),
+                                              style: AppStyles.text400(
+                                                  fontsize: 14.sp),
+                                            ));
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
