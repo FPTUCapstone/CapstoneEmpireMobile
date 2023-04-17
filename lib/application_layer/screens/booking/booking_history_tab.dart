@@ -111,9 +111,7 @@ class _BookingHistoryTabState extends State<BookingHistoryTab> {
                                 _carProfile!.orderServices[index].order!
                                             .transaction !=
                                         null
-                                    ? _carProfile!.orderServices[index].order!
-                                        .transaction!.total
-                                        .toString()
+                                    ? "${_carProfile!.orderServices[index].order!.transaction!.total}đ"
                                     : "Chưa thanh toán",
                                 style: TextStyle(
                                   fontFamily: 'SFProDisplay',

@@ -259,7 +259,7 @@ class Order {
 }
 
 class Transaction {
-  double total;
+  dynamic total;
   // int paymentMethod;
 
   Transaction({
