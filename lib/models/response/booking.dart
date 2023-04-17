@@ -89,12 +89,14 @@ class CarResponseModel {
     required this.carLisenceNo,
     required this.carBrand,
     required this.carModel,
+    required this.isNew,
   });
 
   int id;
   String carLisenceNo;
   String carBrand;
   String carModel;
+  bool isNew = true;
 
   factory CarResponseModel.fromJson(Map<String, dynamic> json) {
     return CarResponseModel(
@@ -102,6 +104,7 @@ class CarResponseModel {
       carLisenceNo: json['carLisenceNo'],
       carBrand: json['carBrand'],
       carModel: json['carModel'],
+      isNew: json['isNew'],
     );
   }
 }
