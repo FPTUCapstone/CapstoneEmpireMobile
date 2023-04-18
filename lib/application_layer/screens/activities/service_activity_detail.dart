@@ -307,7 +307,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                         width: 20.w,
                                       ),
                                       Text(
-                                        "Phí đặt lịch",
+                                        "Phí kiểm tra",
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 12.sp,
@@ -421,28 +421,28 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                 SizedBox(
                                   height: 40.h,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 24, right: 24, bottom: 24),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Thông tin cá nhân",
-                                        style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.blackTextColor,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      const Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: AppColors.lightTextColor,
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       left: 24, right: 24, bottom: 24),
+                                //   child: Row(
+                                //     children: [
+                                //       Text(
+                                //         "Thông tin cá nhân",
+                                //         style: TextStyle(
+                                //           fontFamily: 'SFProDisplay',
+                                //           fontSize: 14.sp,
+                                //           fontWeight: FontWeight.w500,
+                                //           color: AppColors.blackTextColor,
+                                //         ),
+                                //       ),
+                                //       const Spacer(),
+                                //       const Icon(
+                                //         Icons.arrow_forward_ios_rounded,
+                                //         color: AppColors.lightTextColor,
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             )),
                         SizedBox(

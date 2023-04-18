@@ -152,47 +152,98 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                   return Padding(
                     padding:
                         const EdgeInsets.only(left: 30, right: 30, top: 18),
-                    child: Row(
+                    child: Column(
                       children: [
-                        Text(
-                          count.toString(),
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              count.toString(),
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                            Text(
+                              "x",
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Text(
+                              _getNameOfItem(
+                                  _listOrderServiceDetails[index].itemId),
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              _listOrderServiceDetails[index].price.toString(),
+                              style: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "x",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        Text(
-                          _getNameOfItem(
-                              _listOrderServiceDetails[index].itemId),
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          _listOrderServiceDetails[index].price.toString(),
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blackTextColor,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Row(
+                            children: [
+                              Text(
+                                count.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                "x",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20.w,
+                              ),
+                              Text(
+                               "Phí kiểm tra",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                '$prepaid',
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
