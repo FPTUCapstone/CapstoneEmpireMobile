@@ -347,7 +347,7 @@ class _HomePageState extends State<HomePage> {
                     height: 250.h,
                     width: 340.w,
                     child: ListView.separated(
-                      reverse: true,
+                      reverse: false,
                       scrollDirection: Axis.horizontal,
                       physics: const ClampingScrollPhysics(),
                       shrinkWrap: true,
