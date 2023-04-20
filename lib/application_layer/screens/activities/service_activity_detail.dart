@@ -1,4 +1,3 @@
-import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +10,8 @@ import '../../../services/order_services/order_services.dart';
 import '../../widgets/loading.dart';
 
 class ServiceActivityDetail extends StatefulWidget {
-  final ActivityResponseModel data;
-  const ServiceActivityDetail({super.key, required this.data});
+  final int orderServicesId;
+  const ServiceActivityDetail({super.key, required this.orderServicesId});
 
   @override
   State<ServiceActivityDetail> createState() => _ServiceActivityDetailState();
@@ -50,7 +49,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
 
   _fetchData() async {
     var orderServices =
-        await OrderServices().getOrderServicesById(widget.data.id);
+        await OrderServices().getOrderServicesById(widget.orderServicesId);
     if (!mounted) return;
     setState(() {
       _orderServices = orderServices;
@@ -110,7 +109,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                     ),
                   ),
                   title: Text(
-                    widget.data.car!.carLisenceNo.toString(),
+                    _orderServices!.car.carLisenceNo,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',

@@ -154,7 +154,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                             )
                                           : item.status == 5
                                               ? ServiceActivityDetail(
-                                                  data: item,
+                                                  orderServicesId: item.id,
                                                 )
                                               : OnGoingService(
                                                   servicesId: item.id,

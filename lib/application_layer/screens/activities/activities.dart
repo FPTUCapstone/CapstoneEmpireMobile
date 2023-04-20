@@ -273,7 +273,8 @@ class _HomePageState extends State<Activities> {
                                                       )
                                                     : isComplete
                                                         ? ServiceActivityDetail(
-                                                            data: item,
+                                                            orderServicesId:
+                                                                item.id,
                                                           )
                                                         : OnGoingService(
                                                             servicesId: item.id,
