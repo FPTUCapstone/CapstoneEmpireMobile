@@ -55,7 +55,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   _fetchData() async {
-    _listItem = await ItemService().fetchListItem();
+    _listItem = await ItemService().fetchListItem(false);
     setState(() {
       _loading = false;
     });
