@@ -12,6 +12,7 @@ class ItemResponseModel {
     this.categoryId,
     this.category,
     this.prices,
+    this.isPopular
   });
 
   int id;
@@ -24,6 +25,7 @@ class ItemResponseModel {
   String? description;
   String photo;
   int? categoryId;
+  bool? isPopular;
   CategoryResponseModel? category;
   List<PriceResponseModel>? prices;
 
@@ -41,6 +43,7 @@ class ItemResponseModel {
       description: json['description'] ?? "null",
       photo: json['photo'] ?? "null",
       categoryId: json['categoryId'],
+      isPopular: json['isPopular'],
       category: json['category'] != null
           ? CategoryResponseModel.fromJson(json['category'])
           : null,

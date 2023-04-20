@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   int _notificationCount = 0;
 
   _fetchData() async {
-    _listItem = await ItemService().fetchListItem();
+    _listItem = await ItemService().fetchListItem(true);
     var userId = await getUserId();
     if (userId == null) throw Exception("NOT_FOUND_USER");
     var listActivity = await ActivityService().fetchOnGoingActivity(userId);

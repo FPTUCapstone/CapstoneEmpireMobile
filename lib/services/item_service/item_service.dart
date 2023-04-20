@@ -22,8 +22,8 @@ class ItemService {
     }
   }
 
-  Future<List<ItemResponseModel>?> fetchListItem() async {
-    String apiUrl = '${APIPath.path}/items';
+  Future<List<ItemResponseModel>?> fetchListItem(bool onlyPopular) async {
+    String apiUrl = '${APIPath.path}/items?onlyPopular=$onlyPopular';
     final response = await makeHttpRequest(apiUrl);
     if (response.statusCode == 200) {
       List<dynamic> jsonArray = json.decode(response.body);
