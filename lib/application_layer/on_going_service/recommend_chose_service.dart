@@ -48,20 +48,40 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
   _getOrderServices() async {
     var listOrderServiceDetails =
         await OrderServices().getOrderServicesById(widget.servicesId);
-    List<OrderServiceDetails>? list =
-        listOrderServiceDetails!.orderServiceDetails;
-    try {
-      if (list != null) {
-        setState(() {
-          _orderServicesResponseModel = listOrderServiceDetails;
-          for (var item in list) {
-            _sum += double.parse(item.price.toString());
+    if (listOrderServiceDetails != null) {
+      List<OrderServiceDetails>? list =
+          listOrderServiceDetails.orderServiceDetails;
+      //get item default
+      if (listOrderServiceDetails.healthCarRecord != null) {
+        var list2 =
+            listOrderServiceDetails.healthCarRecord!.healthCarRecordProblems;
+        if (list2 != null) {
+          for (var item2 in list2) {
+            var list2 = item2.problem.items;
+            if (list2 != null) {
+              for (var element in list2) {
+                if (element.isDefault == true) {
+                  _confirmService(element);
+                }
+              }
+            }
           }
-          _loading = false;
-        });
+        }
       }
-    } catch (e) {
-      e.toString();
+      //end item
+      try {
+        if (list != null) {
+          setState(() {
+            _orderServicesResponseModel = listOrderServiceDetails;
+            for (var item in list) {
+              _sum += double.parse(item.price.toString());
+            }
+            _loading = false;
+          });
+        }
+      } catch (e) {
+        e.toString();
+      }
     }
   }
 

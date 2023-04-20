@@ -171,23 +171,24 @@ class Item2 {
   String name;
   String? photo;
   double? presentPrice;
+  bool isDefault = false;
 
-  Item2({
-    required this.id,
-    required this.name,
-    this.photo,
-    required this.presentPrice,
-  });
+  Item2(
+      {required this.id,
+      required this.name,
+      this.photo,
+      required this.presentPrice,
+      required this.isDefault});
 
   factory Item2.fromJson(Map<String, dynamic> json) {
     return Item2(
-      id: json['id'],
-      name: json['name'],
-      photo: json['photo'],
-      presentPrice: json['presentPrice'] != null
-          ? double.parse(json['presentPrice'].toString())
-          : null,
-    );
+        id: json['id'],
+        name: json['name'],
+        photo: json['photo'],
+        presentPrice: json['presentPrice'] != null
+            ? double.parse(json['presentPrice'].toString())
+            : null,
+        isDefault: json['isDefault'] ?? false);
   }
 }
 
