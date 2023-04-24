@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/colors.dart';
-import '../../../common/style.dart';
 import '../../../models/response/car.dart';
 import '../../widgets/loading.dart';
 
@@ -138,25 +137,25 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                                   ),
                                 ),
                               ),
-                              const Divider(),
-                              Container(
-                                margin: EdgeInsets.all(10.sp),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Xem chi tiết',
-                                      style: AppStyles.header600(
-                                          fontsize: 14.sp,
-                                          color: AppColors.blueTextColor),
-                                    ),
-                                    const Icon(
-                                      Icons.navigate_next_outlined,
-                                      color: AppColors.blueTextColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // const Divider(),
+                              // Container(
+                              //   margin: EdgeInsets.all(10.sp),
+                              //   child: Row(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: [
+                              //       Text(
+                              //         'Xem chi tiết',
+                              //         style: AppStyles.header600(
+                              //             fontsize: 14.sp,
+                              //             color: AppColors.white100),
+                              //       ),
+                              //       const Icon(
+                              //         Icons.navigate_next_outlined,
+                              //         color: AppColors.white100,
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

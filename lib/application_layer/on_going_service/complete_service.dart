@@ -130,7 +130,7 @@ class _CompleteServiceState extends State<CompleteService> {
                     ),
                   ),
                   child: Text(
-                    'Quét mã lấy xe',
+                    'Lấy mã QR để check-out',
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 17.sp,
