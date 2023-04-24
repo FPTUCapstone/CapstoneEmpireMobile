@@ -120,6 +120,10 @@ class _OnGoingServiceState extends State<OnGoingService> {
     return statuses.where((element) => element.id == id).first.text;
   }
 
+  Future _reload() {
+    return _getOrderServices();
+  }
+
   @override
   Widget build(BuildContext context) {
     return _loading
@@ -148,16 +152,19 @@ class _OnGoingServiceState extends State<OnGoingService> {
               ),
               centerTitle: true,
             ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  OnGoingServiceProgressBar(
-                    activeStep: _response!.status,
-                    order: _response!,
-                    callBack: _onCallBack,
-                  ),
-                  _tabs[_selectedTab],
-                ],
+            body: RefreshIndicator(
+              onRefresh: _reload,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    OnGoingServiceProgressBar(
+                      activeStep: _response!.status,
+                      order: _response!,
+                      callBack: _onCallBack,
+                    ),
+                    _tabs[_selectedTab],
+                  ],
+                ),
               ),
             ),
           );
