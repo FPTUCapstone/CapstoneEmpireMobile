@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/payment_services/payment_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -189,7 +190,10 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                             ),
                             const Spacer(),
                             Text(
-                              _listOrderServiceDetails[index].price.toString(),
+                              NumberFormat.currency(
+                                      decimalDigits: 0, locale: 'vi_VN')
+                                  .format(_listOrderServiceDetails[index].price)
+                                  .toString(),
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 12.sp,
@@ -206,7 +210,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 itemCount: _listOrderServiceDetails.length,
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 25,left: 30,right: 30),
+                padding: const EdgeInsets.only(top: 25, left: 30, right: 30),
                 child: Row(
                   children: [
                     Text(
@@ -241,7 +245,9 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     ),
                     const Spacer(),
                     Text(
-                      '$prepaid',
+                      NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
+                          .format(prepaid)
+                          .toString(),
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 12.sp,
@@ -270,7 +276,9 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     ),
                     const Spacer(),
                     Text(
-                      sum.toString(),
+                       NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
+                          .format(sum)
+                          .toString(),
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 12.sp,
@@ -296,7 +304,9 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     ),
                     const Spacer(),
                     Text(
-                      '-$prepaid',
+                      NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
+                          .format(-prepaid)
+                          .toString(),
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 12.sp,
@@ -322,7 +332,9 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     ),
                     const Spacer(),
                     Text(
-                      sumAfter.toString(),
+                      NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
+                          .format(sumAfter)
+                          .toString(),
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 16.sp,

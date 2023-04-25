@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
 import '../../../services/booking_service/booking_service.dart';
@@ -72,132 +73,142 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
       body: _loading
           ? const Loading()
           : Column(children: <Widget>[
-        Row(
-          children: const [
-            Padding(
-              padding: EdgeInsets.only(left: 24, bottom: 24,top:24),
-              child: Text("Thanh toán",
-                  style: TextStyle(
-                    fontFamily: 'SFProDisplay',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: AppColors.grey600,
-                  )),
-            ),
-          ],
-        ),
-        Container(
-          width: 375.w,
-          height: 98.h,
-          color: AppColors.white100,
-          child: Column(children: <Widget>[
-            Row(
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.only(left: 24, bottom: 24),
-                  child: Text("Phí đặt chỗ",
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: AppColors.blackTextColor,
-                      )),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text(_bookingPrice.toString(),
-                      style: const TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: AppColors.blackTextColor,
-                      )),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.only(left: 24, bottom: 24),
-                  child: Text("Tổng tiền",
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: AppColors.blackTextColor,
-                      )),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text(_bookingPrice.toString(),
-                      style: const TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: AppColors.blackTextColor,
-                      )),
-                ),
-              ],
-            ),
-          ]),
-        ),
-        Row(
-          children: const [
-            Padding(
-              padding: EdgeInsets.only(left: 24, bottom: 24),
-              child: Text("Phương thức thanh toán",
-                  style: TextStyle(
-                    fontFamily: 'SFProDisplay',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: AppColors.grey600,
-                  )),
-            ),
-          ],
-        ),
-        Container(
-          width: 375.w,
-          height: 98.h,
-          color: AppColors.white100,
-          child: Column(children: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 24, bottom: 24),
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.account_balance_wallet_outlined,
-                        color: AppColors.blackTextColor,
+              Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 24, bottom: 24, top: 24),
+                    child: Text("Thanh toán",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: AppColors.grey600,
+                        )),
+                  ),
+                ],
+              ),
+              Container(
+                width: 375.w,
+                height: 98.h,
+                color: AppColors.white100,
+                child: Column(children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.only(left: 24, bottom: 24),
+                        child: Text("Phí đặt chỗ",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: AppColors.blackTextColor,
+                            )),
                       ),
-                      Text("Ví điện tử",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: AppColors.blackTextColor,
-                          )),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 24, bottom: 24),
+                        child: Text(
+                            NumberFormat.currency(
+                                    decimalDigits: 0, locale: 'vi_VN')
+                                .format(_bookingPrice)
+                                .toString(),
+                            style: const TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: AppColors.blackTextColor,
+                            )),
+                      ),
                     ],
                   ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 24, bottom: 24),
-                  child: Text(_bookingPrice.toString(),
-                      style: const TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color: AppColors.blackTextColor,
-                      )),
-                ),
-              ],
-            ),
-          ]),
-        ),
-      ]),
+                  Row(
+                    children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.only(left: 24, bottom: 24),
+                        child: Text("Tổng tiền",
+                            style: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12,
+                              color: AppColors.blackTextColor,
+                            )),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 24, bottom: 24),
+                        child: Text(NumberFormat.currency(
+                                    decimalDigits: 0, locale: 'vi_VN')
+                                .format(_bookingPrice)
+                                .toString(),
+                            style: const TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12,
+                              color: AppColors.blackTextColor,
+                            )),
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
+              Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 24, bottom: 24),
+                    child: Text("Phương thức thanh toán",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: AppColors.grey600,
+                        )),
+                  ),
+                ],
+              ),
+              Container(
+                width: 375.w,
+                height: 98.h,
+                color: AppColors.white100,
+                child: Column(children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24, bottom: 24),
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.account_balance_wallet_outlined,
+                              color: AppColors.blackTextColor,
+                            ),
+                            Text("Ví điện tử",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: AppColors.blackTextColor,
+                                )),
+                          ],
+                        ),
+                      ),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 24, bottom: 24),
+                        child: Text(NumberFormat.currency(
+                                    decimalDigits: 0, locale: 'vi_VN')
+                                .format(_bookingPrice)
+                                .toString(),
+                            style: const TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: AppColors.blackTextColor,
+                            )),
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
+            ]),
     );
   }
 }

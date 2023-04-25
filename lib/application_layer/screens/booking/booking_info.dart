@@ -12,6 +12,7 @@ import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 
@@ -864,7 +865,10 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                           const Spacer(),
                           Text(
-                            _bookingPrice.toString(),
+                            NumberFormat.currency(
+                                        decimalDigits: 0, locale: 'vi_VN')
+                                    .format(_bookingPrice)
+                                    .toString(),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 14.sp,
@@ -894,7 +898,10 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                           const Spacer(),
                           Text(
-                            _bookingPrice.toString(),
+                           NumberFormat.currency(
+                                        decimalDigits: 0, locale: 'vi_VN')
+                                    .format(_bookingPrice)
+                                    .toString(),
                             style: TextStyle(
                               fontFamily: 'SFProDisplay',
                               fontSize: 14.sp,

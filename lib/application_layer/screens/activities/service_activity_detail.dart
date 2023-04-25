@@ -272,9 +272,12 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                           ),
                                           const Spacer(),
                                           Text(
-                                            _orderServices!
-                                                .orderServiceDetails![index]
-                                                .price
+                                            NumberFormat.currency(
+                                                    decimalDigits: 0,
+                                                    locale: 'vi_VN')
+                                                .format(_orderServices!
+                                                    .orderServiceDetails![index]
+                                                    .price)
                                                 .toString(),
                                             style: TextStyle(
                                               fontFamily: 'SFProDisplay',
@@ -316,7 +319,11 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        _bookingPrice.toString(),
+                                        NumberFormat.currency(
+                                                decimalDigits: 0,
+                                                locale: 'vi_VN')
+                                            .format(_bookingPrice)
+                                            .toString(),
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 12.sp,
@@ -345,6 +352,8 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                         ),
                                       ),
                                       const Spacer(),
+
+                                      // Màn này chưa có hàm tính tổng nha Trung
                                       Text(
                                         "24.000.000",
                                         style: TextStyle(
@@ -376,7 +385,11 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "- ${_bookingPrice.toString()}",
+                                         NumberFormat.currency(
+                                                decimalDigits: 0,
+                                                locale: 'vi_VN')
+                                            .format(-_bookingPrice)
+                                            .toString(),
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 12.sp,

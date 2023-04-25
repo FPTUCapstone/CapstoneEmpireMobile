@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -207,7 +208,13 @@ class _OnDoingServiceState extends State<OnDoingService> {
                                           ),
                                         ),
                                         trailing: Text(
-                                          '${_listOrderServiceDetails[index].price}',
+                                          NumberFormat.currency(
+                                                  decimalDigits: 0,
+                                                  locale: 'vi_VN')
+                                              .format(_listOrderServiceDetails[
+                                                      index]
+                                                  .price)
+                                              .toString(),
                                           style: AppStyles.text400(
                                               fontsize: 12.sp,
                                               color: AppColors.blackTextColor),
@@ -318,7 +325,9 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       ),
                       const Spacer(),
                       Text(
-                        sum.toString(),
+                        NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
+                            .format(sum)
+                            .toString(),
                         style: TextStyle(
                           fontFamily: 'SFProDisplay',
                           fontSize: 16.sp,

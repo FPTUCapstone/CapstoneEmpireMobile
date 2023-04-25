@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/services/booking_service/booking_service.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
 import '../main_page/main_page.dart';
@@ -385,7 +386,9 @@ class _BookingDetailState extends State<BookingDetail> {
                                     ),
                                     const Spacer(),
                                     Text(
-                                      _bookingPrice.toString(),
+                                      NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
+                          .format(_bookingPrice)
+                          .toString(),
                                       style: TextStyle(
                                         fontFamily: 'SFProDisplay',
                                         fontSize: 20.sp,

@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -279,7 +280,11 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                                 ),
                                               ),
                                               Text(
-                                                item.presentPrice!.toString(),
+                                                NumberFormat.currency(
+                                                        decimalDigits: 0,
+                                                        locale: 'vi_VN')
+                                                    .format(item.presentPrice)
+                                                    .toString(),
                                                 style: TextStyle(
                                                   fontFamily: 'SFProDisplay',
                                                   fontSize: 12.sp,
@@ -329,7 +334,9 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     ),
                     const Spacer(),
                     Text(
-                      _sum.toString(),
+                      NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
+                          .format(_sum)
+                          .toString(),
                       style: TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 16.sp,
