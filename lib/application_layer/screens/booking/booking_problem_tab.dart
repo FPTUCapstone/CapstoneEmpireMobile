@@ -1,7 +1,10 @@
+import 'package:empiregarage_mobile/application_layer/screens/booking/booking_problem_seedetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
+import '../../../common/style.dart';
 import '../../../models/response/car.dart';
 import '../../widgets/loading.dart';
 
@@ -137,25 +140,36 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                                   ),
                                 ),
                               ),
-                              // const Divider(),
-                              // Container(
-                              //   margin: EdgeInsets.all(10.sp),
-                              //   child: Row(
-                              //     mainAxisAlignment: MainAxisAlignment.center,
-                              //     children: [
-                              //       Text(
-                              //         'Xem chi tiết',
-                              //         style: AppStyles.header600(
-                              //             fontsize: 14.sp,
-                              //             color: AppColors.white100),
-                              //       ),
-                              //       const Icon(
-                              //         Icons.navigate_next_outlined,
-                              //         color: AppColors.white100,
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
+                              const Divider(),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(PageTransition(
+                                                type: PageTransitionType
+                                                    .leftToRight,
+                                                duration: const Duration(
+                                                    milliseconds: 350),
+                                                childCurrent: widget,
+                                                child: const BookingProblemSeeDetail()));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(10.sp),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Xem chi tiết',
+                                        style: AppStyles.header600(
+                                            fontsize: 14.sp,
+                                            color: AppColors.blue600),
+                                      ),
+                                      const Icon(
+                                        Icons.navigate_next_outlined,
+                                        color: AppColors.blue600,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),

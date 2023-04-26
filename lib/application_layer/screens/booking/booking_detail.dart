@@ -386,9 +386,10 @@ class _BookingDetailState extends State<BookingDetail> {
                                     ),
                                     const Spacer(),
                                     Text(
-                                      NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
-                          .format(_bookingPrice)
-                          .toString(),
+                                      NumberFormat.currency(
+                                              decimalDigits: 0, locale: 'vi_VN')
+                                          .format(_bookingPrice)
+                                          .toString(),
                                       style: TextStyle(
                                         fontFamily: 'SFProDisplay',
                                         fontSize: 20.sp,
