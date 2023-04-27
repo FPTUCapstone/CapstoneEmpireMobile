@@ -20,7 +20,10 @@ class ServiceActivityDetail extends StatefulWidget {
 class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
   bool _loading = true;
   OrderServicesResponseModel? _orderServices;
+  List<OrderServiceDetails> _listOrderServiceDetails = [];
   double _bookingPrice = 0;
+  double sum = 0;
+  double sumAfter = 0;
 
   List<String> serviceNames = [
     'Thay lốp',
@@ -48,13 +51,24 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
   }
 
   _fetchData() async {
-    var orderServices =
+    var listOrderServicesDetails =
         await OrderServices().getOrderServicesById(widget.orderServicesId);
-    if (!mounted) return;
-    setState(() {
-      _orderServices = orderServices;
-      _loading = false;
-    });
+    List<OrderServiceDetails>? list = listOrderServicesDetails!.orderServiceDetails;
+    try {
+      if (list != null) {
+        setState(() {
+          _listOrderServiceDetails = list.where((element) => element.isConfirmed == true).toList();
+          _orderServices = listOrderServicesDetails;
+          for(var item in _listOrderServiceDetails){
+            sum += int.parse(item.price.toString());
+          }
+          sumAfter = sum - _bookingPrice;
+          _loading = false;
+        });
+      }
+    } catch (e) {
+      e.toString();
+    }
   }
 
   @override
@@ -355,7 +369,11 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
 
                                       // Màn này chưa có hàm tính tổng nha Trung
                                       Text(
-                                        "24.000.000",
+                                        NumberFormat.currency(
+                                                decimalDigits: 0,
+                                                locale: 'vi_VN')
+                                            .format(sum)
+                                            .toString(),
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 12.sp,
@@ -385,7 +403,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                         NumberFormat.currency(
+                                        NumberFormat.currency(
                                                 decimalDigits: 0,
                                                 locale: 'vi_VN')
                                             .format(-_bookingPrice)
@@ -419,7 +437,11 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "23.500.000",
+                                        NumberFormat.currency(
+                                                decimalDigits: 0,
+                                                locale: 'vi_VN')
+                                            .format(sumAfter)
+                                            .toString(),
                                         style: TextStyle(
                                           fontFamily: 'SFProDisplay',
                                           fontSize: 16.sp,
