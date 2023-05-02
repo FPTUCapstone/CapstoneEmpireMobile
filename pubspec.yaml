@@ -113,6 +113,6 @@ flutter:
   fonts:
      - family: SFProDisplay
        fonts:
-         - asset: assets/fonts/SVN-Poppins-Regular.ttf
+         - asset: assets/fonts/Roboto-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
