@@ -30,7 +30,7 @@ class _UserProfileState extends State<UserProfile> {
 
   bool _loading = false;
 
-  SingingCharacter? _character = SingingCharacter.male;
+  final SingingCharacter _character = SingingCharacter.male;
   TextEditingController dateinput = TextEditingController();
   final TextEditingController _phoneNumber = TextEditingController();
 
@@ -66,7 +66,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     final Storage storage = Storage();
-
+    var value = 0;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: !_loading
@@ -100,7 +100,7 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                         ),
                         SizedBox(
-                          height: 5.h,
+                          height: 20.h,
                         ),
                         Align(
                           alignment: Alignment.center,
@@ -181,13 +181,13 @@ class _UserProfileState extends State<UserProfile> {
                           "Họ và tên",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                           ),
                         ),
                         SizedBox(
-                          height: 5.h,
+                          height: 12.h,
                         ),
                         Row(
                           children: [
@@ -199,101 +199,104 @@ class _UserProfileState extends State<UserProfile> {
                                   });
                                 },
                                 decoration: InputDecoration(
+                                  fillColor: Colors.white,
                                   border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(20)),
+                                      borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          color:
-                                              AppColors.loginScreenBackGround),
-                                      borderRadius: BorderRadius.circular(20)),
+                                          width: 3,
+                                          color: AppColors.buttonColor),
+                                      borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   filled: true,
                                   hintText:
                                       _user != null ? _user!.fullname : "",
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.lightTextColor,
+                                  ),
                                 ),
                                 style: TextStyle(
                                   fontFamily: 'SFProDisplay',
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
+                                  color: AppColors.blackTextColor,
                                 ),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 16.h,
                         ),
                         Text(
                           "Giới tính",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: ListTile(
-                                title: Text(
-                                  'Nam',
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.lightTextColor,
-                                  ),
-                                ),
-                                leading: Radio<SingingCharacter>(
-                                  value: SingingCharacter.male,
-                                  groupValue: _character,
-                                  onChanged: (SingingCharacter? value) {
-                                    setState(() {
-                                      _character = value;
-                                      _user!.gender = true;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: ListTile(
-                                title: Text(
-                                  'Nữ',
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.lightTextColor,
-                                  ),
-                                ),
-                                leading: Radio<SingingCharacter>(
-                                  value: SingingCharacter.female,
-                                  groupValue: _character,
-                                  onChanged: (SingingCharacter? value) {
-                                    setState(() {
-                                      _character = value;
-                                      _user!.gender = false;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          height: 12.h,
                         ),
                         SizedBox(
-                          height: 5.h,
+                          height: 60,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  child: DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3, color: AppColors.buttonColor),
+                                      borderRadius: BorderRadius.circular(16)),
+                                ),
+                                items: [
+                                  DropdownMenuItem(
+                                      value: 0,
+                                      child: Text(
+                                        "Nam",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      )),
+                                  DropdownMenuItem(
+                                      value: 1,
+                                      child: Text(
+                                        "Nữ",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ))
+                                ],
+                                onChanged: (value) {},
+                              )),
+                            ],
+                          ),
+                        ),
+                       SizedBox(
+                          height: 16.h,
                         ),
                         Text(
                           "Ngày sinh",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                           ),
@@ -305,20 +308,20 @@ class _UserProfileState extends State<UserProfile> {
                           children: [
                             Expanded(
                               child: SizedBox(
-                                  height: 50,
+                                  height: 80,
                                   child: Center(
                                       child: TextFormField(
                                     decoration: InputDecoration(
+                                      fillColor: Colors.white,
                                       border: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
                                           borderRadius:
-                                              BorderRadius.circular(20)),
+                                              BorderRadius.circular(16)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
-                                              color: AppColors
-                                                  .loginScreenBackGround),
+                                              width: 3,
+                                              color: AppColors.buttonColor),
                                           borderRadius:
-                                              BorderRadius.circular(20)),
+                                              BorderRadius.circular(16)),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
                                       filled: true,
@@ -377,19 +380,19 @@ class _UserProfileState extends State<UserProfile> {
                           ],
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 16.h,
                         ),
                         Text(
                           "Email",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                           ),
                         ),
                         SizedBox(
-                          height: 5.h,
+                          height: 12.h,
                         ),
                         Row(
                           children: [
@@ -401,14 +404,14 @@ class _UserProfileState extends State<UserProfile> {
                                   });
                                 },
                                 decoration: InputDecoration(
+                                  fillColor: Colors.white,
                                   border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(26)),
+                                      borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          color:
-                                              AppColors.loginScreenBackGround),
-                                      borderRadius: BorderRadius.circular(26)),
+                                          width: 3,
+                                          color: AppColors.buttonColor),
+                                      borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   filled: true,
@@ -418,26 +421,26 @@ class _UserProfileState extends State<UserProfile> {
                                   fontFamily: 'SFProDisplay',
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
+                                  color: AppColors.blackTextColor,
                                 ),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 16.h,
                         ),
                         Text(
                           "Số điện thoại",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                           ),
                         ),
                         SizedBox(
-                          height: 5.h,
+                          height: 12.h,
                         ),
                         Row(
                           children: [
@@ -449,12 +452,12 @@ class _UserProfileState extends State<UserProfile> {
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(26)),
+                                      borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
                                           color:
                                               AppColors.loginScreenBackGround),
-                                      borderRadius: BorderRadius.circular(26)),
+                                      borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   filled: true,
@@ -507,14 +510,14 @@ class _UserProfileState extends State<UserProfile> {
                                   backgroundColor: AppColors.buttonColor,
                                   fixedSize: Size.fromHeight(50.w),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28),
+                                    borderRadius: BorderRadius.circular(16),
                                   ),
                                 ),
                                 child: Text(
                                   'Cập nhật thông tin',
                                   style: TextStyle(
                                     fontFamily: 'SFProDisplay',
-                                    fontSize: 15.sp,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),

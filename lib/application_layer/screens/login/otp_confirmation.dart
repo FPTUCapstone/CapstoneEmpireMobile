@@ -37,33 +37,33 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 52.h,
                 ),
                 Text(
-                  "Xác nhận OTP",
+                  "Nhập mã OTP",
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
-                    fontSize: 40.sp,
+                    fontSize: 28.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 30.h,
                 ),
                 Text(
-                  "Chúng tôi đã gửi mã OTP tới SĐT",
+                  "Vui lòng nhập mã xác minh được gửi đến điện thoại di động của bạn ",
                   style: TextStyle(
                     fontFamily: 'SFProDisplay',
                     fontSize: 17.sp,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.lightTextColor,
+                    color: AppColors.blackTextColor,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                 ),
                 SizedBox(
                   height: 30.h,

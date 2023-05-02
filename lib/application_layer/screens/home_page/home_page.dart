@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
               child: ListView(
                 children: <Widget>[
                   Container(
-                    height: 260.h,
+                    height: 160.h,
                     decoration: BoxDecoration(
                         color: AppColors.welcomeScreenBackGround,
                         borderRadius: BorderRadius.only(
@@ -160,24 +160,11 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 24),
-                                child: Text(
-                                  "Khám phá và đặt dịch vụ mà bạn mong muốn",
-                                  style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
-                                    fontSize: 24.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.whiteTextColor,
-                                  ),
-                                ),
-                              )
                             ],
                           ),
                         ),
                         Positioned(
-                            bottom: 20,
+                            bottom: -10,
                             left: 0,
                             right: 0,
                             child: Container(

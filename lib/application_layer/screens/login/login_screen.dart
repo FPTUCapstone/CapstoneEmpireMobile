@@ -63,9 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "Vui lòng nhập số điện thoại của bạn để tiếp tục",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor,
+                        color: AppColors.blackTextColor,
                         fontFamily: 'SFProDisplay',
                       ),
                     ),
@@ -88,10 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(
                           width: 40.w,
-                          child: TextFormField(
-                            enabled: false,
-                            initialValue: countryCode,
-                          ),
+                          child: Image.asset("assets/image/icon-logo/vietnamflag.png",height: 18,width: 24,)
                         ),
                         const Text(
                           "|",
@@ -103,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Expanded(
                             child: TextFormField(
-                          keyboardType: TextInputType.phone,
+                          keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Số điện thoại không được để trống !';
@@ -129,8 +126,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             });
                           },
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 3, color: AppColors.buttonColor),
+                            ),
                             hintText: "Nhập số điện thoại của bạn",
+                            hintStyle: TextStyle(
+                              fontFamily: 'SFProDisplay',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         )),
                       ],
@@ -163,14 +169,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     backgroundColor: AppColors.buttonColor,
                                     fixedSize: Size.fromHeight(50.w),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(28),
+                                      borderRadius: BorderRadius.circular(16),
                                     ),
                                   ),
                                   child: Text(
                                     'Nhận mã OTP',
                                     style: TextStyle(
                                       fontFamily: 'SFProDisplay',
-                                      fontSize: 17.sp,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -181,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     backgroundColor: AppColors.buttonColor,
                                     fixedSize: Size.fromHeight(50.w),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(28),
+                                      borderRadius: BorderRadius.circular(16),
                                     ),
                                   ),
                                   child: const SpinKitThreeBounce(
