@@ -59,6 +59,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
           for (var item in _listOrderServiceDetails) {
             sum += item.price;
           }
+          sum += prepaid;
           sumAfter = sum - prepaid;
           _loading = false;
         });
@@ -77,20 +78,24 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   }
 
   _pay() async {
-    PaymentRequestModel paymentRequestModel = PaymentRequestModel(
-        amount: sumAfter,
-        name: 'OrderService Payment',
-        orderDescription:
-            'OrderService Payment for #${_orderServicesResponseModel!.code}',
-        orderType: 'VNpay');
-    var responsePayment = await _payOrderFee(paymentRequestModel);
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => OrderPayment(
-        url: responsePayment,
-        callback: _onCallBack,
-      ),
-    ));
+    if (sumAfter == 0) {
+      _onCallBack();
+    } else {
+      PaymentRequestModel paymentRequestModel = PaymentRequestModel(
+          amount: sumAfter,
+          name: 'OrderService Payment',
+          orderDescription:
+              'OrderService Payment for #${_orderServicesResponseModel!.code}',
+          orderType: 'VNpay');
+      var responsePayment = await _payOrderFee(paymentRequestModel);
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => OrderPayment(
+          url: responsePayment,
+          callback: _onCallBack,
+        ),
+      ));
+    }
   }
 
   _onCallBack() async {

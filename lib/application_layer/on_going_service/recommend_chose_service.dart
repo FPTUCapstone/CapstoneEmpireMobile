@@ -105,12 +105,12 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
   }
 
   _onContinue() {
-    if (_listOrderServiceDetails.isEmpty) {
-      setState(() {
-        _error = "Cần phải chọn ít nhất 1 dịch vụ";
-      });
-      return;
-    }
+    // if (_listOrderServiceDetails.isEmpty) {
+    //   setState(() {
+    //     _error = "Cần phải chọn ít nhất 1 dịch vụ";
+    //   });
+    //   return;
+    // }
     widget.onRecommendChoseServicecallBack(_listOrderServiceDetails);
   }
 
