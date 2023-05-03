@@ -201,10 +201,11 @@ class _UserProfileState extends State<UserProfile> {
                                   });
                                 },
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          width: 3,
-                                          color: AppColors.lightTextColor),
+                                        
+                                        color: AppColors.grey200
+                                      ),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -270,12 +271,12 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                           )),
                                       fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              width: 3,
-                                              color: AppColors.lightTextColor),
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
+                                      enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
+                                      borderRadius: BorderRadius.circular(16)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
                                               width: 3,
@@ -367,10 +368,11 @@ class _UserProfileState extends State<UserProfile> {
                                 controller: _phoneNumber,
                                 keyboardType: TextInputType.phone,
                                  decoration: InputDecoration(
-                                  border: OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          width: 3,
-                                          color: AppColors.lightTextColor),
+                                        
+                                        color: AppColors.grey200
+                                      ),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -433,7 +435,11 @@ class _UserProfileState extends State<UserProfile> {
                                     color: AppColors.lightTextColor,
                                   ),
                                   fillColor: Colors.white,
-                                  border: OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -510,7 +516,11 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
                                       )),
                                   fillColor: Colors.white,
-                                  border: OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
