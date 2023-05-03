@@ -51,27 +51,27 @@ class _NotificationPageState extends State<NotificationPage> {
                 )),
           ),
         ),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.transparent,
-                border: Border.all(
-                  color: AppColors.searchBarColor,
-                  width: 1.0,
-                ),
-              ),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.settings_outlined,
-                    color: AppColors.blackTextColor,
-                  )),
-            ),
-          ),
-        ],
+        // actions: <Widget>[
+        //   Padding(
+        //     padding: const EdgeInsets.all(8.0),
+        //     child: Container(
+        //       decoration: BoxDecoration(
+        //         shape: BoxShape.circle,
+        //         color: Colors.transparent,
+        //         border: Border.all(
+        //           color: AppColors.searchBarColor,
+        //           width: 1.0,
+        //         ),
+        //       ),
+        //       child: IconButton(
+        //           onPressed: () {},
+        //           icon: const Icon(
+        //             Icons.settings_outlined,
+        //             color: AppColors.blackTextColor,
+        //           )),
+        //     ),
+        //   ),
+        // ],
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         centerTitle: true,
@@ -183,7 +183,9 @@ class _NotificationChipState extends State<NotificationChip> {
             style: const TextStyle(
                 fontFamily: 'SFProDisplay',
                 fontSize: 14,
-                fontWeight: FontWeight.w600),
+                fontWeight: FontWeight.w600,
+                color: AppColors.blackTextColor
+                ),
           ),
           subtitle: Align(
             alignment: Alignment.centerLeft,
@@ -195,7 +197,9 @@ class _NotificationChipState extends State<NotificationChip> {
                     style: const TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 12,
-                        fontWeight: FontWeight.w400)),
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightTextColor
+                        )),
                 const SizedBox(height: 10),
                 Text(
                     widget.time
@@ -205,7 +209,9 @@ class _NotificationChipState extends State<NotificationChip> {
                     style: const TextStyle(
                         fontFamily: 'SFProDisplay',
                         fontSize: 12,
-                        fontWeight: FontWeight.w400)),
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightTextColor
+                        )),
               ],
             ),
           ),
