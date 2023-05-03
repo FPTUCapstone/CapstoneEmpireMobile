@@ -55,13 +55,28 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                 SizedBox(
                   height: 30.h,
                 ),
-                Text(
-                  "Vui lòng nhập mã xác minh được gửi đến điện thoại di động của bạn ",
-                  style: TextStyle(
-                    fontFamily: 'SFProDisplay',
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.blackTextColor,
+                RichText(
+                  text: TextSpan(
+                    text:
+                        "Vui lòng nhập mã xác minh được gửi đến điện thoại di động của bạn ",
+                    style: TextStyle(
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.blackTextColor,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text:
+                            "+84${widget.phoneNumber.replaceRange(0, 6, "******")}",
+                        style: TextStyle(
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.blackTextColor,
+                        ),
+                      ),
+                    ],
                   ),
                   textAlign: TextAlign.start,
                 ),

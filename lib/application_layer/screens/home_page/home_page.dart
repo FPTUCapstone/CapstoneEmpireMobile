@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                               decoration: BoxDecoration(
                                   color: AppColors.searchBarColor,
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(26.r)),
+                                      BorderRadius.all(Radius.circular(16.r)),
                                   boxShadow: const [
                                     BoxShadow(
                                       offset: Offset(0, 1),

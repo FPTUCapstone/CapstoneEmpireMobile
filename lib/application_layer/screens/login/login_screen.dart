@@ -83,21 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     // ),
                     Row(
                       children: [
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SizedBox(
-                          width: 40.w,
-                          child: Image.asset("assets/image/icon-logo/vietnamflag.png",height: 18,width: 24,)
-                        ),
-                        const Text(
-                          "|",
-                          style: TextStyle(
-                              fontSize: 33, color: AppColors.lightTextColor),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
                         Expanded(
                             child: TextFormField(
                           keyboardType: TextInputType.number,
@@ -127,10 +112,25 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           decoration: InputDecoration(
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 3, color: AppColors.buttonColor),
+                            prefixIcon: Container(
+                              width: 24,
+                              height: 18,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Image.asset(
+                                    "assets/image/icon-logo/vietnamflag.png"),
+                              ),
                             ),
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3, color: AppColors.buttonColor),
+                                borderRadius: BorderRadius.circular(16)),
                             hintText: "Nhập số điện thoại của bạn",
                             hintStyle: TextStyle(
                               fontFamily: 'SFProDisplay',
