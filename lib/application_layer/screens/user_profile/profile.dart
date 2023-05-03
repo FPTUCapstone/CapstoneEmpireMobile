@@ -112,8 +112,10 @@ class _UserProfileState extends State<UserProfile> {
                                 SizedBox(
                                   width: 160.w,
                                   height: 160.h,
-                                  child: const CircleAvatar(
-                                    child: Text('Avatar'),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    child: Image.asset(
+                                        "assets/image/user-pic/user.png"),
                                   ),
                                 ),
                                 Positioned(
@@ -199,8 +201,11 @@ class _UserProfileState extends State<UserProfile> {
                                   });
                                 },
                                 decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -209,7 +214,6 @@ class _UserProfileState extends State<UserProfile> {
                                       borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
-                                  filled: true,
                                   hintText:
                                       _user != null ? _user!.fullname : "",
                                   hintStyle: TextStyle(
@@ -233,66 +237,6 @@ class _UserProfileState extends State<UserProfile> {
                           height: 16.h,
                         ),
                         Text(
-                          "Giới tính",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        SizedBox(
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  child: DropdownButtonFormField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 3, color: AppColors.buttonColor),
-                                      borderRadius: BorderRadius.circular(16)),
-                                ),
-                                items: [
-                                  DropdownMenuItem(
-                                      value: 0,
-                                      child: Text(
-                                        "Nam",
-                                        style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.blackTextColor,
-                                        ),
-                                      )),
-                                  DropdownMenuItem(
-                                      value: 1,
-                                      child: Text(
-                                        "Nữ",
-                                        style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.blackTextColor,
-                                        ),
-                                      ))
-                                ],
-                                onChanged: (value) {},
-                              )),
-                            ],
-                          ),
-                        ),
-                       SizedBox(
-                          height: 16.h,
-                        ),
-                        Text(
                           "Ngày sinh",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
@@ -312,10 +256,27 @@ class _UserProfileState extends State<UserProfile> {
                                   child: Center(
                                       child: TextFormField(
                                     decoration: InputDecoration(
+                                      suffixIcon: GestureDetector(
+                                          onTap: () {},
+                                          child: Container(
+                                            padding: const EdgeInsets.all(12.0),
+                                            constraints: const BoxConstraints(
+                                              maxHeight: 20.0,
+                                              maxWidth: 20.0,
+                                            ),
+                                            child: const Image(
+                                              image: AssetImage(
+                                                'assets/image/icon-logo/calendar.png',
+                                              ),
+                                            ),
+                                          )),
                                       fillColor: Colors.white,
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
+                                      enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
+                                      borderRadius: BorderRadius.circular(16)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
                                               width: 3,
@@ -324,8 +285,13 @@ class _UserProfileState extends State<UserProfile> {
                                               BorderRadius.circular(16)),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always,
-                                      filled: true,
                                       hintText: "Nhập ngày sinh",
+                                      hintStyle: TextStyle(
+                                        fontFamily: 'SFProDisplay',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.lightTextColor,
+                                      ),
                                     ),
                                     style: TextStyle(
                                       fontFamily: 'SFProDisplay',
@@ -383,6 +349,137 @@ class _UserProfileState extends State<UserProfile> {
                           height: 16.h,
                         ),
                         Text(
+                          "Số điện thoại",
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                
+                                controller: _phoneNumber,
+                                keyboardType: TextInputType.phone,
+                                 decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
+                                      borderRadius: BorderRadius.circular(16)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3,
+                                          color: AppColors.buttonColor),
+                                      borderRadius: BorderRadius.circular(16)),
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  hintText:
+                                    _user!.phone,
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.lightTextColor,
+                                  ),
+                                ),
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        Text(
+                          "Giới tính",
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        SizedBox(
+                          height: 60,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  child: DropdownButtonFormField(
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: AppColors.lightTextColor,
+                                ),
+                                decoration: InputDecoration(
+                                  labelText: "Chọn giới tính",
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'SFProDisplay',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.lightTextColor,
+                                  ),
+                                  fillColor: Colors.white,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
+                                      borderRadius: BorderRadius.circular(16)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3,
+                                          color: AppColors.buttonColor),
+                                      borderRadius: BorderRadius.circular(16)),
+                                ),
+                                items: [
+                                  DropdownMenuItem(
+                                      value: 0,
+                                      child: Text(
+                                        "Nam",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      )),
+                                  DropdownMenuItem(
+                                      value: 1,
+                                      child: Text(
+                                        "Nữ",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      )),
+                                ],
+                                onChanged: (value) {},
+                              )),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        Text(
                           "Email",
                           style: TextStyle(
                             fontFamily: 'SFProDisplay',
@@ -404,8 +501,26 @@ class _UserProfileState extends State<UserProfile> {
                                   });
                                 },
                                 decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        padding: const EdgeInsets.all(12.0),
+                                        constraints: const BoxConstraints(
+                                          maxHeight: 20.0,
+                                          maxWidth: 20.0,
+                                        ),
+                                        child: const Image(
+                                          image: AssetImage(
+                                            'assets/image/icon-logo/mail.png',
+                                          ),
+                                        ),
+                                      )),
                                   fillColor: Colors.white,
-                                  border: OutlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -414,7 +529,6 @@ class _UserProfileState extends State<UserProfile> {
                                       borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
-                                  filled: true,
                                   hintText: _user!.email ?? "",
                                 ),
                                 style: TextStyle(
@@ -428,53 +542,7 @@ class _UserProfileState extends State<UserProfile> {
                           ],
                         ),
                         SizedBox(
-                          height: 16.h,
-                        ),
-                        Text(
-                          "Số điện thoại",
-                          style: TextStyle(
-                            fontFamily: 'SFProDisplay',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                enabled: false,
-                                controller: _phoneNumber,
-                                keyboardType: TextInputType.phone,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(16)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color:
-                                              AppColors.loginScreenBackGround),
-                                      borderRadius: BorderRadius.circular(16)),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  filled: true,
-                                  hintText: _user!.phone,
-                                ),
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
+                          height: 70.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
