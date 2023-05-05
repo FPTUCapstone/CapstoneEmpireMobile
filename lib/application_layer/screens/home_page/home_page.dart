@@ -84,6 +84,10 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       height: 160.h,
                       decoration: BoxDecoration(
+                          image: const DecorationImage(
+                            image: AssetImage("assets/image/app-logo/homepage-background.png"),
+                            fit: BoxFit.cover,
+                          ),
                           color: AppColors.welcomeScreenBackGround,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(0.r),
@@ -94,16 +98,19 @@ class _HomePageState extends State<HomePage> {
                           SafeArea(
                             child: Column(
                               children: <Widget>[
+                                SizedBox(
+                                  height: 40.h,
+                                ),
                                 Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 24),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 24),
                                   child: Stack(
                                     alignment: Alignment.centerLeft,
                                     children: <Widget>[
                                       Image.asset(
                                         "assets/image/app-logo/homepage-icon.png",
-                                        height: 100.h,
-                                        width: 90.w,
+                                        width: 135.w,
+                                        height: 50.h,
                                       ),
                                       Align(
                                         alignment: Alignment.centerRight,
@@ -115,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                                               boxShadow: const [
                                                 BoxShadow(
                                                   offset: Offset(0, 1),
-                                                  blurRadius: 1,
+                                                  blurRadius: 0.5,
                                                   color: AppColors.blue600,
                                                 )
                                               ]),
@@ -145,13 +152,15 @@ class _HomePageState extends State<HomePage> {
                                                       ? Text(
                                                           _notificationCount
                                                               .toString(),
-                                                          style: const TextStyle(
-                                                              color:
-                                                                  Colors.white),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
                                                         )
                                                       : null,
-                                                  child: const Icon(
-                                                    FontAwesomeIcons.bell,
+                                                  child: const ImageIcon(
+                                                    AssetImage(
+                                                        "assets/image/icon-logo/homepage-notification.png"),
                                                     size: 20,
                                                     color: AppColors
                                                         .whiteButtonColor,
@@ -177,7 +186,8 @@ class _HomePageState extends State<HomePage> {
                         height: 45.h,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(16.r)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.r)),
                             boxShadow: const [
                               BoxShadow(
                                 offset: Offset(0, 1),
@@ -247,7 +257,8 @@ class _HomePageState extends State<HomePage> {
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: _listOngoingActivity.length,
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
                                       var item = _listOngoingActivity[index];
                                       return Padding(
@@ -293,8 +304,8 @@ class _HomePageState extends State<HomePage> {
                                                 daysLeft: item.date != null
                                                     ? DateTime.now()
                                                         .toLocal()
-                                                        .difference(
-                                                            item.date as DateTime)
+                                                        .difference(item.date
+                                                            as DateTime)
                                                         .inDays
                                                     : null,
                                                 isBooking: item.isBooking,
@@ -355,16 +366,23 @@ class _HomePageState extends State<HomePage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => ServiceDetails(
-                                                itemId: _filteredItem![index].id)),
+                                            builder: (context) =>
+                                                ServiceDetails(
+                                                    itemId:
+                                                        _filteredItem![index]
+                                                            .id)),
                                       );
                                     },
                                     child: HomepageFamousService(
-                                      backgroundImage: _filteredItem![index].photo,
+                                      backgroundImage:
+                                          _filteredItem![index].photo,
                                       title: _filteredItem![index].name,
-                                      price: _filteredItem![index].prices!.isNotEmpty
+                                      price: _filteredItem![index]
+                                              .prices!
+                                              .isNotEmpty
                                           ? NumberFormat.currency(
-                                                  decimalDigits: 0, locale: 'vi_VN')
+                                                  decimalDigits: 0,
+                                                  locale: 'vi_VN')
                                               .format(_filteredItem![index]
                                                   .prices!
                                                   .first
@@ -373,7 +391,8 @@ class _HomePageState extends State<HomePage> {
                                           : "Liên hệ",
                                       usageCount: '182',
                                       rating: '4.4',
-                                      tag: _filteredItem![index].category != null
+                                      tag: _filteredItem![index].category !=
+                                              null
                                           ? _filteredItem![index].category!.name
                                           : "Dịch vụ",
                                     ),
