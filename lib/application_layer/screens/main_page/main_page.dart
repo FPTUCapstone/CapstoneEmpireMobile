@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
-          height: 80.h,
+          height: 65.h,
           child: SizedBox(
             height: 60.h,
             child: Row(
@@ -128,7 +128,7 @@ class _MainPageState extends State<MainPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Icon(
-                                FontAwesomeIcons.calendarPlus,
+                                FontAwesomeIcons.solidCalendarPlus,
                                 color: Colors.white,
                                 size: 30,
                               ),
