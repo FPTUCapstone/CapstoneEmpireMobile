@@ -168,13 +168,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Positioned(
-                      top: 165,
+                      top: 140.h,
                       left: 0,
                       right: 0,
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         width: 335.w,
-                        height: 42.h,
+                        height: 45.h,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(16.r)),
@@ -189,6 +189,7 @@ class _HomePageState extends State<HomePage> {
                           width: 104.w,
                           height: 24.h,
                           child: TextField(
+                            keyboardType: TextInputType.text,
                             onSubmitted: (value) {
                               if (value.isNotEmpty) {
                                 Navigator.push(
@@ -205,14 +206,14 @@ class _HomePageState extends State<HomePage> {
                               border: InputBorder.none,
                               hintStyle: TextStyle(
                                 fontFamily: 'SFProDisplay',
-                                fontSize: 14.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.lightTextColor,
                               ),
-                              hintText: 'Tìm dịch vụ',
+                              hintText: 'Tìm kiếm...',
                               prefixIcon: const Icon(
                                 FontAwesomeIcons.magnifyingGlass,
-                                size: 24,
+                                size: 20,
                                 color: AppColors.grey400,
                               ),
                             ),
