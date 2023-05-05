@@ -29,7 +29,6 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 330.h,
       width: 246.w,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -45,34 +44,51 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          widget.backgroundImage != "null"
-              ? SizedBox(
-                  height: 160.h,
-                  width: 234.w,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Transform.scale(
-                      scale: 1.2,
-                      child: Image.network(
-                        widget.backgroundImage,
+           Stack(children: [
+            SizedBox(
+              width: double.infinity,
+              height: 180.h,
+              child: widget.backgroundImage != "null"
+                  ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(
+                          widget.backgroundImage,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  ),
-                )
-              : SizedBox(
-                  height: 160.h,
-                  width: 234.w,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
+                  )
+                  : Image.asset(
                       "assets/image/error-image/no-image.png",
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.fitWidth,
+                    ),
+            ),
+            Positioned(
+              left: 20,
+              top: 20,
+              child: Container(
+                width: 100,
+                height: 40,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Center(
+                  child: Text(
+                    widget.tag,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontFamily: 'SFProDisplay',
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-          SizedBox(
-            height: 10.h,
-          ),
+              ),
+            ),
+          ]),
+          SizedBox(height: 10.h,),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
@@ -98,7 +114,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                     child: Text(
                       widget.price,
                       style: const TextStyle(
-                        color: Colors.green,
+                        color: AppColors.greenTextColor,
                         fontSize: 10,
                         fontFamily: 'SFProDisplay',
                         fontWeight: FontWeight.w600,
@@ -110,7 +126,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
             ),
           ),
           SizedBox(
-            height: 16.h,
+            height: 10.h,
           ),
           Container(
             margin: const EdgeInsets.only(left: 15, right: 15),
@@ -126,7 +142,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
             ),
           ),
           SizedBox(
-            height: 16.h,
+            height: 10.h,
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
