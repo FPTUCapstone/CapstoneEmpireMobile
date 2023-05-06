@@ -106,7 +106,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                 ),
                 Container(
                   decoration: const BoxDecoration(
-                      color: AppColors.searchBarColor,
+                      color: AppColors.green50,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   height: 20,
                   width: 80,
