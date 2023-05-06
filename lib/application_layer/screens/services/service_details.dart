@@ -45,102 +45,243 @@ class _ServiceDetailsState extends State<ServiceDetails> {
             )
           : Scaffold(
               body: Column(
-                children: <Widget>[
-                  Container(
-                    height: 300.h,
-                    decoration: BoxDecoration(
-                      image: _item!.photo != "null"
-                          ? DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(_item!.photo),
-                            )
-                          : const DecorationImage(
-                              image: AssetImage(
-                                "assets/image/error-image/no-image.png",
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                    ),
+                children: [
+                  SizedBox(
+                    height: 600.h,
                     child: Stack(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: AppBar(
-                            backgroundColor: Colors.transparent,
-                            leading: Container(
-                              height: 42.h,
-                              width: 42.h,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                    color: AppColors.searchBarColor,
-                                    width: 1.0,
-                                  )),
-                              child: IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_back_outlined,
-                                    size: 24,
-                                    color: AppColors.whiteButtonColor,
-                                  )),
-                            ),
+                      children: [
+                        Container(
+                          height: 354.h,
+                          decoration: BoxDecoration(
+                            image: _item!.photo != "null"
+                                ? DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(_item!.photo),
+                                  )
+                                : const DecorationImage(
+                                    image: AssetImage(
+                                      "assets/image/error-image/no-image.png",
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
-                        ),
-                        SafeArea(
                           child: Column(
-                            children: <Widget>[
-                              SafeArea(
-                                child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: AppBar(
+                                  backgroundColor: Colors.transparent,
+                                  leading: Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.transparent,
+                                        border: Border.all(
+                                          color: AppColors.searchBarColor,
+                                          width: 1.0,
+                                        )),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: const Icon(
+                                          Icons.arrow_back_outlined,
+                                          size: 24,
+                                          color: AppColors.whiteButtonColor,
+                                        )),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                child: Row(
                                   children: <Widget>[
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 12),
-                                      child: Row(
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 100.h,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
                                     SizedBox(
-                                      height: 100.h,
+                                      height: 80.h,
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 24),
-                                      child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Text(
-                                          _item!.name,
-                                          style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
-                                            fontSize: 30.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.whiteTextColor,
-                                          ),
-                                        ),
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),
-                              Card(
-                                semanticContainer: true,
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                elevation: 5,
-                                margin: const EdgeInsets.all(10),
+                              Align(
+                                alignment: Alignment.centerLeft,
                                 child: Container(
-                                  color: Colors.deepOrange,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 24),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.black54,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  height: 20.h,
+                                  width: 70.w,
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                          top: 5,
+                                          bottom: 5),
+                                      child: Text(
+                                        _item!.category!.name,
+                                        style: const TextStyle(
+                                          color: AppColors.white100,
+                                          fontSize: 10,
+                                          fontFamily: 'SFProDisplay',
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 24),
+                                child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    _item!.name,
+                                    style: TextStyle(
+                                      fontFamily: 'SFProDisplay',
+                                      fontSize: 25.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.whiteTextColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 24),
+                                child: Row(
+                                  children: <Widget>[
+                                    const Icon(
+                                      Icons.star,
+                                      size: 19,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      "4.4 (146 lượt đánh giá)",
+                                      style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.whiteTextColor,
+                                          fontFamily: 'SFProDisplay'),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
+                          ),
+                        ),
+                        Positioned(
+                          top: 300.h,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            width: 375.w,
+                            height: 500.h,
+                            decoration: BoxDecoration(
+                              color: AppColors.white100,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16.r),
+                                topRight: Radius.circular(16.r),
+                              ),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        "182 lượt đặt",
+                                        style: TextStyle(
+                                          fontFamily: 'SFProDisplay',
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                            color: AppColors.green50,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        height: 20,
+                                        width: 80,
+                                        child: Center(
+                                          child: Text(
+                                            _item!.prices!.isNotEmpty
+                                                ? NumberFormat.currency(
+                                                        decimalDigits: 0,
+                                                        locale: 'vi_VN')
+                                                    .format(_item!
+                                                        .prices!.first.price)
+                                                    .toString()
+                                                : "Liên hệ",
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.greenTextColor,
+                                                fontFamily: 'SFProDisplay'),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: AppColors.grey400,
+                                  thickness: 1,
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Mô tả chi tiết',
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                            fontFamily: 'SFProDisplay'),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: ReadMoreText(
+                                    _item!.description.toString(),
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.blackTextColor,
+                                      fontFamily: 'SFProDisplay',
+                                    ),
+                                    trimLines: 5,
+                                    colorClickableText: AppColors.blueTextColor,
+                                    trimMode: TrimMode.Line,
+                                    trimCollapsedText: ' Read more',
+                                    trimExpandedText: ' Show less',
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -148,168 +289,9 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                   ),
                 ],
               ),
-              bottomSheet: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.whiteTextColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15.r),
-                        topRight: Radius.circular(15.r),
-                      ),
-                      boxShadow: const [
-                        BoxShadow(
-                          offset: Offset(0, 1),
-                          blurRadius: 50,
-                          color: AppColors.unselectedBtn,
-                        )
-                      ]),
-                  height: 390.h,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                "182 lượt đặt",
-                                style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              const Spacer(),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white10,
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        offset: Offset(0, 5),
-                                        blurRadius: 10,
-                                        color: AppColors.green50,
-                                      )
-                                    ]),
-                                child: Text(
-                                  _item!.prices!.isNotEmpty
-                                      ? NumberFormat.currency(
-                                              decimalDigits: 0, locale: 'vi_VN')
-                                          .format(_item!.prices!.first.price)
-                                          .toString()
-                                      : "Liên hệ",
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.greenTextColor,
-                                      fontFamily: 'SFProDisplay'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Divider(
-                          color: AppColors.grey400,
-                          thickness: 1,
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Mô tả chi tiết',
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
-                                    fontFamily: 'SFProDisplay'),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            child: ReadMoreText(
-                              _item!.description.toString(),
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.blackTextColor,
-                                fontFamily: 'SFProDisplay',
-                              ),
-                              trimLines: 5,
-                              colorClickableText: AppColors.blueTextColor,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: ' Read more',
-                              trimExpandedText: ' Show less',
-                            ),
-                          ),
-                        ),
-                        // Row(
-                        //   children: [
-                        //     Text(
-                        //       'Đánh giá',
-                        //       style: TextStyle(
-                        //           fontSize: 17.sp,
-                        //           fontWeight: FontWeight.w900,
-                        //           color: AppColors.blackTextColor,
-                        //           fontFamily: 'SFProDisplay'),
-                        //     )
-                        //   ],
-                        // ),
-                        // SizedBox(
-                        //   height: 20.h,
-                        // ),
-                        // SizedBox(
-                        //   width: 343.w,
-                        //   height: 80.h,
-                        //   child: Column(
-                        //     children: [
-                        //       Align(
-                        //         alignment: Alignment.topLeft,
-                        //         child: ReadMoreText(
-                        //           'We are a family owned auto repair service center which offers complete automotive repairs on all makes and models of vehicles. Our technicians are ASE Certified and Washington State Emissions Certified. We have ….read more',
-                        //           style: TextStyle(
-                        //             fontSize: 13.sp,
-                        //             fontWeight: FontWeight.w600,
-                        //             color: AppColors.blackTextColor,
-                        //             fontFamily: 'SFProDisplay',
-                        //           ),
-                        //           trimLines: 3,
-                        //           colorClickableText: AppColors.blueTextColor,
-                        //           trimMode: TrimMode.Line,
-                        //           trimCollapsedText: ' Read more',
-                        //           trimExpandedText: ' Show less',
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        SizedBox(
-                          height: 40.h,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 10, right: 10),
-                          child: MoveToAnotherApp(),
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              bottomNavigationBar: const Padding(
+                padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+                child: MoveToAnotherApp(),
               ),
             ),
     );
