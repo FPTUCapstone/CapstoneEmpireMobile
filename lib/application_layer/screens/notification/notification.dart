@@ -77,7 +77,7 @@ class _NotificationPageState extends State<NotificationPage> {
         centerTitle: true,
         title: const Text('Thông báo',
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.black,
@@ -181,7 +181,7 @@ class _NotificationChipState extends State<NotificationChip> {
           title: Text(
             widget.title,
             style: const TextStyle(
-                fontFamily: 'SFProDisplay',
+                fontFamily: 'Roboto',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blackTextColor
@@ -195,7 +195,7 @@ class _NotificationChipState extends State<NotificationChip> {
                 const SizedBox(height: 5),
                 Text(widget.message,
                     style: const TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: AppColors.lightTextColor
@@ -207,7 +207,7 @@ class _NotificationChipState extends State<NotificationChip> {
                         .substring(0, 16)
                         .replaceAll("T", ", "),
                     style: const TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color: AppColors.lightTextColor

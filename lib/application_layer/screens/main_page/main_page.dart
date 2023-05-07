@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
                               child: Text(
                                 "Trang chủ",
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 7.sp,
                                   fontWeight: FontWeight.w700,
                                   color: currentTab == 1
@@ -119,7 +119,7 @@ class _MainPageState extends State<MainPage> {
                               child: Text(
                                 "Hoạt động",
                                  style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 7.sp,
                                   fontWeight: FontWeight.w700,
                                   color: currentTab == 2
@@ -186,7 +186,7 @@ class _MainPageState extends State<MainPage> {
                               child: Text(
                                 "Chẩn đoán",
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 7.sp,
                                   fontWeight: FontWeight.w700,
                                   color: currentTab == 3
@@ -226,7 +226,7 @@ class _MainPageState extends State<MainPage> {
                               child: Text(
                                 "Cá nhân",
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 7.sp,
                                   fontWeight: FontWeight.w700,
                                   color: currentTab == 4

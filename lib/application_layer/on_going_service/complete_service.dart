@@ -95,7 +95,7 @@ class _CompleteServiceState extends State<CompleteService> {
                 Text(
                   "Chúc mừng",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -106,7 +106,7 @@ class _CompleteServiceState extends State<CompleteService> {
                   child: Text(
                     "Xe của bạn đã được sửa xong",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.blackTextColor,
@@ -132,7 +132,7 @@ class _CompleteServiceState extends State<CompleteService> {
                   child: Text(
                     'Lấy mã QR để check-out',
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -151,7 +151,7 @@ class _CompleteServiceState extends State<CompleteService> {
                   child: Text(
                     "Tóm tắt đơn hàng",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -207,7 +207,7 @@ class _CompleteServiceState extends State<CompleteService> {
                                               .name
                                               .toString(),
                                           style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
+                                            fontFamily: 'Roboto',
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.blackTextColor,
@@ -222,7 +222,7 @@ class _CompleteServiceState extends State<CompleteService> {
                                                 .name
                                                 .toString(),
                                             style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
+                                              fontFamily: 'Roboto',
                                               fontSize: 12.sp,
                                               fontWeight: FontWeight.w400,
                                               color: AppColors.grey600,
@@ -250,7 +250,7 @@ class _CompleteServiceState extends State<CompleteService> {
                                     title: Text(
                                       'Ghi chú của kỹ thuật viên',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.blackTextColor,
@@ -284,7 +284,7 @@ class _CompleteServiceState extends State<CompleteService> {
                 //     Text(
                 //       "Tổng tạm tính",
                 //       style: TextStyle(
-                //         fontFamily: 'SFProDisplay',
+                //         fontFamily: 'Roboto',
                 //         fontSize: 16.sp,
                 //         fontWeight: FontWeight.w600,
                 //         color: AppColors.blackTextColor,
@@ -294,7 +294,7 @@ class _CompleteServiceState extends State<CompleteService> {
                 //     Text(
                 //       sum.toString(),
                 //       style: TextStyle(
-                //         fontFamily: 'SFProDisplay',
+                //         fontFamily: 'Roboto',
                 //         fontSize: 16.sp,
                 //         fontWeight: FontWeight.w600,
                 //         color: AppColors.blackTextColor,
@@ -309,7 +309,7 @@ class _CompleteServiceState extends State<CompleteService> {
                 //       Text(
                 //         "Phí đặt lịch",
                 //         style: TextStyle(
-                //           fontFamily: 'SFProDisplay',
+                //           fontFamily: 'Roboto',
                 //           fontSize: 12.sp,
                 //           fontWeight: FontWeight.w500,
                 //           color: Colors.red,
@@ -319,7 +319,7 @@ class _CompleteServiceState extends State<CompleteService> {
                 //       Text(
                 //         prepaid.toString(),
                 //         style: TextStyle(
-                //           fontFamily: 'SFProDisplay',
+                //           fontFamily: 'Roboto',
                 //           fontSize: 12.sp,
                 //           fontWeight: FontWeight.w500,
                 //           color: Colors.red,
@@ -335,7 +335,7 @@ class _CompleteServiceState extends State<CompleteService> {
                       Text(
                         "Đã thanh toán",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -345,7 +345,7 @@ class _CompleteServiceState extends State<CompleteService> {
                       Text(
                         sum.toString(),
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -375,7 +375,7 @@ class _CompleteServiceState extends State<CompleteService> {
                         "  Xem thêm chi tiết",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blueTextColor,
@@ -387,7 +387,7 @@ class _CompleteServiceState extends State<CompleteService> {
                     Text(
                       "Kết quả chuẩn đoán",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blackTextColor,
@@ -400,7 +400,7 @@ class _CompleteServiceState extends State<CompleteService> {
                       _orderServicesResponseModel!.healthCarRecord!.symptom
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.blackTextColor,
@@ -426,7 +426,7 @@ class _CompleteServiceState extends State<CompleteService> {
                       title: Text(
                         _orderServicesResponseModel!.expert!.fullname,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.lightTextColor,
@@ -440,7 +440,7 @@ class _CompleteServiceState extends State<CompleteService> {
                             Text(
                               "Kỹ thuật viên",
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -482,7 +482,7 @@ class _CompleteServiceState extends State<CompleteService> {
                       title: Text(
                         _orderServicesResponseModel!.car.carBrand,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.lightTextColor,
@@ -499,7 +499,7 @@ class _CompleteServiceState extends State<CompleteService> {
                             Text(
                               _orderServicesResponseModel!.car.carLisenceNo,
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -511,7 +511,7 @@ class _CompleteServiceState extends State<CompleteService> {
                             Text(
                               _orderServicesResponseModel!.car.carModel,
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.lightTextColor,

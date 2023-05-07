@@ -47,7 +47,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                       child: Text(
                         "Lịch sử hoạt động",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
@@ -106,7 +106,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                 title: Text(
                                   "Hoàn thành",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.green,
@@ -122,7 +122,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                       Text(
                                         "Dịch vụ cho",
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.blackTextColor,
@@ -134,7 +134,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                       Text(
                                         "59D - 123.45",
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.blackTextColor,
@@ -146,7 +146,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                       Text(
                                         "22/01/2023, 7:30",
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.lightTextColor,
@@ -159,7 +159,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                                 trailing: Text(
                                   "1.000.000",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.blackTextColor,

@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 28.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
-                          fontFamily: 'SFProDisplay'),
+                          fontFamily: 'Roboto'),
                     ),
                     SizedBox(
                       height: 50.h,
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.blackTextColor,
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                       ),
                     ),
                     SizedBox(
@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Text(
                     //   "Số điện thoại",
                     //   style: TextStyle(
-                    //     fontFamily: 'SFProDisplay',
+                    //     fontFamily: 'Roboto',
                     //     fontSize: 17.sp,
                     //     fontWeight: FontWeight.w400,
                     //     color: AppColors.lightTextColor,
@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(16)),
                             hintText: "Nhập số điện thoại của bạn",
                             hintStyle: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                             ),
@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Text(
                                     'Nhận mã OTP',
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w600,
                                     ),

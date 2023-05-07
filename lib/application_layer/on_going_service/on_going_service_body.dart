@@ -25,7 +25,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
         Text(
           "Kỹ thuật viên đang kiểm tra",
           style: TextStyle(
-            fontFamily: 'SFProDisplay',
+            fontFamily: 'Roboto',
             fontSize: 20.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.blackTextColor,
@@ -36,7 +36,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
           child: Text(
             "Bạn sẽ nhận được thông báo và gợi ý những dịch vụ sau khi kiểm tra hoàn tất.",
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
               color: AppColors.blackTextColor,
@@ -58,7 +58,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                 ? "Chưa có kỹ thuật viên"
                 : widget.expert!.fullname,
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: AppColors.lightTextColor,
@@ -72,7 +72,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                 Text(
                   "Kỹ thuật viên",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -112,7 +112,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
           title: Text(
             widget.order.car.carBrand,
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: AppColors.lightTextColor,
@@ -129,7 +129,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                 Text(
                   widget.order.car.carLisenceNo,
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -141,7 +141,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                 Text(
                   widget.order.car.carModel,
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.lightTextColor,

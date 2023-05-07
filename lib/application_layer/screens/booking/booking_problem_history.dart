@@ -74,7 +74,7 @@ class _BookingProblemHistoryState extends State<BookingProblemHistory> {
               centerTitle: true,
               title: Text(_carProfile!.carLicenseNo.toString(),
                   style: const TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                     color: Colors.black,
@@ -100,7 +100,7 @@ class _BookingProblemHistoryState extends State<BookingProblemHistory> {
                                 child: Text(
                                   "Vấn đề chưa sửa",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w800,
                                   ),
@@ -111,7 +111,7 @@ class _BookingProblemHistoryState extends State<BookingProblemHistory> {
                                 child: Text(
                                   "Lịch sử sửa chữa",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w800,
                                   ),

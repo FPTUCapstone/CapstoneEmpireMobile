@@ -61,7 +61,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
           child: Text(
             "Mã hóa đơn: #${widget.order.code}",
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
               color: AppColors.lightTextColor,
@@ -92,7 +92,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                 // Text(
                 //   '${widget.order.car.carBrand} ${widget.order.car.carModel} ',
                 //   style: TextStyle(
-                //     fontFamily: 'SFProDisplay',
+                //     fontFamily: 'Roboto',
                 //     fontSize: 12.sp,
                 //     fontWeight: FontWeight.w400,
                 //     color: AppColors.lightTextColor,
@@ -101,7 +101,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                 Text(
                   '${widget.order.car.carLisenceNo} ',
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.lightTextColor,
@@ -110,7 +110,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                 Text(
                   "\u2022 ${widget.order.order.user.fullname}",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
@@ -129,7 +129,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
             Text(
               "Phụ trách bởi :",
               style: TextStyle(
-                fontFamily: 'SFProDisplay',
+                fontFamily: 'Roboto',
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w400,
                 color: AppColors.lightTextColor,
@@ -141,7 +141,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
             Text(
               _expert == null ? "Chưa có kỹ thuật viên" : _expert!.fullname,
               style: TextStyle(
-                fontFamily: 'SFProDisplay',
+                fontFamily: 'Roboto',
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blackTextColor,

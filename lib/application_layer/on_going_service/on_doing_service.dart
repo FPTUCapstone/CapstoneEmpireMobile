@@ -95,7 +95,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                 Text(
                   "Kỹ thuật viên đang thực hiện",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -106,7 +106,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   child: Text(
                     " Bạn sẽ nhận được thông báo sau khi sữa chữa hoàn tất",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.blackTextColor,
@@ -127,7 +127,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   child: Text(
                     "Tóm tắt đơn hàng",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -183,7 +183,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                                               .name
                                               .toString(),
                                           style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
+                                            fontFamily: 'Roboto',
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.blackTextColor,
@@ -198,7 +198,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                                                 .name
                                                 .toString(),
                                             style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
+                                              fontFamily: 'Roboto',
                                               fontSize: 12.sp,
                                               fontWeight: FontWeight.w400,
                                               color: AppColors.grey600,
@@ -232,7 +232,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                                     title: Text(
                                       'Ghi chú của kỹ thuật viên',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.blackTextColor,
@@ -266,7 +266,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                 //     Text(
                 //       "Tổng tạm tính",
                 //       style: TextStyle(
-                //         fontFamily: 'SFProDisplay',
+                //         fontFamily: 'Roboto',
                 //         fontSize: 16.sp,
                 //         fontWeight: FontWeight.w600,
                 //         color: AppColors.blackTextColor,
@@ -276,7 +276,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                 //     Text(
                 //       sum.toString(),
                 //       style: TextStyle(
-                //         fontFamily: 'SFProDisplay',
+                //         fontFamily: 'Roboto',
                 //         fontSize: 16.sp,
                 //         fontWeight: FontWeight.w600,
                 //         color: AppColors.blackTextColor,
@@ -291,7 +291,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                 //       Text(
                 //         "Phí đặt lịch",
                 //         style: TextStyle(
-                //           fontFamily: 'SFProDisplay',
+                //           fontFamily: 'Roboto',
                 //           fontSize: 12.sp,
                 //           fontWeight: FontWeight.w500,
                 //           color: Colors.red,
@@ -301,7 +301,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                 //       Text(
                 //         prepaid.toString(),
                 //         style: TextStyle(
-                //           fontFamily: 'SFProDisplay',
+                //           fontFamily: 'Roboto',
                 //           fontSize: 12.sp,
                 //           fontWeight: FontWeight.w500,
                 //           color: Colors.red,
@@ -317,7 +317,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       Text(
                         "Đã thanh toán",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -329,7 +329,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                             .format(sum)
                             .toString(),
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
@@ -359,7 +359,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                         "  Xem thêm chi tiết",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blueTextColor,
@@ -371,7 +371,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                     Text(
                       "Kết quả chuẩn đoán",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blackTextColor,
@@ -384,7 +384,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       _orderServicesResponseModel!.healthCarRecord!.symptom
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.blackTextColor,
@@ -410,7 +410,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       title: Text(
                         _orderServicesResponseModel!.expert!.fullname,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.lightTextColor,
@@ -424,7 +424,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                             Text(
                               "Kỹ thuật viên",
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -466,7 +466,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       title: Text(
                         _orderServicesResponseModel!.car.carBrand,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.lightTextColor,
@@ -483,7 +483,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                             Text(
                               _orderServicesResponseModel!.car.carLisenceNo,
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -495,7 +495,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                             Text(
                               _orderServicesResponseModel!.car.carModel,
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.lightTextColor,

@@ -80,7 +80,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 12,
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -101,7 +101,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blackTextColor,
-                        fontFamily: 'SFProDisplay'),
+                        fontFamily: 'Roboto'),
                   ),
                 ),
                 Container(
@@ -116,7 +116,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                       style: const TextStyle(
                         color: AppColors.greenTextColor,
                         fontSize: 10,
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -154,7 +154,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w800,
                       color: AppColors.blackTextColor,
-                      fontFamily: 'SFProDisplay'),
+                      fontFamily: 'Roboto'),
                 ),
                 SizedBox(
                   width: 3.w,
@@ -165,7 +165,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.lightTextColor,
-                      fontFamily: 'SFProDisplay'),
+                      fontFamily: 'Roboto'),
                 ),
                 const Spacer(),
                 Row(
@@ -181,7 +181,7 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColors.lightTextColor,
-                          fontFamily: 'SFProDisplay'),
+                          fontFamily: 'Roboto'),
                     ),
                   ],
                 ),

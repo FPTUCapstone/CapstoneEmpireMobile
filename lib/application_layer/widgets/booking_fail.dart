@@ -62,7 +62,7 @@ class _BookingFailedState extends State<BookingFailed> {
                   Text(
                     "Đặt lịch thất bại",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -78,7 +78,7 @@ class _BookingFailedState extends State<BookingFailed> {
                         widget.message,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
@@ -107,7 +107,7 @@ class _BookingFailedState extends State<BookingFailed> {
                           child: Text(
                             'Thử lại',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),

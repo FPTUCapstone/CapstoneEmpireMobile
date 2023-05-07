@@ -126,7 +126,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       child: Text(
                         "Thêm phương tiện",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
@@ -143,7 +143,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   Text(
                     "Biển số xe *",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -171,7 +171,7 @@ class _AddNewCarState extends State<AddNewCar> {
                             errorText: _errorText,
                           ),
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                             color: AppColors.lightTextColor,
@@ -191,7 +191,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   Text(
                     "Hãng xe *",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -220,7 +220,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                 hintText: "Nhập hãng xe",
                                 errorText: _errorBrandText),
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
@@ -261,7 +261,7 @@ class _AddNewCarState extends State<AddNewCar> {
                   Text(
                     "Dòng xe",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -290,7 +290,7 @@ class _AddNewCarState extends State<AddNewCar> {
                               hintText: "Nhập dòng xe",
                             ),
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
@@ -360,7 +360,7 @@ class _AddNewCarState extends State<AddNewCar> {
                                         title: Text(
                                           "Success To Add new car",
                                           style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
+                                              fontFamily: 'Roboto',
                                               fontSize: 15.sp,
                                               fontWeight: FontWeight.w600,
                                               color: AppColors.blueTextColor),
@@ -392,7 +392,7 @@ class _AddNewCarState extends State<AddNewCar> {
                           child: Text(
                             'Xác nhận',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w600,
                             ),

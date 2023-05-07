@@ -114,7 +114,7 @@ class _SearchPageState extends State<SearchPage> {
         centerTitle: true,
         title: const Text('Tìm kiếm',
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.black,
@@ -175,7 +175,7 @@ class _SearchPageState extends State<SearchPage> {
                                       'Tìm kiếm gần đây',
                                       style: TextStyle(
                                         fontSize: 16,
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -186,7 +186,7 @@ class _SearchPageState extends State<SearchPage> {
                                               "Xóa tất cả",
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  fontFamily: 'SFProDisplay',
+                                                  fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.w400,
                                                   color: Colors.red),
                                             ),
@@ -204,7 +204,7 @@ class _SearchPageState extends State<SearchPage> {
                                         search,
                                         style: const TextStyle(
                                           fontSize: 16,
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
@@ -244,7 +244,7 @@ class _SearchPageState extends State<SearchPage> {
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w600,
                                   ),
                                   children: [
@@ -253,7 +253,7 @@ class _SearchPageState extends State<SearchPage> {
                                         style: const TextStyle(
                                           color: AppColors.blueTextColor,
                                           fontSize: 16,
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                         ),
                                         children: const [
@@ -262,7 +262,7 @@ class _SearchPageState extends State<SearchPage> {
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
-                                              fontFamily: 'SFProDisplay',
+                                              fontFamily: 'Roboto',
                                               fontWeight: FontWeight.w600,
                                             ),
                                           )
@@ -275,7 +275,7 @@ class _SearchPageState extends State<SearchPage> {
                                   : "0 tìm kiếm",
                               style: const TextStyle(
                                   fontSize: 16,
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blueTextColor),
                             ),
@@ -306,7 +306,7 @@ class _SearchPageState extends State<SearchPage> {
                                                     style: TextStyle(
                                                       fontSize: 20,
                                                       fontFamily:
-                                                          'SFProDisplay',
+                                                          'Roboto',
                                                       fontWeight:
                                                           FontWeight.w700,
                                                     ),
@@ -318,7 +318,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 'Rất tiếc từ khóa bạn nhập không tìm thấy, vui lòng kiểm tra lại hoặc tìm với từ khóa khác.',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                  fontFamily: 'SFProDisplay',
+                                                  fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 12,
                                                   color: Colors.black,

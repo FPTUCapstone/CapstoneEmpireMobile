@@ -144,7 +144,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
                 _getStatus(_response!.status),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'SFProDisplay',
+                  fontFamily: 'Roboto',
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   color: AppColors.blackTextColor,

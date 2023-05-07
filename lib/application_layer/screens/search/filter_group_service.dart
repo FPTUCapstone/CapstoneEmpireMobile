@@ -44,7 +44,7 @@ class _FilterGroupServiceState extends State<FilterGroupService> {
         centerTitle: true,
         title: Text(widget.filterGroupServices.name.toString(),
             style: const TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.black,

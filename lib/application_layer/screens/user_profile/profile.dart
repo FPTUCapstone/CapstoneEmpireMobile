@@ -92,7 +92,7 @@ class _UserProfileState extends State<UserProfile> {
                           child: Text(
                             "Cập nhật thông tin",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
@@ -182,7 +182,7 @@ class _UserProfileState extends State<UserProfile> {
                         Text(
                           "Họ và tên",
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
@@ -217,14 +217,14 @@ class _UserProfileState extends State<UserProfile> {
                                   hintText:
                                       _user != null ? _user!.fullname : "",
                                   hintStyle: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.lightTextColor,
                                   ),
                                 ),
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blackTextColor,
@@ -239,7 +239,7 @@ class _UserProfileState extends State<UserProfile> {
                         Text(
                           "Ngày sinh",
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
@@ -287,14 +287,14 @@ class _UserProfileState extends State<UserProfile> {
                                           FloatingLabelBehavior.always,
                                       hintText: "Nhập ngày sinh",
                                       hintStyle: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.lightTextColor,
                                       ),
                                     ),
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w400,
                                       color: AppColors.lightTextColor,
@@ -351,7 +351,7 @@ class _UserProfileState extends State<UserProfile> {
                         Text(
                           "Số điện thoại",
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
@@ -384,14 +384,14 @@ class _UserProfileState extends State<UserProfile> {
                                   hintText:
                                     _user!.phone,
                                   hintStyle: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.lightTextColor,
                                   ),
                                 ),
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.lightTextColor,
@@ -406,7 +406,7 @@ class _UserProfileState extends State<UserProfile> {
                         Text(
                           "Giới tính",
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
@@ -429,7 +429,7 @@ class _UserProfileState extends State<UserProfile> {
                                 decoration: InputDecoration(
                                   labelText: "Chọn giới tính",
                                   labelStyle: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.lightTextColor,
@@ -453,7 +453,7 @@ class _UserProfileState extends State<UserProfile> {
                                       child: Text(
                                         "Nam",
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w400,
                                           color: AppColors.blackTextColor,
@@ -464,7 +464,7 @@ class _UserProfileState extends State<UserProfile> {
                                       child: Text(
                                         "Nữ",
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w400,
                                           color: AppColors.blackTextColor,
@@ -482,7 +482,7 @@ class _UserProfileState extends State<UserProfile> {
                         Text(
                           "Email",
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
@@ -532,7 +532,7 @@ class _UserProfileState extends State<UserProfile> {
                                   hintText: _user!.email ?? "",
                                 ),
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blackTextColor,
@@ -584,7 +584,7 @@ class _UserProfileState extends State<UserProfile> {
                                 child: Text(
                                   'Cập nhật thông tin',
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                   ),

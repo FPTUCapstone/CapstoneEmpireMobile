@@ -144,7 +144,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 child: Text(
                   "Dịch vụ đã chọn",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -165,7 +165,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                             Text(
                               count.toString(),
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -174,7 +174,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                             Text(
                               "x",
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -187,7 +187,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                               _getNameOfItem(
                                   _listOrderServiceDetails[index].itemId),
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.blackTextColor,
@@ -200,7 +200,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                                   .format(_listOrderServiceDetails[index].price)
                                   .toString(),
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.blackTextColor,
@@ -221,7 +221,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     Text(
                       count.toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -230,7 +230,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     Text(
                       "x",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -242,7 +242,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     Text(
                       "Phí kiểm tra",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.blackTextColor,
@@ -254,7 +254,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           .format(prepaid)
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.blackTextColor,
@@ -273,7 +273,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     Text(
                       "Tổng tạm tính",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.blackTextColor,
@@ -285,7 +285,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           .format(sum)
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.blackTextColor,
@@ -301,7 +301,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     Text(
                       "Phí đặt lịch",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: Colors.red,
@@ -313,7 +313,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           .format(-prepaid)
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: Colors.red,
@@ -329,7 +329,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     Text(
                       "Tổng cộng",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -341,7 +341,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           .format(sumAfter)
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
@@ -374,7 +374,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                             "Xem thêm chi tiết",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blueTextColor,
@@ -395,7 +395,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     child: Text(
                       "Kết quả chuẩn đoán",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blackTextColor,
@@ -411,7 +411,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                       _orderServicesResponseModel!.healthCarRecord!.symptom
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.blackTextColor,
@@ -431,7 +431,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     title: Text(
                       _orderServicesResponseModel!.expert!.fullname,
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.lightTextColor,
@@ -445,7 +445,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           Text(
                             "Kỹ thuật viên",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
@@ -486,7 +486,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     title: Text(
                       _orderServicesResponseModel!.car.carBrand,
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.lightTextColor,
@@ -503,7 +503,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           Text(
                             _orderServicesResponseModel!.car.carLisenceNo,
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
@@ -515,7 +515,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           Text(
                             _orderServicesResponseModel!.car.carModel,
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                               color: AppColors.lightTextColor,
@@ -536,7 +536,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 child: Text(
                   "Phương thức thanh toán",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -558,7 +558,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                         Text(
                           "VNPay",
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
@@ -604,7 +604,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                         child: Text(
                           'Quay lại',
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),
@@ -631,7 +631,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                         child: Text(
                           'Tiếp tục',
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),

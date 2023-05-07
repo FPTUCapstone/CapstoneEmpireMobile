@@ -132,7 +132,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                 Text(
                   "Kết quả chuẩn đoán",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -143,7 +143,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                   _orderServicesResponseModel!.healthCarRecord!.symptom
                       .toString(),
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.blackTextColor,
@@ -162,7 +162,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                 Text(
                   "Dịch vụ gợi ý trên kết quả phân tích",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -172,7 +172,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                 Text(
                   "Bạn có thể thay đổi theo mong muốn ",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
@@ -194,7 +194,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                             Text(
                               healthCarRecordProblem.problem.name.toString(),
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -257,7 +257,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                         title: Text(
                                           item.name.toString(),
                                           style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
+                                            fontFamily: 'Roboto',
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.blackTextColor,
@@ -272,7 +272,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                               Text(
                                                 "Giá : ",
                                                 style: TextStyle(
-                                                  fontFamily: 'SFProDisplay',
+                                                  fontFamily: 'Roboto',
                                                   fontSize: 12.sp,
                                                   fontWeight: FontWeight.w400,
                                                   color:
@@ -286,7 +286,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                                     .format(item.presentPrice)
                                                     .toString(),
                                                 style: TextStyle(
-                                                  fontFamily: 'SFProDisplay',
+                                                  fontFamily: 'Roboto',
                                                   fontSize: 12.sp,
                                                   fontWeight: FontWeight.w400,
                                                   color:
@@ -326,7 +326,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     Text(
                       "Tổng tạm tính",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blackTextColor,
@@ -338,7 +338,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                           .format(_sum)
                           .toString(),
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blackTextColor,
@@ -373,7 +373,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     child: Text(
                       'Tiếp tục',
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 17.sp,
                         fontWeight: FontWeight.w600,
                       ),

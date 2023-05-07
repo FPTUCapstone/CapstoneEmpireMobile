@@ -53,7 +53,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                   Text(
                     "Đặt lịch mới",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -67,7 +67,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                       textAlign: TextAlign.left,
                       "Vui lòng chọn lịch có sẵn, chỉ đặt được lịch trong tuần này",
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.lightTextColor,
@@ -84,7 +84,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                         textAlign: TextAlign.left,
                         "Chọn ngày",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w800,
                           color: AppColors.blackTextColor,
@@ -98,7 +98,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                   DatePicker(
                     DateTime.now(),
                     dayTextStyle: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
@@ -144,7 +144,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                           child: Text(
                             'Tiếp tục',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),

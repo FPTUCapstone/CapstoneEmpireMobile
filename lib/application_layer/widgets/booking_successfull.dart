@@ -57,7 +57,7 @@ class BookingSuccessfull extends StatelessWidget {
                   Text(
                     "Đặt lịch thành công",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -73,7 +73,7 @@ class BookingSuccessfull extends StatelessWidget {
                         "Bạn đã đặt lịch thành công. Vui lòng đến trong ngày để được phục vụ.Trường hợp quý khách đến trễ sẽ bị huỷ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
@@ -108,7 +108,7 @@ class BookingSuccessfull extends StatelessWidget {
                           child: Text(
                             'Trở về trang chính',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),

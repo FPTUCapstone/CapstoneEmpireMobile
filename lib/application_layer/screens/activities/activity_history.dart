@@ -121,7 +121,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                 child: Text(
                                   "Lịch sử hoạt động",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.blackTextColor,

@@ -59,7 +59,7 @@ class Popup extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -75,7 +75,7 @@ class Popup extends StatelessWidget {
                       body,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily: 'SFProDisplay',
+                        fontFamily: 'Roboto',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
                         color: AppColors.lightTextColor,
@@ -104,7 +104,7 @@ class Popup extends StatelessWidget {
                         child: Text(
                           'Trở về trang chính',
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                           ),

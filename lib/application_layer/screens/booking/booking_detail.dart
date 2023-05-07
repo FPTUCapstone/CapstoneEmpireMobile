@@ -85,7 +85,7 @@ class _BookingDetailState extends State<BookingDetail> {
                     "Ngày ${widget.data.date!.day} tháng ${widget.data.date!.month}, ${widget.data.date!.year}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -284,7 +284,7 @@ class _BookingDetailState extends State<BookingDetail> {
                           child: Text(
                             "Mã đặt lịch : #${widget.data.code}",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
@@ -325,7 +325,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                       Text(
                                         "Đặt lịch đến ga-ra",
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.blackTextColor,
@@ -343,7 +343,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                         ? 'Đã check-in vào ${_booking!.arrivedDateTime!.replaceAll('T', " ").substring(0, 19)}'
                                         : formattedDate,
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                       color: AppColors.lightTextColor,
@@ -378,7 +378,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                     Text(
                                       "Tổng",
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.blackTextColor,
@@ -391,7 +391,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                           .format(_bookingPrice)
                                           .toString(),
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 20.sp,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.blackTextColor,
@@ -411,7 +411,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                     Text(
                                       "Ví điện tử",
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 10.sp,
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.blackTextColor,
@@ -446,7 +446,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                           Text(
                                             "Xem chi tiết thanh toán",
                                             style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
+                                              fontFamily: 'Roboto',
                                               fontSize: 12.sp,
                                               fontWeight: FontWeight.w600,
                                               color: AppColors.blueTextColor,
@@ -496,7 +496,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                   child: Text(
                                     'Phương tiện bạn đã chọn',
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                       color: AppColors.lightTextColor,
@@ -532,7 +532,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                 title: Text(
                                   widget.data.car!.carBrand.toString(),
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.lightTextColor,
@@ -548,7 +548,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                         widget.data.car!.carLisenceNo
                                             .toString(),
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.blackTextColor,
@@ -560,7 +560,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                       Text(
                                         widget.data.car!.carModel.toString(),
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.lightTextColor,
@@ -588,7 +588,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                     Text(
                                       'Tình trạng bạn đã chọn',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.lightTextColor,
@@ -625,7 +625,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                     Text(
                                       'Vấn đề bạn đã chọn',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.lightTextColor,

@@ -45,7 +45,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                 Text(
                   "Nhập mã OTP",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 28.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -60,7 +60,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                     text:
                         "Vui lòng nhập mã xác minh được gửi đến điện thoại di động của bạn ",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.blackTextColor,
@@ -70,7 +70,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                         text:
                             "+84${widget.phoneNumber.replaceRange(0, 6, "******")}",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w700,
                           color: AppColors.blackTextColor,
@@ -134,7 +134,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                               child: Text(
                                 'Xác thực',
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -176,7 +176,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           color: AppColors.blackTextColor,
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                         ),
                       ),
                     ),
@@ -200,7 +200,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           color: AppColors.blackTextColor,
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                         ),
                       ),
                     )

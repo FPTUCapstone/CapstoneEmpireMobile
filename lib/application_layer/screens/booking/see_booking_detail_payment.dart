@@ -64,7 +64,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
         centerTitle: true,
         title: const Text('Chi tiết thanh toán',
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.black,
@@ -79,7 +79,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                     padding: EdgeInsets.only(left: 24, bottom: 24, top: 24),
                     child: Text("Thanh toán",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: AppColors.grey600,
@@ -98,7 +98,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                         padding: EdgeInsets.only(left: 24, bottom: 24),
                         child: Text("Phí đặt chỗ",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
                               color: AppColors.blackTextColor,
@@ -113,7 +113,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                                 .format(_bookingPrice)
                                 .toString(),
                             style: const TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
                               color: AppColors.blackTextColor,
@@ -127,7 +127,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                         padding: EdgeInsets.only(left: 24, bottom: 24),
                         child: Text("Tổng tiền",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w600,
                               fontSize: 12,
                               color: AppColors.blackTextColor,
@@ -141,7 +141,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                                 .format(_bookingPrice)
                                 .toString(),
                             style: const TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w600,
                               fontSize: 12,
                               color: AppColors.blackTextColor,
@@ -157,7 +157,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                     padding: EdgeInsets.only(left: 24, bottom: 24),
                     child: Text("Phương thức thanh toán",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: AppColors.grey600,
@@ -182,7 +182,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                             ),
                             Text("Ví điện tử",
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
                                   color: AppColors.blackTextColor,
@@ -198,7 +198,7 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                                 .format(_bookingPrice)
                                 .toString(),
                             style: const TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
                               color: AppColors.blackTextColor,

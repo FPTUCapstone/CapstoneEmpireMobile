@@ -59,7 +59,7 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                       Text(
                         "Vấn đề chưa sửa chữa",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
@@ -73,7 +73,7 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                   Text(
                     "Vui lòng chọn vấn đề bạn muốn để đặt lịch sửa chữa",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.lightTextColor,
@@ -123,7 +123,7 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                                         Text(
                                           item.name,
                                           style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
+                                            fontFamily: 'Roboto',
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.blackTextColor,
@@ -199,7 +199,7 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                           child: Text(
                             'Đặt lịch',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w600,
                             ),

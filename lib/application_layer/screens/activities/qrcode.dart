@@ -79,7 +79,7 @@ class _QRCodePageState extends State<QRCodePage> {
         centerTitle: true,
         title: const Text('Quét mã QR Code',
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.white,
@@ -108,7 +108,7 @@ class _QRCodePageState extends State<QRCodePage> {
                           children: [
                             const Text('Đưa mã này cho nhân viên',
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
                                   color: AppColors.lightTextColor,
@@ -125,7 +125,7 @@ class _QRCodePageState extends State<QRCodePage> {
                               children: [
                                 const Text('Tự động cập nhật sau ',
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14,
                                       color: AppColors.lightTextColor,
@@ -135,7 +135,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                 ),
                                 const Text(' giây. ',
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14,
                                       color: AppColors.lightTextColor,
@@ -146,7 +146,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                   },
                                   child: const Text('Cập nhật',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         color: AppColors.blueTextColor,
@@ -195,14 +195,14 @@ class _QRCodePageState extends State<QRCodePage> {
                                   child: const ListTile(
                                     title: Text('Người đặt',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Ngày đặt',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
@@ -216,7 +216,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
                                           color: AppColors.blackTextColor,
@@ -225,7 +225,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
                                           color: AppColors.blackTextColor,
@@ -240,14 +240,14 @@ class _QRCodePageState extends State<QRCodePage> {
                                   child: const ListTile(
                                     title: Text('Số điện thoại',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Phương tiện',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
@@ -259,7 +259,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                   child: ListTile(
                                     title: Text(phone,
                                         style: const TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
                                           color: AppColors.blackTextColor,
@@ -271,7 +271,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                           textAlign: TextAlign.right,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
-                                            fontFamily: 'SFProDisplay',
+                                            fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
                                             color: AppColors.blackTextColor,

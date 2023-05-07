@@ -215,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintStyle: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.lightTextColor,
@@ -333,7 +333,7 @@ class _HomePageState extends State<HomePage> {
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,
                                       color: AppColors.blackTextColor,
-                                      fontFamily: 'SFProDisplay'),
+                                      fontFamily: 'Roboto'),
                                 ),
                                 const Spacer(),
                                 TextButton(
@@ -344,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.white100,
-                                          fontFamily: 'SFProDisplay'),
+                                          fontFamily: 'Roboto'),
                                     ))
                               ],
                             ),

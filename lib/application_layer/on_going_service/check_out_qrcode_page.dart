@@ -79,7 +79,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
         centerTitle: true,
         title: const Text('Quét mã QR Code',
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.white,
@@ -110,7 +110,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                           children: [
                             const Text('Đưa mã này cho nhân viên',
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
                                   color: AppColors.lightTextColor,
@@ -127,7 +127,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                               children: [
                                 const Text('Tự động cập nhật sau ',
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14,
                                       color: AppColors.lightTextColor,
@@ -137,7 +137,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                 ),
                                 const Text(' giây. ',
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14,
                                       color: AppColors.lightTextColor,
@@ -148,7 +148,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                   },
                                   child: const Text('Cập nhật',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         color: AppColors.blueTextColor,
@@ -197,14 +197,14 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                   child: const ListTile(
                                     title: Text('Chủ xe',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Giờ vào bãi',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
@@ -218,7 +218,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
                                           color: AppColors.blackTextColor,
@@ -227,7 +227,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
                                           color: AppColors.blackTextColor,
@@ -242,14 +242,14 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                   child: const ListTile(
                                     title: Text('Số điện thoại',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Phương tiện',
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
                                           color: AppColors.lightTextColor,
@@ -261,7 +261,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                   child: ListTile(
                                     title: Text(phone,
                                         style: const TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 16,
                                           color: AppColors.blackTextColor,
@@ -273,7 +273,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                           textAlign: TextAlign.right,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
-                                            fontFamily: 'SFProDisplay',
+                                            fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
                                             color: AppColors.blackTextColor,

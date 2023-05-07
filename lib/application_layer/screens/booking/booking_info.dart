@@ -285,7 +285,7 @@ class _BookingInfoState extends State<BookingInfo> {
                 title: Text(
                   "Đặt lịch",
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -305,7 +305,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       Text(
                         "Ngày đặt",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
@@ -336,7 +336,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                   filled: true,
                                 ),
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.lightTextColor,
@@ -352,7 +352,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           Text(
                             "Phương tiện",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
@@ -372,7 +372,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                   child: Text(
                                     "Chọn",
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w500,
                                       color: AppColors.blueTextColor,
@@ -385,7 +385,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       Text(
                         "Phương tiện được chọn",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
@@ -436,7 +436,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                         Text(
                                           "Thêm phương tiện",
                                           style: TextStyle(
-                                            fontFamily: 'SFProDisplay',
+                                            fontFamily: 'Roboto',
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.blueTextColor,
@@ -508,7 +508,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                             .first
                                             .carBrand,
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.lightTextColor,
@@ -528,7 +528,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                                   .first
                                                   .carLisenceNo,
                                               style: TextStyle(
-                                                fontFamily: 'SFProDisplay',
+                                                fontFamily: 'Roboto',
                                                 fontSize: 14.sp,
                                                 fontWeight: FontWeight.w600,
                                                 color: AppColors.blackTextColor,
@@ -545,7 +545,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                                   .first
                                                   .carModel,
                                               style: TextStyle(
-                                                fontFamily: 'SFProDisplay',
+                                                fontFamily: 'Roboto',
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.lightTextColor,
@@ -630,7 +630,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       Text(
                         "Triệu chứng",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
@@ -678,7 +678,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                     Text(
                                       "Vấn đề tái sửa chữa",
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.blackTextColor,
@@ -709,7 +709,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                               title: Text(
                                                 item.name,
                                                 style: TextStyle(
-                                                  fontFamily: 'SFProDisplay',
+                                                  fontFamily: 'Roboto',
                                                   fontSize: 14.sp,
                                                   fontWeight: FontWeight.w600,
                                                   color:
@@ -747,7 +747,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           Text(
                             "Phương thức thanh toán",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
@@ -764,7 +764,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             child: Text(
                               "Chọn",
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.blueTextColor,
@@ -776,7 +776,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       Text(
                         "Phương thức được chọn",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
@@ -814,7 +814,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             title: Text(
                               "VNPAY",
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
@@ -841,7 +841,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       Text(
                         "Thanh toán",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
@@ -855,7 +855,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           Text(
                             "Phí đặt chỗ",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
@@ -868,7 +868,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                     .format(_bookingPrice)
                                     .toString(),
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
@@ -888,7 +888,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           Text(
                             "Tổng cộng",
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
@@ -901,7 +901,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                     .format(_bookingPrice)
                                     .toString(),
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
@@ -920,7 +920,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             child: Text(
                               "**Phí đặt chỗ sẽ được khấu trừ vào hóa đơn**",
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.blackTextColor,
@@ -937,7 +937,7 @@ class _BookingInfoState extends State<BookingInfo> {
                               child: Text(
                                 "Tại sao tôi phải trả phí đặt chỗ ?",
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.blackTextColor,
@@ -989,7 +989,7 @@ class _BookingInfoState extends State<BookingInfo> {
                               child: Text(
                                 'Đặt lịch',
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w600,
                                 ),

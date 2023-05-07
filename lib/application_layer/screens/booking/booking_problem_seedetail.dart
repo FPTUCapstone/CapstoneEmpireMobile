@@ -41,7 +41,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
         centerTitle: true,
         title: const Text("59B-1231",
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.black,
@@ -63,7 +63,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                       children: const <Widget>[
                         Text('Tên vấn đề',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: Colors.black,
@@ -77,7 +77,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                       children: const <Widget>[
                         Text('Tên vấn đề',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w400,
                               fontSize: 12,
                               color: Colors.black,
@@ -102,7 +102,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                       children: const <Widget>[
                         Text('Ghi chú của kỹ thuật viên',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: Colors.black,
@@ -118,7 +118,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                           width: 310.w,
                           child: const Text('Tên vấn đề',
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
                                 color: Colors.black,
@@ -144,7 +144,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                       children: const <Widget>[
                         Text('Dịch vụ được gợi ý',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: Colors.black,
@@ -160,7 +160,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                           width: 310.w,
                           child: const Text('Những dịch  vụ đã  được gợi ý',
                               style: TextStyle(
-                                fontFamily: 'SFProDisplay',
+                                fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
                                 color: AppColors.lightTextColor,
@@ -184,7 +184,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                                 children: const <Widget>[
                                   Text('Dịch vụ được gợi ý',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
                                         color: Colors.black,
@@ -199,7 +199,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                                   Text(
                                       'Giá: Những dịch  vụ đã  được gợi ý',
                                       style: TextStyle(
-                                        fontFamily: 'SFProDisplay',
+                                        fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w400,
                                         fontSize: 12,
                                         color: AppColors.lightTextColor,

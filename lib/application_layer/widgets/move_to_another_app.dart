@@ -29,7 +29,7 @@ class MoveToAnotherApp extends StatelessWidget {
             child: Text(
               'Liên hệ',
               style: TextStyle(
-                fontFamily: 'SFProDisplay',
+                fontFamily: 'Roboto',
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),

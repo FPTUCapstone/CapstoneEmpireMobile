@@ -125,7 +125,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                         style: const TextStyle(
                                           color: AppColors.white100,
                                           fontSize: 10,
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -144,7 +144,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   child: Text(
                                     _item!.name,
                                     style: TextStyle(
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                       fontSize: 25.sp,
                                       fontWeight: FontWeight.w600,
                                       color: AppColors.whiteTextColor,
@@ -171,7 +171,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.whiteTextColor,
-                                          fontFamily: 'SFProDisplay'),
+                                          fontFamily: 'Roboto'),
                                     ),
                                   ],
                                 ),
@@ -205,7 +205,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                       Text(
                                         "182 lượt đặt",
                                         style: TextStyle(
-                                          fontFamily: 'SFProDisplay',
+                                          fontFamily: 'Roboto',
                                           fontSize: 18.sp,
                                           fontWeight: FontWeight.w400,
                                           color: AppColors.blackTextColor,
@@ -233,7 +233,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                                 fontSize: 15.sp,
                                                 fontWeight: FontWeight.w600,
                                                 color: AppColors.greenTextColor,
-                                                fontFamily: 'SFProDisplay'),
+                                                fontFamily: 'Roboto'),
                                           ),
                                         ),
                                       ),
@@ -257,7 +257,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w600,
                                             color: AppColors.blackTextColor,
-                                            fontFamily: 'SFProDisplay'),
+                                            fontFamily: 'Roboto'),
                                       )
                                     ],
                                   ),
@@ -271,7 +271,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w400,
                                       color: AppColors.blackTextColor,
-                                      fontFamily: 'SFProDisplay',
+                                      fontFamily: 'Roboto',
                                     ),
                                     trimLines: 5,
                                     colorClickableText: AppColors.blueTextColor,

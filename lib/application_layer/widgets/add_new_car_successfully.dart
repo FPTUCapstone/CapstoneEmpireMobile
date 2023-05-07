@@ -57,7 +57,7 @@ class AddNewCarSuccessfully extends StatelessWidget {
                   Text(
                     "Thêm mới xe thành công",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -73,7 +73,7 @@ class AddNewCarSuccessfully extends StatelessWidget {
                         "Bạn đã thêm mới thành công xe của mình",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
@@ -108,7 +108,7 @@ class AddNewCarSuccessfully extends StatelessWidget {
                           child: Text(
                             'Trở về trang chính',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),

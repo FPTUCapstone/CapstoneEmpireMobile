@@ -79,7 +79,7 @@ class _CarManagementState extends State<CarManagement> {
         centerTitle: true,
         title: const Text('Quản lý phương tiện',
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.black,
@@ -190,7 +190,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
           title: Text(
             widget.car.carBrand,
             style: TextStyle(
-              fontFamily: 'SFProDisplay',
+              fontFamily: 'Roboto',
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: AppColors.lightTextColor,
@@ -204,7 +204,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
                 Text(
                   widget.car.carLisenceNo,
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
@@ -216,7 +216,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
                 Text(
                   widget.car.carModel,
                   style: TextStyle(
-                    fontFamily: 'SFProDisplay',
+                    fontFamily: 'Roboto',
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColors.lightTextColor,

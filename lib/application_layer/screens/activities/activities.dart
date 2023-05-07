@@ -123,7 +123,7 @@ class _HomePageState extends State<Activities> {
                               style: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   color: AppColors.blackTextColor),
                             ),
                           ),
@@ -150,7 +150,7 @@ class _HomePageState extends State<Activities> {
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.blackTextColor,
-                                  fontFamily: 'SFProDisplay'),
+                                  fontFamily: 'Roboto'),
                             ),
                       _listOnGoing.isEmpty
                           ? Container()
@@ -226,7 +226,7 @@ class _HomePageState extends State<Activities> {
                             fontSize: 18.h,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
-                            fontFamily: 'SFProDisplay'),
+                            fontFamily: 'Roboto'),
                       ),
                       _listRecent.isEmpty
                           ? Text(
@@ -376,7 +376,7 @@ class _ActivityChipState extends State<ActivityChip> {
                           : "Còn lại ${widget.daysLeft} ngày"
                   : _getStatus(item.status as int),
           style: TextStyle(
-            fontFamily: 'SFProDisplay',
+            fontFamily: 'Roboto',
             fontSize: 10.sp,
             fontWeight: FontWeight.w700,
             color: isComplete
@@ -396,7 +396,7 @@ class _ActivityChipState extends State<ActivityChip> {
               widget.item.car!.carLisenceNo.toString(),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontFamily: 'SFProDisplay',
+                fontFamily: 'Roboto',
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blackTextColor,
@@ -409,7 +409,7 @@ class _ActivityChipState extends State<ActivityChip> {
               Text(
                 widget.date.substring(0, widget.date.length - 13),
                 style: TextStyle(
-                  fontFamily: 'SFProDisplay',
+                  fontFamily: 'Roboto',
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.lightTextColor,
@@ -420,7 +420,7 @@ class _ActivityChipState extends State<ActivityChip> {
                 ? Text(
                     widget.code,
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.lightTextColor,

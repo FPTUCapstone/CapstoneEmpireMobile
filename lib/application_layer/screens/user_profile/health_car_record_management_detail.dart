@@ -68,7 +68,7 @@ class _HealthCarRecordManagementDetailState
                 centerTitle: true,
                 title: Text(_car!.carLicenseNo,
                     style: const TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
                       color: Colors.black,
@@ -109,7 +109,7 @@ class _HealthCarRecordManagementDetailState
                                 Text(
                                   "Kết quả chuẩn đoán",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.blackTextColor,
@@ -119,7 +119,7 @@ class _HealthCarRecordManagementDetailState
                                 Text(
                                   record.symptom,
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.blackTextColor,
@@ -129,7 +129,7 @@ class _HealthCarRecordManagementDetailState
                                 Text(
                                   "Vấn đề dựa trên kết quả phân tích",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.blackTextColor,
@@ -139,7 +139,7 @@ class _HealthCarRecordManagementDetailState
                                 Text(
                                   "Danh sách sau bao gồm các dịch vụ gợi ý",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.lightTextColor,
@@ -160,7 +160,7 @@ class _HealthCarRecordManagementDetailState
                                           Text(
                                             hcrproblem.problem.name,
                                             style: TextStyle(
-                                              fontFamily: 'SFProDisplay',
+                                              fontFamily: 'Roboto',
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w600,
                                               color: AppColors.blackTextColor,
@@ -208,7 +208,7 @@ class _HealthCarRecordManagementDetailState
                                                           item.name,
                                                           style: TextStyle(
                                                             fontFamily:
-                                                                'SFProDisplay',
+                                                                'Roboto',
                                                             fontSize: 14.sp,
                                                             fontWeight:
                                                                 FontWeight.w600,
@@ -235,7 +235,7 @@ class _HealthCarRecordManagementDetailState
                                                                 style:
                                                                     TextStyle(
                                                                   fontFamily:
-                                                                      'SFProDisplay',
+                                                                      'Roboto',
                                                                   fontSize:
                                                                       12.sp,
                                                                   fontWeight:
@@ -251,7 +251,7 @@ class _HealthCarRecordManagementDetailState
                                                                 style:
                                                                     TextStyle(
                                                                   fontFamily:
-                                                                      'SFProDisplay',
+                                                                      'Roboto',
                                                                   fontSize:
                                                                       12.sp,
                                                                   fontWeight:

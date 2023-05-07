@@ -51,7 +51,7 @@ class _BookingHistoryTabState extends State<BookingHistoryTab> {
                   Text(
                     "Lịch sử sửa chữa",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.blackTextColor,
@@ -63,7 +63,7 @@ class _BookingHistoryTabState extends State<BookingHistoryTab> {
                   Text(
                     "Dưới đây là danh sách hóa đơn của phương tiện",
                     style: TextStyle(
-                      fontFamily: 'SFProDisplay',
+                      fontFamily: 'Roboto',
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.lightTextColor,
@@ -104,7 +104,7 @@ class _BookingHistoryTabState extends State<BookingHistoryTab> {
                                     .substring(0, 16)
                                     .replaceAll('T', " "),
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.blackTextColor,
@@ -117,7 +117,7 @@ class _BookingHistoryTabState extends State<BookingHistoryTab> {
                                     ? "${_carProfile!.orderServices[index].order!.transaction!.total}đ"
                                     : "Chưa thanh toán",
                                 style: TextStyle(
-                                  fontFamily: 'SFProDisplay',
+                                  fontFamily: 'Roboto',
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.lightTextColor,

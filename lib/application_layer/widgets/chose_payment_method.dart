@@ -44,7 +44,7 @@ class ChosePaymentMethod extends StatelessWidget {
                       Text(
                         "Phương thức thanh toán",
                         style: TextStyle(
-                          fontFamily: 'SFProDisplay',
+                          fontFamily: 'Roboto',
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
@@ -56,7 +56,7 @@ class ChosePaymentMethod extends StatelessWidget {
                         child: Text(
                           "Thêm mới",
                           style: TextStyle(
-                            fontFamily: 'SFProDisplay',
+                            fontFamily: 'Roboto',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColors.blueTextColor,
@@ -101,7 +101,7 @@ class ChosePaymentMethod extends StatelessWidget {
                                 Text(
                                   "VNPAY",
                                   style: TextStyle(
-                                    fontFamily: 'SFProDisplay',
+                                    fontFamily: 'Roboto',
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.blackTextColor,
@@ -145,7 +145,7 @@ class ChosePaymentMethod extends StatelessWidget {
                           child: Text(
                             'Xác nhận',
                             style: TextStyle(
-                              fontFamily: 'SFProDisplay',
+                              fontFamily: 'Roboto',
                               fontSize: 17.sp,
                               fontWeight: FontWeight.w600,
                             ),
