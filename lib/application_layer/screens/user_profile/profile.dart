@@ -77,10 +77,10 @@ class _UserProfileState extends State<UserProfile> {
           : Scaffold(
               backgroundColor: AppColors.loginScreenBackGround,
               body: SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: SingleChildScrollView(
-                    reverse: true,
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -203,9 +203,7 @@ class _UserProfileState extends State<UserProfile> {
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                        
-                                        color: AppColors.grey200
-                                      ),
+                                          color: AppColors.grey200),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -272,11 +270,10 @@ class _UserProfileState extends State<UserProfile> {
                                           )),
                                       fillColor: Colors.white,
                                       enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        
-                                        color: AppColors.grey200
-                                      ),
-                                      borderRadius: BorderRadius.circular(16)),
+                                          borderSide: const BorderSide(
+                                              color: AppColors.grey200),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(
                                               width: 3,
@@ -364,15 +361,12 @@ class _UserProfileState extends State<UserProfile> {
                           children: [
                             Expanded(
                               child: TextField(
-                                
                                 controller: _phoneNumber,
                                 keyboardType: TextInputType.phone,
-                                 decoration: InputDecoration(
+                                decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                        
-                                        color: AppColors.grey200
-                                      ),
+                                          color: AppColors.grey200),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -381,8 +375,7 @@ class _UserProfileState extends State<UserProfile> {
                                       borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
-                                  hintText:
-                                    _user!.phone,
+                                  hintText: _user!.phone,
                                   hintStyle: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 12.sp,
@@ -437,9 +430,7 @@ class _UserProfileState extends State<UserProfile> {
                                   fillColor: Colors.white,
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                        
-                                        color: AppColors.grey200
-                                      ),
+                                          color: AppColors.grey200),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -518,9 +509,7 @@ class _UserProfileState extends State<UserProfile> {
                                   fillColor: Colors.white,
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                        
-                                        color: AppColors.grey200
-                                      ),
+                                          color: AppColors.grey200),
                                       borderRadius: BorderRadius.circular(16)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -544,60 +533,69 @@ class _UserProfileState extends State<UserProfile> {
                         SizedBox(
                           height: 70.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  UpdateUserRequestModel model =
-                                      UpdateUserRequestModel(
-                                          id: _user!.id,
-                                          fullname: _user!.fullname,
-                                          email: _user!.email,
-                                          phone: _user!.phone.toString(),
-                                          roleId: _user!.roleId.toString(),
-                                          gender: _user!.gender as bool);
-                                  var response =
-                                      await UserService().updateUser(model);
-                                  if (response == null ||
-                                      response.statusCode != 204) {
-                                    log("error when update user");
-                                  } else {
-                                    // ignore: use_build_context_synchronously
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MainPage(),
-                                        ),
-                                        (route) => false);
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.buttonColor,
-                                  fixedSize: Size.fromHeight(50.w),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                child: Text(
-                                  'Cập nhật thông tin',
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                         SizedBox(
                           height: 40.h,
                         ),
                       ],
                     ),
+                  ),
+                ),
+              ),
+              bottomNavigationBar: Container(
+                height: 100,
+                decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: AppColors.grey100,style: BorderStyle.solid,width: 2)
+                    )),
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            UpdateUserRequestModel model =
+                                UpdateUserRequestModel(
+                                    id: _user!.id,
+                                    fullname: _user!.fullname,
+                                    email: _user!.email,
+                                    phone: _user!.phone.toString(),
+                                    roleId: _user!.roleId.toString(),
+                                    gender: _user!.gender as bool);
+                            var response =
+                                await UserService().updateUser(model);
+                            if (response == null ||
+                                response.statusCode != 204) {
+                              log("error when update user");
+                            } else {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainPage(),
+                                  ),
+                                  (route) => false);
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.buttonColor,
+                            fixedSize: Size.fromHeight(50.w),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: Text(
+                            'Cập nhật thông tin',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
