@@ -1,11 +1,9 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
-import 'package:empiregarage_mobile/application_layer/screens/notification/notification.dart';
 import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
 import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/homepage_service_iconbutton.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
@@ -19,6 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../common/colors.dart';
 import '../../../models/response/item.dart';
+import '../notification/notification.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -78,308 +77,338 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: AppColors.lightGrey,
             body: RefreshIndicator(
               onRefresh: refresh,
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                    height: 160.h,
-                    decoration: BoxDecoration(
-                        color: AppColors.welcomeScreenBackGround,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0.r),
-                          bottomRight: Radius.circular(0.r),
-                        )),
-                    child: Stack(
-                      children: <Widget>[
-                        SafeArea(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 24),
-                                child: Stack(
-                                  alignment: Alignment.centerLeft,
-                                  children: <Widget>[
-                                    Image.asset(
-                                      "assets/image/app-logo/homepage-icon.png",
-                                      height: 100.h,
-                                      width: 90.w,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            shape: BoxShape.rectangle,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                offset: Offset(0, 1),
-                                                blurRadius: 1,
-                                                color: AppColors.blue600,
-                                              )
-                                            ]),
-                                        child: IconButton(
-                                            onPressed: () async {
-                                              var userId = await getUserId();
-                                              if (userId == null) {
-                                                throw Exception(
-                                                    "Not found user");
-                                              }
-                                              // ignore: use_build_context_synchronously
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        NotificationPage(
-                                                          userId: userId,
-                                                        )),
-                                              );
-                                            },
-                                            icon: Badge(
-                                                backgroundColor:
-                                                    _notificationCount == 0
-                                                        ? Colors.transparent
-                                                        : AppColors.errorIcon,
-                                                label: _notificationCount > 0
-                                                    ? Text(
-                                                        _notificationCount
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      )
-                                                    : null,
-                                                child: const Icon(
-                                                  FontAwesomeIcons.bell,
-                                                  size: 20,
-                                                  color: AppColors
-                                                      .whiteButtonColor,
-                                                ))),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
+              child: SingleChildScrollView(
+                reverse: true,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      height: 160.h,
+                      decoration: BoxDecoration(
+                          image: const DecorationImage(
+                            image: AssetImage("assets/image/app-logo/homepage-background.png"),
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                        Positioned(
-                            bottom: -10,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              width: 335.w,
-                              height: 42.h,
-                              decoration: BoxDecoration(
-                                  color: AppColors.searchBarColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.r)),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      offset: Offset(0, 1),
-                                      blurRadius: 5,
-                                      color: AppColors.unselectedBtn,
-                                    )
-                                  ]),
-                              child: SizedBox(
-                                width: 104.w,
-                                height: 24.h,
-                                child: TextField(
-                                  onSubmitted: (value) {
-                                    if (value.isNotEmpty) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => SearchPage(
-                                                  searchString: value,
-                                                )),
-                                      );
-                                    }
-                                  },
-                                  //style: searchTextStyle,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintStyle: TextStyle(
-                                      fontFamily: 'SFProDisplay',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.lightTextColor,
-                                    ),
-                                    hintText: 'Tìm dịch vụ',
-                                    prefixIcon: const Icon(
-                                      FontAwesomeIcons.magnifyingGlass,
-                                      size: 24,
-                                      color: AppColors.grey400,
-                                    ),
-                                  ),
+                          color: AppColors.welcomeScreenBackGround,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0.r),
+                            bottomRight: Radius.circular(0.r),
+                          )),
+                      child: Column(
+                        children: <Widget>[
+                          SafeArea(
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 40.h,
                                 ),
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 24),
-                      child: const HomePageServiceIconButton()),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  if (_listOngoingActivity.isNotEmpty)
-                    ListTile(
-                        title: Text(
-                      "Đang hoạt động",
-                      style: AppStyles.header600(fontsize: 18.sp),
-                    )),
-                  if (_listOngoingActivity.isNotEmpty)
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w),
-                      child: SizedBox(
-                        height: 102.h * _listOngoingActivity.length,
-                        child: Center(
-                          child: ListView.builder(
-                            itemCount: _listOngoingActivity.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              var item = _listOngoingActivity[index];
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 12.h),
-                                child: InkWell(
-                                  onTap: () async {
-                                    Navigator.of(context).push(PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration:
-                                            const Duration(milliseconds: 350),
-                                        childCurrent: widget,
-                                        child: item.isBooking
-                                            ? BookingDetail(
-                                                data: item,
-                                              )
-                                            : OnGoingService(
-                                                servicesId: item.id,
-                                              )));
-                                  },
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
-                                    child: SizedBox(
-                                      height: 90.h,
-                                      child: ActivityChip(
-                                        carInfo:
-                                            '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                        date: item.date.toString(),
-                                        daysLeft: item.date != null
-                                            ? DateTime.now()
-                                                .toLocal()
-                                                .difference(
-                                                    item.date as DateTime)
-                                                .inDays
-                                            : null,
-                                        isBooking: item.isBooking,
-                                        item: item,
-                                        code: item.code != null
-                                            ? item.code.toString()
-                                            : "#########",
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 24),
+                                  child: Stack(
+                                    alignment: Alignment.centerLeft,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        "assets/image/app-logo/homepage-icon.png",
+                                        width: 135.w,
+                                        height: 50.h,
                                       ),
-                                    ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              shape: BoxShape.rectangle,
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  offset: Offset(0, 1),
+                                                  blurRadius: 0.5,
+                                                  color: AppColors.blue600,
+                                                )
+                                              ]),
+                                          child: IconButton(
+                                              onPressed: () async {
+                                                var userId = await getUserId();
+                                                if (userId == null) {
+                                                  throw Exception(
+                                                      "Not found user");
+                                                }
+                                                // ignore: use_build_context_synchronously
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          NotificationPage(
+                                                            userId: userId,
+                                                          )),
+                                                );
+                                              },
+                                              icon: Badge(
+                                                  backgroundColor:
+                                                      _notificationCount == 0
+                                                          ? Colors.transparent
+                                                          : AppColors.errorIcon,
+                                                  label: _notificationCount > 0
+                                                      ? Text(
+                                                          _notificationCount
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                        )
+                                                      : null,
+                                                  child: const ImageIcon(
+                                                    AssetImage(
+                                                        "assets/image/icon-logo/homepage-notification.png"),
+                                                    size: 20,
+                                                    color: AppColors
+                                                        .whiteButtonColor,
+                                                  ))),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                              );
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 140.h,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        width: 335.w,
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.r)),
+                            boxShadow: const [
+                              BoxShadow(
+                                offset: Offset(0, 1),
+                                blurRadius: 5,
+                                color: AppColors.unselectedBtn,
+                              )
+                            ]),
+                        child: SizedBox(
+                          width: 104.w,
+                          height: 24.h,
+                          child: TextField(
+                            keyboardType: TextInputType.text,
+                            onSubmitted: (value) {
+                              if (value.isNotEmpty) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SearchPage(
+                                            searchString: value,
+                                          )),
+                                );
+                              }
                             },
+                            //style: searchTextStyle,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                fontFamily: 'SFProDisplay',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.lightTextColor,
+                              ),
+                              hintText: 'Tìm kiếm...',
+                              prefixIcon: const Icon(
+                                FontAwesomeIcons.magnifyingGlass,
+                                size: 20,
+                                color: AppColors.grey400,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          "Dịch vụ phổ biến",
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                              fontFamily: 'SFProDisplay'),
-                        ),
-                        const Spacer(),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Xem tất cả",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.white100,
-                                  fontFamily: 'SFProDisplay'),
-                            ))
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 250.h,
-                    width: 340.w,
-                    child: ListView.separated(
-                      reverse: false,
-                      scrollDirection: Axis.horizontal,
-                      physics: const ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: _filteredItem!.length,
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          width: 15.w,
-                        );
-                      },
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ServiceDetails(
-                                      itemId: _filteredItem![index].id)),
-                            );
-                          },
-                          child: HomepageFamousService(
-                            backgroundImage: _filteredItem![index].photo,
-                            title: _filteredItem![index].name,
-                            price: _filteredItem![index].prices!.isNotEmpty
-                                ? NumberFormat.currency(
-                                        decimalDigits: 0, locale: 'vi_VN')
-                                    .format(_filteredItem![index]
-                                        .prices!
-                                        .first
-                                        .price)
-                                    .toString()
-                                : "Liên hệ",
-                            usageCount: '182',
-                            rating: '4.4',
-                            tag: _filteredItem![index].category != null
-                                ? _filteredItem![index].category!.name
-                                : "Dịch vụ",
+                    SizedBox(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 180.h,
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  )
-                ],
+                          // Container(
+                          //     margin: const EdgeInsets.symmetric(horizontal: 24),
+                          //     child: const HomePageServiceIconButton()),
+                          // SizedBox(
+                          //   height: 10.h,
+                          // ),
+                          if (_listOngoingActivity.isNotEmpty)
+                            ListTile(
+                                title: Text(
+                              "Đang hoạt động",
+                              style: AppStyles.header600(fontsize: 14.sp),
+                            )),
+                          if (_listOngoingActivity.isNotEmpty)
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: SizedBox(
+                                child: Center(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: _listOngoingActivity.length,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      var item = _listOngoingActivity[index];
+                                      return Padding(
+                                        padding: EdgeInsets.only(bottom: 16.h),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            Navigator.of(context).push(
+                                                PageTransition(
+                                                    type: PageTransitionType
+                                                        .bottomToTop,
+                                                    duration: const Duration(
+                                                        milliseconds: 350),
+                                                    childCurrent: widget,
+                                                    child: item.isBooking
+                                                        ? BookingDetail(
+                                                            data: item,
+                                                          )
+                                                        : OnGoingService(
+                                                            servicesId: item.id,
+                                                          )));
+                                          },
+                                          child: DecoratedBox(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 1.h,
+                                                    blurRadius: 1.2,
+                                                    offset: Offset(0, 4.h),
+                                                  )
+                                                ],
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(16))),
+                                            child: SizedBox(
+                                              height: 70.h,
+                                              child: ActivityChip(
+                                                carInfo:
+                                                    '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                                date: item.date.toString(),
+                                                daysLeft: item.date != null
+                                                    ? DateTime.now()
+                                                        .toLocal()
+                                                        .difference(item.date
+                                                            as DateTime)
+                                                        .inDays
+                                                    : null,
+                                                isBooking: item.isBooking,
+                                                item: item,
+                                                code: item.code != null
+                                                    ? item.code.toString()
+                                                    : "#########",
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  "Dịch vụ phổ biến",
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                      fontFamily: 'SFProDisplay'),
+                                ),
+                                const Spacer(),
+                                TextButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      "Xem tất cả",
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.white100,
+                                          fontFamily: 'SFProDisplay'),
+                                    ))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 250.h,
+                            width: 300.w,
+                            child: ListView.builder(
+                              reverse: false,
+                              scrollDirection: Axis.horizontal,
+                              physics: const ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _filteredItem!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ServiceDetails(
+                                                    itemId:
+                                                        _filteredItem![index]
+                                                            .id)),
+                                      );
+                                    },
+                                    child: HomepageFamousService(
+                                      backgroundImage:
+                                          _filteredItem![index].photo,
+                                      title: _filteredItem![index].name,
+                                      price: _filteredItem![index]
+                                              .prices!
+                                              .isNotEmpty
+                                          ? NumberFormat.currency(
+                                                  decimalDigits: 0,
+                                                  locale: 'vi_VN')
+                                              .format(_filteredItem![index]
+                                                  .prices!
+                                                  .first
+                                                  .price)
+                                              .toString()
+                                          : "Liên hệ",
+                                      usageCount: '182',
+                                      rating: '4.4',
+                                      tag: _filteredItem![index].category !=
+                                              null
+                                          ? _filteredItem![index].category!.name
+                                          : "Dịch vụ",
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );

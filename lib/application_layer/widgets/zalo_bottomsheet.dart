@@ -56,7 +56,7 @@ class ZaloBottomSheet extends StatelessWidget {
                     height: 20.h,
                   ),
                   Text(
-                    "Truy cập Zalo",
+                    "Chuyển đến Zalo",
                     style: TextStyle(
                       fontFamily: 'SFProDisplay',
                       fontSize: 18.sp,
@@ -71,7 +71,7 @@ class ZaloBottomSheet extends StatelessWidget {
                     margin: const EdgeInsets.only(left:15,right: 15),
                     child: Center(
                       child: Text(
-                        "Chuyển đến ứng dụng Zalo để được trao đổi",
+                        "Chuyển đến ứng dụng Zalo để được trao đổi ",
                         style: TextStyle(
                           fontFamily: 'SFProDisplay',
                           fontSize: 14.sp,
@@ -100,7 +100,8 @@ class ZaloBottomSheet extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: Container(
-                          margin: const EdgeInsets.only(left:20,right: 20),
+                          width: 335.w,
+                          margin: const EdgeInsets.only(left:10,right: 10),
                           child: ElevatedButton(
                             onPressed: () async {
                               var openAppResult = await LaunchApp.openApp(
@@ -118,11 +119,11 @@ class ZaloBottomSheet extends StatelessWidget {
                               backgroundColor: AppColors.buttonColor,
                               fixedSize: Size.fromHeight(50.w),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(36),
+                                borderRadius: BorderRadius.circular(16),
                               ),
                             ),
                             child: Text(
-                              'Chuyển đến Zalo',
+                              'Liên hệ',
                               style: TextStyle(
                                 fontFamily: 'SFProDisplay',
                                 fontSize: 14.sp,

@@ -143,14 +143,18 @@ class _SearchPageState extends State<SearchPage> {
                   focusedBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: AppColors.blueTextColor, width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(35))),
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColors.grey400),
-                      borderRadius: BorderRadius.all(Radius.circular(35))),
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
                   focusColor: AppColors.searchBarColor,
                   prefixIcon: Padding(
                     padding: EdgeInsets.only(left: 10),
-                    child: Icon(Icons.search,color: AppColors.blueTextColor,size: 30,),
+                    child: Icon(
+                      Icons.search,
+                      color: AppColors.blueTextColor,
+                      size: 20,
+                    ),
                   ),
                   hintText: 'Tìm kiếm...',
                 ),
@@ -205,7 +209,12 @@ class _SearchPageState extends State<SearchPage> {
                                         ),
                                       ),
                                       leading: search.isNotEmpty
-                                          ? const Icon(Icons.timer_outlined)
+                                          ? const ImageIcon(
+                                              AssetImage(
+                                                  "assets/image/icon-logo/search-clock.png"),
+                                              size: 20,
+                                              color: AppColors.lightTextColor,
+                                            )
                                           : null,
                                       horizontalTitleGap: 0,
                                       onTap: () {
@@ -293,11 +302,13 @@ class _SearchPageState extends State<SearchPage> {
                                                     MainAxisAlignment.center,
                                                 children: const [
                                                   Text(
-                                                    'Không tìm thấy',
+                                                    'Không thể tìm thấy',
                                                     style: TextStyle(
-                                                      fontSize: 24,
-                                                      fontFamily: 'SFProDisplay',
-                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: 20,
+                                                      fontFamily:
+                                                          'SFProDisplay',
+                                                      fontWeight:
+                                                          FontWeight.w700,
                                                     ),
                                                   ),
                                                 ],
@@ -309,7 +320,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 style: TextStyle(
                                                   fontFamily: 'SFProDisplay',
                                                   fontWeight: FontWeight.w400,
-                                                  fontSize: 18,
+                                                  fontSize: 12,
                                                   color: Colors.black,
                                                 )),
                                           ),
@@ -328,15 +339,16 @@ class _SearchPageState extends State<SearchPage> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       ServiceDetails(
-                                                        itemId:
-                                                            _filteredItem![index]
-                                                                .id,
+                                                        itemId: _filteredItem![
+                                                                index]
+                                                            .id,
                                                       )),
                                             ),
                                             child: SerivceCard(
                                                 backgroundImage:
                                                     _filteredItem![index].photo,
-                                                title: _filteredItem![index].name,
+                                                title:
+                                                    _filteredItem![index].name,
                                                 price: _filteredItem![index]
                                                         .prices!
                                                         .isNotEmpty

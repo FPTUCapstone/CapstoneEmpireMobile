@@ -1,5 +1,6 @@
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SerivceCard extends StatefulWidget {
   final String backgroundImage;
@@ -37,25 +38,28 @@ class _SerivceCardState extends State<SerivceCard> {
               width: double.infinity,
               height: 200,
               child: widget.backgroundImage != "null"
-                  ? ClipRRect(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.network(
-                        widget.backgroundImage,
-                        fit: BoxFit.cover,
+                  ? Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ClipRRect(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(
+                          widget.backgroundImage,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    )
+                  )
                   : Image.asset(
                       "assets/image/error-image/no-image.png",
                       fit: BoxFit.fitWidth,
                     ),
             ),
             Positioned(
-              left: 10,
-              top: 10,
+              left: 12,
+              top: 12,
               child: Container(
-                width: 100,
-                height: 40,
+                width: 80.w,
+                height: 32.h,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -64,9 +68,9 @@ class _SerivceCardState extends State<SerivceCard> {
                     widget.tag,
                     style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 14,
+                      fontSize: 12,
                       fontFamily: 'SFProDisplay',
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -78,14 +82,14 @@ class _SerivceCardState extends State<SerivceCard> {
               widget.title,
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 16,
+                fontSize: 14,
                 fontFamily: 'SFProDisplay',
                 fontWeight: FontWeight.w600,
               ),
             ),
             trailing: Container(
               decoration: const BoxDecoration(
-                  color: AppColors.searchBarColor,
+                  color: AppColors.green50,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               height: 35,
               width: 70,
@@ -94,7 +98,7 @@ class _SerivceCardState extends State<SerivceCard> {
                   widget.price,
                   style: const TextStyle(
                     color: Colors.green,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'SFProDisplay',
                     fontWeight: FontWeight.w600,
                   ),
@@ -105,7 +109,8 @@ class _SerivceCardState extends State<SerivceCard> {
           Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Divider(
-              color: Colors.grey[400],
+              thickness: 1.5,
+              color: Colors.purple[50],
             ),
           ),
           ListTile(

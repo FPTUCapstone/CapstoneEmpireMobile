@@ -362,8 +362,8 @@ class _ActivityChipState extends State<ActivityChip> {
           widget.isBooking
               ? "assets/image/icon-logo/calendar-history-icon.png"
               : "assets/image/icon-logo/homeservice-logo-maintanace.png",
-          height: 50.h,
-          width: 50.w,
+          height: 40.h,
+          width: 40.w,
         ),
         title: Text(
           isComplete
@@ -377,7 +377,7 @@ class _ActivityChipState extends State<ActivityChip> {
                   : _getStatus(item.status as int),
           style: TextStyle(
             fontFamily: 'SFProDisplay',
-            fontSize: 12.sp,
+            fontSize: 10.sp,
             fontWeight: FontWeight.w700,
             color: isComplete
                 ? AppColors.greenTextColor
@@ -393,23 +393,11 @@ class _ActivityChipState extends State<ActivityChip> {
               height: 5.h,
             ),
             Text(
-              widget.isBooking ? "Đặt lịch cho" : "Dịch vụ cho",
-              style: TextStyle(
-                fontFamily: 'SFProDisplay',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: AppColors.blackTextColor,
-              ),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
               widget.item.car!.carLisenceNo.toString(),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: 'SFProDisplay',
-                fontSize: 14.sp,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blackTextColor,
               ),
@@ -422,7 +410,7 @@ class _ActivityChipState extends State<ActivityChip> {
                 widget.date.substring(0, widget.date.length - 13),
                 style: TextStyle(
                   fontFamily: 'SFProDisplay',
-                  fontSize: 12.sp,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.lightTextColor,
                 ),

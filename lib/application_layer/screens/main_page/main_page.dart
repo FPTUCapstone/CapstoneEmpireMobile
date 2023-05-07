@@ -3,7 +3,6 @@ import 'package:empiregarage_mobile/application_layer/screens/user_profile/user_
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../widgets/pick_date_booking.dart';
 import '../activities/activities.dart';
@@ -40,7 +39,8 @@ class _MainPageState extends State<MainPage> {
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
-          height: 80.h,
+          height: 65.h,
+          width: 375.w,
           child: SizedBox(
             height: 60.h,
             child: Row(
@@ -48,13 +48,10 @@ class _MainPageState extends State<MainPage> {
               children: <Widget>[
                 //left tab bar icon
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 10.w,
-                    ),
-                    SizedBox(
-                      width: 60.w,
+                      width: 80.w,
                       height: 60.h,
                       child: MaterialButton(
                         minWidth: 60.w,
@@ -68,25 +65,38 @@ class _MainPageState extends State<MainPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              FontAwesomeIcons.compass,
+                            ImageIcon(
+                              const AssetImage(
+                                  "assets/image/icon-logo/mainpage-home.png"),
                               size: 24,
                               color: currentTab == 1
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "Trang chủ",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 7.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: currentTab == 1
+                                      ? AppColors.buttonColor
+                                      : AppColors.grey400,
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: 10.w,
-                    ),
-                    SizedBox(
-                      width: 60.w,
+                      width: 80.w,
                       height: 60.h,
                       child: MaterialButton(
-                        minWidth: 15.w,
+                        minWidth: 60.w,
+                        height: 60.h,
                         onPressed: () {
                           setState(() {
                             currentScreen = const Activities();
@@ -96,24 +106,36 @@ class _MainPageState extends State<MainPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              FontAwesomeIcons.fileLines,
+                            ImageIcon(
+                              const AssetImage(
+                                  "assets/image/icon-logo/mainpage-activity.png"),
                               size: 24,
                               color: currentTab == 2
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "Hoạt động",
+                                 style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 7.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: currentTab == 2
+                                      ? AppColors.buttonColor
+                                      : AppColors.grey400,
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
                     Builder(builder: (context) {
                       return SizedBox(
-                        height: 60.h,
-                        width: 60.w,
+                        height: 50.h,
+                        width: 50.w,
                         child: MaterialButton(
                           minWidth: 60.w,
                           height: 60.h,
@@ -127,22 +149,19 @@ class _MainPageState extends State<MainPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
-                              Icon(
-                                FontAwesomeIcons.calendarPlus,
-                                color: Colors.white,
-                                size: 30,
-                              ),
+                              ImageIcon(
+                                  AssetImage(
+                                      "assets/image/icon-logo/mainpage-booking.png"),
+                                  size: 30,
+                                  color: Colors.white),
                             ],
                           ),
                         ),
                       );
                     }),
                     SizedBox(
-                      width: 10.w,
-                    ),
-                    SizedBox(
                       height: 60.h,
-                      width: 60.w,
+                      width: 80.w,
                       child: MaterialButton(
                         minWidth: 60.w,
                         onPressed: () {
@@ -154,23 +173,35 @@ class _MainPageState extends State<MainPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.receipt_outlined,
-                              size: 30,
+                            ImageIcon(
+                              const AssetImage(
+                                  "assets/image/icon-logo/mainpage-diagnose.png"),
+                              size: 24,
                               color: currentTab == 3
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "Chẩn đoán",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 7.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: currentTab == 3
+                                      ? AppColors.buttonColor
+                                      : AppColors.grey400,
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: 10.w,
-                    ),
-                    SizedBox(
                       height: 60.h,
-                      width: 60.w,
+                      width: 70.w,
                       child: MaterialButton(
                         minWidth: 60.w,
                         onPressed: () async {
@@ -182,13 +213,28 @@ class _MainPageState extends State<MainPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              FontAwesomeIcons.user,
+                            ImageIcon(
+                              const AssetImage(
+                                  "assets/image/icon-logo/mainpage-profile.png"),
                               size: 24,
                               color: currentTab == 4
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "Cá nhân",
+                                style: TextStyle(
+                                  fontFamily: 'SFProDisplay',
+                                  fontSize: 7.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: currentTab == 4
+                                      ? AppColors.buttonColor
+                                      : AppColors.grey400,
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
