@@ -94,8 +94,7 @@ class _QRCodePageState extends State<QRCodePage> {
                 String name = _booking!.user.fullname;
                 String date = _booking!.date.substring(0, 10);
                 String phone = _booking!.user.phone;
-                String car =
-                    ' ${_booking!.car.carLisenceNo}';
+                String car = ' ${_booking!.car.carLisenceNo}';
                 return _qrCodeData != null
                     ? Container(
                         height: 450.h,

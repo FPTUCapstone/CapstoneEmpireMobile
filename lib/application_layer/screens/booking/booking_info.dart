@@ -17,10 +17,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 
 import '../../../common/colors.dart';
-import '../../../models/notification.dart';
 import '../../../models/request/payment_request_model.dart';
 import '../../../services/booking_service/booking_service.dart';
-import '../../../services/notification/notification_service.dart';
 import '../../../services/payment_services/payment_services.dart';
 import '../../widgets/booking_fail.dart';
 import '../../widgets/booking_successfull.dart';
@@ -224,14 +222,14 @@ class _BookingInfoState extends State<BookingInfo> {
     if (response != null) {
       sendNotification(18, "Có đặt lịch mới #${response.code}",
           "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
-      var userId = await getUserId();
-      sendNotification(
-          userId!, "Empire Garage", "Bạn vừa đặt lịch kiểm tra xe thành công");
-      var notificationModel = NotificationModel(
-          isAndroiodDevice: true,
-          title: "Empire Garage",
-          body: "Your booking has been created successful");
-      await NotificationService().sendNotification(notificationModel);
+      // var userId = await getUserId();
+      // sendNotification(
+      //     userId!, "Empire Garage", "Bạn vừa đặt lịch kiểm tra xe thành công");
+      // var notificationModel = NotificationModel(
+      //     isAndroiodDevice: true,
+      //     title: "Empire Garage",
+      //     body: "Your booking has been created successful");
+      // await NotificationService().sendNotification(notificationModel);
       setState(() {
         _loading = true;
       });
