@@ -25,18 +25,22 @@ class AppStyles {
   }
 
   static InputDecoration textbox12(
-      {String hintText = "Nhập", hintTextColor = const Color.fromARGB(255, 158, 168, 158), Icon? suffixIcon}) {
+      {String hintText = "Nhập",
+      hintTextColor = const Color.fromARGB(255, 158, 168, 158),
+      Icon? suffixIcon,
+      String? errorText}) {
     return InputDecoration(
         hintText: hintText,
-        hintStyle:
-            AppStyles.text400(fontsize: 12.sp, color: hintTextColor),
+        hintStyle: AppStyles.text400(fontsize: 12.sp, color: hintTextColor),
         focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(color: AppColors.blue600, width: 2)),
         border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(color: Colors.grey.shade200)),
-        suffixIcon: suffixIcon);
+        suffixIcon: suffixIcon,
+        errorText: errorText
+        );
   }
 
   static ButtonStyle button16() {
