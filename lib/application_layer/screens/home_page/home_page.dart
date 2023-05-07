@@ -5,7 +5,6 @@ import 'package:empiregarage_mobile/application_layer/screens/search/search.dart
 import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
-import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
@@ -85,7 +84,8 @@ class _HomePageState extends State<HomePage> {
                       height: 160.h,
                       decoration: BoxDecoration(
                           image: const DecorationImage(
-                            image: AssetImage("assets/image/app-logo/homepage-background.png"),
+                            image: AssetImage(
+                                "assets/image/app-logo/homepage-background.png"),
                             fit: BoxFit.cover,
                           ),
                           color: AppColors.welcomeScreenBackGround,
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         width: 335.w,
-                        height: 45.h,
+                        height: 40.h,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius:
@@ -233,6 +233,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
                             height: 180.h,
@@ -244,16 +245,26 @@ class _HomePageState extends State<HomePage> {
                           //   height: 10.h,
                           // ),
                           if (_listOngoingActivity.isNotEmpty)
-                            ListTile(
-                                title: Text(
-                              "Đang hoạt động",
-                              style: AppStyles.header600(fontsize: 14.sp),
-                            )),
-                          if (_listOngoingActivity.isNotEmpty)
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: SizedBox(
-                                child: Center(
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 20.w, top: 10),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Đang hoạt động",
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                            fontFamily: 'Roboto'),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: _listOngoingActivity.length,
@@ -321,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                                     },
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 24),
@@ -350,7 +361,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           SizedBox(
-                            height: 250.h,
+                            height: 260.h,
                             width: 300.w,
                             child: ListView.builder(
                               reverse: false,
