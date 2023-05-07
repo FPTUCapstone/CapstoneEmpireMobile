@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
-          height: 65.h,
+          height: 50.h,
           width: 375.w,
           child: SizedBox(
             height: 60.h,
@@ -51,7 +51,6 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 80.w,
                       height: 60.h,
                       child: MaterialButton(
                         minWidth: 60.w,
@@ -68,19 +67,19 @@ class _MainPageState extends State<MainPage> {
                             ImageIcon(
                               const AssetImage(
                                   "assets/image/icon-logo/mainpage-home.png"),
-                              size: 24,
+                              size: 20,
                               color: currentTab == 1
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 5),
                               child: Text(
                                 "Trang chủ",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
-                                  fontSize: 7.sp,
-                                  fontWeight: FontWeight.w700,
+                                  fontSize: 8.sp,
+                                  fontWeight: currentTab == 1 ? FontWeight.w700 : FontWeight.w400,
                                   color: currentTab == 1
                                       ? AppColors.buttonColor
                                       : AppColors.grey400,
@@ -92,7 +91,6 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     SizedBox(
-                      width: 80.w,
                       height: 60.h,
                       child: MaterialButton(
                         minWidth: 60.w,
@@ -109,19 +107,19 @@ class _MainPageState extends State<MainPage> {
                             ImageIcon(
                               const AssetImage(
                                   "assets/image/icon-logo/mainpage-activity.png"),
-                              size: 24,
+                              size: 20,
                               color: currentTab == 2
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 5),
                               child: Text(
                                 "Hoạt động",
                                  style: TextStyle(
                                   fontFamily: 'Roboto',
-                                  fontSize: 7.sp,
-                                  fontWeight: FontWeight.w700,
+                                  fontSize: 8.sp,
+                                  fontWeight: currentTab == 2 ? FontWeight.w700 : FontWeight.w400,
                                   color: currentTab == 2
                                       ? AppColors.buttonColor
                                       : AppColors.grey400,
@@ -134,8 +132,8 @@ class _MainPageState extends State<MainPage> {
                     ),
                     Builder(builder: (context) {
                       return SizedBox(
-                        height: 50.h,
-                        width: 50.w,
+                        height: 45.h,
+                        width: 45.w,
                         child: MaterialButton(
                           minWidth: 60.w,
                           height: 60.h,
@@ -152,7 +150,7 @@ class _MainPageState extends State<MainPage> {
                               ImageIcon(
                                   AssetImage(
                                       "assets/image/icon-logo/mainpage-booking.png"),
-                                  size: 30,
+                                  size: 25,
                                   color: Colors.white),
                             ],
                           ),
@@ -161,7 +159,6 @@ class _MainPageState extends State<MainPage> {
                     }),
                     SizedBox(
                       height: 60.h,
-                      width: 80.w,
                       child: MaterialButton(
                         minWidth: 60.w,
                         onPressed: () {
@@ -176,19 +173,19 @@ class _MainPageState extends State<MainPage> {
                             ImageIcon(
                               const AssetImage(
                                   "assets/image/icon-logo/mainpage-diagnose.png"),
-                              size: 24,
+                              size: 20,
                               color: currentTab == 3
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 5),
                               child: Text(
                                 "Chẩn đoán",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
-                                  fontSize: 7.sp,
-                                  fontWeight: FontWeight.w700,
+                                  fontSize: 8.sp,
+                                  fontWeight: currentTab == 3 ? FontWeight.w700 : FontWeight.w400,
                                   color: currentTab == 3
                                       ? AppColors.buttonColor
                                       : AppColors.grey400,
@@ -201,7 +198,6 @@ class _MainPageState extends State<MainPage> {
                     ),
                     SizedBox(
                       height: 60.h,
-                      width: 70.w,
                       child: MaterialButton(
                         minWidth: 60.w,
                         onPressed: () async {
@@ -216,19 +212,19 @@ class _MainPageState extends State<MainPage> {
                             ImageIcon(
                               const AssetImage(
                                   "assets/image/icon-logo/mainpage-profile.png"),
-                              size: 24,
+                              size: 20,
                               color: currentTab == 4
                                   ? AppColors.buttonColor
                                   : AppColors.grey400,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.only(top: 5),
                               child: Text(
-                                "Cá nhân",
+                                "Tài khoản",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
-                                  fontSize: 7.sp,
-                                  fontWeight: FontWeight.w700,
+                                  fontSize: 8.sp,
+                                  fontWeight: currentTab == 4 ? FontWeight.w700 : FontWeight.w400,
                                   color: currentTab == 4
                                       ? AppColors.buttonColor
                                       : AppColors.grey400,

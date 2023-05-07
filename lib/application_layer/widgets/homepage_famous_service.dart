@@ -69,19 +69,21 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
               left: 20,
               top: 20,
               child: Container(
-                width: 100,
                 height: 40,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Center(
-                  child: Text(
-                    widget.tag,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w600,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.tag,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 52.h,
+                      height: 88.h,
                     ),
                     Text(
                       "Đăng nhập",
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontFamily: 'Roboto'),
                     ),
                     SizedBox(
-                      height: 50.h,
+                      height: 30.h,
                     ),
                     Text(
                       "Vui lòng nhập số điện thoại của bạn để tiếp tục",
@@ -125,6 +125,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             fillColor: Colors.white,
+                            enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        
+                                        color: AppColors.grey200
+                                      ),
+                                      borderRadius: BorderRadius.circular(16)),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16)),
                             focusedBorder: OutlineInputBorder(
@@ -136,13 +142,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontFamily: 'Roboto',
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
+                              color: AppColors.grey400
                             ),
                           ),
                         )),
                       ],
                     ),
                     SizedBox(
-                      height: 50.h,
+                      height: 30.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
