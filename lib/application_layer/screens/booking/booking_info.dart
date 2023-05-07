@@ -362,6 +362,8 @@ class _BookingInfoState extends State<BookingInfo> {
                               ? TextButton(
                                   onPressed: () {
                                     showModalBottomSheet(
+                                        backgroundColor: Colors.transparent,
+                                        isScrollControlled: true,
                                         context: context,
                                         builder: (context) => ChoseYourCar(
                                               selectedCar: _selectedCar,
@@ -451,6 +453,8 @@ class _BookingInfoState extends State<BookingInfo> {
                           : InkWell(
                               onTap: () {
                                 showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    isScrollControlled: true,
                                     context: context,
                                     builder: (context) => ChoseYourCar(
                                           selectedCar: _selectedCar,
@@ -864,9 +868,9 @@ class _BookingInfoState extends State<BookingInfo> {
                           const Spacer(),
                           Text(
                             NumberFormat.currency(
-                                        decimalDigits: 0, locale: 'vi_VN')
-                                    .format(_bookingPrice)
-                                    .toString(),
+                                    decimalDigits: 0, locale: 'vi_VN')
+                                .format(_bookingPrice)
+                                .toString(),
                             style: TextStyle(
                               fontFamily: 'Roboto',
                               fontSize: 14.sp,
@@ -896,10 +900,10 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                           const Spacer(),
                           Text(
-                           NumberFormat.currency(
-                                        decimalDigits: 0, locale: 'vi_VN')
-                                    .format(_bookingPrice)
-                                    .toString(),
+                            NumberFormat.currency(
+                                    decimalDigits: 0, locale: 'vi_VN')
+                                .format(_bookingPrice)
+                                .toString(),
                             style: TextStyle(
                               fontFamily: 'Roboto',
                               fontSize: 14.sp,

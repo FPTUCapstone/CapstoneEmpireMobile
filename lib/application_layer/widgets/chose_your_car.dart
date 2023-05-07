@@ -76,66 +76,58 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xff757575), //background color
+      color: Colors.transparent,
       child: Container(
-        height: 400.h,
-        decoration: BoxDecoration(
-          color: AppColors.lightGrey,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5), //color of shadow
-              spreadRadius: 5, //spread radius
-              blurRadius: 7, // blur radius
-              offset: const Offset(0, 2), // changes position of shadow
-              //first paramerter of offset is left-right
-              //second parameter is top to down
-            ),
-            //you can set more BoxShadow() here
-          ],
+        height: 550.sp,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24), topRight: Radius.circular(24)),
         ),
         child: Align(
           alignment: Alignment.topCenter,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24),
+              margin: EdgeInsets.symmetric(horizontal: 10.sp),
               child: Column(children: [
                 SizedBox(
-                  height: 20.h,
+                  height: 10.sp,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "Phương tiện",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => AddNewCar(
-                            onAddCar: _onCallBack,
-                          ),
-                        ));
-                      },
-                      child: Text(
-                        "Thêm mới",
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Phương tiện",
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.blueTextColor,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.blackTextColor,
                         ),
                       ),
-                    ),
-                  ],
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => AddNewCar(
+                              onAddCar: _onCallBack,
+                            ),
+                          ));
+                        },
+                        child: Text(
+                          "Thêm mới",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blueTextColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   // height: 300.h,
@@ -147,10 +139,14 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
                             itemCount: _listCar.length,
                             itemBuilder: (context, index) => Column(
                               children: [
-                                CarChip(
-                                  car: _listCar[index],
-                                  selectedCar: _selectedCar,
-                                  onSelected: _onCarSelected,
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.sp),
+                                  child: CarChip(
+                                    car: _listCar[index],
+                                    selectedCar: _selectedCar,
+                                    onSelected: _onCarSelected,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 16.h,
@@ -202,17 +198,17 @@ class _CarChipState extends State<CarChip> {
         widget.onSelected(widget.car.id);
       },
       child: Container(
-        decoration: BoxDecoration(
+        height: 70.sp,
+        decoration: const BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(16)),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 1.h,
-                blurRadius: 1.2,
-                offset: Offset(0, 4.h),
-              )
-            ],
-            borderRadius: const BorderRadius.all(Radius.circular(16))),
+                  offset: Offset(0, 5),
+                  blurRadius: 10,
+                  color: AppColors.grey400,
+                  blurStyle: BlurStyle.outer)
+            ]),
         child: ListTile(
           leading: FutureBuilder(
               future: getBrandPhoto(widget.car.carBrand),
@@ -220,70 +216,70 @@ class _CarChipState extends State<CarChip> {
                 if (snapshot.hasData) {
                   return Image.network(
                     snapshot.data.toString(),
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else if (snapshot.hasError) {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 }
               }),
-          title: Text(
-            widget.car.carBrand,
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.lightTextColor,
-            ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.car.carBrand,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.sp,
+              ),
+              Text(
+                widget.car.carLisenceNo,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.sp,
+              ),
+              Text(
+                widget.car.carModel,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextColor,
+                ),
+              ),
+            ],
           ),
-          subtitle: Align(
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.car.carLisenceNo,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
-                  ),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Text(
-                  widget.car.carModel,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          isThreeLine: true,
           trailing: Column(
             children: [
-              SizedBox(height: 15.h),
+              SizedBox(height: 10.sp),
               Icon(
                 isSelected
                     ? Icons.radio_button_checked
                     : Icons.radio_button_unchecked,
-                color: AppColors.buttonColor,
+                color: isSelected ? AppColors.buttonColor : AppColors.grey400,
               )
             ],
           ),
