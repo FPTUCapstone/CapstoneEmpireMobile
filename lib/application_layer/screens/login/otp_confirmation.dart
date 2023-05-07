@@ -40,7 +40,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 52.h,
+                  height: 88.h,
                 ),
                 Text(
                   "Nhập mã OTP",
@@ -68,11 +68,11 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                     children: <TextSpan>[
                       TextSpan(
                         text:
-                            "+84${widget.phoneNumber.replaceRange(0, 6, "******")}",
+                            widget.phoneNumber.replaceRange(0, 6, "*** ***"),
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 16.sp,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
                         ),
                       ),
@@ -128,14 +128,14 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                                 backgroundColor: AppColors.buttonColor,
                                 fixedSize: Size.fromHeight(50.w),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                               ),
                               child: Text(
-                                'Xác thực',
+                                'Xác nhận',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
-                                  fontSize: 15.sp,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -157,9 +157,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
+              
                 Row(
                   children: [
                     TextButton(
@@ -171,10 +169,10 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                         );
                       },
                       child: Text(
-                        "Sửa số điện thoại ?",
+                        "Thay đổi số điện thoại",
                         style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
                           fontFamily: 'Roboto',
                         ),
@@ -197,9 +195,9 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                       child: Text(
                         "Gửi lại mã",
                         style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.blackTextColor,
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.blue[500],
                           fontFamily: 'Roboto',
                         ),
                       ),
