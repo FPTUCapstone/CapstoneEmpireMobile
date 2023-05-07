@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
+import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/models/response/brand.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
-import '../../../models/notification.dart';
-import '../../../services/notification/notification_service.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class AddNewCar extends StatefulWidget {
@@ -397,12 +398,6 @@ class _AddNewCarState extends State<AddNewCar> {
                                   action: () => Get.back(),
                                 ));
                       } else {
-                        var notificationModel = NotificationModel(
-                            isAndroiodDevice: true,
-                            title: "Empire Garage",
-                            body: "Your car has been created successful");
-                        await NotificationService()
-                            .sendNotification(notificationModel);
                         // ignore: use_build_context_synchronously
                         showModalBottomSheet(
                             backgroundColor: Colors.transparent,
@@ -414,7 +409,13 @@ class _AddNewCarState extends State<AddNewCar> {
                                   body:
                                       "Bạn đã thêm $carLisenceNo ($carBrand $carModel) làm phương tiện mới",
                                   buttonTitle: "Trở về",
-                                  action: () => Get.back(),
+                                  action: () {
+                                    _popContext();
+                                    _popContext();
+                                    widget.onAddCar(CarResponseModel.fromJson(
+                                            jsonDecode(response.body))
+                                        .id as int);
+                                  },
                                 ));
                       }
                     },
