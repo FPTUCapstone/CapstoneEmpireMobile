@@ -192,36 +192,39 @@ class _HomePageState extends State<HomePage> {
                                 color: AppColors.unselectedBtn,
                               )
                             ]),
-                        child: SizedBox(
-                          width: 104.w,
-                          height: 24.h,
-                          child: TextField(
-                            keyboardType: TextInputType.text,
-                            onSubmitted: (value) {
-                              if (value.isNotEmpty) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SearchPage(
-                                            searchString: value,
-                                          )),
-                                );
-                              }
-                            },
-                            //style: searchTextStyle,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintStyle: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.lightTextColor,
-                              ),
-                              hintText: 'Tìm kiếm...',
-                              prefixIcon: const Icon(
-                                FontAwesomeIcons.magnifyingGlass,
-                                size: 20,
-                                color: AppColors.grey400,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: SizedBox(
+                            width: 311.w,
+                            height: 26.h,
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              onSubmitted: (value) {
+                                if (value.isNotEmpty) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SearchPage(
+                                              searchString: value,
+                                            )),
+                                  );
+                                }
+                              },
+                              //style: searchTextStyle,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
+                                hintText: 'Tìm kiếm...',
+                                prefixIcon: const Icon(
+                                  FontAwesomeIcons.magnifyingGlass,
+                                  size: 20,
+                                  color: AppColors.grey400,
+                                ),
                               ),
                             ),
                           ),
