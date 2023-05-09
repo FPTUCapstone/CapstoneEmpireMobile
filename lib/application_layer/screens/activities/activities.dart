@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/application_layer/screens/booking/booking_de
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
+import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class _HomePageState extends State<Activities> {
       home: _loading
           ? const Loading()
           : Scaffold(
-              backgroundColor: AppColors.lightGrey,
+              backgroundColor: Colors.white,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(100),
                 child: Padding(
@@ -91,7 +92,7 @@ class _HomePageState extends State<Activities> {
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                     title: Text('Hoạt động',
-                        style: AppStyles.header600(fontsize: 22.sp)),
+                        style: AppStyles.header600(fontsize: 20.sp)),
                     actions: [
                       Center(
                         child: Padding(
@@ -136,171 +137,143 @@ class _HomePageState extends State<Activities> {
               body: SafeArea(
                 child: RefreshIndicator(
                   onRefresh: reload,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: ListView(children: [
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : Text(
+                  child: ListView(children: [
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    _listOnGoing.isEmpty
+                        ? Container()
+                        : Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Text(
                               "Đang hoạt động",
                               style: TextStyle(
-                                  fontSize: 18.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.blackTextColor,
                                   fontFamily: 'Roboto'),
                             ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : SizedBox(
-                              height: 10.h,
-                            ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              physics: const ScrollPhysics(
-                                  parent: NeverScrollableScrollPhysics()),
-                              scrollDirection: Axis.vertical,
-                              itemCount: _listOnGoing.length,
-                              itemBuilder: (context, index) {
-                                var item = _listOnGoing[index];
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            PageTransition(
-                                                type: PageTransitionType
-                                                    .bottomToTop,
-                                                duration: const Duration(
-                                                    milliseconds: 350),
-                                                childCurrent: widget,
-                                                child: item.isBooking
-                                                    ? BookingDetail(
-                                                        data: item,
-                                                      )
-                                                    : OnGoingService(
-                                                        servicesId: item.id,
-                                                      )));
-                                      },
-                                      child: ActivityChip(
-                                        carInfo:
-                                            '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                        date: item.date.toString(),
-                                        code: item.code != null
-                                            ? item.code.toString()
-                                            : "##########",
-                                        daysLeft: item.daysLeft,
-                                        isBooking: item.isBooking,
-                                        item: item,
-                                      ),
-                                    ),
+                          ),
+                    _listOnGoing.isEmpty
+                        ? Container()
+                        : SizedBox(
+                            height: 10.h,
+                          ),
+                    _listOnGoing.isEmpty
+                        ? Container()
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(
+                                parent: NeverScrollableScrollPhysics()),
+                            scrollDirection: Axis.vertical,
+                            itemCount: _listOnGoing.length,
+                            itemBuilder: (context, index) {
+                              var item = _listOnGoing[index];
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(PageTransition(
+                                        type: PageTransitionType.bottomToTop,
+                                        duration:
+                                            const Duration(milliseconds: 350),
+                                        childCurrent: widget,
+                                        child: item.isBooking
+                                            ? BookingDetail(
+                                                data: item,
+                                              )
+                                            : OnGoingService(
+                                                servicesId: item.id,
+                                              )));
+                                  },
+                                  child: ActivityChip.haveTotal(
+                                    carInfo:
+                                        '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                    date: item.date.toString(),
+                                    code: item.code != null
+                                        ? item.code.toString()
+                                        : "##########",
+                                    daysLeft: item.daysLeft,
+                                    isBooking: item.isBooking,
+                                    item: item,
                                   ),
-                                );
-                              },
-                            ),
-                      _listOnGoing.isEmpty
-                          ? Container()
-                          : SizedBox(
-                              height: 15.h,
-                            ),
-                      Text(
+                                ),
+                              );
+                            },
+                          ),
+                    _listOnGoing.isEmpty
+                        ? Container()
+                        : SizedBox(
+                            height: 15.h,
+                          ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: Text(
                         "Gần đây",
                         style: TextStyle(
-                            fontSize: 18.h,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                             fontFamily: 'Roboto'),
                       ),
-                      _listRecent.isEmpty
-                          ? Text(
-                              'Chưa có hoạt động nào',
-                              style: AppStyles.text400(fontsize: 15.h),
-                            )
-                          : ListView.builder(
-                              physics: const ScrollPhysics(
-                                  parent: NeverScrollableScrollPhysics()),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: _listRecent.length,
-                              itemBuilder: (context, index) {
-                                var item = _listRecent[index];
-                                bool isComplete =
-                                    item!.isArrived == true || item.status == 5;
-                                return Padding(
-                                  padding: EdgeInsets.only(top: 15.h),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.3),
-                                            spreadRadius: 1.h,
-                                            blurRadius: 1.2,
-                                            offset: Offset(0, 4.h),
-                                          )
-                                        ],
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(16))),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            PageTransition(
-                                                type: PageTransitionType
-                                                    .bottomToTop,
-                                                duration: const Duration(
-                                                    milliseconds: 350),
-                                                childCurrent: widget,
-                                                child: item.isBooking
-                                                    ? BookingDetail(
-                                                        data: item,
-                                                      )
-                                                    : isComplete
-                                                        ? ServiceActivityDetail(
-                                                            orderServicesId:
-                                                                item.id,
-                                                          )
-                                                        : OnGoingService(
-                                                            servicesId: item.id,
-                                                          )));
-                                      },
-                                      child: SizedBox(
-                                        height: 90.h,
-                                        child: ActivityChip(
-                                          carInfo:
-                                              '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                          date: item.date.toString(),
-                                          code: item.code != null
-                                              ? item.code.toString()
-                                              : "##########",
-                                          daysLeft: item.daysLeft,
-                                          isBooking: item.isBooking,
-                                          item: item,
-                                        ),
-                                      ),
-                                    ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    _listRecent.isEmpty
+                        ? Text(
+                            'Chưa có hoạt động nào',
+                            style: AppStyles.text400(fontsize: 16.sp),
+                          )
+                        : ListView.builder(
+                            physics: const ScrollPhysics(
+                                parent: NeverScrollableScrollPhysics()),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: _listRecent.length,
+                            itemBuilder: (context, index) {
+                              var item = _listRecent[index];
+                              bool isComplete =
+                                  item!.isArrived == true || item.status == 5;
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(PageTransition(
+                                        type: PageTransitionType.bottomToTop,
+                                        duration:
+                                            const Duration(milliseconds: 350),
+                                        childCurrent: widget,
+                                        child: item.isBooking
+                                            ? BookingDetail(
+                                                data: item,
+                                              )
+                                            : isComplete
+                                                ? ServiceActivityDetail(
+                                                    orderServicesId: item.id,
+                                                  )
+                                                : OnGoingService(
+                                                    servicesId: item.id,
+                                                  )));
+                                  },
+                                  child: ActivityChip.haveTotal(
+                                    carInfo:
+                                        '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                    date: item.date.toString(),
+                                    code: item.code != null
+                                        ? item.code.toString()
+                                        : "##########",
+                                    daysLeft: item.daysLeft,
+                                    isBooking: item.isBooking,
+                                    item: item,
                                   ),
-                                );
-                              },
-                            ),
-                    ]),
-                  ),
+                                ),
+                              );
+                            },
+                          ),
+                  ]),
                 ),
               ),
             ),
@@ -321,6 +294,7 @@ class ActivityChip extends StatefulWidget {
   final String code;
   final int? daysLeft;
   final bool isBooking;
+  final double? total;
   final ActivityResponseModel item;
   const ActivityChip({
     super.key,
@@ -330,6 +304,18 @@ class ActivityChip extends StatefulWidget {
     required this.code,
     required this.isBooking,
     required this.item,
+    this.total,
+  });
+
+  const ActivityChip.haveTotal({
+    super.key,
+    required this.carInfo,
+    required this.date,
+    required this.daysLeft,
+    required this.code,
+    required this.isBooking,
+    required this.item,
+    this.total = 500000,
   });
 
   @override
@@ -361,53 +347,70 @@ class _ActivityChipState extends State<ActivityChip> {
         leading: Image.asset(
           widget.isBooking
               ? "assets/image/icon-logo/calendar-history-icon.png"
-              : "assets/image/icon-logo/homeservice-logo-maintanace.png",
-          height: 40.h,
+              : "assets/image/icon-logo/service-logo.png",
+          fit: BoxFit.cover,
           width: 40.w,
         ),
-        title: Text(
-          isComplete
-              ? "Hoàn Thành"
-              : item.isBooking
-                  ? item.isActive == false
-                      ? "Đã hủy"
-                      : item.daysLeft == 0
-                          ? "Hôm nay"
-                          : "Còn lại ${widget.daysLeft} ngày"
-                  : _getStatus(item.status as int),
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 10.sp,
-            fontWeight: FontWeight.w700,
-            color: isComplete
-                ? AppColors.greenTextColor
-                : item.isActive == false
-                    ? AppColors.errorIcon
-                    : AppColors.blueTextColor,
-          ),
-        ),
+        title: !isComplete
+            ? Text(
+                isComplete
+                    ? "Hoàn Thành"
+                    : item.isBooking
+                        ? item.isActive == false
+                            ? "Đã hủy"
+                            : item.daysLeft == 0
+                                ? "Hôm nay"
+                                : "Còn lại ${widget.daysLeft} ngày"
+                        : _getStatus(item.status as int),
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w700,
+                  color: isComplete
+                      ? AppColors.greenTextColor
+                      : item.isActive == false
+                          ? AppColors.errorIcon
+                          : AppColors.blueTextColor,
+                ),
+              )
+            : null,
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 5.h,
-            ),
-            Text(
-              widget.item.car!.carLisenceNo.toString(),
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.blackTextColor,
+            Visibility(
+              visible: !isComplete,
+              child: SizedBox(
+                height: 5.h,
               ),
+            ),
+            RichText(
+              text: TextSpan(
+                  text: !widget.isBooking ? "Dịch vụ cho " : "Đặt lịch cho ",
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.blackTextColor,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: widget.item.car!.carLisenceNo.toString(),
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                  ]),
+              overflow: TextOverflow.ellipsis,
             ),
             SizedBox(
               height: 5.h,
             ),
             if (widget.date != "null")
               Text(
-                widget.date.substring(0, widget.date.length - 13),
+                formatDate(widget.date, false),
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 10.sp,
@@ -421,7 +424,7 @@ class _ActivityChipState extends State<ActivityChip> {
                     widget.code,
                     style: TextStyle(
                       fontFamily: 'Roboto',
-                      fontSize: 12.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.lightTextColor,
                     ),
@@ -429,6 +432,12 @@ class _ActivityChipState extends State<ActivityChip> {
                 : Container(),
           ],
         ),
+        trailing: widget.total != null
+            ? Text(
+                formatCurrency(widget.total),
+                style: AppStyles.text400(fontsize: 12.sp),
+              )
+            : null,
       ),
     );
   }
