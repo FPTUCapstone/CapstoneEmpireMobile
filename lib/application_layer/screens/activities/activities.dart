@@ -122,7 +122,7 @@ class _HomePageState extends State<Activities> {
                               'Lịch sử',
                               style: TextStyle(
                                   fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                   fontFamily: 'Roboto',
                                   color: AppColors.blackTextColor),
                             ),

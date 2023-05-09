@@ -1,13 +1,19 @@
+import 'dart:convert';
+
+import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/welcome/welcome_screen.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/error_page.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/pop_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import 'application_layer/on_going_service/on_going_service.dart';
+import 'application_layer/widgets/top_snackbar.dart';
 import 'firebase_options.dart';
 
 // ignore: depend_on_referenced_packages
@@ -19,9 +25,8 @@ void main() async {
   );
   await FirebaseMessaging.instance.requestPermission();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(const GetMaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MyApp()));
+  runApp(
+      const GetMaterialApp(debugShowCheckedModeBanner: false, home: MyApp()));
 }
 
 @pragma('vm:entry-point')
@@ -50,19 +55,44 @@ class _MyAppState extends State<MyApp> {
     ///forground work
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
-        print(message.notification!.body);
-        print(message.notification!.title);
+        var title = message.notification!.title.toString();
+        var body = message.notification!.body.toString();
+        if (kDebugMode) {
+          print(message.notification!.body);
+          print(message.notification!.title);
+        }
+        showTopSnackBar(
+            Overlay.of(context),
+            TopSnackBar.info(
+              message: title,
+              subMessage: body,
+              icon: Image.asset(
+                'assets/image/app-logo/launcher.png',
+                height: 30,
+                width: 30,
+              ),
+            ));
         final routeFromMessage = message.data["route"];
-        switch (routeFromMessage) {
-          case "qr-code":
-          showModalBottomSheet(
-              context: context,
-              builder: (context) => const Popup(
-                  image: "assets/image/app-logo/empirelogo.png",
-                  title: "Check in thành công",
-                  body: "Hãy bắt đầu theo dõi tiến trình xe của bạn"),
-              backgroundColor: Colors.transparent,
-            );
+        var jsonRoute = jsonDecode(routeFromMessage);
+        switch (jsonRoute['route']) {
+          case "qr-checkin-success":
+            Get.to(() => OnGoingService(
+                  servicesId: jsonRoute['orderServiceId'] as int,
+                ));
+            break;
+          case "diagnose-success":
+            Get.to(() => OnGoingService(
+                  servicesId: jsonRoute['orderServiceId'] as int,
+                ));
+            break;
+          case "repair-success":
+            Get.to(() => OnGoingService(
+                  servicesId: jsonRoute['orderServiceId'] as int,
+                ));
+            break;
+          case "qr-checkout-success":
+            Get.to(() => ServiceActivityDetail(
+                orderServicesId: jsonRoute['orderServiceId'] as int));
             break;
           default:
         }

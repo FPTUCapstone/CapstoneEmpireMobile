@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/application_layer/screens/user_profile/profi
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/loginresponse.dart';
 import 'package:empiregarage_mobile/models/user_info.dart' as user_info;
+import 'package:empiregarage_mobile/services/notification/notification_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ class AppAuthentication {
       }
       await saveUserInfo(user_info.UserInfo(
           userId: response.id, firebaseUUID: userRecord.user!.uid));
-      // await NotificationService().saveToken(userRecord.user!.uid);
+      await NotificationService().saveToken(userRecord.user!.uid);
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
