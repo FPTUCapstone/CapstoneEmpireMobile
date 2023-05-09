@@ -140,6 +140,8 @@ class _SearchPageState extends State<SearchPage> {
                 },
                 controller: _searchController,
                 decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: AppColors.lightGrey500,
                   focusedBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: AppColors.blueTextColor, width: 3),
@@ -152,7 +154,7 @@ class _SearchPageState extends State<SearchPage> {
                     padding: EdgeInsets.only(left: 10),
                     child: Icon(
                       Icons.search,
-                      color: AppColors.blueTextColor,
+                      color: AppColors.lightTextColor,
                       size: 20,
                     ),
                   ),
