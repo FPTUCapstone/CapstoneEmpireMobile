@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/application_layer/screens/booking/booking_de
 import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
 import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 import 'package:empiregarage_mobile/models/response/activity.dart';
@@ -68,16 +69,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return !_loading
-        ? const Scaffold(
-            body: Center(
-            child: CircularProgressIndicator(),
-          ))
+        ? const Loading()
         : Scaffold(
             backgroundColor: AppColors.lightGrey,
             body: RefreshIndicator(
               onRefresh: refresh,
               child: SingleChildScrollView(
-                reverse: true,
                 child: Stack(
                   children: <Widget>[
                     Container(
