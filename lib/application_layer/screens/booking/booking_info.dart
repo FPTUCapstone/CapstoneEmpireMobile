@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/tag_editor.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
@@ -12,6 +13,7 @@ import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
@@ -21,7 +23,6 @@ import '../../../models/request/payment_request_model.dart';
 import '../../../services/booking_service/booking_service.dart';
 import '../../../services/payment_services/payment_services.dart';
 import '../../widgets/booking_fail.dart';
-import '../../widgets/booking_successfull.dart';
 import '../../widgets/chose_your_car.dart';
 import '../../widgets/deposit_bottomsheet.dart';
 import '../car/add_new_car.dart';
@@ -235,7 +236,17 @@ class _BookingInfoState extends State<BookingInfo> {
       });
       // ignore: use_build_context_synchronously
       showModalBottomSheet(
-          context: context, builder: (context) => const BookingSuccessfull());
+          context: context,
+          builder: (context) => BottomPopup(
+                image: 'assets/image/icon-logo/successfull-icon.png',
+                title: "Đặt lịch thành công",
+                body:
+                    'Bạn đã đặt lịch thành công với phương tiện ${response.car.carLisenceNo}\nMã đặt lịch: #${response.code}',
+                buttonTitle: "Trở về",
+                action: () {
+                  Get.offAll(() => const MainPage());
+                },
+              ));
     } else {
       setState(() {
         _loading = true;

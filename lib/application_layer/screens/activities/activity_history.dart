@@ -67,7 +67,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
           case 'Dịch vụ':
             setState(() {
               _listFiltered = _listActivity
-                  .where((element) => element!.isBooking == false)
+                  .where((element) => element!.isBooking == false && [5,-1].contains(element.status))
                   .toList();
             });
             break;
@@ -94,54 +94,72 @@ class _ActivityHistoryState extends State<ActivityHistory> {
       home: _loading
           ? const Loading()
           : Scaffold(
-              backgroundColor: AppColors.lightGrey,
+              backgroundColor: Colors.white,
               body: RefreshIndicator(
                 onRefresh: reload,
                 child: ListView(children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 24, right: 24, top: 24),
+                        const EdgeInsets.only(top: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Stack(
-                            alignment: Alignment.centerLeft,
-                            children: <Widget>[
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  color: AppColors.blackTextColor,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                          child: Stack(
+                              alignment: Alignment.centerLeft,
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                      color: AppColors.searchBarColor,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(
+                                        Icons.arrow_back_outlined,
+                                        color: AppColors.blackTextColor,
+                                      )),
                                 ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Lịch sử hoạt động",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Lịch sử hoạt động",
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ]),
-                        ListFilter(
-                          onSelectedFilter: _onSelectedFilter,
+                              ]),
                         ),
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: _listFiltered.length,
-                          itemBuilder: (context, index) {
-                            var item = _listFiltered[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 15),
-                              child: GestureDetector(
+                        SizedBox(
+                          height: 15.sp,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.sp),
+                          child: ListFilter(
+                            onSelectedFilter: _onSelectedFilter,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.sp),
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: _listFiltered.length,
+                            itemBuilder: (context, index) {
+                              var item = _listFiltered[index];
+                              return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(PageTransition(
                                       type: PageTransitionType.bottomToTop,
@@ -160,34 +178,20 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                                   servicesId: item.id,
                                                 )));
                                 },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 1.h,
-                                          blurRadius: 1.2,
-                                          offset: Offset(0, 4.h),
-                                        )
-                                      ],
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(16))),
-                                  child: ActivityChip(
-                                    carInfo:
-                                        '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                    date: item.date.toString(),
-                                    code: item.code != null
-                                        ? item.code.toString()
-                                        : "##########",
-                                    daysLeft: item.daysLeft,
-                                    isBooking: item.isBooking,
-                                    item: item,
-                                  ),
+                                child: ActivityChip.haveTotal(
+                                  carInfo:
+                                      '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                  date: item.date.toString(),
+                                  code: item.code != null
+                                      ? item.code.toString()
+                                      : "##########",
+                                  daysLeft: item.daysLeft,
+                                  isBooking: item.isBooking,
+                                  item: item,
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                         SizedBox(
                           height: 20.h,
@@ -223,19 +227,19 @@ class _ListFilterState extends State<ListFilter> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: _filterOptions.map((option) {
         return FilterChip(
           label: Text(
             option,
-            style: AppStyles.text400(
+            style: AppStyles.header600(
                 color: _selectedFilters.isNotEmpty &&
                         _selectedFilters.first.compareTo(option) == 0
                     ? Colors.white
                     : AppColors.blueTextColor,
                 fontsize: 12.sp),
           ),
-          selectedColor: AppColors.blueTextColor,
+          selectedColor: AppColors.blue600,
           showCheckmark: false,
           backgroundColor: AppColors.blue100,
           selected: _selectedFilters.contains(option),

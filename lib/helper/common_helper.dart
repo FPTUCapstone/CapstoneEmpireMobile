@@ -7,9 +7,10 @@ String formatDate(String dateTime, bool? includeTime) {
   if (includeTime == true) {
     formattedDate =
         "${formatter.format(value.hour)}:${formatter.format(value.minute)}, ${formatter.format(value.day)}/${formatter.format(value.month)}/${value.year}";
+  } else {
+    formattedDate =
+        "${formatter.format(value.day)}/${formatter.format(value.month)}/${value.year}";
   }
-  formattedDate =
-      "${formatter.format(value.day)}/${formatter.format(value.month)}/${value.year}";
   return formattedDate;
 }
 

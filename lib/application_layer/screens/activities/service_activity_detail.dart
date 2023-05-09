@@ -526,7 +526,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                 child: Center(
                                     child: Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 10.sp),
+                                      EdgeInsets.symmetric(horizontal: 10.sp,),
                                   child: const Divider(thickness: 1),
                                 )),
                               ),

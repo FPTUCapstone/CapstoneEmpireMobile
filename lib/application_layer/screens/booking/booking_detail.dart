@@ -1,14 +1,14 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/qrcode.dart';
-import 'package:empiregarage_mobile/application_layer/screens/booking/see_booking_detail_payment.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
+import 'package:empiregarage_mobile/common/app_settings.dart';
 import 'package:empiregarage_mobile/common/style.dart';
+import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
-import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
 import '../main_page/main_page.dart';
@@ -72,6 +72,7 @@ class _BookingDetailState extends State<BookingDetail> {
               child: Scaffold(
                 appBar: AppBar(
                   backgroundColor: Colors.white,
+                  toolbarHeight: 55.sp,
                   leading: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -82,7 +83,7 @@ class _BookingDetailState extends State<BookingDetail> {
                     ),
                   ),
                   title: Text(
-                    "Ngày ${widget.data.date!.day} tháng ${widget.data.date!.month}, ${widget.data.date!.year}",
+                    "Ngày ${widget.data.date!.day.toString().padLeft(2, '0')} tháng ${widget.data.date!.month.toString().padLeft(2, '0')}, ${widget.data.date!.year}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Roboto',
@@ -92,241 +93,279 @@ class _BookingDetailState extends State<BookingDetail> {
                     ),
                   ),
                   centerTitle: true,
-                  actions: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: InkWell(
-                          onTap: () {},
-                          child: PopupMenuButton<String>(
-                            icon: const Icon(
-                              Icons.more_horiz,
-                              color: AppColors.blackTextColor,
-                            ),
-                            itemBuilder: (BuildContext context) =>
-                                <PopupMenuEntry<String>>[
-                              PopupMenuItem<String>(
-                                value: 'cancel',
-                                child: Text('Hủy',
-                                    style: AppStyles.text400(
-                                        fontsize: 14.sp,
-                                        color: AppColors.errorIcon)),
-                              ),
-                            ],
-                            onSelected: (String selectedItem) {
-                              switch (selectedItem) {
-                                case 'cancel':
-                                  showModalBottomSheet(
-                                      context: context,
-                                      backgroundColor: Colors.transparent,
-                                      builder: (context) {
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(40.0),
-                                                    topRight:
-                                                        Radius.circular(40.0)),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey.withOpacity(
-                                                    0.5), //color of shadow
-                                                spreadRadius: 5, //spread radius
-                                                blurRadius: 7, // blur radius
-                                                offset: const Offset(0,
-                                                    2), // changes position of shadow
-                                                //first paramerter of offset is left-right
-                                                //second parameter is top to down
-                                              ),
-                                              //you can set more BoxShadow() here
-                                            ],
-                                          ),
-                                          height: 300.h,
-                                          child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Icon(Icons.warning_rounded,
-                                                    size: 100.sp,
-                                                    color: AppColors.errorIcon),
-                                                Text(
-                                                  'Xác nhận hủy đặt lịch',
-                                                  style: AppStyles.header600(),
-                                                ),
-                                                Text(
-                                                    'Bạn chắc chắn muốn hủy đặt lịch? Bạn sẽ mất tiền trước đó đã thanh toán.',
-                                                    textAlign: TextAlign.center,
-                                                    style: AppStyles.text400(
-                                                        fontsize: 14.sp,
-                                                        color: AppColors
-                                                            .lightTextColor)),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: <Widget>[
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      style: OutlinedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                            AppColors.blue600,
-                                                        fixedSize:
-                                                            Size.fromHeight(
-                                                                50.w),
-                                                        maximumSize:
-                                                            Size.fromWidth(
-                                                                130.w),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(36),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        'Hủy',
-                                                        style: TextStyle(
-                                                          fontFamily: AppStyles
-                                                              .fontFamily,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: AppColors
-                                                              .white100,
-                                                        ),
-                                                      ),
+                  actions: widget.data.isArrived == true
+                      ? null
+                      : [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: InkWell(
+                                onTap: () {},
+                                child: PopupMenuButton<String>(
+                                  icon: const Icon(
+                                    Icons.more_horiz,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                  itemBuilder: (BuildContext context) =>
+                                      <PopupMenuEntry<String>>[
+                                    PopupMenuItem<String>(
+                                      value: 'cancel',
+                                      child: Text('Hủy',
+                                          style: AppStyles.text400(
+                                              fontsize: 14.sp,
+                                              color: AppColors.errorIcon)),
+                                    ),
+                                  ],
+                                  onSelected: (String selectedItem) {
+                                    switch (selectedItem) {
+                                      case 'cancel':
+                                        showModalBottomSheet(
+                                            context: context,
+                                            backgroundColor: Colors.transparent,
+                                            builder: (context) {
+                                              return Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  40.0),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  40.0)),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(
+                                                              0.5), //color of shadow
+                                                      spreadRadius:
+                                                          5, //spread radius
+                                                      blurRadius:
+                                                          7, // blur radius
+                                                      offset: const Offset(0,
+                                                          2), // changes position of shadow
+                                                      //first paramerter of offset is left-right
+                                                      //second parameter is top to down
                                                     ),
-                                                    ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                            AppColors.errorIcon,
-                                                        fixedSize:
-                                                            Size.fromHeight(
-                                                                50.w),
-                                                        maximumSize:
-                                                            Size.fromWidth(
-                                                                130.w),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(36),
-                                                        ),
-                                                      ),
-                                                      onPressed: () async {
-                                                        var response =
-                                                            await BookingService()
-                                                                .cancelBooking(
-                                                                    widget.data
-                                                                        .id);
-                                                        if (response
-                                                                .statusCode ==
-                                                            204) {
-                                                          // ignore: use_build_context_synchronously
-                                                          Navigator.pop(
-                                                              context);
-                                                          // ignore: use_build_context_synchronously
-                                                          Navigator
-                                                              .pushAndRemoveUntil(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            const MainPage(),
-                                                                  ),
-                                                                  (route) =>
-                                                                      false);
-                                                        } else {
-                                                          // ignore: use_build_context_synchronously
-                                                          Navigator.pop(
-                                                              context);
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        'Xác nhận',
-                                                        style: TextStyle(
-                                                          fontFamily: AppStyles
-                                                              .fontFamily,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    //you can set more BoxShadow() here
                                                   ],
                                                 ),
-                                              ]),
-                                        );
-                                      });
-                                  break;
-                                default:
-                              }
-                            },
-                          )),
-                    )
-                  ],
+                                                height: 300.h,
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Icon(
+                                                          Icons.warning_rounded,
+                                                          size: 100.sp,
+                                                          color: AppColors
+                                                              .errorIcon),
+                                                      Text(
+                                                        'Xác nhận hủy đặt lịch',
+                                                        style: AppStyles
+                                                            .header600(),
+                                                      ),
+                                                      Text(
+                                                          'Bạn chắc chắn muốn hủy đặt lịch? Bạn sẽ mất tiền trước đó đã thanh toán.',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: AppStyles.text400(
+                                                              fontsize: 14.sp,
+                                                              color: AppColors
+                                                                  .lightTextColor)),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: <Widget>[
+                                                          ElevatedButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            style:
+                                                                OutlinedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  AppColors
+                                                                      .blue600,
+                                                              fixedSize: Size
+                                                                  .fromHeight(
+                                                                      50.w),
+                                                              maximumSize: Size
+                                                                  .fromWidth(
+                                                                      130.w),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            36),
+                                                              ),
+                                                            ),
+                                                            child: Text(
+                                                              'Hủy',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    AppStyles
+                                                                        .fontFamily,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: AppColors
+                                                                    .white100,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          ElevatedButton(
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  AppColors
+                                                                      .errorIcon,
+                                                              fixedSize: Size
+                                                                  .fromHeight(
+                                                                      50.w),
+                                                              maximumSize: Size
+                                                                  .fromWidth(
+                                                                      130.w),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            36),
+                                                              ),
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              var response =
+                                                                  await BookingService()
+                                                                      .cancelBooking(widget
+                                                                          .data
+                                                                          .id);
+                                                              if (response
+                                                                      .statusCode ==
+                                                                  204) {
+                                                                // ignore: use_build_context_synchronously
+                                                                Navigator.pop(
+                                                                    context);
+                                                                // ignore: use_build_context_synchronously
+                                                                Navigator
+                                                                    .pushAndRemoveUntil(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              const MainPage(),
+                                                                        ),
+                                                                        (route) =>
+                                                                            false);
+                                                              } else {
+                                                                // ignore: use_build_context_synchronously
+                                                                Navigator.pop(
+                                                                    context);
+                                                              }
+                                                            },
+                                                            child: Text(
+                                                              'Xác nhận',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    AppStyles
+                                                                        .fontFamily,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ]),
+                                              );
+                                            });
+                                        break;
+                                      default:
+                                    }
+                                  },
+                                )),
+                          )
+                        ],
                 ),
                 body: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    color: const Color(0xfff9f9f9),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: 12.h,
+                          height: 10.sp,
                         ),
                         Container(
                           alignment: Alignment.center,
-                          child: Text(
-                            "Mã đặt lịch : #${widget.data.code}",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.lightTextColor,
-                            ),
+                          margin: EdgeInsets.symmetric(horizontal: 10.sp),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Mã đặt lịch",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                              Text(
+                                "#${widget.data.code.toString()}",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 10.sp,
                         ),
-                        Container(
-                          color: Colors.white,
-                          height: 80.h,
-                          child: InkWell(
-                            onTap: () {
-                              widget.data.daysLeft == 0
-                                  ? Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              QRCodePage(
-                                                bookingId: _booking!.id,
-                                              )))
-                                  : null;
-                            },
+                        InkWell(
+                          onTap: () {
+                            widget.data.daysLeft == 0
+                                ? Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        QRCodePage(
+                                          bookingId: _booking!.id,
+                                        )))
+                                : null;
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            height: 70.sp,
                             child: ListTile(
-                              leading: Image.asset(
-                                "assets/image/icon-logo/calendar-history-icon.png",
-                                height: 50.h,
-                                width: 50.w,
+                              leading: Padding(
+                                padding: const EdgeInsets.only(top: 6),
+                                child: Image.asset(
+                                  "assets/image/icon-logo/calendar-history-icon.png",
+                                  height: 30.sp,
+                                ),
                               ),
-                              subtitle: Column(
+                              title: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
                                   Row(
                                     children: [
                                       Text(
-                                        "Đặt lịch đến ga-ra",
+                                        "Đặt lịch đến ${AppSettings.garaName}",
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
-                                          fontSize: 14.sp,
+                                          fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.blackTextColor,
                                         ),
@@ -340,13 +379,23 @@ class _BookingDetailState extends State<BookingDetail> {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     _booking!.isArrived
-                                        ? 'Đã check-in vào ${_booking!.arrivedDateTime!.replaceAll('T', " ").substring(0, 19)}'
-                                        : formattedDate,
+                                        ? 'Đã check-in vào ${formatDate(_booking!.arrivedDateTime.toString(), true)}'
+                                        : widget.data.daysLeft == 0
+                                            ? "Lấy mã check-in"
+                                            : 'Còn ${widget.data.daysLeft} ngày',
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.lightTextColor,
+                                      fontSize: 10.sp,
+                                      fontWeight: _booking!.isArrived
+                                          ? FontWeight.w400
+                                          : widget.data.daysLeft == 0
+                                              ? FontWeight.w400
+                                              : FontWeight.w600,
+                                      color: _booking!.isArrived
+                                          ? AppColors.lightTextColor
+                                          : widget.data.daysLeft == 0
+                                              ? AppColors.lightTextColor
+                                              : AppColors.blueTextColor,
                                     ),
                                   ),
                                 ],
@@ -364,237 +413,118 @@ class _BookingDetailState extends State<BookingDetail> {
                           ),
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 10.sp,
                         ),
                         Container(
                           color: Colors.white,
+                          padding: EdgeInsets.symmetric(horizontal: 10.sp),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 24, left: 24, right: 24),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "Tổng",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      NumberFormat.currency(
-                                              decimalDigits: 0, locale: 'vi_VN')
-                                          .format(_bookingPrice)
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                  ],
+                                padding: EdgeInsets.only(
+                                    left: 10.sp, right: 10.sp, top: 20.sp),
+                                child: Text(
+                                  "Tóm tắt hóa đơn",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
                                 ),
                               ),
                               SizedBox(
-                                height: 5.h,
+                                height: 10.sp,
                               ),
+                              CustomRow(
+                                title: 'Phí đặt lịch',
+                                value: formatCurrency(_bookingPrice),
+                                textStyle: AppStyles.text400(fontsize: 10.sp),
+                              ),
+                              const CustomSpacer(),
+                              CustomRow(
+                                title: 'Tổng cộng',
+                                value: formatCurrency(_bookingPrice),
+                                textStyle: AppStyles.header600(fontsize: 10.sp),
+                              ),
+                              const CustomSpacer(),
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.sp, vertical: 10.sp),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Ví điện tử",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.blackTextColor,
-                                      ),
+                                      'Phương thức thanh toán',
+                                      style: AppStyles.text400(fontsize: 10.sp),
                                     ),
-                                    const Icon(
-                                      Icons.account_balance_wallet_outlined,
-                                      color: AppColors.blackTextColor,
-                                    ),
+                                    Image.asset(
+                                      'assets/image/icon-logo/vnpay.png',
+                                      height: 12.sp,
+                                    )
                                   ],
                                 ),
+                              ),
+                              const CustomSpacer(),
+                              CustomRow(
+                                title: 'Biển số xe',
+                                value: _booking!.car.carLisenceNo.toString(),
+                                textStyle: AppStyles.text400(fontsize: 10.sp),
+                              ),
+                              CustomRow(
+                                title: 'Dòng xe',
+                                value:
+                                    '${_booking!.car.carBrand} ${_booking!.car.carModel}',
+                                textStyle: AppStyles.text400(fontsize: 10.sp),
+                              ),
+                              CustomRow(
+                                title: 'Tên chủ xe',
+                                value: _booking!.user.fullname,
+                                textStyle: AppStyles.text400(fontsize: 10.sp),
+                              ),
+                              CustomRow(
+                                title: 'Số điện thoại',
+                                value: _booking!.user.phone,
+                                textStyle: AppStyles.text400(fontsize: 10.sp),
                               ),
                               SizedBox(
                                 height: 15.h,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          const SeeBookingDetailPayment(),
-                                    ));
-                                  },
-                                  child: SizedBox(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 20),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Xem chi tiết thanh toán",
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.blueTextColor,
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          const Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            color: AppColors.lightTextColor,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ),
                             ],
                           ),
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 10.sp,
                         ),
                         Container(
                           decoration: const BoxDecoration(
                             color: Colors.white,
                           ),
+                          padding: EdgeInsets.symmetric(horizontal: 10.sp),
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text('Phương tiện',
-                                      style: AppStyles.header600()),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Phương tiện bạn đã chọn',
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.lightTextColor,
-                                    ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 15.h,
                                   ),
-                                ),
-                              ),
-                              ListTile(
-                                leading: FutureBuilder(
-                                    future: BrandService().getPhoto(
-                                        widget.data.car!.carBrand.toString()),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return Image.network(
-                                          snapshot.data.toString(),
-                                          height: 50.h,
-                                          width: 50.w,
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return Image.asset(
-                                          "assets/image/icon-logo/bmw-car-icon.png",
-                                          height: 50.h,
-                                          width: 50.w,
-                                        );
-                                      } else {
-                                        return Image.asset(
-                                          "assets/image/icon-logo/bmw-car-icon.png",
-                                          height: 50.h,
-                                          width: 50.w,
-                                        );
-                                      }
-                                    }),
-                                title: Text(
-                                  widget.data.car!.carBrand.toString(),
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.lightTextColor,
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10.sp),
+                                    child: Text('Tình trạng xe',
+                                        style: AppStyles.header600(
+                                            fontsize: 12.sp)),
                                   ),
-                                ),
-                                subtitle: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.data.car!.carLisenceNo
-                                            .toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Roboto',
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.blackTextColor,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Text(
-                                        widget.data.car!.carModel.toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Roboto',
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.lightTextColor,
-                                        ),
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    height: 5.sp,
                                   ),
-                                ),
-                                isThreeLine: true,
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 22.sp),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    Text('Tình trạng xe',
-                                        style: AppStyles.header600()),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    Text(
-                                      'Tình trạng bạn đã chọn',
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.lightTextColor,
-                                      ),
-                                    ),
-                                    ListView.builder(
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10.sp),
+                                    child: ListView.builder(
                                       shrinkWrap: true,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
@@ -602,36 +532,50 @@ class _BookingDetailState extends State<BookingDetail> {
                                       itemBuilder: (context, index) {
                                         var item = _booking!.symptoms[index];
                                         return Container(
-                                            padding: EdgeInsets.all(5.sp),
-                                            margin: EdgeInsets.symmetric(
+                                            padding: EdgeInsets.symmetric(
                                                 vertical: 5.sp),
-                                            // decoration:
-                                            //     BoxDecoration(color: Colors.grey[300]),
+                                            margin: EdgeInsets.only(left: 2.sp),
                                             child: Text(
                                               item.name.toString(),
                                               style: AppStyles.text400(
-                                                  fontsize: 14.sp),
+                                                  fontsize: 10.sp),
                                             ));
                                       },
                                     ),
-                                    SizedBox(
-                                      height: 15.h,
+                                  ),
+                                  Visibility(
+                                      visible: _booking!
+                                          .unresolvedProblems.isNotEmpty,
+                                      child: const CustomSpacer()),
+                                  Visibility(
+                                    visible:
+                                        _booking!.unresolvedProblems.isNotEmpty,
+                                    child: SizedBox(
+                                      height: 5.sp,
                                     ),
-                                    Text('Vấn đề tái sửa chữa',
-                                        style: AppStyles.header600()),
-                                    SizedBox(
-                                      height: 10.h,
+                                  ),
+                                  Visibility(
+                                    visible:
+                                        _booking!.unresolvedProblems.isNotEmpty,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.sp),
+                                      child: Text('Vấn đề tái sửa chữa',
+                                          style: AppStyles.header600(
+                                              fontsize: 12.sp)),
                                     ),
-                                    Text(
-                                      'Vấn đề bạn đã chọn',
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.lightTextColor,
-                                      ),
+                                  ),
+                                  Visibility(
+                                    visible:
+                                        _booking!.unresolvedProblems.isNotEmpty,
+                                    child: SizedBox(
+                                      height: 5.sp,
                                     ),
-                                    ListView.builder(
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10.sp),
+                                    child: ListView.builder(
                                       shrinkWrap: true,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
@@ -641,20 +585,21 @@ class _BookingDetailState extends State<BookingDetail> {
                                         var item =
                                             _booking!.unresolvedProblems[index];
                                         return Container(
-                                            padding: EdgeInsets.all(5.sp),
-                                            margin: EdgeInsets.symmetric(
+                                            padding: EdgeInsets.symmetric(
                                                 vertical: 5.sp),
-                                            // decoration:
-                                            //     BoxDecoration(color: Colors.grey[300]),
+                                            margin: EdgeInsets.only(left: 2.sp),
                                             child: Text(
                                               item.name.toString(),
                                               style: AppStyles.text400(
-                                                  fontsize: 14.sp),
+                                                  fontsize: 10.sp),
                                             ));
                                       },
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15.sp,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -663,8 +608,96 @@ class _BookingDetailState extends State<BookingDetail> {
                     ),
                   ),
                 ),
+                bottomNavigationBar: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.symmetric(
+                          horizontal: BorderSide.merge(
+                              BorderSide(color: Colors.grey.shade200, width: 1),
+                              BorderSide.none))),
+                  child: Container(
+                    margin: const EdgeInsets.all(20),
+                    width: double.infinity,
+                    height: 52.h,
+                    child: widget.data.daysLeft == 0
+                        ? ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) => QRCodePage(
+                                        bookingId: _booking!.id,
+                                      )));
+                            },
+                            style: AppStyles.button16(),
+                            child: Text(
+                              'Check-in',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          )
+                        : ElevatedButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) =>
+                                      const PickDateBooking());
+                            },
+                            style: AppStyles.button16(),
+                            child: Text(
+                              'Đặt lịch lại',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                  ),
+                ),
               ),
             ),
+    );
+  }
+}
+
+class CustomSpacer extends StatelessWidget {
+  const CustomSpacer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 15.sp,
+      child: Center(
+          child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.sp),
+        child: const Divider(thickness: 1),
+      )),
+    );
+  }
+}
+
+class CustomRow extends StatelessWidget {
+  String title;
+  String value;
+  TextStyle? textStyle;
+  CustomRow(
+      {super.key, required this.title, required this.value, this.textStyle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: textStyle),
+          Text(value, style: textStyle),
+        ],
+      ),
     );
   }
 }
