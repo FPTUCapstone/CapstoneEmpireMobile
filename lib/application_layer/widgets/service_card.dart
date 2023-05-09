@@ -58,19 +58,21 @@ class _SerivceCardState extends State<SerivceCard> {
               left: 12,
               top: 12,
               child: Container(
-                width: 80.w,
                 height: 32.h,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Center(
-                  child: Text(
-                    widget.tag,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w600,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.tag,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
