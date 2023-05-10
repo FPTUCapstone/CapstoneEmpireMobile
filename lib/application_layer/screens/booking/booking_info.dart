@@ -22,6 +22,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 
 import '../../../common/colors.dart';
+import '../../../helper/common_helper.dart';
 import '../../../models/request/payment_request_model.dart';
 import '../../../services/booking_service/booking_service.dart';
 import '../../../services/payment_services/payment_services.dart';
@@ -320,13 +321,18 @@ class _BookingInfoState extends State<BookingInfo> {
                     color: AppColors.lightTextColor,
                   ),
                 ),
-                title: Text(
-                  "Đặt lịch",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
+                title: Center(
+                  child: SizedBox(
+                    width: 200.w,
+                    child: Text(
+                      "Đặt lịch - ${formatDate(widget.selectedDate.toString(),false)}",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -338,52 +344,52 @@ class _BookingInfoState extends State<BookingInfo> {
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 20.h,
+                        height: 10.h,
                       ),
-                      Text(
-                        "Ngày đặt",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blackTextColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      SizedBox(
-                        height: 55.h,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                enabled: false,
-                                controller: _dateController,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: AppColors.lightGrey),
-                                      borderRadius: BorderRadius.circular(12)),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  filled: true,
-                                ),
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Text(
+                      //   "Ngày đặt",
+                      //   style: TextStyle(
+                      //     fontFamily: 'Roboto',
+                      //     fontSize: 14.sp,
+                      //     fontWeight: FontWeight.w600,
+                      //     color: AppColors.blackTextColor,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 5.h,
+                      // ),
+                      // SizedBox(
+                      //   height: 55.h,
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         child: TextField(
+                      //           enabled: false,
+                      //           controller: _dateController,
+                      //           decoration: InputDecoration(
+                      //             fillColor: Colors.white,
+                      //             border: OutlineInputBorder(
+                      //                 borderSide: BorderSide.none,
+                      //                 borderRadius: BorderRadius.circular(12)),
+                      //             focusedBorder: OutlineInputBorder(
+                      //                 borderSide: const BorderSide(
+                      //                     color: AppColors.lightGrey),
+                      //                 borderRadius: BorderRadius.circular(12)),
+                      //             floatingLabelBehavior:
+                      //                 FloatingLabelBehavior.always,
+                      //             filled: true,
+                      //           ),
+                      //           style: TextStyle(
+                      //             fontFamily: 'Roboto',
+                      //             fontSize: 14.sp,
+                      //             fontWeight: FontWeight.w400,
+                      //             color: AppColors.lightTextColor,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -391,7 +397,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             "Phương tiện",
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
                             ),
@@ -413,7 +419,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                     "Chọn",
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
-                                      fontSize: 14.sp,
+                                      fontSize: 10.sp,
                                       fontWeight: FontWeight.w500,
                                       color: AppColors.blueTextColor,
                                     ),
@@ -426,7 +432,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         "Phương tiện được chọn",
                         style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: 12.sp,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
                         ),
@@ -551,7 +557,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                             .carBrand,
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
-                                          fontSize: 12.sp,
+                                          fontSize: 10.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.lightTextColor,
                                         ),
@@ -571,7 +577,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                                   .carLisenceNo,
                                               style: TextStyle(
                                                 fontFamily: 'Roboto',
-                                                fontSize: 14.sp,
+                                                fontSize: 12.sp,
                                                 fontWeight: FontWeight.w600,
                                                 color: AppColors.blackTextColor,
                                               ),
@@ -588,7 +594,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                                   .carModel,
                                               style: TextStyle(
                                                 fontFamily: 'Roboto',
-                                                fontSize: 12.sp,
+                                                fontSize: 10.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.lightTextColor,
                                               ),
@@ -630,7 +636,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                                   ));
                                                 },
                                                 child: Container(
-                                                  margin: EdgeInsets.all(10.sp),
+                                                  margin: EdgeInsets.all(8.sp),
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -639,7 +645,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                                       Text(
                                                         'Lịch sử sửa chữa',
                                                         style: AppStyles.header600(
-                                                            fontsize: 14.sp,
+                                                            fontsize: 10.sp,
                                                             color: AppColors
                                                                 .blueTextColor),
                                                       ),
