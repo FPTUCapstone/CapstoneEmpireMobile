@@ -42,6 +42,7 @@ class DepositBottomSheet extends StatelessWidget {
                   Text(
                     "Tại sao phải trả phí đặt chỗ ? ",
                     style: TextStyle(
+                      
                       fontFamily: 'Roboto',
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -76,33 +77,40 @@ class DepositBottomSheet extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(left:20,right: 20),
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context, 'Xác nhận'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.buttonColor,
-                              fixedSize: Size.fromHeight(50.w),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(36),
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(color: AppColors.grey100,width: 2)
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(left:20,right: 20,top: 10),
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.pop(context, 'Tôi đã hiểu và đồng ý'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonColor,
+                                fixedSize: Size.fromHeight(55.w),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
                               ),
-                            ),
-                            child: Text(
-                              'Tôi đã hiểu',
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
+                              child: Text(
+                                'Tôi đã hiểu',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

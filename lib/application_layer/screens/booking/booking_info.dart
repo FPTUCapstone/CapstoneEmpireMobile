@@ -325,7 +325,7 @@ class _BookingInfoState extends State<BookingInfo> {
                   child: SizedBox(
                     width: 200.w,
                     child: Text(
-                      "Đặt lịch - ${formatDate(widget.selectedDate.toString(),false)}",
+                      "Đặt lịch - ${formatDate(widget.selectedDate.toString(), false)}",
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 16.sp,
@@ -420,7 +420,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
                                       fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w700,
                                       color: AppColors.blueTextColor,
                                     ),
                                   ),
@@ -796,7 +796,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             "Phương thức thanh toán",
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
                             ),
@@ -813,8 +813,8 @@ class _BookingInfoState extends State<BookingInfo> {
                               "Chọn",
                               style: TextStyle(
                                 fontFamily: 'Roboto',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500,
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w700,
                                 color: AppColors.blueTextColor,
                               ),
                             ),
@@ -825,7 +825,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         "Phương thức được chọn",
                         style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: 12.sp,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
                         ),
@@ -890,13 +890,13 @@ class _BookingInfoState extends State<BookingInfo> {
                         "Thanh toán",
                         style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
                         ),
                       ),
                       SizedBox(
-                        height: 20.h,
+                        height: 10.h,
                       ),
                       Row(
                         children: [
@@ -904,7 +904,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             "Phí đặt chỗ",
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontSize: 14.sp,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
                             ),
@@ -912,7 +912,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           const Spacer(),
                           Text(
                             NumberFormat.currency(
-                                    decimalDigits: 0, locale: 'vi_VN')
+                                    decimalDigits: 0, locale: 'vi_VN',symbol: "đ")
                                 .format(_bookingPrice)
                                 .toString(),
                             style: TextStyle(
@@ -945,7 +945,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           const Spacer(),
                           Text(
                             NumberFormat.currency(
-                                    decimalDigits: 0, locale: 'vi_VN')
+                                    decimalDigits: 0, locale: 'vi_VN',symbol: "đ")
                                 .format(_bookingPrice)
                                 .toString(),
                             style: TextStyle(
@@ -997,57 +997,69 @@ class _BookingInfoState extends State<BookingInfo> {
                       SizedBox(
                         height: 36.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                if (_listSymptom.isEmpty) {
-                                  setState(() {
-                                    _emptySymtomp = true;
-                                  });
-                                  return;
-                                }
-                                PaymentRequestModel paymentRequestModel =
-                                    PaymentRequestModel(
-                                        amount: _bookingPrice,
-                                        name: 'Trung',
-                                        orderDescription: 'ABC',
-                                        orderType: 'VNpay');
-                                var responsePayment =
-                                    await _payBookingFee(paymentRequestModel);
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => BookingPayment(
-                                    url: responsePayment,
-                                    callback: _onCallBackFromPayment,
-                                  ),
-                                ));
 
-                                // }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.buttonColor,
-                                fixedSize: Size.fromHeight(50.w),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(28),
-                                ),
-                              ),
-                              child: Text(
-                                'Đặt lịch',
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       SizedBox(
                         height: 36.h,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              bottomNavigationBar: Container(
+                height: 100.h,
+                decoration: const BoxDecoration(
+                    border: Border(
+                        top: BorderSide(color: AppColors.grey100, width: 2))),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_listSymptom.isEmpty) {
+                              setState(() {
+                                _emptySymtomp = true;
+                              });
+                              return;
+                            }
+                            PaymentRequestModel paymentRequestModel =
+                                PaymentRequestModel(
+                                    amount: _bookingPrice,
+                                    //TODO
+                                    name: 'Trung',
+                                    //TODO
+                                    orderDescription: 'ABC',
+                                    orderType: 'VNpay');
+                            var responsePayment =
+                                await _payBookingFee(paymentRequestModel);
+                            // ignore: use_build_context_synchronously
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => BookingPayment(
+                                url: responsePayment,
+                                callback: _onCallBackFromPayment,
+                              ),
+                            ));
+                
+                            // }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.buttonColor,
+                            fixedSize: Size.fromHeight(50.w),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: Text(
+                            'Xác nhận',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
