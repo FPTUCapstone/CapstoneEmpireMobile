@@ -1,10 +1,11 @@
+import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
 import 'package:empiregarage_mobile/common/style.dart';
+import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -125,26 +126,28 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     return _loading
         ? const CircularProgressIndicator()
         : Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.sp),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Divider(thickness: 1),
+                SizedBox(height: 10.sp),
                 Text(
                   "Kết quả chuẩn đoán",
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
                   ),
                 ),
-                SizedBox(height: 15.h),
+                SizedBox(height: 10.sp),
                 ReadMoreText(
                   _orderServicesResponseModel!.healthCarRecord!.symptom
                       .toString(),
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.blackTextColor,
                   ),
@@ -153,32 +156,29 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                   trimCollapsedText: ' Read more',
                   trimExpandedText: ' Show less',
                 ),
-                SizedBox(height: 15.h),
-                const Divider(
-                  thickness: 1,
-                  color: AppColors.searchBarColor,
-                ),
-                SizedBox(height: 15.h),
+                SizedBox(height: 10.sp),
+                const Divider(thickness: 1),
+                SizedBox(height: 10.sp),
                 Text(
                   "Dịch vụ gợi ý trên kết quả phân tích",
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 5.sp),
                 Text(
                   "Bạn có thể thay đổi theo mong muốn ",
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
                   ),
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 15.sp),
                 ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -195,12 +195,12 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                               healthCarRecordProblem.problem.name.toString(),
                               style: TextStyle(
                                 fontFamily: 'Roboto',
-                                fontSize: 14.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackTextColor,
                               ),
                             ),
-                            SizedBox(height: 10.h),
+                            SizedBox(height: 5.sp),
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
@@ -209,145 +209,88 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                               itemBuilder: (context, index) {
                                 var item = healthCarRecordProblem
                                     .problem.items![index];
-                                return Padding(
-                                  padding: EdgeInsets.only(bottom: 15.h),
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(16)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 1,
-                                          blurRadius: 20,
-                                        ),
-                                      ],
-                                    ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        //remove when click at itself
+                                return InkWell(
+                                  onTap: () {
+                                    //remove when click at itself
+                                    if (_listOrderServiceDetails.any(
+                                        (element) =>
+                                            element.itemId == item.id)) {
+                                      setState(() {
+                                        _listOrderServiceDetails.removeWhere(
+                                            (element) =>
+                                                element.itemId == item.id);
+                                        _sum -= item.presentPrice!;
+                                      });
+                                    } else {
+                                      //reload list in a problem
+                                      for (var e in healthCarRecordProblem
+                                          .problem.items!) {
                                         if (_listOrderServiceDetails.any(
                                             (element) =>
-                                                element.itemId == item.id)) {
-                                          setState(() {
-                                            _listOrderServiceDetails
-                                                .removeWhere((element) =>
-                                                    element.itemId == item.id);
-                                            _sum -= item.presentPrice!;
-                                          });
-                                        } else {
-                                          //reload list in a problem
-                                          for (var e in healthCarRecordProblem
-                                              .problem.items!) {
-                                            if (_listOrderServiceDetails.any(
-                                                (element) =>
-                                                    element.itemId == e.id)) {
-                                              _listOrderServiceDetails
-                                                  .removeWhere((element) =>
-                                                      element.itemId == e.id);
-                                              _sum -= double.parse(
-                                                  e.presentPrice.toString());
-                                            }
-                                          }
-                                          _confirmService(item);
+                                                element.itemId == e.id)) {
+                                          _listOrderServiceDetails.removeWhere(
+                                              (element) =>
+                                                  element.itemId == e.id);
+                                          _sum -= double.parse(
+                                              e.presentPrice.toString());
                                         }
-                                      },
-                                      child: ListTile(
-                                        title: Text(
-                                          item.name.toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blackTextColor,
-                                          ),
-                                        ),
-                                        subtitle: Align(
-                                          alignment: Alignment.topLeft,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Giá : ",
-                                                style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      AppColors.lightTextColor,
-                                                ),
-                                              ),
-                                              Text(
-                                                NumberFormat.currency(
-                                                        decimalDigits: 0,
-                                                        locale: 'vi_VN')
-                                                    .format(item.presentPrice)
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color:
-                                                      AppColors.lightTextColor,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        trailing: Column(
+                                      }
+                                      _confirmService(item);
+                                    }
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 5.sp),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(height: 15.h),
-                                            Icon(
-                                              _checkService(item)
-                                                  ? Icons.radio_button_checked
-                                                  : Icons
-                                                      .radio_button_unchecked,
-                                              color: AppColors.buttonColor,
+                                            Text(
+                                              item.name.toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.blackTextColor,
+                                              ),
+                                            ),
+                                            SizedBox(height: 5.sp,),
+                                            Text(
+                                              formatCurrency(item.presentPrice),
+                                              style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.lightTextColor,
+                                              ),
                                             )
                                           ],
                                         ),
-                                      ),
+                                        Icon(
+                                          _checkService(item)
+                                              ? Icons.radio_button_checked
+                                              : Icons.radio_button_unchecked,
+                                          color: AppColors.buttonColor,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 );
                               },
                             ),
+                            SizedBox(height: 5.sp),
                           ]);
                     }),
                 const Divider(
                   thickness: 1,
-                  color: AppColors.searchBarColor,
                 ),
-                SizedBox(height: 15.h),
-                Row(
-                  children: [
-                    Text(
-                      "Tổng tạm tính",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN')
-                          .format(_sum)
-                          .toString(),
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                  ],
+                CustomRowWithoutPadding(title: "Tổng tạm tính", value: formatCurrency(_sum), textStyle: AppStyles.header600(fontsize: 12.sp)),
+                const Divider(
+                  thickness: 1,
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 15.sp,
                 ),
                 if (_error != null)
                   Padding(
@@ -358,30 +301,24 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                   ),
                 SizedBox(
                   width: 335.w,
-                  height: 52.h,
+                  height: 52.sp,
                   child: ElevatedButton(
                     onPressed: () async {
                       _onContinue();
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.buttonColor,
-                      fixedSize: Size.fromHeight(50.w),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36),
-                      ),
-                    ),
+                    style: AppStyles.button16(),
                     child: Text(
                       'Tiếp tục',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontSize: 17.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 15.sp,
                 ),
               ],
             ),

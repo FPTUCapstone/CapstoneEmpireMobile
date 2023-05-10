@@ -43,9 +43,9 @@ class AppStyles {
         );
   }
 
-  static ButtonStyle button16() {
+  static ButtonStyle button16({color = const Color(0xFF2C53D2)}) {
     return ElevatedButton.styleFrom(
-      backgroundColor: AppColors.buttonColor,
+      backgroundColor: color,
       fixedSize: Size.fromHeight(55.sp),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),

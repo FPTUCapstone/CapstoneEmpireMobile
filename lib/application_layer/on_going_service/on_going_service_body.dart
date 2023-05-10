@@ -19,39 +19,44 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.sp),
+          child: const Divider(thickness: 1),
+        ),
         SizedBox(
-          height: 10.h,
+          height: 10.sp,
         ),
         Text(
           "Kỹ thuật viên đang kiểm tra",
           style: TextStyle(
             fontFamily: 'Roboto',
-            fontSize: 20.sp,
+            fontSize: 12.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.blackTextColor,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
           child: Text(
-            "Bạn sẽ nhận được thông báo và gợi ý những dịch vụ sau khi kiểm tra hoàn tất.",
+            "Bạn sẽ có thể xem được các chuẩn đoán sau khi kỹ thuật viên hoàn tất việc kiểm tra",
             style: TextStyle(
               fontFamily: 'Roboto',
-              fontSize: 12.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w400,
               color: AppColors.blackTextColor,
             ),
             textAlign: TextAlign.center,
           ),
         ),
-        SizedBox(
-          height: 10.h,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.sp),
+          child: const Divider(thickness: 1),
         ),
         ListTile(
           leading: Image.asset(
             "assets/image/service-picture/mechanicPic.png",
-            height: 50.h,
-            width: 50.w,
+            height: 40.sp,
+            width: 50.sp,
           ),
           title: Text(
             widget.expert == null
@@ -60,8 +65,8 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
             style: TextStyle(
               fontFamily: 'Roboto',
               fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.lightTextColor,
+              fontWeight: FontWeight.w600,
+              color: AppColors.blackTextColor,
             ),
           ),
           subtitle: Align(
@@ -73,8 +78,8 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                   "Kỹ thuật viên",
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.blackTextColor,
                   ),
                 ),
@@ -82,8 +87,9 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
             ),
           ),
         ),
-        SizedBox(
-          height: 20.h,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.sp),
+          child: const Divider(thickness: 1),
         ),
         ListTile(
           leading: FutureBuilder(
@@ -92,20 +98,20 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                 if (snapshot.hasData) {
                   return Image.network(
                     snapshot.data.toString(),
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else if (snapshot.hasError) {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 }
               }),
@@ -113,8 +119,8 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
             widget.order.car.carBrand,
             style: TextStyle(
               fontFamily: 'Roboto',
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w400,
               color: AppColors.lightTextColor,
             ),
           ),
@@ -130,7 +136,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                   widget.order.car.carLisenceNo,
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.blackTextColor,
                   ),
@@ -142,8 +148,8 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
                   widget.order.car.carModel,
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
                   ),
                 ),

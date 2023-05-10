@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:empiregarage_mobile/application_layer/widgets/order_fail.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/models/response/payment_response.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -43,6 +43,7 @@ class _OrderPaymentState extends State<OrderPayment> {
                 PaymentResponseModel paymentResponseModel =
                     PaymentResponseModel.fromJson(jsonDecode(decoded));
                 log(paymentResponseModel.transactionId);
+
                 // ignore: unrelated_type_equality_checks
                 if (paymentResponseModel.vnPayResponseCode == "00" &&
                     paymentResponseModel.success == true) {
@@ -54,9 +55,14 @@ class _OrderPaymentState extends State<OrderPayment> {
                   Navigator.of(context).pop();
                   // ignore: use_build_context_synchronously
                   showModalBottomSheet(
+                      backgroundColor: Colors.transparent,
                       context: context,
-                      builder: (context) => const OrderFailed(
-                            message: 'Thanh toán thất bại',
+                      builder: (context) => BottomPopup(
+                            image: 'assets/image/icon-logo/failed-icon.png',
+                            title: "Thanh toán thất bại",
+                            body: "Vui lòng thực hiện lại thanh toán",
+                            buttonTitle: "Thử lại",
+                            action: () => Navigator.of(context).pop(),
                           ));
                 }
               } catch (e) {

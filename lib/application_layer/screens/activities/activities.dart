@@ -325,7 +325,7 @@ class ActivityChip extends StatefulWidget {
 class _ActivityChipState extends State<ActivityChip> {
   List<Status> statuses = [
     Status(0, "Đang chờ nhân viên"),
-    Status(1, "Đang phân tích"),
+    Status(1, "Đang kiểm tra"),
     Status(2, "Xác nhận & thanh toán"),
     Status(3, "Đang thực hiện"),
     Status(4, "Đợi lấy xe"),

@@ -8,7 +8,6 @@ import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/on_going_service_progress_bar.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../common/colors.dart';
 import '../../models/response/orderservices.dart';
@@ -108,7 +107,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
 
   List<Status> statuses = [
     Status(0, "Đang chờ nhân viên"),
-    Status(1, "Đang phân tích"),
+    Status(1, "Đang kiểm tra"),
     Status(2, "Xác nhận & thanh toán"),
     Status(3, "Đang thực hiện"),
     Status(4, "Đợi lấy xe"),
@@ -129,15 +128,16 @@ class _OnGoingServiceState extends State<OnGoingService> {
     return _loading
         ? const Loading()
         : Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
-              backgroundColor: AppColors.lightGrey,
+              backgroundColor: Colors.white,
               leading: IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
                 icon: const Icon(
-                  FontAwesomeIcons.chevronDown,
-                  color: AppColors.grey600,
+                  Icons.keyboard_arrow_down,
+                  color: Colors.black,
                 ),
               ),
               title: Text(

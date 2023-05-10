@@ -26,14 +26,41 @@ class OnGoingServiceProgressBar extends StatefulWidget {
 class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   int _activeStep = 0;
   UserResponseModel? _expert;
+  String _backdrop = "assets/image/service-picture/ongoingservicepic.png";
 
   @override
   void initState() {
+    _getBackdrop();
     _getExpert();
     setState(() {
       _activeStep = widget.activeStep;
     });
     super.initState();
+  }
+
+  void _getBackdrop() {
+    String backdrop = "assets/image/service-picture/ongoingservicepic.png";
+    switch (widget.order.status) {
+      case 0:
+        backdrop = "assets/image/service-picture/ongoingservicepic.png";
+        break;
+      case 1:
+        backdrop = "assets/image/service-picture/diagnosing.png";
+        break;
+      case 2:
+        backdrop = "assets/image/service-picture/paying.png";
+        break;
+      case 3:
+        backdrop = "assets/image/service-picture/repairing.png";
+        break;
+      case 4:
+        backdrop = "assets/image/service-picture/checking-out.png";
+        break;
+      default:
+    }
+    setState(() {
+      _backdrop = backdrop;
+    });
   }
 
   _onSelectTab(selectedTab) {
@@ -53,35 +80,15 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(
-          height: 15.h,
-        ),
-        Container(
-          alignment: Alignment.center,
-          child: Text(
-            "Mã hóa đơn: #${widget.order.code}",
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
-              color: AppColors.lightTextColor,
-            ),
-          ),
-        ),
         Padding(
-          padding: EdgeInsets.all(35.w),
+          padding: EdgeInsets.all(15.sp),
           child: Container(
-            height: 250.h,
-            width: 300.h,
-            decoration: const BoxDecoration(
+            height: 170.sp,
+            width: 200.sp,
+            decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(
-                        "assets/image/service-picture/ongoingservicepic.png"),
-                    fit: BoxFit.fill)),
+                    image: AssetImage(_backdrop), fit: BoxFit.fill)),
           ),
-        ),
-        SizedBox(
-          height: 10.h,
         ),
         SizedBox(
           child: SingleChildScrollView(
@@ -89,20 +96,11 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Text(
-                //   '${widget.order.car.carBrand} ${widget.order.car.carModel} ',
-                //   style: TextStyle(
-                //     fontFamily: 'Roboto',
-                //     fontSize: 12.sp,
-                //     fontWeight: FontWeight.w400,
-                //     color: AppColors.lightTextColor,
-                //   ),
-                // ),
                 Text(
                   '${widget.order.car.carLisenceNo} ',
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.lightTextColor,
                   ),
@@ -111,7 +109,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                   "\u2022 ${widget.order.order.user.fullname}",
                   style: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
                   ),
@@ -121,7 +119,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
           ),
         ),
         SizedBox(
-          height: 10.h,
+          height: 5.sp,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +128,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
               "Phụ trách bởi :",
               style: TextStyle(
                 fontFamily: 'Roboto',
-                fontSize: 12.sp,
+                fontSize: 10.sp,
                 fontWeight: FontWeight.w400,
                 color: AppColors.lightTextColor,
               ),
@@ -142,7 +140,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
               _expert == null ? "Chưa có kỹ thuật viên" : _expert!.fullname,
               style: TextStyle(
                 fontFamily: 'Roboto',
-                fontSize: 12.sp,
+                fontSize: 10.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.blackTextColor,
               ),
@@ -159,74 +157,70 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
           child: EasyStepper(
             activeStep: _activeStep,
             lineType: LineType.normal,
+            lineSpace: 0,
+            lineLength: 20,
+            lineDotRadius: 2,
             lineColor: AppColors.blue100,
             stepShape: StepShape.circle,
-            stepRadius: 20,
-            finishedStepBorderColor: Colors.green,
-            finishedStepTextColor: Colors.green,
-            finishedStepBackgroundColor: Colors.green,
+            stepRadius: 18.sp,
+            finishedStepBorderColor: Colors.transparent,
+            finishedStepTextColor: const Color(0xff1cbe8e),
+            finishedStepBackgroundColor: const Color(0xff1cbe8e),
             unreachedStepBackgroundColor: AppColors.blue100,
-            activeStepIconColor: AppColors.blue600,
-            activeStepTextColor: AppColors.blue600,
-            activeStepBackgroundColor: AppColors.blue600,
+            unreachedStepTextColor: AppColors.blue100,
+            unreachedStepIconColor: Colors.white,
+            unreachedStepBorderColor: Colors.transparent,
+            activeStepIconColor: Colors.transparent,
+            activeStepTextColor: AppColors.blueTextColor,
+            activeStepBackgroundColor: AppColors.blueTextColor,
             steps: [
-              const EasyStep(
+              EasyStep(
                 finishIcon: Icon(
                   FontAwesomeIcons.check,
-                  color: Colors.green,
-                  size: 10,
+                  color: Colors.green.shade500,
                 ),
-                icon: Icon(
+                icon: const Icon(
                   FontAwesomeIcons.one,
-                  size: 10,
                 ),
                 title: 'Đã Check-in',
               ),
               EasyStep(
-                finishIcon: const Icon(
+                finishIcon: Icon(
                   FontAwesomeIcons.check,
-                  color: Colors.green,
-                  size: 10,
+                  color: Colors.green.shade500,
                 ),
                 icon: const Icon(
                   FontAwesomeIcons.two,
-                  size: 10,
                 ),
                 title: _activeStep > 1 ? 'Đã phân tích' : 'Đang phân tích',
               ),
-              const EasyStep(
+              EasyStep(
                 finishIcon: Icon(
                   FontAwesomeIcons.check,
-                  color: Colors.green,
-                  size: 10,
+                  color: Colors.green.shade500,
                 ),
-                icon: Icon(
+                icon: const Icon(
                   FontAwesomeIcons.three,
-                  size: 10,
                 ),
-                title: 'Xác nhận thanh toán',
+                title: 'Xác nhận & thanh toán',
               ),
               EasyStep(
-                finishIcon: const Icon(
+                finishIcon: Icon(
                   FontAwesomeIcons.check,
-                  color: Colors.green,
-                  size: 10,
+                  color: Colors.green.shade500,
                 ),
                 icon: const Icon(
                   FontAwesomeIcons.four,
-                  size: 10,
                 ),
                 title: _activeStep > 3 ? 'Đã hoàn tất' : 'Đang thực hiện',
               ),
               EasyStep(
-                finishIcon: const Icon(
+                finishIcon: Icon(
                   FontAwesomeIcons.check,
-                  color: Colors.green,
-                  size: 10,
+                  color: Colors.green.shade500,
                 ),
                 icon: const Icon(
                   FontAwesomeIcons.five,
-                  size: 10,
                 ),
                 title: _activeStep > 4 ? 'Đã lấy xe' : 'Đợi lấy xe',
               ),

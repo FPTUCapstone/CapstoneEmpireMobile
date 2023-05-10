@@ -701,3 +701,26 @@ class CustomRow extends StatelessWidget {
     );
   }
 }
+
+class CustomRowWithoutPadding extends StatelessWidget {
+  String title;
+  String value;
+  TextStyle? textStyle;
+  CustomRowWithoutPadding(
+      {super.key, required this.title, required this.value, this.textStyle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 5.sp),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: textStyle),
+          Text(value, style: textStyle),
+        ],
+      ),
+    );
+  }
+}
+
