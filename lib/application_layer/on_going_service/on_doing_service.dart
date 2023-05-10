@@ -43,6 +43,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
   List<OrderServiceDetails> _listOrderServiceDetails = [];
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
+  bool _expand = false;
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
@@ -176,14 +177,43 @@ class _OnDoingServiceState extends State<OnDoingService> {
                           width: 10.sp,
                         ),
                         Expanded(
-                            child: CustomRowWithoutPadding(
-                                title: _orderServicesResponseModel!
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5.sp),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      _orderServicesResponseModel!
                                     .orderServiceDetails![index].item!.name
                                     .toString(),
-                                value: formatCurrency(
-                                    _orderServicesResponseModel!
+                                      style:
+                                          AppStyles.text400(fontsize: 10.sp)),
+                                  Visibility(
+                                    visible: _expand,
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 1.sp),
+                                      child: Text(
+                                          _orderServicesResponseModel!
+                                        .orderServiceDetails![index].item!.problem!.name.toString(),
+                                          style: AppStyles.text400(
+                                              fontsize: 10.sp,
+                                              color: Colors.grey.shade500)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                  formatCurrency(
+                                      _orderServicesResponseModel!
                                         .orderServiceDetails![index].price),
-                                textStyle: AppStyles.text400(fontsize: 10.sp))),
+                                  style: AppStyles.text400(fontsize: 10.sp)),
+                            ],
+                          ),
+                        ))
                       ],
                     );
                   },
@@ -206,19 +236,29 @@ class _OnDoingServiceState extends State<OnDoingService> {
                             textStyle: AppStyles.text400(fontsize: 10.sp))),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.sp),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Thêm chi tiết',
-                        style: AppStyles.header600(
-                            fontsize: 10.sp, color: Colors.grey.shade500),
-                      ),
-                      Icon(Icons.keyboard_arrow_down,
-                          color: Colors.grey.shade500)
-                    ],
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      _expand = !_expand;
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.sp),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _expand ? 'Thu gọn' : 'Thêm chi tiết',
+                          style: AppStyles.header600(
+                              fontsize: 10.sp, color: Colors.grey.shade500),
+                        ),
+                        Icon(
+                            _expand
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: Colors.grey.shade500)
+                      ],
+                    ),
                   ),
                 ),
                 const Divider(thickness: 1),
