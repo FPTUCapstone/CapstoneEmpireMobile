@@ -22,11 +22,11 @@ class _PickDateBookingState extends State<PickDateBooking> {
     return Container(
       color: const Color(0xff757575), //background color
       child: Container(
-        height: 330.h,
+        height: 360.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
+              topLeft: Radius.circular(40.0), topRight: Radius.circular(24.0)),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5), //color of shadow
@@ -119,39 +119,47 @@ class _PickDateBookingState extends State<PickDateBooking> {
                     },
                   ),
                   SizedBox(
-                    height: 50.h,
+                    height: 25.h,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (BuildContext context) => BookingInfo(
-                                selectedDate: _selectedValue,
-                              ),
-                            ));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            fixedSize: Size.fromHeight(50.w),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(36),
-                            ),
-                          ),
-                          child: Text(
-                            'Tiếp tục',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                  Container(
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(color: AppColors.grey100,width: 2)
                       )
-                    ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                builder: (BuildContext context) => BookingInfo(
+                                  selectedDate: _selectedValue,
+                                ),
+                              ));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.buttonColor,
+                              fixedSize: Size.fromHeight(55.w),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: Text(
+                              'Tiếp tục',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
