@@ -55,16 +55,21 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 80.sp,
         backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.sp),
           child: Container(
+            height: 42,
+            width: 42,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.transparent,
               border: Border.all(
-                color: Colors.white,
+                color: AppColors.searchBarColor,
                 width: 1.0,
               ),
             ),
@@ -74,60 +79,47 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,
-                  color: Colors.black,
+                  color: AppColors.blackTextColor,
                 )),
           ),
         ),
+        leadingWidth: 84.sp,
         centerTitle: true,
-        title: const Text('Kết quả chẩn đoán',
+        title: Text('Kết quả chẩn đoán',
             style: TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
-              fontSize: 16,
+              fontSize: 16.sp,
               color: Colors.black,
             )),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(12.sp),
-        child: ListView(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.sp),
-              child: Text(
-                'Vui lòng chọn phương tiện để xem kết quả chẩn đoán',
-                style: AppStyles.header600(
-                    fontsize: 16.sp, color: AppColors.grey600),
-              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+            child: Text(
+              'Chọn phương tiện để xem kết quả chuẩn đoán',
+              style: AppStyles.header600(
+                  fontsize: 10.sp, color: Colors.grey.shade500),
             ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.sp),
+            child: ListView.builder(
               shrinkWrap: true,
               itemCount: _listCar.length,
               itemBuilder: (context, index) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.sp),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.3),
-                          spreadRadius: 1.h,
-                          blurRadius: 1.2,
-                          offset: Offset(0, 4.h),
-                        )
-                      ],
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(16))),
-                  child: CarChipManagement(
-                    car: _listCar[index],
-                    selectedCar: _selectedCar,
-                    onSelected: _onCarSelected,
-                  ),
+                padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+                child: CarChipManagement(
+                  car: _listCar[index],
+                  selectedCar: _selectedCar,
+                  onSelected: _onCarSelected,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -164,14 +156,17 @@ class _CarChipManagementState extends State<CarChipManagement> {
         ));
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10)),
-        ),
+        height: 70.sp,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 5),
+                  blurRadius: 20,
+                  color: Colors.grey.shade300,
+                  blurStyle: BlurStyle.outer)
+            ]),
         child: ListTile(
           leading: FutureBuilder(
               future: BrandService().getPhoto(widget.car.carBrand),
@@ -179,84 +174,74 @@ class _CarChipManagementState extends State<CarChipManagement> {
                 if (snapshot.hasData) {
                   return Image.network(
                     snapshot.data.toString(),
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else if (snapshot.hasError) {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 }
               }),
-          title: Text(
-            widget.car.carBrand,
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.lightTextColor,
-            ),
-          ),
-          subtitle: Align(
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.car.carLisenceNo,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
-                  ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.car.carBrand,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextColor,
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Text(
-                  widget.car.carModel,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          isThreeLine: true,
-          trailing: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-              border: Border.all(
-                color: Colors.white,
-                width: 1.0,
               ),
-            ),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        HealthCarRecordManagementDetail(carId: widget.car.id),
-                  ));
-                },
-                icon: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 20,
-                  color: Colors.black,
-                )),
+              SizedBox(
+                height: 5.sp,
+              ),
+              Text(
+                widget.car.carLisenceNo,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.sp,
+              ),
+              Text(
+                widget.car.carModel,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextColor,
+                ),
+              ),
+            ],
           ),
+          trailing: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      HealthCarRecordManagementDetail(carId: widget.car.id),
+                ));
+              },
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                size: 20,
+                color: Colors.black,
+              )),
         ),
       ),
     );

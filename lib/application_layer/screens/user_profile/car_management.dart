@@ -54,15 +54,19 @@ class _CarManagementState extends State<CarManagement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80.sp,
         backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(horizontal:20.sp),
           child: Container(
+            height: 42,
+            width: 42,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.transparent,
               border: Border.all(
-                color: Colors.white,
+                color: AppColors.searchBarColor,
                 width: 1.0,
               ),
             ),
@@ -72,49 +76,55 @@ class _CarManagementState extends State<CarManagement> {
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,
-                  color: Colors.black,
+                  color: AppColors.blackTextColor,
                 )),
           ),
         ),
+        leadingWidth: 84.sp,
         centerTitle: true,
-        title: const Text('Quản lý phương tiện',
+        title: Text('Phương tiện',
             style: TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
-              fontSize: 16,
+              fontSize: 16.sp,
               color: Colors.black,
             )),
         actions: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-              border: Border.all(
-                color: Colors.white,
-                width: 1.0,
+          Padding(
+            padding: EdgeInsets.all(20.sp),
+            child: Container(
+              height: 42,
+              width: 42,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.transparent,
+                border: Border.all(
+                  color: AppColors.searchBarColor,
+                  width: 1.0,
+                ),
               ),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => AddNewCar(
+                        onAddCar: (int) {},
+                      ),
+                    ));
+                  },
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.black,
+                  )),
             ),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => AddNewCar(
-                      onAddCar: (int) {},
-                    ),
-                  ));
-                },
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.black,
-                )),
           ),
         ],
       ),
       body: Scaffold(
-        backgroundColor: AppColors.white100,
+        backgroundColor: Colors.white,
         body: ListView.builder(
           itemCount: _listCar.length,
           itemBuilder: (context, index) => Padding(
-            padding: EdgeInsets.all(10.sp),
+            padding: EdgeInsets.symmetric(horizontal:20.sp, vertical: 10.sp),
             child: CarChipManagement(
               car: _listCar[index],
               selectedCar: _selectedCar,
@@ -147,6 +157,11 @@ class _CarChipManagementState extends State<CarChipManagement> {
     super.initState();
   }
 
+  Future<String?> getBrandPhoto(String brand) async {
+    var photo = await BrandService().getPhoto(brand);
+    return photo;
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isSelected = widget.car.id == widget.selectedCar;
@@ -155,77 +170,91 @@ class _CarChipManagementState extends State<CarChipManagement> {
         //TODO
       },
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16)),
-        ),
+        height: 70.sp,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 5),
+                  blurRadius: 20,
+                  color: Colors.grey.shade300,
+                  blurStyle: BlurStyle.outer)
+            ]),
         child: ListTile(
           leading: FutureBuilder(
-              future: BrandService().getPhoto(widget.car.carBrand),
+              future: getBrandPhoto(widget.car.carBrand),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Image.network(
                     snapshot.data.toString(),
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else if (snapshot.hasError) {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 } else {
                   return Image.asset(
                     "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 50.h,
-                    width: 50.w,
+                    height: 40.sp,
+                    width: 50.sp,
                   );
                 }
               }),
-          title: Text(
-            widget.car.carBrand,
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.lightTextColor,
-            ),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.car.carBrand,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.sp,
+              ),
+              Text(
+                widget.car.carLisenceNo,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+              SizedBox(
+                height: 5.sp,
+              ),
+              Text(
+                widget.car.carModel,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.lightTextColor,
+                ),
+              ),
+            ],
           ),
-          subtitle: Align(
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.car.carLisenceNo,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
-                  ),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Text(
-                  widget.car.carModel,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          isThreeLine: true,
+          // trailing: Column(
+          //   children: [
+          //     SizedBox(height: 10.sp),
+          //     Icon(
+          //       isSelected
+          //           ? Icons.radio_button_checked
+          //           : Icons.radio_button_unchecked,
+          //       color: isSelected ? AppColors.buttonColor : AppColors.grey400,
+          //     )
+          //   ],
+          // ),
         ),
       ),
     );
