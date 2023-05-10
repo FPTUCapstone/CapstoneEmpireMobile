@@ -22,7 +22,7 @@ class BottomPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 330.h,
+      height: 350.h,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(
@@ -31,6 +31,7 @@ class BottomPopup extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: 20.h,

@@ -1,17 +1,20 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:empiregarage_mobile/models/response/qrcode.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/api_part.dart';
 
 class BookingService {
-  Future<BookingResponseModel?> createBooking(
+  Future<dynamic> createBooking(
+      BuildContext context,
       String date,
       int carId,
       int userId,
@@ -39,11 +42,16 @@ class BookingService {
         },
         body: jsonEncode(requestBody),
       );
-    } catch (e) {
+      if (response.statusCode == HttpStatus.created) {
+        return BookingResponseModel.fromJson(jsonDecode(response.body));
+      } else {
+        // ignore: use_build_context_synchronously
+        return response;
+      }
+    } on Exception catch (e) {
       log(e.toString());
     }
-    if (response == null) return null;
-    return BookingResponseModel.fromJson(jsonDecode(response.body));
+    return null;
   }
 
   Future<String?> getQrCode(int bookingId) async {

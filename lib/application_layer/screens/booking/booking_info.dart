@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
@@ -212,51 +215,75 @@ class _BookingInfoState extends State<BookingInfo> {
     int userId = await getUserId() as int;
     int carId =
         _listCar.where((element) => element.id == _selectedCar).first.id;
+    // ignore: use_build_context_synchronously
     var response = await BookingService().createBooking(
+        context,
         date,
         carId,
         userId,
         double.parse(_bookingPrice.toString()),
         _listSymptom,
         _unresolvedProblems);
-
-    if (response != null) {
-      sendNotification(18, "Có đặt lịch mới #${response.code}",
-          "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
-      // var userId = await getUserId();
-      // sendNotification(
-      //     userId!, "Empire Garage", "Bạn vừa đặt lịch kiểm tra xe thành công");
-      // var notificationModel = NotificationModel(
-      //     isAndroiodDevice: true,
-      //     title: "Empire Garage",
-      //     body: "Your booking has been created successful");
-      // await NotificationService().sendNotification(notificationModel);
+    try {
+      var x = response.statusCode;
       setState(() {
         _loading = true;
       });
       // ignore: use_build_context_synchronously
       showModalBottomSheet(
           context: context,
+          backgroundColor: Colors.transparent,
           builder: (context) => BottomPopup(
-                image: 'assets/image/icon-logo/successfull-icon.png',
-                title: "Đặt lịch thành công",
-                body:
-                    'Bạn đã đặt lịch thành công với phương tiện ${response.car.carLisenceNo}\nMã đặt lịch: #${response.code}',
-                buttonTitle: "Trở về",
+                image: 'assets/image/icon-logo/failed-icon.png',
+                title: "Đặt lịch thất bại",
+                body: jsonDecode(response.body)['message'],
+                buttonTitle: "Thử lại",
                 action: () {
-                  Get.offAll(() => const MainPage());
+                  Navigator.of(context).pop();
                 },
               ));
-    } else {
-      setState(() {
-        _loading = true;
-      });
-      // ignore: use_build_context_synchronously
-      showModalBottomSheet(
-          context: context,
-          builder: (context) => const BookingFailed(
-                message: 'Đặt lịch thất bại, vui lòng thử lại',
-              ));
+    } catch (RuntimeBinderException) {
+      if (response != null) {
+        sendNotification(18, "Có đặt lịch mới #${response.code}",
+            "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
+        // var userId = await getUserId();
+        // sendNotification(
+        //     userId!, "Empire Garage", "Bạn vừa đặt lịch kiểm tra xe thành công");
+        // var notificationModel = NotificationModel(
+        //     isAndroiodDevice: true,
+        //     title: "Empire Garage",
+        //     body: "Your booking has been created successful");
+        // await NotificationService().sendNotification(notificationModel);
+        setState(() {
+          _loading = true;
+        });
+        // ignore: use_build_context_synchronously
+        showModalBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            isScrollControlled: true,
+            builder: (context) => BottomPopup(
+                  image: 'assets/image/icon-logo/successfull-icon.png',
+                  title: "Đặt lịch thành công",
+                  body:
+                      'Bạn đã đặt lịch thành công với phương tiện ${response.car.carLisenceNo}\nMã đặt lịch: #${response.code}',
+                  buttonTitle: "Xem chi tiết",
+                  action: () {
+                    Get.offAll(() => const MainPage());
+                    Get.to(() => BookingDetailv2(bookingId: response.id));
+                  },
+                ));
+      } else {
+        setState(() {
+          _loading = true;
+        });
+        // ignore: use_build_context_synchronously
+        showModalBottomSheet(
+            context: context,
+            builder: (context) => const BookingFailed(
+                  message: 'Đặt lịch thất bại, vui lòng thử lại',
+                ));
+      }
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 String formatDate(String dateTime, bool? includeTime) {
@@ -19,3 +20,10 @@ String formatCurrency(dynamic number) {
       .format(number)
       .toString();
 }
+
+  void showErrorSnackbar(BuildContext context, String content) {
+    final snackBar = SnackBar(
+          content: Text(content),
+        );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
