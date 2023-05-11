@@ -25,6 +25,7 @@ class _BookingPaymentState extends State<BookingPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: WebView(
           initialUrl: widget.url,

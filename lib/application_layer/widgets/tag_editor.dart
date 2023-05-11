@@ -2,6 +2,8 @@ import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../common/colors.dart';
+
 class TagEditor extends StatefulWidget {
   final List<SymptonResponseModel> options;
   final void Function(List<SymptonResponseModel>) onChanged;
@@ -36,11 +38,17 @@ class _TagEditorState extends State<TagEditor> {
       children: [
         TextFormField(
           controller: _controller,
-          decoration: const InputDecoration(
+          decoration:  InputDecoration(
             hintText: 'Chọn triệu chứng',
+             hintStyle: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
             border: InputBorder.none,
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            suffixIcon: Icon(Icons.arrow_drop_down_rounded),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
           ),
           onTap: () {
             setState(() {
@@ -78,9 +86,6 @@ class _TagEditorState extends State<TagEditor> {
               });
             }
           },
-        ),
-        SizedBox(
-          height: 10.h,
         ),
         Wrap(
           spacing: 8.0,

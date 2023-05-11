@@ -303,6 +303,7 @@ class _BookingInfoState extends State<BookingInfo> {
               child: CircularProgressIndicator(),
             ))
           : Scaffold(
+              resizeToAvoidBottomInset: false,
               backgroundColor: AppColors.lightGrey,
               appBar: AppBar(
                 centerTitle: true,
@@ -436,6 +437,9 @@ class _BookingInfoState extends State<BookingInfo> {
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
                         ),
+                      ),
+                      SizedBox(
+                        height: 10.h,
                       ),
                       _listCar.isEmpty
                           ? Padding(
@@ -679,7 +683,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         "Triệu chứng",
                         style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: 14.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.blackTextColor,
                         ),
@@ -727,7 +731,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                       "Vấn đề tái sửa chữa",
                                       style: TextStyle(
                                         fontFamily: 'Roboto',
-                                        fontSize: 14.sp,
+                                        fontSize: 12.sp,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.blackTextColor,
                                       ),
@@ -758,8 +762,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                                 item.name,
                                                 style: TextStyle(
                                                   fontFamily: 'Roboto',
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w500,
                                                   color:
                                                       AppColors.blackTextColor,
                                                 ),
@@ -784,9 +788,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                     );
                                   },
                                 ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
+                                SizedBox(height: 10.h,),
                               ],
                             )
                           : Container(),
@@ -831,7 +833,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         ),
                       ),
                       SizedBox(
-                        height: 20.h,
+                        height: 10.h,
                       ),
                       InkWell(
                         onTap: () {
@@ -912,7 +914,9 @@ class _BookingInfoState extends State<BookingInfo> {
                           const Spacer(),
                           Text(
                             NumberFormat.currency(
-                                    decimalDigits: 0, locale: 'vi_VN',symbol: "đ")
+                                    decimalDigits: 0,
+                                    locale: 'vi_VN',
+                                    symbol: "đ")
                                 .format(_bookingPrice)
                                 .toString(),
                             style: TextStyle(
@@ -945,7 +949,9 @@ class _BookingInfoState extends State<BookingInfo> {
                           const Spacer(),
                           Text(
                             NumberFormat.currency(
-                                    decimalDigits: 0, locale: 'vi_VN',symbol: "đ")
+                                    decimalDigits: 0,
+                                    locale: 'vi_VN',
+                                    symbol: "đ")
                                 .format(_bookingPrice)
                                 .toString(),
                             style: TextStyle(
@@ -995,11 +1001,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         ],
                       ),
                       SizedBox(
-                        height: 36.h,
-                      ),
-
-                      SizedBox(
-                        height: 36.h,
+                        height: 20.h,
                       ),
                     ],
                   ),
@@ -1041,7 +1043,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 callback: _onCallBackFromPayment,
                               ),
                             ));
-                
+
                             // }
                           },
                           style: ElevatedButton.styleFrom(
