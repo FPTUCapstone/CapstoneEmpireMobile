@@ -159,7 +159,7 @@ class _NotificationChipState extends State<NotificationChip> {
       decoration: BoxDecoration(
           color: widget.isRead == "false"
               ? AppColors.blue100
-              : AppColors.white100),
+              : Colors.white),
       child: Padding(
         padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
         child: ListTile(

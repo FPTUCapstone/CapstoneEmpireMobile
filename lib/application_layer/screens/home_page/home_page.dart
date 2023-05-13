@@ -393,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                                               .isNotEmpty
                                           ? NumberFormat.currency(
                                                   decimalDigits: 0,
-                                                  locale: 'vi_VN')
+                                                  locale: 'vi_VN',symbol: "đ")
                                               .format(_filteredItem![index]
                                                   .prices!
                                                   .first

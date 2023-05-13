@@ -199,41 +199,53 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   height: 10.h,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(left:20,top: 5,bottom: 5),
                                   child: Row(
                                     children: <Widget>[
                                       Text(
-                                        "182 lượt đặt",
+                                        "182",
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
-                                          fontSize: 18.sp,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w800,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5,),
+                                      Text(
+                                        "lượt đặt",
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.sp,
                                           fontWeight: FontWeight.w400,
                                           color: AppColors.blackTextColor,
                                         ),
                                       ),
                                       const Spacer(),
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                            color: AppColors.green50,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        height: 20,
-                                        width: 80,
-                                        child: Center(
-                                          child: Text(
-                                            _item!.prices!.isNotEmpty
-                                                ? NumberFormat.currency(
-                                                        decimalDigits: 0,
-                                                        locale: 'vi_VN')
-                                                    .format(_item!
-                                                        .prices!.first.price)
-                                                    .toString()
-                                                : "Liên hệ",
-                                            style: TextStyle(
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.greenTextColor,
-                                                fontFamily: 'Roboto'),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 25),
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                              color: AppColors.green50,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          height: 20.h,
+                                          child: Center(
+                                            child: Text(
+                                              _item!.prices!.isNotEmpty
+                                                  ? NumberFormat.currency(
+                                                          decimalDigits: 0,
+                                                          locale: 'vi_VN',symbol: "đ")
+                                                      .format(_item!
+                                                          .prices!.first.price)
+                                                      .toString()
+                                                  : "Liên hệ",
+                                              style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.greenTextColor,
+                                                  fontFamily: 'Roboto'),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -248,7 +260,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   height: 10.h,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(left: 20, bottom: 15),
                                   child: Row(
                                     children: [
                                       Text(
@@ -262,22 +274,26 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: ReadMoreText(
-                                    _item!.description.toString(),
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.blackTextColor,
-                                      fontFamily: 'Roboto',
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: ReadMoreText(
+                                      _item!.description.toString(),
+                                      style: TextStyle(
+                                        height: 1.5,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.blackTextColor,
+                                        fontFamily: 'Roboto',
+                                      ),
+                                      trimLines: 5,
+                                      colorClickableText: AppColors.blueTextColor,
+                                      trimMode: TrimMode.Line,
+                                      trimCollapsedText: ' Read more',
+                                      trimExpandedText: ' Show less',
                                     ),
-                                    trimLines: 5,
-                                    colorClickableText: AppColors.blueTextColor,
-                                    trimMode: TrimMode.Line,
-                                    trimCollapsedText: ' Read more',
-                                    trimExpandedText: ' Show less',
                                   ),
                                 ),
                               ],

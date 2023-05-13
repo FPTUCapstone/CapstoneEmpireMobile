@@ -94,7 +94,6 @@ class _SerivceCardState extends State<SerivceCard> {
                   color: AppColors.green50,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               height: 35,
-              width: 70,
               child: Center(
                 child: Text(
                   widget.price,

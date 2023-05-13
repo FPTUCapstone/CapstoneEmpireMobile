@@ -13,7 +13,7 @@ class ZaloBottomSheet extends StatelessWidget {
     return Container(
       color: const Color(0xff757575), //background color
       child: Container(
-        height: 330.h,
+        height: 340.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
@@ -68,7 +68,7 @@ class ZaloBottomSheet extends StatelessWidget {
                     height: 10.h,
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left:15,right: 15),
+                    margin: const EdgeInsets.only(left: 15, right: 15),
                     child: Center(
                       child: Text(
                         "Chuyển đến ứng dụng Zalo để được trao đổi ",
@@ -95,45 +95,54 @@ class ZaloBottomSheet extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          width: 335.w,
-                          margin: const EdgeInsets.only(left:10,right: 10),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              var openAppResult = await LaunchApp.openApp(
-                                androidPackageName: 'com.zing.zalo',
-                                iosUrlScheme: 'pulsesecure://',
-                                appStoreLink:
-                                    'itms-apps://itunes.apple.com/us/app/pulse-secure/id945832041',
-                              );
-                              if (kDebugMode) {
-                                print(
-                                    'openAppResult => $openAppResult ${openAppResult.runtimeType}');
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.buttonColor,
-                              fixedSize: Size.fromHeight(50.w),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                  Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                                color: AppColors.grey100, width: 2))),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              width: 335.w,
+                              margin: const EdgeInsets.only(left: 10, right: 10),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  var openAppResult = await LaunchApp.openApp(
+                                    androidPackageName: 'com.zing.zalo',
+                                    iosUrlScheme: 'pulsesecure://',
+                                    appStoreLink:
+                                        'itms-apps://itunes.apple.com/us/app/pulse-secure/id945832041',
+                                  );
+                                  if (kDebugMode) {
+                                    print(
+                                        'openAppResult => $openAppResult ${openAppResult.runtimeType}');
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.buttonColor,
+                                  fixedSize: Size.fromHeight(50.w),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Liên hệ',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
                             ),
-                            child: Text(
-                              'Liên hệ',
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

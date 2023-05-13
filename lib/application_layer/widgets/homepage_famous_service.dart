@@ -30,17 +30,9 @@ class _HomepageFamousServiceState extends State<HomepageFamousService> {
   Widget build(BuildContext context) {
     return Container(
       width: 246.w,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 0.5.h,
-              blurRadius: 1,
-              offset: Offset(0, 4.h),
-            )
-          ],
-          borderRadius: const BorderRadius.all(Radius.circular(16))),
+          borderRadius: BorderRadius.all(Radius.circular(16))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
