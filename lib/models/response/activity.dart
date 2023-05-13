@@ -11,6 +11,7 @@ class ActivityResponseModel {
     // this.transaction,
     required this.isBooking,
     this.isOnGoing,
+    this.total,
   });
 
   final int id;
@@ -24,6 +25,7 @@ class ActivityResponseModel {
   // final TransactionSlimResponse? transaction;
   final bool isBooking;
   final bool? isOnGoing;
+  final double? total;
 
   factory ActivityResponseModel.fromJson(Map<String, dynamic> json) {
     return ActivityResponseModel(
@@ -44,6 +46,7 @@ class ActivityResponseModel {
       //         json['transaction'] as Map<String, dynamic>),
       isBooking: json['isBooking'] as bool,
       isOnGoing: json['isOnGoing'] as bool?,
+      total: json['total'].toDouble(),
     );
   }
 
