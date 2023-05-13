@@ -136,7 +136,7 @@ class _MainPageState extends State<MainPage> {
               ),
               MaterialButton(
               minWidth: 20.w,
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               shape: const CircleBorder(),
               color: AppColors.buttonColor,
               onPressed: () {
@@ -151,7 +151,7 @@ class _MainPageState extends State<MainPage> {
                   ImageIcon(
                       AssetImage(
                           "assets/image/icon-logo/mainpage-booking.png"),
-                      size: 25,
+                      size: 20,
                       color: Colors.white),
                 ],
               ),

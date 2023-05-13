@@ -38,16 +38,19 @@ class _SerivceCardState extends State<SerivceCard> {
               width: double.infinity,
               height: 200,
               child: widget.backgroundImage != "null"
-                  ? Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: ClipRRect(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.network(
-                          widget.backgroundImage,
-                          fit: BoxFit.cover,
+                  ? SizedBox(
+                    height: 160.h,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: ClipRRect(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.network(
+                            widget.backgroundImage,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
+                    ),
                   )
                   : Image.asset(
                       "assets/image/error-image/no-image.png",

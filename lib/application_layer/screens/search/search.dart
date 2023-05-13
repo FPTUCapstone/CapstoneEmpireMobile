@@ -86,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: AppColors.grey100,
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -139,18 +139,18 @@ class _SearchPageState extends State<SearchPage> {
                   _searchString = value,
                 },
                 controller: _searchController,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   filled: true,
                   fillColor: AppColors.lightGrey500,
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                       borderSide:
                           BorderSide(color: AppColors.blueTextColor, width: 3),
                       borderRadius: BorderRadius.all(Radius.circular(16))),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: AppColors.grey400),
                       borderRadius: BorderRadius.all(Radius.circular(16))),
                   focusColor: AppColors.searchBarColor,
-                  prefixIcon: Padding(
+                  prefixIcon: const Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Icon(
                       Icons.search,
@@ -159,6 +159,12 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   hintText: 'Tìm kiếm...',
+                  hintStyle: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 1.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.lightTextColor,
+                                ),
                 ),
               ),
             ),
@@ -176,7 +182,7 @@ class _SearchPageState extends State<SearchPage> {
                                     title: const Text(
                                       'Tìm kiếm gần đây',
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 12,
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -187,7 +193,7 @@ class _SearchPageState extends State<SearchPage> {
                                             child: const Text(
                                               "Xóa tất cả",
                                               style: TextStyle(
-                                                  fontSize: 16,
+                                                  fontSize: 10,
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.w400,
                                                   color: Colors.red),
@@ -245,7 +251,7 @@ class _SearchPageState extends State<SearchPage> {
                                   text: 'Kết quả cho "',
                                   style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 16,
+                                    fontSize: 12,
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -254,7 +260,7 @@ class _SearchPageState extends State<SearchPage> {
                                         text: _searchString,
                                         style: const TextStyle(
                                           color: AppColors.blueTextColor,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -276,7 +282,7 @@ class _SearchPageState extends State<SearchPage> {
                                   ? "${_filteredItem!.length} tìm kiếm"
                                   : "0 tìm kiếm",
                               style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 10,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blueTextColor),
@@ -320,6 +326,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 'Rất tiếc từ khóa bạn nhập không tìm thấy, vui lòng kiểm tra lại hoặc tìm với từ khóa khác.',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
+                                                  height: 1.5,
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 12,
