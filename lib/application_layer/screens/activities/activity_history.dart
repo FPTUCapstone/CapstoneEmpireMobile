@@ -188,6 +188,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                   daysLeft: item.daysLeft,
                                   isBooking: item.isBooking,
                                   item: item,
+                                  total: item.total,
                                 ),
                               );
                             },

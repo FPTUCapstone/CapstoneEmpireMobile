@@ -197,6 +197,7 @@ class _HomePageState extends State<Activities> {
                                     daysLeft: item.daysLeft,
                                     isBooking: item.isBooking,
                                     item: item,
+                                    total: item.total,
                                   ),
                                 ),
                               );
@@ -268,6 +269,7 @@ class _HomePageState extends State<Activities> {
                                     daysLeft: item.daysLeft,
                                     isBooking: item.isBooking,
                                     item: item,
+                                    total: item.total,
                                   ),
                                 ),
                               );
@@ -315,7 +317,7 @@ class ActivityChip extends StatefulWidget {
     required this.code,
     required this.isBooking,
     required this.item,
-    this.total = 500000,
+    this.total,
   });
 
   @override
@@ -340,7 +342,7 @@ class _ActivityChipState extends State<ActivityChip> {
   @override
   Widget build(BuildContext context) {
     var item = widget.item;
-    bool isComplete = item.isArrived == true || item.status == 5;
+    bool isComplete = (item.isBooking ==true && item.isArrived == true) || item.status == 5;
     return Padding(
       padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
       child: ListTile(
@@ -408,7 +410,7 @@ class _ActivityChipState extends State<ActivityChip> {
             SizedBox(
               height: 5.h,
             ),
-            if (widget.date != "null")
+            if (widget.isBooking)
               Text(
                 formatDate(widget.date, false),
                 style: TextStyle(

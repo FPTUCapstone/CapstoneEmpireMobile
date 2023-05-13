@@ -59,6 +59,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
         await OrderServices().getOrderServicesById(widget.servicesId);
     List<OrderServiceDetails>? list =
         listOrderServiceDetails!.orderServiceDetails;
+    if (!mounted) return;
     try {
       if (list != null) {
         setState(() {
@@ -188,8 +189,10 @@ class _OnDoingServiceState extends State<OnDoingService> {
                                 children: [
                                   Text(
                                       _orderServicesResponseModel!
-                                    .orderServiceDetails![index].item!.name
-                                    .toString(),
+                                          .orderServiceDetails![index]
+                                          .item!
+                                          .name
+                                          .toString(),
                                       style:
                                           AppStyles.text400(fontsize: 10.sp)),
                                   Visibility(
@@ -199,7 +202,11 @@ class _OnDoingServiceState extends State<OnDoingService> {
                                           EdgeInsets.symmetric(vertical: 1.sp),
                                       child: Text(
                                           _orderServicesResponseModel!
-                                        .orderServiceDetails![index].item!.problem!.name.toString(),
+                                              .orderServiceDetails![index]
+                                              .item!
+                                              .problem!
+                                              .name
+                                              .toString(),
                                           style: AppStyles.text400(
                                               fontsize: 10.sp,
                                               color: Colors.grey.shade500)),
@@ -208,9 +215,8 @@ class _OnDoingServiceState extends State<OnDoingService> {
                                 ],
                               ),
                               Text(
-                                  formatCurrency(
-                                      _orderServicesResponseModel!
-                                        .orderServiceDetails![index].price),
+                                  formatCurrency(_orderServicesResponseModel!
+                                      .orderServiceDetails![index].price),
                                   style: AppStyles.text400(fontsize: 10.sp)),
                             ],
                           ),
