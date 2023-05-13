@@ -8,7 +8,6 @@ import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../common/colors.dart';
 import '../../widgets/loading.dart';
@@ -148,7 +147,11 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                       ),
                     ),
                     SizedBox(
-                      height: 40.h,
+                      height: 20.h,
+                    ),
+                    const Divider(color: AppColors.grey400,height: 3),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 24),
@@ -168,9 +171,9 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                             child: Row(
                               children: <Widget>[
                                 const Padding(
-                                  padding: EdgeInsets.only(right: 24),
-                                  child: Icon(
-                                    FontAwesomeIcons.user,
+                                  padding: EdgeInsets.only(right: 20),
+                                  child: ImageIcon(
+                                    AssetImage("assets/image/icon-logo/mainpage-profile.png"),
                                     size: 24,
                                   ),
                                 ),
@@ -208,8 +211,8 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                               children: <Widget>[
                                 const Padding(
                                   padding: EdgeInsets.only(right: 24),
-                                  child: Icon(
-                                    FontAwesomeIcons.car,
+                                  child: ImageIcon(
+                                    AssetImage("assets/image/icon-logo/car.png"),
                                     size: 20,
                                     color: Colors.black,
                                   ),
@@ -248,8 +251,8 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                               children: <Widget>[
                                 const Padding(
                                   padding: EdgeInsets.only(right: 24),
-                                  child: Icon(
-                                    Icons.content_paste_rounded,
+                                  child: ImageIcon(
+                                    AssetImage("assets/image/icon-logo/mainpage-diagnose.png"),
                                     size: 20,
                                     color: Colors.black,
                                   ),
@@ -290,8 +293,8 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                               children: <Widget>[
                                 const Padding(
                                   padding: EdgeInsets.only(right: 24),
-                                  child: Icon(
-                                    Icons.logout,
+                                  child: ImageIcon(
+                                    AssetImage("assets/image/icon-logo/logout.png"),
                                     size: 24,
                                     color: Colors.red,
                                   ),
