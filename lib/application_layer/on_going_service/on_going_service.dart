@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/application_layer/on_going_service/recommend
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_doing_service.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/on_going_service_progress_bar.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -126,7 +127,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
   @override
   Widget build(BuildContext context) {
     return _loading
-        ? const Loading()
+        ? const ScreenLoadingNoOpacity()
         : Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(

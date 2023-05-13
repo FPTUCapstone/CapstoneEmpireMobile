@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/models/request/update_user_request_model.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:empiregarage_mobile/services/user_service/user_service.dart';
@@ -70,10 +72,7 @@ class _UserProfileState extends State<UserProfile> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: !_loading
-          ? const Scaffold(
-              body: Center(
-              child: CircularProgressIndicator(),
-            ))
+          ? const ScreenLoadingNoOpacity()
           : Scaffold(
               backgroundColor: AppColors.loginScreenBackGround,
               body: SafeArea(

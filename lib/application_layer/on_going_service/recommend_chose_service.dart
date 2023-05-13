@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
@@ -124,7 +125,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
   @override
   Widget build(BuildContext context) {
     return _loading
-        ? const CircularProgressIndicator()
+        ? const Loading()
         : Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.sp),
             child: Column(

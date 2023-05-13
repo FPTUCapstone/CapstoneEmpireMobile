@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/widgets/countdown_timer.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
@@ -293,7 +294,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                 return const Text('No Data');
               }
             } else {
-              return const CircularProgressIndicator();
+              return const Loading();
             }
           },
         ),

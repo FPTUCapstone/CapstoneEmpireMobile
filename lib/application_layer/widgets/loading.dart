@@ -4,17 +4,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatelessWidget {
   final Color? backgroundColor;
-  const Loading({super.key, this.backgroundColor});
+  final Color? iconColor;
+  const Loading({super.key, this.backgroundColor, this.iconColor = AppColors.blueTextColor});
+
+  const Loading.whiteIcon({super.key, this.backgroundColor, this.iconColor = Colors.white});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: const Center(
+    return Center(
+      child: FittedBox(
         child: SpinKitThreeBounce(
-        color: AppColors.blueTextColor,
-        size: 30,
-      )
+          color: iconColor,
+          size: 30,
+        ),
       ),
     );
   }

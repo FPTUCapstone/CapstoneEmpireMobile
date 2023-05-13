@@ -30,7 +30,11 @@ class BrandService {
     for (var jsonObject in jsonArray) {
       list.add(BrandSlimModel.fromJson(jsonObject));
     }
-    var photo = list.firstWhere((element) => element.name == brand).photo;
-    return photo;
+    try {
+      var photo = list.firstWhere((element) => element.name == brand).photo;
+      return photo;
+    } catch (exception) {
+      return null;
+    }
   }
 }

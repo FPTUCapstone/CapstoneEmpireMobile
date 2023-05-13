@@ -9,7 +9,7 @@ class BookingResponseModel {
     this.arrivedDateTime,
     required this.isArrived,
     required this.isActived,
-    this.daysLeft,
+    this.dayLeft,
     required this.user,
     required this.car,
     required this.symptoms,
@@ -22,7 +22,7 @@ class BookingResponseModel {
   String? arrivedDateTime;
   bool isArrived;
   bool isActived;
-  int? daysLeft;
+  int? dayLeft;
   UserSlimResponse user;
   CarResponseModel car;
   List<SymptonResponseModel> symptoms = [];
@@ -36,7 +36,7 @@ class BookingResponseModel {
       arrivedDateTime: json['arrivedDateTime'],
       isArrived: json['isArrived'],
       isActived: json['isActived'],
-      daysLeft: json['daysLeft'],
+      dayLeft: json['dayLeft'],
       user: UserSlimResponse.fromJson(json['user']),
       car: CarResponseModel.fromJson(json['car']),
       symptoms: (json['symptoms'] as List)
@@ -54,7 +54,7 @@ class BookingResponseModel {
         'date': date,
         'isArrived': isArrived,
         'isActived': isActived,
-        'daysLeft': daysLeft,
+        'daysLeft': dayLeft,
         'user': user,
         'car': car,
       };

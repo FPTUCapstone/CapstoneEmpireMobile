@@ -4,6 +4,8 @@ import 'package:empiregarage_mobile/application_layer/screens/booking/booking_de
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/tag_editor.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -18,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 
 import '../../../common/colors.dart';
@@ -298,10 +299,7 @@ class _BookingInfoState extends State<BookingInfo> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: !_loading
-          ? const Scaffold(
-              body: Center(
-              child: CircularProgressIndicator(),
-            ))
+          ? const ScreenLoadingNoOpacity()
           : Scaffold(
               resizeToAvoidBottomInset: false,
               backgroundColor: AppColors.lightGrey,
@@ -310,11 +308,7 @@ class _BookingInfoState extends State<BookingInfo> {
                 backgroundColor: Colors.white,
                 leading: IconButton(
                   onPressed: () {
-                    Navigator.of(context).push(PageTransition(
-                        type: PageTransitionType.topToBottomPop,
-                        duration: const Duration(milliseconds: 350),
-                        childCurrent: widget,
-                        child: const MainPage()));
+                    Navigator.of(context).pop();
                   },
                   icon: const Icon(
                     Icons.keyboard_arrow_down_outlined,
@@ -669,8 +663,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                             width: 20.sp,
                                             margin: EdgeInsets.all(8.sp),
                                             child:
-                                                const CircularProgressIndicator
-                                                    .adaptive(),
+                                                const Loading()
                                           )
                                   ],
                                 ),

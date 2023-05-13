@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -90,9 +91,7 @@ class _NotificationPageState extends State<NotificationPage> {
               .onValue,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const Loading();
             }
             if (snapshot.hasError) {
               return Center(

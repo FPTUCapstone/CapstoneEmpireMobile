@@ -1,7 +1,8 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
+import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
@@ -11,7 +12,6 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/response/activity.dart';
-import '../booking/booking_detail.dart';
 
 class ActivityHistory extends StatefulWidget {
   const ActivityHistory({Key? key}) : super(key: key);
@@ -92,7 +92,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _loading
-          ? const Loading()
+          ? const ScreenLoadingNoOpacity()
           : Scaffold(
               backgroundColor: Colors.white,
               body: RefreshIndicator(
@@ -167,8 +167,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                           const Duration(milliseconds: 350),
                                       childCurrent: widget,
                                       child: item.isBooking
-                                          ? BookingDetail(
-                                              data: item,
+                                          ? BookingDetailv2(
+                                              bookingId: item.id,
                                             )
                                           : item.status == 5
                                               ? ServiceActivityDetail(

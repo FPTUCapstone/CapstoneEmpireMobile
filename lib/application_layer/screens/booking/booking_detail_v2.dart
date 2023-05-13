@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/qrcode.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/app_settings.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
@@ -38,6 +39,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
+    if (!mounted) return;
     setState(() {
       _bookingPrice = response;
     });
@@ -53,12 +55,9 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = '';
     if (_booking != null) {
       String date = _booking!.date.substring(0, 10);
       DateTime dateTime = DateTime.parse(date);
-      formattedDate =
-          '${dateTime.day.toString().padLeft(2, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.year.toString()}';
       _bookingDate = dateTime;
     } else {
       // handle the case where _booking or _booking!.date is null
@@ -68,7 +67,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _loading
-          ? const Loading()
+          ? const ScreenLoadingNoOpacity()
           : Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
@@ -335,7 +334,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                     ),
                     InkWell(
                       onTap: () {
-                        _booking!.daysLeft == 0
+                        _booking!.dayLeft == 0
                             ? Navigator.of(context).push(MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     QRCodePage(
@@ -379,27 +378,27 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                 overflow: TextOverflow.ellipsis,
                                 _booking!.isArrived
                                     ? 'Đã check-in vào ${formatDate(_booking!.arrivedDateTime.toString(), true)}'
-                                    : _booking!.daysLeft == 0
+                                    : _booking!.dayLeft == 0
                                         ? "Lấy mã check-in"
-                                        : 'Còn ${_booking!.daysLeft} ngày',
+                                        : 'Còn ${_booking!.dayLeft} ngày',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,
                                   fontWeight: _booking!.isArrived
                                       ? FontWeight.w400
-                                      : _booking!.daysLeft == 0
+                                      : _booking!.dayLeft == 0
                                           ? FontWeight.w400
                                           : FontWeight.w600,
                                   color: _booking!.isArrived
                                       ? AppColors.lightTextColor
-                                      : _booking!.daysLeft == 0
+                                      : _booking!.dayLeft == 0
                                           ? AppColors.lightTextColor
                                           : AppColors.blueTextColor,
                                 ),
                               ),
                             ],
                           ),
-                          trailing: _booking!.daysLeft == 0 &&
+                          trailing: _booking!.dayLeft == 0 &&
                                   _booking!.isArrived == false
                               ? Padding(
                                   padding: const EdgeInsets.only(top: 8),
@@ -618,7 +617,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                 margin: const EdgeInsets.all(20),
                 width: double.infinity,
                 height: 52.h,
-                child: _booking!.daysLeft == 0
+                child: _booking!.dayLeft == 0
                     ? ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(

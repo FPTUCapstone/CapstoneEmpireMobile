@@ -1,6 +1,6 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
-import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
+import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
 import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
 import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/homepage_famous_service.dart';
@@ -284,8 +284,8 @@ class _HomePageState extends State<HomePage> {
                                                         milliseconds: 350),
                                                     childCurrent: widget,
                                                     child: item.isBooking
-                                                        ? BookingDetail(
-                                                            data: item,
+                                                        ? BookingDetailv2(
+                                                            bookingId: item.id,
                                                           )
                                                         : OnGoingService(
                                                             servicesId: item.id,
