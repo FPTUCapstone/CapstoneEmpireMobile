@@ -198,14 +198,14 @@ class _QRCodePageState extends State<QRCodePage> {
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Ngày đặt',
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                   ),
@@ -219,7 +219,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                         style: const TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.blackTextColor,
                                         )),
                                     trailing: Text(date,
@@ -228,7 +228,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                         style: const TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.blackTextColor,
                                         )),
                                   ),
@@ -243,14 +243,14 @@ class _QRCodePageState extends State<QRCodePage> {
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Phương tiện',
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                   ),
@@ -262,7 +262,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                         style: const TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.blackTextColor,
                                         )),
                                     trailing: SizedBox(
@@ -274,7 +274,7 @@ class _QRCodePageState extends State<QRCodePage> {
                                           style: const TextStyle(
                                             fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 16,
+                                            fontSize: 12,
                                             color: AppColors.blackTextColor,
                                           )),
                                     ),

@@ -11,7 +11,7 @@ class DepositBottomSheet extends StatelessWidget {
     return Container(
       color: const Color(0xff757575), //background color
       child: Container(
-        height: 330.h,
+        height: 380.h,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
@@ -53,7 +53,7 @@ class DepositBottomSheet extends StatelessWidget {
                     height: 20.h,
                   ),
                   SizedBox(
-                    height: 200.h,
+                    height: 250.h,
                     width: 300.w,
                     child: Column(
                       children: <Widget>[
@@ -68,6 +68,7 @@ class DepositBottomSheet extends StatelessWidget {
                           " đã xuất hiện, đôi khi do vô tình, nhiều khi do cố ý (xen thêm vào những câu hài hước hay thông tục)",
                           textAlign: TextAlign.center,
                           style: TextStyle(
+                            height: 1.5,
                             fontFamily: 'Roboto',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,

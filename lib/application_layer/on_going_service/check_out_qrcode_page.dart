@@ -113,7 +113,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   color: AppColors.lightTextColor,
                                 )),
                             const SizedBox(height: 10),
@@ -130,7 +130,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 14,
+                                      fontSize: 10,
                                       color: AppColors.lightTextColor,
                                     )),
                                 CountdownTimer(
