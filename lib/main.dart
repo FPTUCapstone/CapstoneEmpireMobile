@@ -59,17 +59,18 @@ class _MyAppState extends State<MyApp> {
           print(message.notification!.body);
           print(message.notification!.title);
         }
-        // showTopSnackBar(
-        //     Overlay.of(context),
-        //     TopSnackBar.info(
-        //       message: title,
-        //       subMessage: body,
-        //       icon: Image.asset(
-        //         'assets/image/app-logo/launcher.png',
-        //         height: 30,
-        //         width: 30,
-        //       ),
-        //     ));
+        Get.snackbar(
+          title,
+          body,
+          icon: Image.asset(
+            'assets/image/app-logo/launcher.png',
+            height: 30,
+            width: 30,
+          ),
+          duration: const Duration(seconds: 5),
+          backgroundColor: Colors.white.withOpacity(0.5),
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15)
+        );
         final routeFromMessage = message.data["route"];
         var jsonRoute = jsonDecode(routeFromMessage);
         switch (jsonRoute['route']) {
