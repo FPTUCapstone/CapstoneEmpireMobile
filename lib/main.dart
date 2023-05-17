@@ -10,10 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import 'application_layer/on_going_service/on_going_service.dart';
-import 'application_layer/widgets/top_snackbar.dart';
 import 'firebase_options.dart';
 
 // ignore: depend_on_referenced_packages
@@ -61,17 +59,17 @@ class _MyAppState extends State<MyApp> {
           print(message.notification!.body);
           print(message.notification!.title);
         }
-        showTopSnackBar(
-            Overlay.of(context),
-            TopSnackBar.info(
-              message: title,
-              subMessage: body,
-              icon: Image.asset(
-                'assets/image/app-logo/launcher.png',
-                height: 30,
-                width: 30,
-              ),
-            ));
+        // showTopSnackBar(
+        //     Overlay.of(context),
+        //     TopSnackBar.info(
+        //       message: title,
+        //       subMessage: body,
+        //       icon: Image.asset(
+        //         'assets/image/app-logo/launcher.png',
+        //         height: 30,
+        //         width: 30,
+        //       ),
+        //     ));
         final routeFromMessage = message.data["route"];
         var jsonRoute = jsonDecode(routeFromMessage);
         switch (jsonRoute['route']) {

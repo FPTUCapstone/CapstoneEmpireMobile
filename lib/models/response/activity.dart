@@ -46,7 +46,7 @@ class ActivityResponseModel {
       //         json['transaction'] as Map<String, dynamic>),
       isBooking: json['isBooking'] as bool,
       isOnGoing: json['isOnGoing'] as bool?,
-      total: json['total'].toDouble(),
+      total: json['total'] != null ? json['total'].toDouble() : null,
     );
   }
 

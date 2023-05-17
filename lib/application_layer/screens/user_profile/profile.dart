@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/models/request/update_user_request_model.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
@@ -77,7 +76,6 @@ class _UserProfileState extends State<UserProfile> {
               backgroundColor: AppColors.loginScreenBackGround,
               body: SafeArea(
                 child: SingleChildScrollView(
-                  reverse: true,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(

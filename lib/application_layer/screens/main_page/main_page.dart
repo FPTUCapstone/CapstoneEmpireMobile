@@ -141,6 +141,7 @@ class _MainPageState extends State<MainPage> {
               color: AppColors.buttonColor,
               onPressed: () {
                 showModalBottomSheet(
+                    isScrollControlled: true,
                     context: context,
                     builder: (context) => const PickDateBooking());
               },

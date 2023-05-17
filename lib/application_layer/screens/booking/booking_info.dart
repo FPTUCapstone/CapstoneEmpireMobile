@@ -16,6 +16,7 @@ import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
+import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -246,16 +247,12 @@ class _BookingInfoState extends State<BookingInfo> {
               ));
     } catch (RuntimeBinderException) {
       if (response != null) {
-        sendNotification(18, "Có đặt lịch mới #${response.code}",
-            "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
-        // var userId = await getUserId();
-        // sendNotification(
-        //     userId!, "Empire Garage", "Bạn vừa đặt lịch kiểm tra xe thành công");
-        // var notificationModel = NotificationModel(
-        //     isAndroiodDevice: true,
-        //     title: "Empire Garage",
-        //     body: "Your booking has been created successful");
-        // await NotificationService().sendNotification(notificationModel);
+        var listUser = await UserService().getListUser();
+        var listRecep = listUser.where((element) => element.roleId == "RE").toList();
+        for (var recep in listRecep) {
+          sendNotification(recep.id, "Có đặt lịch mới #${response.code}",
+              "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
+        }
         setState(() {
           _loading = true;
         });

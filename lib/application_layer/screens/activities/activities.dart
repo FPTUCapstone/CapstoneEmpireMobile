@@ -342,7 +342,7 @@ class _ActivityChipState extends State<ActivityChip> {
   @override
   Widget build(BuildContext context) {
     var item = widget.item;
-    bool isComplete = (item.isBooking ==true && item.isArrived == true) || item.status == 5;
+    bool isComplete = item.isActive == true && ((item.isBooking ==true && item.isArrived == true) || (item.isBooking == false && item.status == 5));
     return Padding(
       padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
       child: ListTile(

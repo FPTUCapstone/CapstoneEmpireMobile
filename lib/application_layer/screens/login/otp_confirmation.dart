@@ -36,21 +36,24 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
+              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 88.h,
                 ),
-                Text(
-                  "Nhập mã OTP",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Nhập mã OTP",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 28.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.blackTextColor,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: 30.h,

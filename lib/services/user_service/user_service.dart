@@ -42,4 +42,22 @@ class UserService {
     }
     return response;
   }
+
+  Future<List<UserResponseModel>> getListUser() async {
+    String apiUrl = '${APIPath.path}/users';
+    final response = await makeHttpRequest(apiUrl);
+    if (response.statusCode == 200) {
+      final jsonArray = json.decode(response.body);
+      List<UserResponseModel> list = [];
+      for (var jsonObject in jsonArray) {
+        list.add(UserResponseModel.fromJson(jsonObject));
+      }
+      return list;
+    } else {
+      if (kDebugMode) {
+        print("Failed to load item, status code: ${response.statusCode}");
+      }
+      return [];
+    }
+  }
 }

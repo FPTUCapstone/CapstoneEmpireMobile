@@ -92,7 +92,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                 ),
               ),
               centerTitle: true,
-              actions: _booking!.isArrived == true
+              actions: _booking!.isArrived == true || _booking!.isActived == false
                   ? null
                   : [
                       Padding(
@@ -376,11 +376,12 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                               Text(
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                _booking!.isArrived
+                                _booking!.isActived ? _booking!.isArrived
                                     ? 'Đã check-in vào ${formatDate(_booking!.arrivedDateTime.toString(), true)}'
                                     : _booking!.dayLeft == 0
                                         ? "Lấy mã check-in"
-                                        : 'Còn ${_booking!.dayLeft} ngày',
+                                        : 'Còn ${_booking!.dayLeft} ngày'
+                                : 'Đã hủy',
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,
@@ -389,11 +390,12 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                       : _booking!.dayLeft == 0
                                           ? FontWeight.w400
                                           : FontWeight.w600,
-                                  color: _booking!.isArrived
+                                  color:_booking!.isActived ?  _booking!.isArrived
                                       ? AppColors.lightTextColor
                                       : _booking!.dayLeft == 0
                                           ? AppColors.lightTextColor
-                                          : AppColors.blueTextColor,
+                                          : AppColors.blueTextColor
+                                      : Colors.red,
                                 ),
                               ),
                             ],

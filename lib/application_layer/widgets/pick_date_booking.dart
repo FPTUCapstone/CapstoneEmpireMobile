@@ -119,7 +119,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                     },
                   ),
                   SizedBox(
-                    height: 40.h,
+                    height: 20.h,
                   ),
                   Container(
                     height: 100,
