@@ -242,13 +242,14 @@ class _BookingInfoState extends State<BookingInfo> {
                 body: jsonDecode(response.body)['message'],
                 buttonTitle: "Thử lại",
                 action: () {
-                  Navigator.of(context).pop();
+                  Get.back();
                 },
               ));
     } catch (RuntimeBinderException) {
       if (response != null) {
         var listUser = await UserService().getListUser();
-        var listRecep = listUser.where((element) => element.roleId == "RE").toList();
+        var listRecep =
+            listUser.where((element) => element.roleId == "RE").toList();
         for (var recep in listRecep) {
           sendNotification(recep.id, "Có đặt lịch mới #${response.code}",
               "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
@@ -305,7 +306,7 @@ class _BookingInfoState extends State<BookingInfo> {
                 backgroundColor: Colors.white,
                 leading: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   icon: const Icon(
                     Icons.keyboard_arrow_down_outlined,
@@ -615,20 +616,17 @@ class _BookingInfoState extends State<BookingInfo> {
                                         ? _isCarHasHCR
                                             ? InkWell(
                                                 onTap: () {
-                                                  Navigator.of(context)
-                                                      .push(MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        BookingProblemHistory(
-                                                      car: _carProfile,
-                                                      onChooseUnresolvedProblemsCallBack:
-                                                          (unresolvedProblems) {
-                                                        setState(() {
-                                                          _unresolvedProblems =
-                                                              unresolvedProblems;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ));
+                                                  Get.to(() =>
+                                                      BookingProblemHistory(
+                                                        car: _carProfile,
+                                                        onChooseUnresolvedProblemsCallBack:
+                                                            (unresolvedProblems) {
+                                                          setState(() {
+                                                            _unresolvedProblems =
+                                                                unresolvedProblems;
+                                                          });
+                                                        },
+                                                      ));
                                                 },
                                                 child: Container(
                                                   margin: EdgeInsets.all(8.sp),
@@ -659,9 +657,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                             height: 20.sp,
                                             width: 20.sp,
                                             margin: EdgeInsets.all(8.sp),
-                                            child:
-                                                const Loading()
-                                          )
+                                            child: const Loading())
                                   ],
                                 ),
                               ),
@@ -778,7 +774,9 @@ class _BookingInfoState extends State<BookingInfo> {
                                     );
                                   },
                                 ),
-                                SizedBox(height: 10.h,),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
                               ],
                             )
                           : Container(),
@@ -1019,22 +1017,15 @@ class _BookingInfoState extends State<BookingInfo> {
                             PaymentRequestModel paymentRequestModel =
                                 PaymentRequestModel(
                                     amount: _bookingPrice,
-                                    //TODO
-                                    name: 'Trung',
-                                    //TODO
-                                    orderDescription: 'ABC',
+                                    name: 'Booking payment',
+                                    orderDescription: 'Booking payment',
                                     orderType: 'VNpay');
                             var responsePayment =
                                 await _payBookingFee(paymentRequestModel);
-                            // ignore: use_build_context_synchronously
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => BookingPayment(
-                                url: responsePayment,
-                                callback: _onCallBackFromPayment,
-                              ),
-                            ));
-
-                            // }
+                            Get.to(() => BookingPayment(
+                                  url: responsePayment,
+                                  callback: _onCallBackFromPayment,
+                                ));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,

@@ -1,8 +1,8 @@
-import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/activity_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
@@ -35,7 +35,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                   Stack(alignment: Alignment.centerLeft, children: <Widget>[
                     IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       icon: const Icon(
                         Icons.arrow_back,
@@ -71,7 +71,7 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(PageTransition(
+                            Get.to(() => PageTransition(
                                 type: PageTransitionType.bottomToTopJoined,
                                 duration: const Duration(milliseconds: 350),
                                 childCurrent: widget,

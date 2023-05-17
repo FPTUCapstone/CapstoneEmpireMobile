@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:empiregarage_mobile/models/response/payment_response.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../widgets/booking_fail.dart';
@@ -48,12 +49,10 @@ class _BookingPaymentState extends State<BookingPayment> {
                 // ignore: unrelated_type_equality_checks
                 if (paymentResponseModel.vnPayResponseCode == "00" &&
                     paymentResponseModel.success == true) {
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
+                  Get.back();
                   widget.callback();
                 } else {
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
+                  Get.back();
                   log("Payment failed");
                   // ignore: use_build_context_synchronously
                   showModalBottomSheet(

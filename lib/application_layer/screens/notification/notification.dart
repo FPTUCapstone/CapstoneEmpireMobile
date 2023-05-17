@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 
@@ -44,7 +45,7 @@ class _NotificationPageState extends State<NotificationPage> {
             ),
             child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,

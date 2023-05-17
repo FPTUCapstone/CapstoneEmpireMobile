@@ -12,6 +12,7 @@ import 'package:empiregarage_mobile/services/notification/notification_service.d
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../common/api_part.dart';
@@ -41,15 +42,10 @@ class AppAuthentication {
         _verificationId = verificationId;
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('verification_id', _verificationId);
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => OtpConfirmation(
-                    countryCode: countryCode,
-                    phoneNumber: phoneNumber,
-                  )),
-        );
+        Get.off(() => OtpConfirmation(
+              countryCode: countryCode,
+              phoneNumber: phoneNumber,
+            ));
       }
 
       codeAutoRetrievalTimeout(String verificationId) {
@@ -105,14 +101,9 @@ class AppAuthentication {
       await saveUserInfo(user_info.UserInfo(
           userId: response.id, firebaseUUID: userRecord.user!.uid));
       await NotificationService().saveToken(userRecord.user!.uid);
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => UserProfile(
-                  userId: response.id,
-                )),
-      );
+      Get.off(() => UserProfile(
+            userId: response.id,
+          ));
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -137,14 +128,9 @@ class AppAuthentication {
         idToken: googleAuth?.idToken,
       );
       await auth.signInWithCredential(credential);
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const UserProfile(
-                  userId: 2,
-                )),
-      );
+      Get.to(() => const UserProfile(
+            userId: 2,
+          ));
     } catch (e) {
       if (kDebugMode) {
         print("Fail to Login with Google");

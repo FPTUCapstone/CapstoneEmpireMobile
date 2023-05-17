@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../../../common/jwt_interceptor.dart';
@@ -49,7 +50,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
       _selectedCar = selectedCar;
       widget.onSelected(selectedCar);
     });
-    Navigator.of(context).pop();
+    Get.back();
   }
 
   @override
@@ -75,7 +76,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
             ),
             child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,
@@ -150,10 +151,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
     bool isSelected = widget.car.id == widget.selectedCar;
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) =>
-              HealthCarRecordManagementDetail(carId: widget.car.id),
-        ));
+        Get.to(() => HealthCarRecordManagementDetail(carId: widget.car.id));
       },
       child: Container(
         height: 70.sp,
@@ -232,10 +230,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
           ),
           trailing: IconButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      HealthCarRecordManagementDetail(carId: widget.car.id),
-                ));
+                Get.to(() => HealthCarRecordManagementDetail(carId: widget.car.id));
               },
               icon: const Icon(
                 Icons.arrow_forward_ios,

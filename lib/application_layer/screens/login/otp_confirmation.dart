@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import '../../../common/colors.dart';
 
@@ -165,11 +166,7 @@ class _OtpConfirmationState extends State<OtpConfirmation> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
-                        );
+                        Get.off(() => const LoginScreen());
                       },
                       child: Text(
                         "Thay đổi số điện thoại",

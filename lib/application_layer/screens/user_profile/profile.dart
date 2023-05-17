@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
@@ -542,8 +543,10 @@ class _UserProfileState extends State<UserProfile> {
                 height: 100,
                 decoration: const BoxDecoration(
                     border: Border(
-                      top: BorderSide(color: AppColors.grey100,style: BorderStyle.solid,width: 2)
-                    )),
+                        top: BorderSide(
+                            color: AppColors.grey100,
+                            style: BorderStyle.solid,
+                            width: 2))),
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Row(
@@ -566,13 +569,7 @@ class _UserProfileState extends State<UserProfile> {
                                 response.statusCode != 204) {
                               log("error when update user");
                             } else {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MainPage(),
-                                  ),
-                                  (route) => false);
+                              Get.offAll(() => const MainPage());
                             }
                           },
                           style: ElevatedButton.styleFrom(

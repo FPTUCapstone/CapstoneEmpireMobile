@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 import '../../models/response/groupservices.dart';
@@ -52,12 +53,10 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                         ?.where((item) => item.name!.contains('Cứu hộ'))
                         .first;
                     if (_filterGroupServices != null) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => FilterGroupService(
-                          filterGroupServices: _filterGroupServices
-                              as GroupServicesResponseModel,
-                        ),
-                      ));
+                      Get.to(() => FilterGroupService(
+                            filterGroupServices: _filterGroupServices
+                                as GroupServicesResponseModel,
+                          ));
                     }
                   },
                   child: Image.asset(
@@ -92,12 +91,10 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                       ?.where((item) => item.name!.contains('Chăm sóc'))
                       .first;
                   if (_filterGroupServices != null) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => FilterGroupService(
-                        filterGroupServices:
-                            _filterGroupServices as GroupServicesResponseModel,
-                      ),
-                    ));
+                    Get.to(() => FilterGroupService(
+                          filterGroupServices: _filterGroupServices
+                              as GroupServicesResponseModel,
+                        ));
                   }
                 },
                 child: InkWell(
@@ -132,12 +129,10 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                       ?.where((item) => item.name!.contains('Sửa chữa'))
                       .first;
                   if (_filterGroupServices != null) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => FilterGroupService(
-                        filterGroupServices:
-                            _filterGroupServices as GroupServicesResponseModel,
-                      ),
-                    ));
+                    Get.to(() => FilterGroupService(
+                          filterGroupServices: _filterGroupServices
+                              as GroupServicesResponseModel,
+                        ));
                   }
                 },
                 child: InkWell(
@@ -172,12 +167,10 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                       ?.where((item) => item.name!.contains('Bảo dưỡng'))
                       .first;
                   if (_filterGroupServices != null) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => FilterGroupService(
-                        filterGroupServices:
-                            _filterGroupServices as GroupServicesResponseModel,
-                      ),
-                    ));
+                    Get.to(() => FilterGroupService(
+                          filterGroupServices: _filterGroupServices
+                              as GroupServicesResponseModel,
+                        ));
                   }
                 },
                 child: InkWell(
@@ -212,12 +205,10 @@ class _HomePageServiceIconButtonState extends State<HomePageServiceIconButton> {
                       ?.where((item) => item.name!.contains('Phụ tùng'))
                       .first;
                   if (_filterGroupServices != null) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => FilterGroupService(
+                    Get.to(() => FilterGroupService(
                         filterGroupServices:
                             _filterGroupServices as GroupServicesResponseModel,
-                      ),
-                    ));
+                      ));
                   }
                 },
                 child: InkWell(

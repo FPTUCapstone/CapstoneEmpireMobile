@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/services/order_services/order_services.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class CheckOutQRCodePage extends StatefulWidget {
@@ -67,7 +68,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
             ),
             child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,

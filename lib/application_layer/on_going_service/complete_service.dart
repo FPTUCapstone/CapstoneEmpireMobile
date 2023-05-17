@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -110,11 +111,9 @@ class _CompleteServiceState extends State<CompleteService> {
                 ),
                 InkWell(
                   onTap: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CheckOutQRCodePage(
+                    Get.to(() => CheckOutQRCodePage(
                         id: _orderServicesResponseModel!.id,
-                      ),
-                    ));
+                      ));
                   },
                   child: Padding(
                     padding:

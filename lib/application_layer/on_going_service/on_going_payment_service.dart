@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/payment_services/payment_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
 
@@ -93,13 +94,10 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
               'OrderService Payment for #${_orderServicesResponseModel!.code}',
           orderType: 'VNpay');
       var responsePayment = await _payOrderFee(paymentRequestModel);
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => OrderPayment(
+      Get.to(() => OrderPayment(
           url: responsePayment,
           callback: _onCallBack,
-        ),
-      ));
+        ));
     }
   }
 
@@ -109,16 +107,10 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     if (result == null || result.statusCode != 204) {
       throw Exception("Insert order detail fail");
     } else {
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pop();
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => OnGoingService(
+      Get.back();
+      Get.off(() => OnGoingService(
               servicesId: _orderServicesResponseModel!.id,
-            ),
-          ));
+            ));
       // ignore: use_build_context_synchronously
       showModalBottomSheet(
           context: context,
@@ -130,7 +122,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     'Bạn đã thanh toán thành công, phương tiện của bạn sẽ được tiến hành sửa chữa',
                 buttonTitle: "Trở về",
                 action: () {
-                  Navigator.of(context).pop();
+                  Get.back();
                 },
               ));
     }

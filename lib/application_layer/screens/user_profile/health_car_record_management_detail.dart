@@ -5,6 +5,7 @@ import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 
@@ -63,7 +64,7 @@ class _HealthCarRecordManagementDetailState
                     ),
                     child: IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                         icon: const Icon(
                           Icons.arrow_back_outlined,

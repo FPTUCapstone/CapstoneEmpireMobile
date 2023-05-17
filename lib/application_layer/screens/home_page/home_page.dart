@@ -13,6 +13,7 @@ import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../common/colors.dart';
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
     var listActivity = await ActivityService().fetchOnGoingActivity(userId);
     _listOngoingActivity = listActivity
         .where((element) => element != null && element.isOnGoing == true)
-        .where((element) => element!.status == null || element.status != 5) 
+        .where((element) => element!.status == null || element.status != 5)
         .toList();
     _filteredItem = _listItem;
 
@@ -130,15 +131,9 @@ class _HomePageState extends State<HomePage> {
                                                   throw Exception(
                                                       "Not found user");
                                                 }
-                                                // ignore: use_build_context_synchronously
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NotificationPage(
-                                                            userId: userId,
-                                                          )),
-                                                );
+                                                Get.to(() => NotificationPage(
+                                                      userId: userId,
+                                                    ));
                                               },
                                               icon: Badge(
                                                   backgroundColor:
@@ -201,13 +196,9 @@ class _HomePageState extends State<HomePage> {
                               keyboardType: TextInputType.text,
                               onSubmitted: (value) {
                                 if (value.isNotEmpty) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SearchPage(
-                                              searchString: value,
-                                            )),
-                                  );
+                                  Get.to(() => SearchPage(
+                                        searchString: value,
+                                      ));
                                 }
                               },
                               //style: searchTextStyle,
@@ -276,20 +267,19 @@ class _HomePageState extends State<HomePage> {
                                         padding: EdgeInsets.only(bottom: 16.h),
                                         child: InkWell(
                                           onTap: () async {
-                                            Navigator.of(context).push(
-                                                PageTransition(
-                                                    type: PageTransitionType
-                                                        .bottomToTop,
-                                                    duration: const Duration(
-                                                        milliseconds: 350),
-                                                    childCurrent: widget,
-                                                    child: item.isBooking
-                                                        ? BookingDetailv2(
-                                                            bookingId: item.id,
-                                                          )
-                                                        : OnGoingService(
-                                                            servicesId: item.id,
-                                                          )));
+                                            Get.to(() => PageTransition(
+                                                type: PageTransitionType
+                                                    .bottomToTop,
+                                                duration: const Duration(
+                                                    milliseconds: 350),
+                                                childCurrent: widget,
+                                                child: item.isBooking
+                                                    ? BookingDetailv2(
+                                                        bookingId: item.id,
+                                                      )
+                                                    : OnGoingService(
+                                                        servicesId: item.id,
+                                                      )));
                                           },
                                           child: DecoratedBox(
                                             decoration: BoxDecoration(
@@ -368,15 +358,8 @@ class _HomePageState extends State<HomePage> {
                                   padding: const EdgeInsets.only(right: 16),
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ServiceDetails(
-                                                    itemId:
-                                                        _filteredItem![index]
-                                                            .id)),
-                                      );
+                                      Get.to(() => ServiceDetails(
+                                          itemId: _filteredItem![index].id));
                                     },
                                     child: HomepageFamousService(
                                       backgroundImage:
@@ -387,7 +370,8 @@ class _HomePageState extends State<HomePage> {
                                               .isNotEmpty
                                           ? NumberFormat.currency(
                                                   decimalDigits: 0,
-                                                  locale: 'vi_VN',symbol: "đ")
+                                                  locale: 'vi_VN',
+                                                  symbol: "đ")
                                               .format(_filteredItem![index]
                                                   .prices!
                                                   .first

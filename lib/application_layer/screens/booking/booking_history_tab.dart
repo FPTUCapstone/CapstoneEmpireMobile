@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/response/car.dart';
@@ -78,9 +79,7 @@ class _BookingHistoryTabState extends State<BookingHistoryTab> {
                           b.order!.updatedAt.compareTo(a.order!.updatedAt));
                       return InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ServiceActivityDetail(orderServicesId: _carProfile!.orderServices[index].id,),
-                          ));
+                          Get.to(() => ServiceActivityDetail(orderServicesId: _carProfile!.orderServices[index].id,));
                         },
                         child: Padding(
                           padding: EdgeInsets.only(top: 20.h),

@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/services/service_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 
@@ -81,13 +82,9 @@ class ServiceList extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ServiceDetails(
-                          itemId: 1,
-                        )),
-              );
+              Get.to(() => const ServiceDetails(
+                    itemId: 1,
+                  ));
             },
           ),
           GestureDetector(
@@ -157,13 +154,9 @@ class ServiceList extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ServiceDetails(
-                          itemId: 1,
-                        )),
-              );
+              Get.to(() => const ServiceDetails(
+                    itemId: 1,
+                  ));
             },
           ),
           SizedBox(
@@ -236,13 +229,9 @@ class ServiceList extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ServiceDetails(
-                          itemId: 1,
-                        )),
-              );
+              Get.to(() => const ServiceDetails(
+                    itemId: 1,
+                  ));
             },
           ),
           SizedBox(
@@ -315,13 +304,9 @@ class ServiceList extends StatelessWidget {
               ],
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ServiceDetails(
-                          itemId: 1,
-                        )),
-              );
+              Get.to(() => const ServiceDetails(
+                    itemId: 1,
+                  ));
             },
           ),
         ],

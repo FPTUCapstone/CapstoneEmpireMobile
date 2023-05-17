@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/application_layer/screens/booking/booking_in
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 
@@ -124,22 +125,20 @@ class _PickDateBookingState extends State<PickDateBooking> {
                   Container(
                     height: 100,
                     decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(color: AppColors.grey100,width: 2)
-                      )
-                    ),
+                        border: Border(
+                            top: BorderSide(
+                                color: AppColors.grey100, width: 2))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => BookingInfo(
+                              Get.off(
+                                () => BookingInfo(
                                   selectedDate: _selectedValue,
                                 ),
-                              ));
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.buttonColor,

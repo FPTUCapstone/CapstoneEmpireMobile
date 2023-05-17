@@ -92,7 +92,7 @@ class _AddNewCarState extends State<AddNewCar> {
   }
 
   _popContext() {
-    Navigator.of(context).pop();
+    Get.back();
   }
 
   @override
@@ -124,7 +124,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       ),
                       child: IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Get.back();
                           },
                           icon: const Icon(
                             Icons.arrow_back_outlined,

@@ -9,6 +9,7 @@ import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../main_page/main_page.dart';
@@ -75,7 +76,7 @@ class _BookingDetailState extends State<BookingDetail> {
                   toolbarHeight: 55.sp,
                   leading: IconButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Get.back();
                     },
                     icon: const Icon(
                       Icons.keyboard_arrow_down_sharp,
@@ -181,8 +182,7 @@ class _BookingDetailState extends State<BookingDetail> {
                                                         children: <Widget>[
                                                           ElevatedButton(
                                                             onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
+                                                              Get.back();
                                                             },
                                                             style:
                                                                 OutlinedButton
@@ -249,23 +249,11 @@ class _BookingDetailState extends State<BookingDetail> {
                                                               if (response
                                                                       .statusCode ==
                                                                   204) {
-                                                                // ignore: use_build_context_synchronously
-                                                                Navigator.pop(
-                                                                    context);
-                                                                // ignore: use_build_context_synchronously
-                                                                Navigator
-                                                                    .pushAndRemoveUntil(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              const MainPage(),
-                                                                        ),
-                                                                        (route) =>
-                                                                            false);
+                                                                Get.back();
+                                                                Get.offAll(() =>
+                                                                    const MainPage());
                                                               } else {
-                                                                // ignore: use_build_context_synchronously
-                                                                Navigator.pop(
-                                                                    context);
+                                                                Get.back();
                                                               }
                                                             },
                                                             child: Text(
@@ -337,11 +325,9 @@ class _BookingDetailState extends State<BookingDetail> {
                         InkWell(
                           onTap: () {
                             widget.data.daysLeft == 0
-                                ? Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        QRCodePage(
-                                          bookingId: _booking!.id,
-                                        )))
+                                ? Get.to(() => QRCodePage(
+                                      bookingId: _booking!.id,
+                                    ))
                                 : null;
                           },
                           child: Container(
@@ -622,10 +608,9 @@ class _BookingDetailState extends State<BookingDetail> {
                     child: widget.data.daysLeft == 0
                         ? ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) => QRCodePage(
-                                        bookingId: _booking!.id,
-                                      )));
+                              Get.to(() => QRCodePage(
+                                    bookingId: _booking!.id,
+                                  ));
                             },
                             style: AppStyles.button16(),
                             child: Text(
@@ -723,4 +708,3 @@ class CustomRowWithoutPadding extends StatelessWidget {
     );
   }
 }
-
