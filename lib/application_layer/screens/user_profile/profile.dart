@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
@@ -8,6 +7,7 @@ import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
@@ -34,6 +34,7 @@ class _UserProfileState extends State<UserProfile> {
   final SingingCharacter _character = SingingCharacter.male;
   TextEditingController dateinput = TextEditingController();
   final TextEditingController _phoneNumber = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   void initState() {
@@ -45,10 +46,13 @@ class _UserProfileState extends State<UserProfile> {
   _getUserById() async {
     _user = await UserService().getUserById(widget.userId);
     if (!mounted) return;
-    setState(() {
-      if (_user!.gender == null) _user!.gender = true;
-      _loading = true;
-    });
+    if (_user != null) {
+      setState(() {
+        _nameController.text = _user!.fullname;
+        if (_user!.gender == null) _user!.gender = true;
+        _loading = true;
+      });
+    }
   }
 
   int calculateAge(DateTime birthDate) {
@@ -128,39 +132,6 @@ class _UserProfileState extends State<UserProfile> {
                                     ),
                                     child: IconButton(
                                       onPressed: () async {
-                                        //TODO
-                                        // final results =
-                                        //     await FilePicker.platform.pickFiles(
-                                        //   allowMultiple: false,
-                                        //   type: FileType.custom,
-                                        //   allowedExtensions: [
-                                        //     'png',
-                                        //     'jpg',
-                                        //     'jpeg'
-                                        //   ],
-                                        // );
-                                        // if (results == null) {
-                                        //   // ignore: use_build_context_synchronously
-                                        //   ScaffoldMessenger.of(context)
-                                        //       .showSnackBar(
-                                        //     const SnackBar(
-                                        //       content: Text('No file selected'),
-                                        //     ),
-                                        //   );
-                                        //   return;
-                                        // }
-                                        // final path = results.files.single.path!;
-                                        // final fileName =
-                                        //     results.files.single.name;
-
-                                        // storage
-                                        //     .uploadFile(fileName, path)
-                                        //     .then((value) {
-                                        //   setState(() {
-                                        //     _user!.img = value!;
-                                        //     log("Ko vui Trung da cang");
-                                        //   });
-                                        // });
                                       },
                                       icon: const Icon(
                                         Icons.edit_rounded,
@@ -197,6 +168,7 @@ class _UserProfileState extends State<UserProfile> {
                                     _user!.fullname = value;
                                   });
                                 },
+                                controller: _nameController,
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
@@ -209,8 +181,7 @@ class _UserProfileState extends State<UserProfile> {
                                       borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
-                                  hintText:
-                                      _user != null ? _user!.fullname : "",
+                                  hintText: "Nhập tên của bạn",
                                   hintStyle: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 12.sp,
@@ -542,8 +513,10 @@ class _UserProfileState extends State<UserProfile> {
                 height: 100,
                 decoration: const BoxDecoration(
                     border: Border(
-                      top: BorderSide(color: AppColors.grey100,style: BorderStyle.solid,width: 2)
-                    )),
+                        top: BorderSide(
+                            color: AppColors.grey100,
+                            style: BorderStyle.solid,
+                            width: 2))),
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Row(
@@ -552,28 +525,23 @@ class _UserProfileState extends State<UserProfile> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () async {
-                            UpdateUserRequestModel model =
-                                UpdateUserRequestModel(
-                                    id: _user!.id,
-                                    fullname: _user!.fullname,
-                                    email: _user!.email,
-                                    phone: _user!.phone.toString(),
-                                    roleId: _user!.roleId.toString(),
-                                    gender: _user!.gender as bool);
-                            var response =
-                                await UserService().updateUser(model);
-                            if (response == null ||
-                                response.statusCode != 204) {
-                              log("error when update user");
-                            } else {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MainPage(),
-                                  ),
-                                  (route) => false);
-                            }
+                            // UpdateUserRequestModel model =
+                            //     UpdateUserRequestModel(
+                            //         id: _user!.id,
+                            //         fullname: _user!.fullname,
+                            //         email: _user!.email,
+                            //         phone: _user!.phone.toString(),
+                            //         roleId: _user!.roleId.toString(),
+                            //         gender: _user!.gender as bool);
+                            // var response =
+                            //     await UserService().updateUser(model);
+                            // if (response == null ||
+                            //     response.statusCode != 204) {
+                            //   log("error when update user");
+                            // } else {
+                            //   Get.offAll(() => const MainPage());
+                            // }
+                            Get.offAll(() => const MainPage());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,

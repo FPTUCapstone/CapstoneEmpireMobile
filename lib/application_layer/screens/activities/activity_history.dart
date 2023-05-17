@@ -8,7 +8,7 @@ import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/response/activity.dart';
@@ -67,7 +67,9 @@ class _ActivityHistoryState extends State<ActivityHistory> {
           case 'Dịch vụ':
             setState(() {
               _listFiltered = _listActivity
-                  .where((element) => element!.isBooking == false && [5,-1].contains(element.status))
+                  .where((element) =>
+                      element!.isBooking == false &&
+                      [5, -1].contains(element.status))
                   .toList();
             });
             break;
@@ -99,8 +101,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                 onRefresh: reload,
                 child: ListView(children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 30),
+                    padding: const EdgeInsets.only(top: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -120,7 +121,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                   ),
                                   child: IconButton(
                                       onPressed: () {
-                                        Navigator.pop(context);
+                                        Get.back();
                                       },
                                       icon: const Icon(
                                         Icons.arrow_back_outlined,
@@ -161,12 +162,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                               var item = _listFiltered[index];
                               return GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(PageTransition(
-                                      type: PageTransitionType.bottomToTop,
-                                      duration:
-                                          const Duration(milliseconds: 350),
-                                      childCurrent: widget,
-                                      child: item.isBooking
+                                  Get.to(
+                                      () => item.isBooking
                                           ? BookingDetailv2(
                                               bookingId: item.id,
                                             )
@@ -176,7 +173,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                                 )
                                               : OnGoingService(
                                                   servicesId: item.id,
-                                                )));
+                                                ),
+                                      transition: Transition.downToUp);
                                 },
                                 child: ActivityChip.haveTotal(
                                   carInfo:

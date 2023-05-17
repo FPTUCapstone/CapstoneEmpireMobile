@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -45,6 +46,7 @@ class _CompleteServiceState extends State<CompleteService> {
   List<OrderServiceDetails> _listOrderServiceDetails = [];
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
+  bool _expand = false;
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
@@ -110,15 +112,13 @@ class _CompleteServiceState extends State<CompleteService> {
                 ),
                 InkWell(
                   onTap: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CheckOutQRCodePage(
-                        id: _orderServicesResponseModel!.id,
-                      ),
-                    ));
+                    Get.to(() => CheckOutQRCodePage(
+                          id: _orderServicesResponseModel!.id,
+                        ));
                   },
                   child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 20.sp, vertical: 10.sp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -132,8 +132,14 @@ class _CompleteServiceState extends State<CompleteService> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(width: 5.sp,),
-                        const Icon(Icons.qr_code_scanner, color: AppColors.blueTextColor, size: 20,)
+                        SizedBox(
+                          width: 5.sp,
+                        ),
+                        const Icon(
+                          Icons.qr_code_scanner,
+                          color: AppColors.blueTextColor,
+                          size: 20,
+                        )
                       ],
                     ),
                   ),
@@ -192,14 +198,48 @@ class _CompleteServiceState extends State<CompleteService> {
                           width: 10.sp,
                         ),
                         Expanded(
-                            child: CustomRowWithoutPadding(
-                                title: _orderServicesResponseModel!
-                                    .orderServiceDetails![index].item!.name
-                                    .toString(),
-                                value: formatCurrency(
-                                    _orderServicesResponseModel!
-                                        .orderServiceDetails![index].price),
-                                textStyle: AppStyles.text400(fontsize: 10.sp))),
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5.sp),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      _orderServicesResponseModel!
+                                          .orderServiceDetails![index]
+                                          .item!
+                                          .name
+                                          .toString(),
+                                      style:
+                                          AppStyles.text400(fontsize: 10.sp)),
+                                  Visibility(
+                                    visible: _expand,
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 1.sp),
+                                      child: Text(
+                                          _orderServicesResponseModel!
+                                              .orderServiceDetails![index]
+                                              .item!
+                                              .problem!
+                                              .name
+                                              .toString(),
+                                          style: AppStyles.text400(
+                                              fontsize: 10.sp,
+                                              color: Colors.grey.shade500)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                  formatCurrency(_orderServicesResponseModel!
+                                      .orderServiceDetails![index].price),
+                                  style: AppStyles.text400(fontsize: 10.sp)),
+                            ],
+                          ),
+                        ))
                       ],
                     );
                   },
@@ -222,19 +262,29 @@ class _CompleteServiceState extends State<CompleteService> {
                             textStyle: AppStyles.text400(fontsize: 10.sp))),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.sp),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Thêm chi tiết',
-                        style: AppStyles.header600(
-                            fontsize: 10.sp, color: Colors.grey.shade500),
-                      ),
-                      Icon(Icons.keyboard_arrow_down,
-                          color: Colors.grey.shade500)
-                    ],
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      _expand = !_expand;
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.sp),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _expand ? 'Thu gọn' : 'Thêm chi tiết',
+                          style: AppStyles.header600(
+                              fontsize: 10.sp, color: Colors.grey.shade500),
+                        ),
+                        Icon(
+                            _expand
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: Colors.grey.shade500)
+                      ],
+                    ),
                   ),
                 ),
                 const Divider(thickness: 1),

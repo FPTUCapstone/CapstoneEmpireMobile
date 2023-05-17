@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.da
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../../../common/jwt_interceptor.dart';
@@ -47,7 +48,7 @@ class _CarManagementState extends State<CarManagement> {
       _selectedCar = selectedCar;
       widget.onSelected(selectedCar);
     });
-    Navigator.of(context).pop();
+    Get.back();
   }
 
   @override
@@ -58,7 +59,7 @@ class _CarManagementState extends State<CarManagement> {
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal:20.sp),
+          padding: EdgeInsets.symmetric(horizontal: 20.sp),
           child: Container(
             height: 42,
             width: 42,
@@ -72,7 +73,7 @@ class _CarManagementState extends State<CarManagement> {
             ),
             child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,
@@ -105,11 +106,11 @@ class _CarManagementState extends State<CarManagement> {
               ),
               child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => AddNewCar(
+                    Get.to(
+                      () => AddNewCar(
                         onAddCar: (int) {},
                       ),
-                    ));
+                    );
                   },
                   icon: const Icon(
                     Icons.add,
@@ -124,7 +125,7 @@ class _CarManagementState extends State<CarManagement> {
         body: ListView.builder(
           itemCount: _listCar.length,
           itemBuilder: (context, index) => Padding(
-            padding: EdgeInsets.symmetric(horizontal:20.sp, vertical: 10.sp),
+            padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
             child: CarChipManagement(
               car: _listCar[index],
               selectedCar: _selectedCar,

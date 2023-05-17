@@ -4,11 +4,11 @@ import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service_body.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/recommend_chose_service.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_doing_service.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/on_going_service_progress_bar.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 import '../../models/response/orderservices.dart';
@@ -134,7 +134,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
               backgroundColor: Colors.white,
               leading: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.keyboard_arrow_down,

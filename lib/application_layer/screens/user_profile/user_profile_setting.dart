@@ -8,6 +8,7 @@ import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../../widgets/loading.dart';
@@ -59,8 +60,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                   width: 108.w,
                   child: InkWell(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (BuildContext context) => const MainPage()));
+                      Get.off(() => const MainPage());
                     },
                     child: Image.asset(
                       "assets/image/app-logo/homepage-icon.png",
@@ -149,7 +149,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    const Divider(color: AppColors.grey400,height: 3),
+                    const Divider(color: AppColors.grey400, height: 3),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -160,20 +160,17 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UserProfile(
-                                          userId: _user!.id,
-                                        )),
-                              );
+                              Get.to(() => UserProfile(
+                                    userId: _user!.id,
+                                  ));
                             },
                             child: Row(
                               children: <Widget>[
                                 const Padding(
                                   padding: EdgeInsets.only(right: 20),
                                   child: ImageIcon(
-                                    AssetImage("assets/image/icon-logo/mainpage-profile.png"),
+                                    AssetImage(
+                                        "assets/image/icon-logo/mainpage-profile.png"),
                                     size: 24,
                                   ),
                                 ),
@@ -199,20 +196,18 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                           ),
                           InkWell(
                             onTap: () async {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    CarManagement(
-                                  onSelected: (int) {},
-                                  selectedCar: 1,
-                                ),
-                              ));
+                              Get.to(() => CarManagement(
+                                    onSelected: (int) {},
+                                    selectedCar: 1,
+                                  ));
                             },
                             child: Row(
                               children: <Widget>[
                                 const Padding(
                                   padding: EdgeInsets.only(right: 24),
                                   child: ImageIcon(
-                                    AssetImage("assets/image/icon-logo/car.png"),
+                                    AssetImage(
+                                        "assets/image/icon-logo/car.png"),
                                     size: 20,
                                     color: Colors.black,
                                   ),
@@ -239,20 +234,18 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                           ),
                           InkWell(
                             onTap: () async {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    HealthCarRecordManagement(
-                                  onSelected: (int) {},
-                                  selectedCar: 1,
-                                ),
-                              ));
+                              Get.to(() => HealthCarRecordManagement(
+                                    onSelected: (int) {},
+                                    selectedCar: 1,
+                                  ));
                             },
                             child: Row(
                               children: <Widget>[
                                 const Padding(
                                   padding: EdgeInsets.only(right: 24),
                                   child: ImageIcon(
-                                    AssetImage("assets/image/icon-logo/mainpage-diagnose.png"),
+                                    AssetImage(
+                                        "assets/image/icon-logo/mainpage-diagnose.png"),
                                     size: 20,
                                     color: Colors.black,
                                   ),
@@ -281,12 +274,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                             onTap: () async {
                               var response = await AppAuthentication().logout();
                               if (response) {
-                                // ignore: use_build_context_synchronously
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const WelcomeScreen()),
-                                    (route) => false);
+                                Get.offAll(() => const WelcomeScreen());
                               }
                             },
                             child: Row(
@@ -294,7 +282,8 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                                 const Padding(
                                   padding: EdgeInsets.only(right: 24),
                                   child: ImageIcon(
-                                    AssetImage("assets/image/icon-logo/logout.png"),
+                                    AssetImage(
+                                        "assets/image/icon-logo/logout.png"),
                                     size: 24,
                                     color: Colors.red,
                                   ),

@@ -232,23 +232,23 @@ class _BookingInfoState extends State<BookingInfo> {
       setState(() {
         _loading = true;
       });
-      // ignore: use_build_context_synchronously
-      showModalBottomSheet(
-          context: context,
-          backgroundColor: Colors.transparent,
-          builder: (context) => BottomPopup(
-                image: 'assets/image/icon-logo/failed-icon.png',
-                title: "Đặt lịch thất bại",
-                body: jsonDecode(response.body)['message'],
-                buttonTitle: "Thử lại",
-                action: () {
-                  Navigator.of(context).pop();
-                },
-              ));
+      Get.bottomSheet(
+        BottomPopup(
+          image: 'assets/image/icon-logo/failed-icon.png',
+          title: "Đặt lịch thất bại",
+          body: jsonDecode(response.body)['message'],
+          buttonTitle: "Thử lại",
+          action: () {
+            Get.back();
+          },
+        ),
+        backgroundColor: Colors.transparent,
+      );
     } catch (RuntimeBinderException) {
       if (response != null) {
         var listUser = await UserService().getListUser();
-        var listRecep = listUser.where((element) => element.roleId == "RE").toList();
+        var listRecep =
+            listUser.where((element) => element.roleId == "RE").toList();
         for (var recep in listRecep) {
           sendNotification(recep.id, "Có đặt lịch mới #${response.code}",
               "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
@@ -256,32 +256,28 @@ class _BookingInfoState extends State<BookingInfo> {
         setState(() {
           _loading = true;
         });
-        // ignore: use_build_context_synchronously
-        showModalBottomSheet(
-            context: context,
-            backgroundColor: Colors.transparent,
-            isScrollControlled: true,
-            builder: (context) => BottomPopup(
-                  image: 'assets/image/icon-logo/successfull-icon.png',
-                  title: "Đặt lịch thành công",
-                  body:
-                      'Bạn đã đặt lịch thành công với phương tiện ${response.car.carLisenceNo}\nMã đặt lịch: #${response.code}',
-                  buttonTitle: "Xem chi tiết",
-                  action: () {
-                    Get.offAll(() => const MainPage());
-                    Get.to(() => BookingDetailv2(bookingId: response.id));
-                  },
-                ));
+        Get.bottomSheet(
+          BottomPopup(
+            image: 'assets/image/icon-logo/successfull-icon.png',
+            title: "Đặt lịch thành công",
+            body:
+                'Bạn đã đặt lịch thành công với phương tiện ${response.car.carLisenceNo}\nMã đặt lịch: #${response.code}',
+            buttonTitle: "Xem chi tiết",
+            action: () {
+              Get.offAll(() => const MainPage());
+              Get.to(() => BookingDetailv2(bookingId: response.id));
+            },
+          ),
+          backgroundColor: Colors.transparent,
+          isScrollControlled: true,
+        );
       } else {
         setState(() {
           _loading = true;
         });
-        // ignore: use_build_context_synchronously
-        showModalBottomSheet(
-            context: context,
-            builder: (context) => const BookingFailed(
-                  message: 'Đặt lịch thất bại, vui lòng thử lại',
-                ));
+        Get.bottomSheet(const BookingFailed(
+          message: 'Đặt lịch thất bại, vui lòng thử lại',
+        ));
       }
     }
   }
@@ -305,7 +301,7 @@ class _BookingInfoState extends State<BookingInfo> {
                 backgroundColor: Colors.white,
                 leading: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   icon: const Icon(
                     Icons.keyboard_arrow_down_outlined,
@@ -397,15 +393,15 @@ class _BookingInfoState extends State<BookingInfo> {
                           _listCar.isNotEmpty
                               ? TextButton(
                                   onPressed: () {
-                                    showModalBottomSheet(
-                                        backgroundColor: Colors.transparent,
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) => ChoseYourCar(
-                                              selectedCar: _selectedCar,
-                                              onSelected: _onCarSelected,
-                                              onCallBack: _onCallBack,
-                                            ));
+                                    Get.bottomSheet(
+                                      ChoseYourCar(
+                                        selectedCar: _selectedCar,
+                                        onSelected: _onCarSelected,
+                                        onCallBack: _onCallBack,
+                                      ),
+                                      backgroundColor: Colors.transparent,
+                                      isScrollControlled: true,
+                                    );
                                   },
                                   child: Text(
                                     "Chọn",
@@ -437,16 +433,16 @@ class _BookingInfoState extends State<BookingInfo> {
                               padding: EdgeInsets.only(top: 10.h),
                               child: InkWell(
                                 onTap: () {
-                                  showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      isDismissible: false,
-                                      context: context,
-                                      builder: (context) => AddNewCar(
-                                            // ignore: avoid_types_as_parameter_names
-                                            onAddCar: (int) {
-                                              _loadData();
-                                            },
-                                          ));
+                                  Get.bottomSheet(
+                                    AddNewCar(
+                                      // ignore: avoid_types_as_parameter_names
+                                      onAddCar: (int) {
+                                        _loadData();
+                                      },
+                                    ),
+                                    isScrollControlled: true,
+                                    isDismissible: false,
+                                  );
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -491,15 +487,15 @@ class _BookingInfoState extends State<BookingInfo> {
                             )
                           : InkWell(
                               onTap: () {
-                                showModalBottomSheet(
-                                    backgroundColor: Colors.transparent,
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) => ChoseYourCar(
-                                          selectedCar: _selectedCar,
-                                          onSelected: _onCarSelected,
-                                          onCallBack: _onCallBack,
-                                        ));
+                                Get.bottomSheet(
+                                  ChoseYourCar(
+                                    selectedCar: _selectedCar,
+                                    onSelected: _onCarSelected,
+                                    onCallBack: _onCallBack,
+                                  ),
+                                  backgroundColor: Colors.transparent,
+                                  isScrollControlled: true,
+                                );
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -615,20 +611,17 @@ class _BookingInfoState extends State<BookingInfo> {
                                         ? _isCarHasHCR
                                             ? InkWell(
                                                 onTap: () {
-                                                  Navigator.of(context)
-                                                      .push(MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        BookingProblemHistory(
-                                                      car: _carProfile,
-                                                      onChooseUnresolvedProblemsCallBack:
-                                                          (unresolvedProblems) {
-                                                        setState(() {
-                                                          _unresolvedProblems =
-                                                              unresolvedProblems;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ));
+                                                  Get.to(() =>
+                                                      BookingProblemHistory(
+                                                        car: _carProfile,
+                                                        onChooseUnresolvedProblemsCallBack:
+                                                            (unresolvedProblems) {
+                                                          setState(() {
+                                                            _unresolvedProblems =
+                                                                unresolvedProblems;
+                                                          });
+                                                        },
+                                                      ));
                                                 },
                                                 child: Container(
                                                   margin: EdgeInsets.all(8.sp),
@@ -659,9 +652,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                             height: 20.sp,
                                             width: 20.sp,
                                             margin: EdgeInsets.all(8.sp),
-                                            child:
-                                                const Loading()
-                                          )
+                                            child: const Loading())
                                   ],
                                 ),
                               ),
@@ -778,7 +769,9 @@ class _BookingInfoState extends State<BookingInfo> {
                                     );
                                   },
                                 ),
-                                SizedBox(height: 10.h,),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
                               ],
                             )
                           : Container(),
@@ -796,10 +789,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           const Spacer(),
                           TextButton(
                             onPressed: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) =>
-                                      const ChosePaymentMethod());
+                              Get.bottomSheet(const ChosePaymentMethod());
                             },
                             child: Text(
                               "Chọn",
@@ -827,9 +817,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       ),
                       InkWell(
                         onTap: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => const ChosePaymentMethod());
+                          Get.bottomSheet(const ChosePaymentMethod());
                         },
                         child: Container(
                           height: 55.h,
@@ -973,10 +961,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                           InkWell(
                               onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) =>
-                                        const DepositBottomSheet());
+                                Get.bottomSheet(const DepositBottomSheet());
                               },
                               child: Text(
                                 "Tại sao tôi phải trả phí đặt chỗ ?",
@@ -1019,22 +1004,15 @@ class _BookingInfoState extends State<BookingInfo> {
                             PaymentRequestModel paymentRequestModel =
                                 PaymentRequestModel(
                                     amount: _bookingPrice,
-                                    //TODO
-                                    name: 'Trung',
-                                    //TODO
-                                    orderDescription: 'ABC',
+                                    name: 'Booking payment',
+                                    orderDescription: 'Booking payment',
                                     orderType: 'VNpay');
                             var responsePayment =
                                 await _payBookingFee(paymentRequestModel);
-                            // ignore: use_build_context_synchronously
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => BookingPayment(
-                                url: responsePayment,
-                                callback: _onCallBackFromPayment,
-                              ),
-                            ));
-
-                            // }
+                            Get.to(() => BookingPayment(
+                                  url: responsePayment,
+                                  callback: _onCallBackFromPayment,
+                                ));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,

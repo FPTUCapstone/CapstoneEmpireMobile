@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/models/response/item.dart';
 import 'package:empiregarage_mobile/services/item_service/item_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class SearchPage extends StatefulWidget {
   final String? searchString;
@@ -101,7 +102,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,
@@ -139,7 +140,7 @@ class _SearchPageState extends State<SearchPage> {
                   _searchString = value,
                 },
                 controller: _searchController,
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.lightGrey500,
                   focusedBorder: const OutlineInputBorder(
@@ -160,11 +161,11 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   hintText: 'Tìm kiếm...',
                   hintStyle: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 1.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
-                                ),
+                    fontFamily: 'Roboto',
+                    fontSize: 1.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightTextColor,
+                  ),
                 ),
               ),
             ),
@@ -313,8 +314,7 @@ class _SearchPageState extends State<SearchPage> {
                                                     'Không thể tìm thấy',
                                                     style: TextStyle(
                                                       fontSize: 20,
-                                                      fontFamily:
-                                                          'Roboto',
+                                                      fontFamily: 'Roboto',
                                                       fontWeight:
                                                           FontWeight.w700,
                                                     ),
@@ -343,15 +343,11 @@ class _SearchPageState extends State<SearchPage> {
                                       return Column(
                                         children: [
                                           InkWell(
-                                            onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ServiceDetails(
-                                                        itemId: _filteredItem![
-                                                                index]
-                                                            .id,
-                                                      )),
+                                            onTap: () => Get.to(
+                                              () => ServiceDetails(
+                                                itemId:
+                                                    _filteredItem![index].id,
+                                              ),
                                             ),
                                             child: SerivceCard(
                                                 backgroundImage:

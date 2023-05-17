@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
@@ -118,7 +119,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                 padding: EdgeInsets.only(top: 10.sp),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   icon: const Icon(
                     Icons.keyboard_arrow_down_sharp,
@@ -604,9 +605,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                 height: 52.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) => const PickDateBooking());
+                    Get.bottomSheet(const PickDateBooking());
                   },
                   style: AppStyles.button16(),
                   child: Text(

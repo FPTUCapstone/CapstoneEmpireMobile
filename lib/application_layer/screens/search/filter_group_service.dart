@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/service_card.dart'
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:empiregarage_mobile/models/response/groupservices.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FilterGroupService extends StatefulWidget {
   final GroupServicesResponseModel filterGroupServices;
@@ -31,7 +32,7 @@ class _FilterGroupServiceState extends State<FilterGroupService> {
             ),
             child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back_outlined,

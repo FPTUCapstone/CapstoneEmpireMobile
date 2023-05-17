@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 
@@ -90,13 +91,7 @@ class BookingSuccessfull extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    const MainPage(),
-                              ),
-                              (route) => false,
-                            );
+                            Get.offAll(() => const MainPage());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,

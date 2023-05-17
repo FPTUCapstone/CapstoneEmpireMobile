@@ -9,7 +9,7 @@ import 'package:empiregarage_mobile/models/response/activity.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import 'activity_history.dart';
@@ -100,10 +100,7 @@ class _HomePageState extends State<Activities> {
                           child: ElevatedButton.icon(
                             icon: Icon(Icons.refresh, size: 18.sp),
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    const ActivityHistory(),
-                              ));
+                              Get.to(() => const ActivityHistory());
                             },
                             style: ButtonStyle(
                               shadowColor: getColor(
@@ -174,18 +171,15 @@ class _HomePageState extends State<Activities> {
                                     const EdgeInsets.symmetric(horizontal: 15),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).push(PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration:
-                                            const Duration(milliseconds: 350),
-                                        childCurrent: widget,
-                                        child: item.isBooking
+                                    Get.to(
+                                        () => item.isBooking
                                             ? BookingDetailv2(
                                                 bookingId: item.id,
                                               )
                                             : OnGoingService(
                                                 servicesId: item.id,
-                                              )));
+                                              ),
+                                        transition: Transition.downToUp);
                                   },
                                   child: ActivityChip.haveTotal(
                                     carInfo:
@@ -242,12 +236,8 @@ class _HomePageState extends State<Activities> {
                                     const EdgeInsets.symmetric(horizontal: 15),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).push(PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration:
-                                            const Duration(milliseconds: 350),
-                                        childCurrent: widget,
-                                        child: item.isBooking
+                                    Get.to(
+                                        () => item.isBooking
                                             ? BookingDetailv2(
                                                 bookingId: item.id,
                                               )
@@ -257,7 +247,8 @@ class _HomePageState extends State<Activities> {
                                                   )
                                                 : OnGoingService(
                                                     servicesId: item.id,
-                                                  )));
+                                                  ),
+                                        transition: Transition.downToUp);
                                   },
                                   child: ActivityChip.haveTotal(
                                     carInfo:
@@ -342,7 +333,9 @@ class _ActivityChipState extends State<ActivityChip> {
   @override
   Widget build(BuildContext context) {
     var item = widget.item;
-    bool isComplete = item.isActive == true && ((item.isBooking ==true && item.isArrived == true) || (item.isBooking == false && item.status == 5));
+    bool isComplete = item.isActive == true &&
+        ((item.isBooking == true && item.isArrived == true) ||
+            (item.isBooking == false && item.status == 5));
     return Padding(
       padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
       child: ListTile(

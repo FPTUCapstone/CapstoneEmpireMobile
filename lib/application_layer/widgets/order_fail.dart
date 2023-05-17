@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 
@@ -95,7 +96,7 @@ class _OrderFailedState extends State<OrderFailed> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
+                           Get.back();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,

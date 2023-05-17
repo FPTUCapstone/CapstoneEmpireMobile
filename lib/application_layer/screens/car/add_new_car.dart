@@ -92,7 +92,7 @@ class _AddNewCarState extends State<AddNewCar> {
   }
 
   _popContext() {
-    Navigator.of(context).pop();
+    Get.back();
   }
 
   @override
@@ -124,7 +124,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       ),
                       child: IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Get.back();
                           },
                           icon: const Icon(
                             Icons.arrow_back_outlined,
@@ -385,38 +385,35 @@ class _AddNewCarState extends State<AddNewCar> {
                       Get.back();
                       // ignore: unnecessary_null_comparison
                       if (response == null || response.statusCode != 201) {
-                        // ignore: use_build_context_synchronously
-                        showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            builder: (context) => BottomPopup(
-                                  image:
-                                      'assets/image/icon-logo/failed-icon.png',
-                                  title: "Thêm xe thất bại",
-                                  body: "Có sự cố khi thêm xe",
-                                  buttonTitle: "Trở về",
-                                  action: () => Get.back(),
-                                ));
+                        Get.bottomSheet(
+                          BottomPopup(
+                            image: 'assets/image/icon-logo/failed-icon.png',
+                            title: "Thêm xe thất bại",
+                            body: "Có sự cố khi thêm xe",
+                            buttonTitle: "Trở về",
+                            action: () => Get.back(),
+                          ),
+                          backgroundColor: Colors.transparent,
+                        );
                       } else {
-                        // ignore: use_build_context_synchronously
-                        showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            builder: (context) => BottomPopup(
-                                  image:
-                                      'assets/image/icon-logo/successfull-icon.png',
-                                  title: "Thêm xe thành công",
-                                  body:
-                                      "Bạn đã thêm $carLisenceNo ($carBrand $carModel) làm phương tiện mới",
-                                  buttonTitle: "Trở về",
-                                  action: () {
-                                    _popContext();
-                                    _popContext();
-                                    widget.onAddCar(CarResponseModel.fromJson(
-                                            jsonDecode(response.body))
-                                        .id as int);
-                                  },
-                                ));
+                        Get.bottomSheet(
+                          BottomPopup(
+                            image:
+                                'assets/image/icon-logo/successfull-icon.png',
+                            title: "Thêm xe thành công",
+                            body:
+                                "Bạn đã thêm $carLisenceNo ($carBrand $carModel) làm phương tiện mới",
+                            buttonTitle: "Trở về",
+                            action: () {
+                              _popContext();
+                              _popContext();
+                              widget.onAddCar(CarResponseModel.fromJson(
+                                      jsonDecode(response.body))
+                                  .id as int);
+                            },
+                          ),
+                          backgroundColor: Colors.transparent,
+                        );
                       }
                     },
                     style: AppStyles.button16(),

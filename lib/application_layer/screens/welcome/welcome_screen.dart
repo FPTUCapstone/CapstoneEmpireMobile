@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/application_layer/screens/main_page/main_pag
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 
@@ -37,13 +38,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     var token = await getJwtToken();
     if (!mounted) return;
     if (token != null) {
-      _route = Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (BuildContext context) => const MainPage(),
-      ));
+      _route = Get.off(() => const MainPage());
     } else {
-      _route = Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (BuildContext context) => const LoginScreen(),
-      ));
+      _route = Get.off(() => const LoginScreen());
     }
   }
 

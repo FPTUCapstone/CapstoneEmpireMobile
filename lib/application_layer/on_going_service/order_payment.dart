@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/models/response/payment_response.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OrderPayment extends StatefulWidget {
@@ -51,19 +52,16 @@ class _OrderPaymentState extends State<OrderPayment> {
                   widget.callback();
                 } else {
                   log("Payment failed");
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pop();
-                  // ignore: use_build_context_synchronously
-                  showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (context) => BottomPopup(
-                            image: 'assets/image/icon-logo/failed-icon.png',
-                            title: "Thanh toán thất bại",
-                            body: "Vui lòng thực hiện lại thanh toán",
-                            buttonTitle: "Thử lại",
-                            action: () => Navigator.of(context).pop(),
-                          ));
+                  Get.back();
+                  Get.bottomSheet(
+                    BottomPopup(
+                        image: 'assets/image/icon-logo/failed-icon.png',
+                        title: "Thanh toán thất bại",
+                        body: "Vui lòng thực hiện lại thanh toán",
+                        buttonTitle: "Thử lại",
+                        action: () => Get.back()),
+                    backgroundColor: Colors.transparent,
+                  );
                 }
               } catch (e) {
                 e.toString();

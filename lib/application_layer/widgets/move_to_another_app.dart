@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/widgets/zalo_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 
@@ -15,9 +16,7 @@ class MoveToAnotherApp extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) => const ZaloBottomSheet());
+              Get.bottomSheet(const ZaloBottomSheet());
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.buttonColor,

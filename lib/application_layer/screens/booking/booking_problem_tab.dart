@@ -1,7 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_problem_seedetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
 import '../../../common/style.dart';
@@ -143,13 +143,8 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                               const Divider(),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).push(PageTransition(
-                                                type: PageTransitionType
-                                                    .leftToRight,
-                                                duration: const Duration(
-                                                    milliseconds: 350),
-                                                childCurrent: widget,
-                                                child: const BookingProblemSeeDetail()));
+                                  Get.to(() => const BookingProblemSeeDetail(),
+                                      transition: Transition.downToUp);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.all(10.sp),
@@ -187,7 +182,7 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                           onPressed: () {
                             widget.onChooseUnresolvedProblemsCallBack(
                                 _selectedUnresolvedProblems);
-                            Navigator.of(context).pop();
+                            Get.back();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,
