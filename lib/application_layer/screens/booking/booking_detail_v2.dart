@@ -93,188 +93,43 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                   ),
                 ),
                 centerTitle: true,
-                actions: _booking!.isArrived == true ||
-                        _booking!.isActived == false
-                    ? null
-                    : [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w),
-                          child: InkWell(
-                              onTap: () {},
-                              child: PopupMenuButton<String>(
-                                icon: const Icon(
-                                  Icons.more_horiz,
-                                  color: AppColors.blackTextColor,
-                                ),
-                                itemBuilder: (BuildContext context) =>
-                                    <PopupMenuEntry<String>>[
-                                  PopupMenuItem<String>(
-                                    value: 'cancel',
-                                    child: Text('Hủy',
-                                        style: AppStyles.text400(
-                                            fontsize: 14.sp,
-                                            color: AppColors.errorIcon)),
-                                  ),
-                                ],
-                                onSelected: (String selectedItem) {
-                                  switch (selectedItem) {
-                                    case 'cancel':
-                                      showModalBottomSheet(
-                                          context: context,
-                                          backgroundColor: Colors.transparent,
-                                          builder: (context) {
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: const BorderRadius
-                                                        .only(
-                                                    topLeft:
-                                                        Radius.circular(40.0),
-                                                    topRight:
-                                                        Radius.circular(40.0)),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey.withOpacity(
-                                                        0.5), //color of shadow
-                                                    spreadRadius:
-                                                        5, //spread radius
-                                                    blurRadius:
-                                                        7, // blur radius
-                                                    offset: const Offset(0,
-                                                        2), // changes position of shadow
-                                                    //first paramerter of offset is left-right
-                                                    //second parameter is top to down
-                                                  ),
-                                                  //you can set more BoxShadow() here
-                                                ],
-                                              ),
-                                              height: 300.h,
-                                              child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Icon(Icons.warning_rounded,
-                                                        size: 100.sp,
-                                                        color: AppColors
-                                                            .errorIcon),
-                                                    Text(
-                                                      'Xác nhận hủy đặt lịch',
-                                                      style:
-                                                          AppStyles.header600(),
-                                                    ),
-                                                    Text(
-                                                        'Bạn chắc chắn muốn hủy đặt lịch? Bạn sẽ mất tiền trước đó đã thanh toán.',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: AppStyles.text400(
-                                                            fontsize: 14.sp,
-                                                            color: AppColors
-                                                                .lightTextColor)),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: <Widget>[
-                                                        ElevatedButton(
-                                                          onPressed: () {
-                                                            Get.back();
-                                                          },
-                                                          style: OutlinedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                AppColors
-                                                                    .blue600,
-                                                            fixedSize:
-                                                                Size.fromHeight(
-                                                                    50.w),
-                                                            maximumSize:
-                                                                Size.fromWidth(
-                                                                    130.w),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          36),
-                                                            ),
-                                                          ),
-                                                          child: Text(
-                                                            'Hủy',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  AppStyles
-                                                                      .fontFamily,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: AppColors
-                                                                  .white100,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                AppColors
-                                                                    .errorIcon,
-                                                            fixedSize:
-                                                                Size.fromHeight(
-                                                                    50.w),
-                                                            maximumSize:
-                                                                Size.fromWidth(
-                                                                    130.w),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          36),
-                                                            ),
-                                                          ),
-                                                          onPressed: () async {
-                                                            var response =
-                                                                await BookingService()
-                                                                    .cancelBooking(
-                                                                        _booking!
-                                                                            .id);
-                                                            if (response
-                                                                    .statusCode ==
-                                                                204) {
-                                                              Get.back();
-                                                              Get.offAll(() =>
-                                                                  const MainPage());
-                                                            } else {
-                                                              Get.back();
-                                                            }
-                                                          },
-                                                          child: Text(
-                                                            'Xác nhận',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  AppStyles
-                                                                      .fontFamily,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ]),
-                                            );
-                                          });
-                                      break;
-                                    default:
-                                  }
-                                },
-                              )),
-                        )
-                      ],
+                actions:
+                    _booking!.isArrived == true || _booking!.isActived == false
+                        ? null
+                        : [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w),
+                              child: InkWell(
+                                  onTap: () {},
+                                  child: PopupMenuButton<String>(
+                                    icon: const Icon(
+                                      Icons.more_horiz,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                    itemBuilder: (BuildContext context) =>
+                                        <PopupMenuEntry<String>>[
+                                      PopupMenuItem<String>(
+                                        value: 'cancel',
+                                        child: Text('Hủy',
+                                            style: AppStyles.text400(
+                                                fontsize: 14.sp,
+                                                color: AppColors.errorIcon)),
+                                      ),
+                                    ],
+                                    onSelected: (String selectedItem) {
+                                      switch (selectedItem) {
+                                        case 'cancel':
+                                          Get.bottomSheet(
+                                            CancelBooking(booking: _booking),
+                                            backgroundColor: Colors.transparent,
+                                          );
+                                          break;
+                                        default:
+                                      }
+                                    },
+                                  )),
+                            )
+                          ],
               ),
               body: SingleChildScrollView(
                 child: Container(
@@ -621,9 +476,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                         )
                       : ElevatedButton(
                           onPressed: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) => const PickDateBooking());
+                            Get.bottomSheet(const PickDateBooking());
                           },
                           style: AppStyles.button16(),
                           child: Text(
@@ -638,6 +491,105 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                 ),
               ),
             ),
+    );
+  }
+}
+
+class CancelBooking extends StatelessWidget {
+  const CancelBooking({
+    super.key,
+    required BookingResponseModel? booking,
+  }) : _booking = booking;
+
+  final BookingResponseModel? _booking;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), //color of shadow
+            spreadRadius: 5, //spread radius
+            blurRadius: 7, // blur radius
+            offset: const Offset(0, 2), // changes position of shadow
+            //first paramerter of offset is left-right
+            //second parameter is top to down
+          ),
+          //you can set more BoxShadow() here
+        ],
+      ),
+      height: 300.h,
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        Icon(Icons.warning_rounded, size: 100.sp, color: AppColors.errorIcon),
+        Text(
+          'Xác nhận hủy đặt lịch',
+          style: AppStyles.header600(),
+        ),
+        Text(
+            'Bạn chắc chắn muốn hủy đặt lịch? Bạn sẽ mất tiền trước đó đã thanh toán.',
+            textAlign: TextAlign.center,
+            style: AppStyles.text400(
+                fontsize: 14.sp, color: AppColors.lightTextColor)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Get.back();
+              },
+              style: OutlinedButton.styleFrom(
+                backgroundColor: AppColors.blue600,
+                fixedSize: Size.fromHeight(50.w),
+                maximumSize: Size.fromWidth(130.w),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(36),
+                ),
+              ),
+              child: Text(
+                'Hủy',
+                style: TextStyle(
+                  fontFamily: AppStyles.fontFamily,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.white100,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.errorIcon,
+                fixedSize: Size.fromHeight(50.w),
+                maximumSize: Size.fromWidth(130.w),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(36),
+                ),
+              ),
+              onPressed: () async {
+                var response =
+                    await BookingService().cancelBooking(_booking!.id);
+                if (response.statusCode == 204) {
+                  Get.back();
+                  Get.offAll(() => const MainPage());
+                } else {
+                  Get.back();
+                }
+              },
+              child: Text(
+                'Xác nhận',
+                style: TextStyle(
+                  fontFamily: AppStyles.fontFamily,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }

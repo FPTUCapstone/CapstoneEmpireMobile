@@ -9,7 +9,6 @@ import 'package:empiregarage_mobile/services/activity_services/activity_service.
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 import '../../../models/response/activity.dart';
@@ -163,12 +162,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                               var item = _listFiltered[index];
                               return GestureDetector(
                                 onTap: () {
-                                  Get.to(() => PageTransition(
-                                      type: PageTransitionType.bottomToTop,
-                                      duration:
-                                          const Duration(milliseconds: 350),
-                                      childCurrent: widget,
-                                      child: item.isBooking
+                                  Get.to(
+                                      () => item.isBooking
                                           ? BookingDetailv2(
                                               bookingId: item.id,
                                             )
@@ -178,7 +173,8 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                                 )
                                               : OnGoingService(
                                                   servicesId: item.id,
-                                                )));
+                                                ),
+                                      transition: Transition.downToUp);
                                 },
                                 child: ActivityChip.haveTotal(
                                   carInfo:

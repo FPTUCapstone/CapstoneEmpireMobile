@@ -1,5 +1,5 @@
-import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
@@ -40,7 +40,7 @@ class _HealthCarRecordManagementDetailState
   @override
   Widget build(BuildContext context) {
     return _loading
-        ? const Loading()
+        ? const ScreenLoadingNoOpacity()
         : DefaultTabController(
             length: _car!.healthCarRecords.length,
             child: Scaffold(
@@ -246,9 +246,7 @@ class _HealthCarRecordManagementDetailState
                   height: 52.h,
                   child: ElevatedButton(
                     onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) => const PickDateBooking());
+                      Get.bottomSheet(const PickDateBooking());
                     },
                     style: AppStyles.button16(),
                     child: Text(

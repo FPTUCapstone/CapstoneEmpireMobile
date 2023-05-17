@@ -4,6 +4,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../activities/activities.dart';
 import '../home_page/home_page.dart';
@@ -48,7 +49,6 @@ class _MainPageState extends State<MainPage> {
                 child: MaterialButton(
                   minWidth: 50.w,
                   height: 60.h,
-                  
                   onPressed: () {
                     setState(() {
                       currentScreen = const HomePage();
@@ -135,28 +135,28 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               MaterialButton(
-              minWidth: 20.w,
-              padding: const EdgeInsets.all(15),
-              shape: const CircleBorder(),
-              color: AppColors.buttonColor,
-              onPressed: () {
-                showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) => const PickDateBooking());
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  ImageIcon(
-                      AssetImage(
-                          "assets/image/icon-logo/mainpage-booking.png"),
-                      size: 20,
-                      color: Colors.white),
-                ],
+                minWidth: 20.w,
+                padding: const EdgeInsets.all(15),
+                shape: const CircleBorder(),
+                color: AppColors.buttonColor,
+                onPressed: () {
+                  Get.bottomSheet(
+                    const PickDateBooking(),
+                    isScrollControlled: true
+                  );
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    ImageIcon(
+                        AssetImage(
+                            "assets/image/icon-logo/mainpage-booking.png"),
+                        size: 20,
+                        color: Colors.white),
+                  ],
+                ),
               ),
-            ),
               Expanded(
                 child: MaterialButton(
                   minWidth: 20.w,

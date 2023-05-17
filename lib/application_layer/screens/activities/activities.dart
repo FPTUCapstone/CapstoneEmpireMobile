@@ -10,7 +10,6 @@ import 'package:empiregarage_mobile/services/activity_services/activity_service.
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 import 'activity_history.dart';
@@ -172,18 +171,15 @@ class _HomePageState extends State<Activities> {
                                     const EdgeInsets.symmetric(horizontal: 15),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Get.to(() => PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration:
-                                            const Duration(milliseconds: 350),
-                                        childCurrent: widget,
-                                        child: item.isBooking
+                                    Get.to(
+                                        () => item.isBooking
                                             ? BookingDetailv2(
                                                 bookingId: item.id,
                                               )
                                             : OnGoingService(
                                                 servicesId: item.id,
-                                              )));
+                                              ),
+                                        transition: Transition.downToUp);
                                   },
                                   child: ActivityChip.haveTotal(
                                     carInfo:
@@ -240,12 +236,8 @@ class _HomePageState extends State<Activities> {
                                     const EdgeInsets.symmetric(horizontal: 15),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Get.to(() => PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration:
-                                            const Duration(milliseconds: 350),
-                                        childCurrent: widget,
-                                        child: item.isBooking
+                                    Get.to(
+                                        () => item.isBooking
                                             ? BookingDetailv2(
                                                 bookingId: item.id,
                                               )
@@ -255,7 +247,8 @@ class _HomePageState extends State<Activities> {
                                                   )
                                                 : OnGoingService(
                                                     servicesId: item.id,
-                                                  )));
+                                                  ),
+                                        transition: Transition.downToUp);
                                   },
                                   child: ActivityChip.haveTotal(
                                     carInfo:

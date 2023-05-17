@@ -95,9 +95,9 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
           orderType: 'VNpay');
       var responsePayment = await _payOrderFee(paymentRequestModel);
       Get.to(() => OrderPayment(
-          url: responsePayment,
-          callback: _onCallBack,
-        ));
+            url: responsePayment,
+            callback: _onCallBack,
+          ));
     }
   }
 
@@ -109,22 +109,21 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     } else {
       Get.back();
       Get.off(() => OnGoingService(
-              servicesId: _orderServicesResponseModel!.id,
-            ));
-      // ignore: use_build_context_synchronously
-      showModalBottomSheet(
-          context: context,
-          backgroundColor: Colors.transparent,
-          builder: (context) => BottomPopup(
-                image: 'assets/image/icon-logo/successfull-icon.png',
-                title: "Thánh toán thành công",
-                body:
-                    'Bạn đã thanh toán thành công, phương tiện của bạn sẽ được tiến hành sửa chữa',
-                buttonTitle: "Trở về",
-                action: () {
-                  Get.back();
-                },
-              ));
+            servicesId: _orderServicesResponseModel!.id,
+          ));
+      Get.bottomSheet(
+        BottomPopup(
+          image: 'assets/image/icon-logo/successfull-icon.png',
+          title: "Thánh toán thành công",
+          body:
+              'Bạn đã thanh toán thành công, phương tiện của bạn sẽ được tiến hành sửa chữa',
+          buttonTitle: "Trở về",
+          action: () {
+            Get.back();
+          },
+        ),
+        backgroundColor: Colors.transparent,
+      );
     }
   }
 

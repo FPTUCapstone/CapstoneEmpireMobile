@@ -53,17 +53,15 @@ class _OrderPaymentState extends State<OrderPayment> {
                 } else {
                   log("Payment failed");
                   Get.back();
-                  // ignore: use_build_context_synchronously
-                  showModalBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (context) => BottomPopup(
-                            image: 'assets/image/icon-logo/failed-icon.png',
-                            title: "Thanh toán thất bại",
-                            body: "Vui lòng thực hiện lại thanh toán",
-                            buttonTitle: "Thử lại",
-                            action: () => Get.back()
-                          ));
+                  Get.bottomSheet(
+                    BottomPopup(
+                        image: 'assets/image/icon-logo/failed-icon.png',
+                        title: "Thanh toán thất bại",
+                        body: "Vui lòng thực hiện lại thanh toán",
+                        buttonTitle: "Thử lại",
+                        action: () => Get.back()),
+                    backgroundColor: Colors.transparent,
+                  );
                 }
               } catch (e) {
                 e.toString();

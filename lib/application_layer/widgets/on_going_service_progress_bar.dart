@@ -225,7 +225,7 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
                 title: _activeStep > 4 ? 'Đã lấy xe' : 'Đợi lấy xe',
               ),
             ],
-            onStepReached: (index) => _onSelectTab(index),
+            // onStepReached: (index) => _onSelectTab(index),
           ),
         ),
       ],

@@ -605,9 +605,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                 height: 52.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) => const PickDateBooking());
+                    Get.bottomSheet(const PickDateBooking());
                   },
                   style: AppStyles.button16(),
                   child: Text(

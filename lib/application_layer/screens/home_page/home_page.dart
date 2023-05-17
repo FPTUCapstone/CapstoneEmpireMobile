@@ -15,7 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 import '../../../common/colors.dart';
 import '../../../models/response/item.dart';
 import '../notification/notification.dart';
@@ -267,19 +266,16 @@ class _HomePageState extends State<HomePage> {
                                         padding: EdgeInsets.only(bottom: 16.h),
                                         child: InkWell(
                                           onTap: () async {
-                                            Get.to(() => PageTransition(
-                                                type: PageTransitionType
-                                                    .bottomToTop,
-                                                duration: const Duration(
-                                                    milliseconds: 350),
-                                                childCurrent: widget,
-                                                child: item.isBooking
+                                            Get.to(
+                                                () => item.isBooking
                                                     ? BookingDetailv2(
                                                         bookingId: item.id,
                                                       )
                                                     : OnGoingService(
                                                         servicesId: item.id,
-                                                      )));
+                                                      ),
+                                                transition:
+                                                    Transition.downToUp);
                                           },
                                           child: DecoratedBox(
                                             decoration: BoxDecoration(

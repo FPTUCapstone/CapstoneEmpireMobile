@@ -2,7 +2,6 @@ import 'package:empiregarage_mobile/application_layer/screens/booking/booking_pr
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 import '../../../common/style.dart';
@@ -144,12 +143,8 @@ class _BookingProblemTabState extends State<BookingProblemTab> {
                               const Divider(),
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => PageTransition(
-                                      type: PageTransitionType.leftToRight,
-                                      duration:
-                                          const Duration(milliseconds: 350),
-                                      childCurrent: widget,
-                                      child: const BookingProblemSeeDetail()));
+                                  Get.to(() => const BookingProblemSeeDetail(),
+                                      transition: Transition.downToUp);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.all(10.sp),

@@ -54,12 +54,9 @@ class _BookingPaymentState extends State<BookingPayment> {
                 } else {
                   Get.back();
                   log("Payment failed");
-                  // ignore: use_build_context_synchronously
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) => const BookingFailed(
-                            message: 'Thanh toán thất bại',
-                          ));
+                  Get.bottomSheet(const BookingFailed(
+                    message: 'Thanh toán thất bại',
+                  ));
                 }
               } catch (e) {
                 e.toString();

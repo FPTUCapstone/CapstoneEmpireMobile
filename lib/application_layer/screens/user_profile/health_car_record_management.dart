@@ -94,8 +94,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
               color: Colors.black,
             )),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.sp),
@@ -109,6 +108,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
             padding: EdgeInsets.symmetric(vertical: 10.sp),
             child: ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: _listCar.length,
               itemBuilder: (context, index) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),

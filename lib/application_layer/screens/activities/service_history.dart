@@ -3,7 +3,6 @@ import 'package:empiregarage_mobile/application_layer/widgets/activity_filter.da
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../common/colors.dart';
 
@@ -71,11 +70,8 @@ class _ServiceHistoryState extends State<ServiceHistory> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Get.to(() => PageTransition(
-                                type: PageTransitionType.bottomToTopJoined,
-                                duration: const Duration(milliseconds: 350),
-                                childCurrent: widget,
-                                child: const MainPage()));
+                            Get.to(() => const MainPage(),
+                                transition: Transition.downToUp);
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 15),
