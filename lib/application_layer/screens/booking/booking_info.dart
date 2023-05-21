@@ -669,7 +669,7 @@ class _BookingInfoState extends State<BookingInfo> {
                         ),
                       ),
                       SizedBox(
-                        height: 5.h,
+                        height: 10.sp,
                       ),
                       // Row(
                       //   children: <Widget>[

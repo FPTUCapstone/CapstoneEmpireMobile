@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,16 +39,20 @@ class _TagEditorState extends State<TagEditor> {
       children: [
         TextFormField(
           controller: _controller,
-          decoration:  InputDecoration(
+          decoration: InputDecoration(
             hintText: 'Chọn triệu chứng',
-             hintStyle: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
-                                ),
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            hintStyle: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              color: AppColors.grey500,
+            ),
+            border: MaterialStateOutlineInputBorder.resolveWith((states) =>
+                const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderSide: BorderSide(color: AppColors.grey200))),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
           ),
           onTap: () {
@@ -89,10 +94,12 @@ class _TagEditorState extends State<TagEditor> {
         ),
         Wrap(
           spacing: 8.0,
-          runSpacing: 8.0,
           children: _selectedTags.map((tag) {
             return Chip(
-              label: Text(tag.name.toString()),
+              label: Text(
+                tag.name.toString(),
+                style: AppStyles.text400(fontsize: 12.sp),
+              ),
               onDeleted: () {
                 setState(() {
                   _selectedTags.remove(tag);
@@ -103,28 +110,39 @@ class _TagEditorState extends State<TagEditor> {
           }).toList(),
         ),
         if (_suggestedTags.isNotEmpty)
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _suggestedTags.length,
-            itemBuilder: (context, index) {
-              final tag = _suggestedTags[index];
-              return ListTile(
-                title: Text(tag.name.toString()),
-                onTap: () {
-                  setState(() {
-                    _controller.clear();
-                    if (_selectedTags
-                        .where((element) => element.id == tag.id)
-                        .isEmpty) {
-                      _selectedTags.add(tag);
-                      widget.onChanged(_selectedTags);
-                    }
-                    _suggestedTags = [];
-                  });
-                },
-              );
-            },
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: AppColors.grey200),
+                borderRadius: BorderRadius.circular(16)),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _suggestedTags.length,
+              itemBuilder: (context, index) {
+                final tag = _suggestedTags[index];
+                return InkWell(
+                  onTap: () {
+                    setState(() {
+                      _controller.clear();
+                      if (_selectedTags
+                          .where((element) => element.id == tag.id)
+                          .isEmpty) {
+                        _selectedTags.add(tag);
+                        widget.onChanged(_selectedTags);
+                      }
+                      _suggestedTags = [];
+                    });
+                  },
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
+                      child: Text(
+                        tag.name.toString(),
+                        style: AppStyles.text400(fontsize: 12.sp),
+                      )),
+                );
+              },
+            ),
           ),
       ],
     );
