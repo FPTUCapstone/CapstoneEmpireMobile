@@ -121,11 +121,12 @@ class _SearchPageState extends State<SearchPage> {
               color: Colors.black,
             )),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
+      body: Container(
+        color: Colors.white,
         child: Column(
           children: <Widget>[
-            SizedBox(
+            Container(
+              margin: const EdgeInsets.only(left: 24, right: 24),
               width: 335.w,
               height: 45.h,
               child: TextField(
@@ -148,7 +149,7 @@ class _SearchPageState extends State<SearchPage> {
                           BorderSide(color: AppColors.blueTextColor, width: 3),
                       borderRadius: BorderRadius.all(Radius.circular(16))),
                   enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.grey400),
+                      borderSide: BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.all(Radius.circular(16))),
                   focusColor: AppColors.searchBarColor,
                   prefixIcon: const Padding(
@@ -247,46 +248,52 @@ class _SearchPageState extends State<SearchPage> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: ListTile(
-                            title: RichText(
-                              text: TextSpan(
-                                  text: 'Kết quả cho "',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                        text: _searchString,
-                                        style: const TextStyle(
-                                          color: AppColors.blueTextColor,
-                                          fontSize: 12,
-                                          fontFamily: 'Roboto',
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        children: const [
-                                          TextSpan(
-                                            text: '"',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              fontFamily: 'Roboto',
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          )
-                                        ])
-                                  ]),
+                            title: Container(
+                              margin: const EdgeInsets.only(left: 15),
+                              child: RichText(
+                                text: TextSpan(
+                                    text: 'Kết quả cho "',
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                          text: _searchString,
+                                          style: const TextStyle(
+                                            color: AppColors.blueTextColor,
+                                            fontSize: 12,
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          children: const [
+                                            TextSpan(
+                                              text: '"',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                                fontFamily: 'Roboto',
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            )
+                                          ])
+                                    ]),
+                              ),
                             ),
-                            trailing: Text(
-                              _filteredItem != null
-                                  ? "${_filteredItem!.length} tìm kiếm"
-                                  : "0 tìm kiếm",
-                              style: const TextStyle(
-                                  fontSize: 10,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.blueTextColor),
+                            trailing: Container(
+                              margin: const EdgeInsets.only(right: 15),
+                              child: Text(
+                                _filteredItem != null
+                                    ? "${_filteredItem!.length} tìm kiếm"
+                                    : "0 tìm kiếm",
+                                style: const TextStyle(
+                                    fontSize: 10,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.blueTextColor),
+                              ),
                             ),
                           ),
                         ),
@@ -349,29 +356,34 @@ class _SearchPageState extends State<SearchPage> {
                                                     _filteredItem![index].id,
                                               ),
                                             ),
-                                            child: SerivceCard(
-                                                backgroundImage:
-                                                    _filteredItem![index].photo,
-                                                title:
-                                                    _filteredItem![index].name,
-                                                price: _filteredItem![index]
-                                                        .prices!
-                                                        .isNotEmpty
-                                                    ? _filteredItem![index]
-                                                        .prices!
-                                                        .first
-                                                        .price
-                                                        .toString()
-                                                    : "Liên hệ",
-                                                usageCount: "182",
-                                                rating: "4.4",
-                                                tag: _filteredItem![index]
-                                                            .category !=
-                                                        null
-                                                    ? _filteredItem![index]
-                                                        .category!
-                                                        .name
-                                                    : "Dịch vụ"),
+                                            child: Container(
+                                              margin: const EdgeInsets.only(
+                                                  left: 24, right: 24),
+                                              child: SerivceCard(
+                                                  backgroundImage:
+                                                      _filteredItem![index]
+                                                          .photo,
+                                                  title: _filteredItem![index]
+                                                      .name,
+                                                  price: _filteredItem![index]
+                                                          .prices!
+                                                          .isNotEmpty
+                                                      ? _filteredItem![index]
+                                                          .prices!
+                                                          .first
+                                                          .price
+                                                          .toString()
+                                                      : "Liên hệ",
+                                                  usageCount: "182",
+                                                  rating: "4.4",
+                                                  tag: _filteredItem![index]
+                                                              .category !=
+                                                          null
+                                                      ? _filteredItem![index]
+                                                          .category!
+                                                          .name
+                                                      : "Dịch vụ"),
+                                            ),
                                           ),
                                           const SizedBox(
                                             height: 25,

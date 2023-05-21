@@ -325,6 +325,7 @@ class _BookingInfoState extends State<BookingInfo> {
                 ),
               ),
               body: RefreshIndicator(
+                color: Colors.orange,
                 onRefresh: refresh,
                 child: ListView(
                   // crossAxisAlignment: CrossAxisAlignment.start,

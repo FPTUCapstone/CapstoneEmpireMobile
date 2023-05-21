@@ -28,21 +28,29 @@ class _SerivceCardState extends State<SerivceCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      height: 275.h,
+      decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(20))),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 1),
+            )
+          ],
+          borderRadius: const BorderRadius.all(Radius.circular(20))),
       child: Column(
         children: [
           Stack(children: [
             SizedBox(
               width: double.infinity,
-              height: 200,
+              height: 160.h,
               child: widget.backgroundImage != "null"
                   ? SizedBox(
-                    height: 160.h,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: ClipRRect(
+                      height: 160.h,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: ClipRRect(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           borderRadius: BorderRadius.circular(15),
                           child: Image.network(
@@ -50,8 +58,8 @@ class _SerivceCardState extends State<SerivceCard> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                    ),
-                  )
+                      ),
+                    )
                   : Image.asset(
                       "assets/image/error-image/no-image.png",
                       fit: BoxFit.fitWidth,

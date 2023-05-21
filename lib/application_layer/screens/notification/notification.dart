@@ -85,53 +85,56 @@ class _NotificationPageState extends State<NotificationPage> {
               color: Colors.black,
             )),
       ),
-      body: StreamBuilder(
-          stream: FirebaseDatabase.instance
-              .ref()
-              .child('users/${widget.userId}/notifications')
-              .onValue,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Loading();
-            }
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
-            }
-            List<Notification> notifications = [];
-            DataSnapshot data = snapshot.data!.snapshot;
-            if (data.value != null) {
-              Map<dynamic, dynamic> values =
-                  data.value as Map<dynamic, dynamic>;
-              values.forEach((key, value) {
-                notifications.add(Notification.fromMap(key, value));
-              });
-              notifications.sort((a, b) => b.time.compareTo(a.time));
-            }
-            // Display the notification in a widget
-            return ListView.builder(
-              itemCount: notifications.length,
-              itemBuilder: (context, index) {
-                var message = notifications[index].message;
-                var time = notifications[index].time;
-                var title = notifications[index].title;
-                var isRead = notifications[index].isRead;
-                var key = notifications[index].key;
-                return InkWell(
-                  onTap: () {
-                    readNotification(key);
-                  },
-                  child: NotificationChip(
-                    title: title,
-                    message: message,
-                    time: time,
-                    isRead: isRead,
-                  ),
+      body: Container(
+        color: Colors.white,
+        child: StreamBuilder(
+            stream: FirebaseDatabase.instance
+                .ref()
+                .child('users/${widget.userId}/notifications')
+                .onValue,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Loading();
+              }
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
                 );
-              },
-            );
-          }),
+              }
+              List<Notification> notifications = [];
+              DataSnapshot data = snapshot.data!.snapshot;
+              if (data.value != null) {
+                Map<dynamic, dynamic> values =
+                    data.value as Map<dynamic, dynamic>;
+                values.forEach((key, value) {
+                  notifications.add(Notification.fromMap(key, value));
+                });
+                notifications.sort((a, b) => b.time.compareTo(a.time));
+              }
+              // Display the notification in a widget
+              return ListView.builder(
+                itemCount: notifications.length,
+                itemBuilder: (context, index) {
+                  var message = notifications[index].message;
+                  var time = notifications[index].time;
+                  var title = notifications[index].title;
+                  var isRead = notifications[index].isRead;
+                  var key = notifications[index].key;
+                  return InkWell(
+                    onTap: () {
+                      readNotification(key);
+                    },
+                    child: NotificationChip(
+                      title: title,
+                      message: message,
+                      time: time,
+                      isRead: isRead,
+                    ),
+                  );
+                },
+              );
+            }),
+      ),
     );
   }
 }
@@ -198,7 +201,7 @@ class _NotificationChipState extends State<NotificationChip> {
                         fontFamily: 'Roboto',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor
+                        color: AppColors.blackTextColor
                         )),
                 const SizedBox(height: 10),
                 Text(

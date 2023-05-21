@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.centerLeft,
                           child: SizedBox(
                             width: 311.w,
-                            height: 26.h,
+                            height: 20.h,
                             child: TextField(
                               keyboardType: TextInputType.text,
                               onSubmitted: (value) {

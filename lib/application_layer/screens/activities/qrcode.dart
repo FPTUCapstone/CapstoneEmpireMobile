@@ -119,7 +119,7 @@ class _QRCodePageState extends State<QRCodePage> {
                             QrImage(
                               data: _qrCodeData.toString(),
                               version: QrVersions.auto,
-                              size: 200,
+                              size: 250,
                             ),
                             const SizedBox(height: 10),
                             Row(
