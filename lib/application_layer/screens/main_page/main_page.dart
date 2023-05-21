@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart';
+import 'package:empiregarage_mobile/application_layer/screens/user_profile/health_car_record_management.dart';
 import 'package:empiregarage_mobile/application_layer/screens/user_profile/user_profile_setting.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
@@ -162,7 +163,7 @@ class _MainPageState extends State<MainPage> {
                   minWidth: 20.w,
                   onPressed: () {
                     setState(() {
-                      currentScreen = const Orders();
+                      currentScreen =  HealthCarRecordManagement(onSelected: (int ) {  }, selectedCar: 1,);
                       currentTab = 3;
                     });
                   },

@@ -39,7 +39,7 @@ class _TagEditorState extends State<TagEditor> {
         TextFormField(
           controller: _controller,
           decoration:  InputDecoration(
-            hintText: 'Chọn triệu chứng',
+            hintText: 'Chọn tình trạng xe',
              hintStyle: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,

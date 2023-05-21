@@ -326,59 +326,59 @@ class _BookingInfoState extends State<BookingInfo> {
               ),
               body: RefreshIndicator(
                 onRefresh: refresh,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: ListView(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      // Text(
-                      //   "Ngày đặt",
-                      //   style: TextStyle(
-                      //     fontFamily: 'Roboto',
-                      //     fontSize: 14.sp,
-                      //     fontWeight: FontWeight.w600,
-                      //     color: AppColors.blackTextColor,
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 5.h,
-                      // ),
-                      // SizedBox(
-                      //   height: 55.h,
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: TextField(
-                      //           enabled: false,
-                      //           controller: _dateController,
-                      //           decoration: InputDecoration(
-                      //             fillColor: Colors.white,
-                      //             border: OutlineInputBorder(
-                      //                 borderSide: BorderSide.none,
-                      //                 borderRadius: BorderRadius.circular(12)),
-                      //             focusedBorder: OutlineInputBorder(
-                      //                 borderSide: const BorderSide(
-                      //                     color: AppColors.lightGrey),
-                      //                 borderRadius: BorderRadius.circular(12)),
-                      //             floatingLabelBehavior:
-                      //                 FloatingLabelBehavior.always,
-                      //             filled: true,
-                      //           ),
-                      //           style: TextStyle(
-                      //             fontFamily: 'Roboto',
-                      //             fontSize: 14.sp,
-                      //             fontWeight: FontWeight.w400,
-                      //             color: AppColors.lightTextColor,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      Row(
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    // Text(
+                    //   "Ngày đặt",
+                    //   style: TextStyle(
+                    //     fontFamily: 'Roboto',
+                    //     fontSize: 14.sp,
+                    //     fontWeight: FontWeight.w600,
+                    //     color: AppColors.blackTextColor,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 5.h,
+                    // ),
+                    // SizedBox(
+                    //   height: 55.h,
+                    //   child: Row(
+                    //     children: [
+                    //       Expanded(
+                    //         child: TextField(
+                    //           enabled: false,
+                    //           controller: _dateController,
+                    //           decoration: InputDecoration(
+                    //             fillColor: Colors.white,
+                    //             border: OutlineInputBorder(
+                    //                 borderSide: BorderSide.none,
+                    //                 borderRadius: BorderRadius.circular(12)),
+                    //             focusedBorder: OutlineInputBorder(
+                    //                 borderSide: const BorderSide(
+                    //                     color: AppColors.lightGrey),
+                    //                 borderRadius: BorderRadius.circular(12)),
+                    //             floatingLabelBehavior:
+                    //                 FloatingLabelBehavior.always,
+                    //             filled: true,
+                    //           ),
+                    //           style: TextStyle(
+                    //             fontFamily: 'Roboto',
+                    //             fontSize: 14.sp,
+                    //             fontWeight: FontWeight.w400,
+                    //             color: AppColors.lightTextColor,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
@@ -416,7 +416,10 @@ class _BookingInfoState extends State<BookingInfo> {
                               : const SizedBox()
                         ],
                       ),
-                      Text(
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Text(
                         "Phương tiện được chọn",
                         style: TextStyle(
                           fontFamily: 'Roboto',
@@ -425,76 +428,24 @@ class _BookingInfoState extends State<BookingInfo> {
                           color: AppColors.lightTextColor,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      _listCar.isEmpty
-                          ? Padding(
-                              padding: EdgeInsets.only(top: 10.h),
-                              child: InkWell(
-                                onTap: () {
-                                  Get.bottomSheet(
-                                    AddNewCar(
-                                      // ignore: avoid_types_as_parameter_names
-                                      onAddCar: (int) {
-                                        _loadData();
-                                      },
-                                    ),
-                                    isScrollControlled: true,
-                                    isDismissible: false,
-                                  );
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 1.h,
-                                          blurRadius: 1.2,
-                                          offset: Offset(0, 4.h),
-                                        )
-                                      ],
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(16))),
-                                  child: SizedBox(
-                                    height: 55.h,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          Icons.add_circle_outline,
-                                          color: AppColors.blueTextColor,
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Text(
-                                          "Thêm phương tiện",
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blueTextColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          : InkWell(
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    _listCar.isEmpty
+                        ? Padding(
+                            padding: EdgeInsets.only(top: 10.h),
+                            child: InkWell(
                               onTap: () {
                                 Get.bottomSheet(
-                                  ChoseYourCar(
-                                    selectedCar: _selectedCar,
-                                    onSelected: _onCarSelected,
-                                    onCallBack: _onCallBack,
+                                  AddNewCar(
+                                    // ignore: avoid_types_as_parameter_names
+                                    onAddCar: (int) {
+                                      _loadData();
+                                    },
                                   ),
-                                  backgroundColor: Colors.transparent,
                                   isScrollControlled: true,
+                                  isDismissible: false,
                                 );
                               },
                               child: Container(
@@ -510,158 +461,208 @@ class _BookingInfoState extends State<BookingInfo> {
                                     ],
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(16))),
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      leading: FutureBuilder(
-                                          future: getBrandPhoto(_listCar
-                                              .where((element) =>
-                                                  element.id == _selectedCar)
-                                              .first
-                                              .carBrand),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.hasData) {
-                                              return Image.network(
-                                                snapshot.data.toString(),
-                                                height: 50.h,
-                                                width: 50.w,
-                                              );
-                                            } else if (snapshot.hasError) {
-                                              return Image.asset(
-                                                "assets/image/icon-logo/bmw-car-icon.png",
-                                                height: 50.h,
-                                                width: 50.w,
-                                              );
-                                            } else {
-                                              return Image.asset(
-                                                "assets/image/icon-logo/bmw-car-icon.png",
-                                                height: 50.h,
-                                                width: 50.w,
-                                              );
-                                            }
-                                          }),
-                                      title: Text(
-                                        _listCar
+                                child: SizedBox(
+                                  height: 55.h,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.add_circle_outline,
+                                        color: AppColors.blueTextColor,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text(
+                                        "Thêm phương tiện",
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.blueTextColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : InkWell(
+                            onTap: () {
+                              Get.bottomSheet(
+                                ChoseYourCar(
+                                  selectedCar: _selectedCar,
+                                  onSelected: _onCarSelected,
+                                  onCallBack: _onCallBack,
+                                ),
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                              );
+                            },
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.only(left: 24, right: 24),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 1),
+                                    )
+                                  ],
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(16))),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: FutureBuilder(
+                                        future: getBrandPhoto(_listCar
                                             .where((element) =>
                                                 element.id == _selectedCar)
                                             .first
-                                            .carBrand,
-                                        style: TextStyle(
-                                          fontFamily: 'Roboto',
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.lightTextColor,
-                                        ),
+                                            .carBrand),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            return Image.network(
+                                              snapshot.data.toString(),
+                                              height: 50.h,
+                                              width: 50.w,
+                                            );
+                                          } else if (snapshot.hasError) {
+                                            return Image.asset(
+                                              "assets/image/icon-logo/bmw-car-icon.png",
+                                              height: 50.h,
+                                              width: 50.w,
+                                            );
+                                          } else {
+                                            return Image.asset(
+                                              "assets/image/icon-logo/bmw-car-icon.png",
+                                              height: 50.h,
+                                              width: 50.w,
+                                            );
+                                          }
+                                        }),
+                                    title: Text(
+                                      _listCar
+                                          .where((element) =>
+                                              element.id == _selectedCar)
+                                          .first
+                                          .carBrand,
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.lightTextColor,
                                       ),
-                                      subtitle: Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              _listCar
-                                                  .where((element) =>
-                                                      element.id ==
-                                                      _selectedCar)
-                                                  .first
-                                                  .carLisenceNo,
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w600,
-                                                color: AppColors.blackTextColor,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5.h,
-                                            ),
-                                            Text(
-                                              _listCar
-                                                  .where((element) =>
-                                                      element.id ==
-                                                      _selectedCar)
-                                                  .first
-                                                  .carModel,
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColors.lightTextColor,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      isThreeLine: true,
-                                      trailing: Column(
+                                    ),
+                                    subtitle: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(height: 15.h),
-                                          const Icon(
-                                            Icons.radio_button_checked,
-                                            color: AppColors.buttonColor,
+                                          Text(
+                                            _listCar
+                                                .where((element) =>
+                                                    element.id == _selectedCar)
+                                                .first
+                                                .carLisenceNo,
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.blackTextColor,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                          Text(
+                                            _listCar
+                                                .where((element) =>
+                                                    element.id == _selectedCar)
+                                                .first
+                                                .carModel,
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.lightTextColor,
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    _isCarHasHCR
-                                        ? const Divider()
-                                        : Container(),
-                                    _loadHCR
-                                        ? _isCarHasHCR
-                                            ? InkWell(
-                                                onTap: () {
-                                                  Get.to(() =>
-                                                      BookingProblemHistory(
-                                                        car: _carProfile,
-                                                        onChooseUnresolvedProblemsCallBack:
-                                                            (unresolvedProblems) {
-                                                          setState(() {
-                                                            _unresolvedProblems =
-                                                                unresolvedProblems;
-                                                          });
-                                                        },
-                                                      ));
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.all(8.sp),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Lịch sử sửa chữa',
-                                                        style: AppStyles.header600(
-                                                            fontsize: 10.sp,
-                                                            color: AppColors
-                                                                .blueTextColor),
-                                                      ),
-                                                      const Icon(
-                                                        Icons
-                                                            .navigate_next_outlined,
-                                                        color: AppColors
-                                                            .blueTextColor,
-                                                      ),
-                                                    ],
-                                                  ),
+                                    isThreeLine: true,
+                                    trailing: Column(
+                                      children: [
+                                        SizedBox(height: 15.h),
+                                        const Icon(
+                                          Icons.radio_button_checked,
+                                          color: AppColors.buttonColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  _isCarHasHCR ? const Divider() : Container(),
+                                  _loadHCR
+                                      ? _isCarHasHCR
+                                          ? InkWell(
+                                              onTap: () {
+                                                Get.to(
+                                                    () => BookingProblemHistory(
+                                                          car: _carProfile,
+                                                          onChooseUnresolvedProblemsCallBack:
+                                                              (unresolvedProblems) {
+                                                            setState(() {
+                                                              _unresolvedProblems =
+                                                                  unresolvedProblems;
+                                                            });
+                                                          },
+                                                        ));
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.all(8.sp),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Lịch sử sửa chữa',
+                                                      style: AppStyles.header600(
+                                                          fontsize: 10.sp,
+                                                          color: AppColors
+                                                              .blueTextColor),
+                                                    ),
+                                                    const Icon(
+                                                      Icons
+                                                          .navigate_next_outlined,
+                                                      color: AppColors
+                                                          .blueTextColor,
+                                                    ),
+                                                  ],
                                                 ),
-                                              )
-                                            : Container()
-                                        : Container(
-                                            height: 20.sp,
-                                            width: 20.sp,
-                                            margin: EdgeInsets.all(8.sp),
-                                            child: const Loading())
-                                  ],
-                                ),
+                                              ),
+                                            )
+                                          : Container()
+                                      : Container(
+                                          height: 20.sp,
+                                          width: 20.sp,
+                                          margin: EdgeInsets.all(8.sp),
+                                          child: const Loading())
+                                ],
                               ),
                             ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Text(
-                        "Triệu chứng",
+                          ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Text(
+                        "Tình trạng xe",
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 12.sp,
@@ -669,19 +670,22 @@ class _BookingInfoState extends State<BookingInfo> {
                           color: AppColors.blackTextColor,
                         ),
                       ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      // Row(
-                      //   children: <Widget>[
-                      //     Expanded(
-                      //       child: SearchableDropdown(
-                      //           options: options,
-                      //           onSelectedItem: _onCallBackSymptoms),
-                      //     ),
-                      //   ],
-                      // ),
-                      TagEditor(
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    // Row(
+                    //   children: <Widget>[
+                    //     Expanded(
+                    //       child: SearchableDropdown(
+                    //           options: options,
+                    //           onSelectedItem: _onCallBackSymptoms),
+                    //     ),
+                    //   ],
+                    // ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: TagEditor(
                           options: options,
                           onChanged: (tags) {
                             setState(() {
@@ -693,89 +697,89 @@ class _BookingInfoState extends State<BookingInfo> {
                               _emptySymtomp = emptySymtomp;
                             });
                           }),
-                      _emptySymtomp
-                          ? Text(
-                              'Vui lòng nhập triệu chứng',
-                              style: AppStyles.text400(
-                                  fontsize: 12.sp, color: AppColors.errorIcon),
-                            )
-                          : Container(),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      _unresolvedProblems.isNotEmpty
-                          ? Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Vấn đề tái sửa chữa",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.blackTextColor,
-                                      ),
+                    ),
+                    _emptySymtomp
+                        ? Text(
+                            'Vui lòng nhập triệu chứng',
+                            style: AppStyles.text400(
+                                fontsize: 12.sp, color: AppColors.errorIcon),
+                          )
+                        : Container(),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    _unresolvedProblems.isNotEmpty
+                        ? Column(
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  Text(
+                                    "Vấn đề tái sửa chữa",
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
                                     ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: _unresolvedProblems.length,
-                                  itemBuilder: (context, index) {
-                                    var item = _unresolvedProblems[index];
-                                    return Padding(
-                                      padding: EdgeInsets.only(top: 10.h),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[300],
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(16))),
-                                        child: Column(
-                                          children: [
-                                            ListTile(
-                                              title: Text(
-                                                item.name,
-                                                style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                  color:
-                                                      AppColors.blackTextColor,
-                                                ),
-                                              ),
-                                              trailing: InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    _unresolvedProblems
-                                                        .remove(item);
-                                                  });
-                                                },
-                                                child: const Icon(
-                                                  Icons.cancel,
-                                                  color:
-                                                      AppColors.blackTextColor,
-                                                ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: _unresolvedProblems.length,
+                                itemBuilder: (context, index) {
+                                  var item = _unresolvedProblems[index];
+                                  return Padding(
+                                    padding: EdgeInsets.only(top: 10.h),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(16))),
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            title: Text(
+                                              item.name,
+                                              style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColors.blackTextColor,
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                            trailing: InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  _unresolvedProblems
+                                                      .remove(item);
+                                                });
+                                              },
+                                              child: const Icon(
+                                                Icons.cancel,
+                                                color: AppColors.blackTextColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                              ],
-                            )
-                          : Container(),
-                      Row(
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Row(
                         children: [
                           Text(
                             "Phương thức thanh toán",
@@ -803,7 +807,10 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                         ],
                       ),
-                      Text(
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Text(
                         "Phương thức được chọn",
                         style: TextStyle(
                           fontFamily: 'Roboto',
@@ -812,61 +819,64 @@ class _BookingInfoState extends State<BookingInfo> {
                           color: AppColors.lightTextColor,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.bottomSheet(const ChosePaymentMethod());
-                        },
-                        child: Container(
-                          height: 55.h,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  spreadRadius: 1.h,
-                                  blurRadius: 1.2,
-                                  offset: Offset(0, 4.h),
-                                )
-                              ],
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(16))),
-                          child: ListTile(
-                            leading: Image.asset(
-                              "assets/image/icon-logo/vnpay.png",
-                              height: 50.h,
-                              width: 50.w,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.bottomSheet(const ChosePaymentMethod());
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 24, right: 24),
+                        height: 55.h,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 1),
+                              )
+                            ],
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16))),
+                        child: ListTile(
+                          leading: Image.asset(
+                            "assets/image/icon-logo/vnpay.png",
+                            height: 50.h,
+                            width: 50.w,
+                          ),
+                          title: Text(
+                            "VNPAY",
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
                             ),
-                            title: Text(
-                              "VNPAY",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
+                          ),
+                          trailing: Column(
+                            children: [
+                              SizedBox(height: 15.h),
+                              const Icon(
+                                Icons.radio_button_checked,
+                                color: AppColors.buttonColor,
                               ),
-                            ),
-                            trailing: Column(
-                              children: [
-                                SizedBox(height: 15.h),
-                                const Icon(
-                                  Icons.radio_button_checked,
-                                  color: AppColors.buttonColor,
-                                ),
-                              ],
-                            ),
+                            ],
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Text(
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Text(
                         "Thanh toán",
                         style: TextStyle(
                           fontFamily: 'Roboto',
@@ -875,10 +885,13 @@ class _BookingInfoState extends State<BookingInfo> {
                           color: AppColors.blackTextColor,
                         ),
                       ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Row(
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Row(
                         children: [
                           Text(
                             "Phí đặt chỗ",
@@ -906,14 +919,17 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 22.h,
-                        child: const Divider(
-                          thickness: 1,
-                          color: AppColors.searchBarColor,
-                        ),
+                    ),
+                    SizedBox(
+                      height: 22.h,
+                      child: const Divider(
+                        thickness: 1,
+                        color: AppColors.searchBarColor,
                       ),
-                      Row(
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Row(
                         children: [
                           Text(
                             "Tổng cộng",
@@ -941,10 +957,13 @@ class _BookingInfoState extends State<BookingInfo> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Column(
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 24, right: 24),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
@@ -975,11 +994,11 @@ class _BookingInfoState extends State<BookingInfo> {
                               ))
                         ],
                       ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                  ],
                 ),
               ),
               bottomNavigationBar: Container(
