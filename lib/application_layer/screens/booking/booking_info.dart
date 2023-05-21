@@ -193,7 +193,6 @@ class _BookingInfoState extends State<BookingInfo> {
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
-    _getBookingPrice();
     _loadOptions();
     _getUserCar();
 
@@ -210,7 +209,7 @@ class _BookingInfoState extends State<BookingInfo> {
     return _loadData();
   }
 
-  _onCallBackFromPayment() async {
+  Future _onCallBackFromPayment() async {
     setState(() {
       _loading = false;
     });
@@ -684,6 +683,13 @@ class _BookingInfoState extends State<BookingInfo> {
                       TagEditor(
                           options: options,
                           onChanged: (tags) {
+                            if (tags.isNotEmpty) {
+                              _getBookingPrice();
+                            } else {
+                              setState(() {
+                                _bookingPrice = 0;
+                              });
+                            }
                             setState(() {
                               _listSymptom = tags;
                             });
@@ -995,24 +1001,27 @@ class _BookingInfoState extends State<BookingInfo> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (_listSymptom.isEmpty) {
+                            if (_listSymptom.isEmpty && _unresolvedProblems.isEmpty) {
                               setState(() {
                                 _emptySymtomp = true;
                               });
                               return;
+                            } else if (_listSymptom.isEmpty && _unresolvedProblems.isNotEmpty) {
+                              _onCallBackFromPayment();
+                            } else {
+                              PaymentRequestModel paymentRequestModel =
+                                  PaymentRequestModel(
+                                      amount: _bookingPrice,
+                                      name: 'Booking payment',
+                                      orderDescription: 'Booking payment',
+                                      orderType: 'VNpay');
+                              var responsePayment =
+                                  await _payBookingFee(paymentRequestModel);
+                              Get.to(() => BookingPayment(
+                                    url: responsePayment,
+                                    callback: _onCallBackFromPayment,
+                                  ));
                             }
-                            PaymentRequestModel paymentRequestModel =
-                                PaymentRequestModel(
-                                    amount: _bookingPrice,
-                                    name: 'Booking payment',
-                                    orderDescription: 'Booking payment',
-                                    orderType: 'VNpay');
-                            var responsePayment =
-                                await _payBookingFee(paymentRequestModel);
-                            Get.to(() => BookingPayment(
-                                  url: responsePayment,
-                                  callback: _onCallBackFromPayment,
-                                ));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,

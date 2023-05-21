@@ -14,6 +14,7 @@ class BookingResponseModel {
     required this.car,
     required this.symptoms,
     required this.unresolvedProblems,
+    required this.total,
   });
 
   int id;
@@ -23,6 +24,7 @@ class BookingResponseModel {
   bool isArrived;
   bool isActived;
   int? dayLeft;
+  double total;
   UserSlimResponse user;
   CarResponseModel car;
   List<SymptonResponseModel> symptoms = [];
@@ -45,6 +47,7 @@ class BookingResponseModel {
       unresolvedProblems: (json['unresolvedProblems'] as List)
           .map((e) => UnresolvedProblem.fromJson2(e))
           .toList(),
+      total: json['transaction']['total'] != null ? double.parse(json['transaction']['total'] .toString()) : 0,
     );
   }
 

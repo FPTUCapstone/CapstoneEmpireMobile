@@ -23,8 +23,6 @@ class BookingDetailv2 extends StatefulWidget {
 }
 
 class _BookingDetailv2State extends State<BookingDetailv2> {
-  double _bookingPrice = 0;
-
   BookingResponseModel? _booking;
   bool _loading = true;
   late DateTime _bookingDate;
@@ -38,18 +36,8 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
     });
   }
 
-  _getBookingPrice() async {
-    var response = await BookingService().getBookingPrice();
-    if (!mounted) return;
-    setState(() {
-      _bookingPrice = response;
-    });
-    return _bookingPrice;
-  }
-
   @override
   void initState() {
-    _getBookingPrice();
     _fetchData();
     super.initState();
   }
@@ -277,13 +265,13 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                             ),
                             CustomRow(
                               title: 'Phí đặt lịch',
-                              value: formatCurrency(_bookingPrice),
+                              value: formatCurrency(_booking!.total),
                               textStyle: AppStyles.text400(fontsize: 10.sp),
                             ),
                             const CustomSpacer(),
                             CustomRow(
                               title: 'Tổng cộng',
-                              value: formatCurrency(_bookingPrice),
+                              value: formatCurrency(_booking!.total),
                               textStyle: AppStyles.header600(fontsize: 10.sp),
                             ),
                             const CustomSpacer(),
