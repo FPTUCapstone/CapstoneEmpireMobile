@@ -77,4 +77,13 @@ class CarService {
       return null;
     }
   }
+  
+  Future<http.Response> canBook(int carId) async {
+    String apiUrl = '${APIPath.path}/cars/$carId/can-book';
+    var response = await makeHttpRequest(
+      apiUrl,
+      method: 'GET',
+    );
+    return response;
+  }
 }

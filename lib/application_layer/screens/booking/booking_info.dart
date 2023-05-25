@@ -16,12 +16,10 @@ import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
-import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:empiregarage_mobile/helper/notification_helper.dart';
 
 import '../../../common/colors.dart';
 import '../../../helper/common_helper.dart';
@@ -245,13 +243,6 @@ class _BookingInfoState extends State<BookingInfo> {
       );
     } catch (RuntimeBinderException) {
       if (response != null) {
-        var listUser = await UserService().getListUser();
-        var listRecep =
-            listUser.where((element) => element.roleId == "RE").toList();
-        for (var recep in listRecep) {
-          sendNotification(recep.id, "Có đặt lịch mới #${response.code}",
-              "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
-        }
         setState(() {
           _loading = true;
         });
@@ -1001,27 +992,50 @@ class _BookingInfoState extends State<BookingInfo> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (_listSymptom.isEmpty && _unresolvedProblems.isEmpty) {
-                              setState(() {
-                                _emptySymtomp = true;
-                              });
-                              return;
-                            } else if (_listSymptom.isEmpty && _unresolvedProblems.isNotEmpty) {
-                              _onCallBackFromPayment();
+                            // Check car can booking or not
+                            var response =
+                                await CarService().canBook(_selectedCar);
+                            if (response.statusCode == 500) {
+                              Get.bottomSheet(
+                                BottomPopup(
+                                  image:
+                                      'assets/image/icon-logo/failed-icon.png',
+                                  title: "Không thể đặt lịch",
+                                  body: jsonDecode(response.body)['message'],
+                                  buttonTitle: "Thử lại",
+                                  action: () {
+                                    Get.back();
+                                  },
+                                ),
+                              );
                             } else {
-                              PaymentRequestModel paymentRequestModel =
-                                  PaymentRequestModel(
-                                      amount: _bookingPrice,
-                                      name: 'Booking payment',
-                                      orderDescription: 'Booking payment',
-                                      orderType: 'VNpay');
-                              var responsePayment =
-                                  await _payBookingFee(paymentRequestModel);
-                              Get.to(() => BookingPayment(
-                                    url: responsePayment,
-                                    callback: _onCallBackFromPayment,
-                                  ));
+                              if (_listSymptom.isEmpty &&
+                                  _unresolvedProblems.isEmpty) {
+                                setState(() {
+                                  _emptySymtomp = true;
+                                });
+                                return;
+                              } else {
+                                if (_listSymptom.isEmpty &&
+                                    _unresolvedProblems.isNotEmpty) {
+                                  _onCallBackFromPayment();
+                                } else {
+                                  PaymentRequestModel paymentRequestModel =
+                                      PaymentRequestModel(
+                                          amount: _bookingPrice,
+                                          name: 'Booking payment',
+                                          orderDescription: 'Booking payment',
+                                          orderType: 'VNpay');
+                                  var responsePayment =
+                                      await _payBookingFee(paymentRequestModel);
+                                  Get.to(() => BookingPayment(
+                                        url: responsePayment,
+                                        callback: _onCallBackFromPayment,
+                                      ));
+                                }
+                              }
                             }
+
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,

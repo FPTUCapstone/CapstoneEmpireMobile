@@ -533,9 +533,9 @@ class CancelBooking extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 backgroundColor: AppColors.blue600,
                 fixedSize: Size.fromHeight(50.w),
-                maximumSize: Size.fromWidth(130.w),
+                maximumSize: Size.fromWidth(150.w),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(36),
+                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
               child: Text(
@@ -551,9 +551,9 @@ class CancelBooking extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.errorIcon,
                 fixedSize: Size.fromHeight(50.w),
-                maximumSize: Size.fromWidth(130.w),
+                maximumSize: Size.fromWidth(150.w),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(36),
+                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
               onPressed: () async {

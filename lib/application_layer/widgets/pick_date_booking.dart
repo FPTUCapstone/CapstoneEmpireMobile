@@ -27,7 +27,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(40.0), topRight: Radius.circular(24.0)),
+              topLeft: Radius.circular(24.0), topRight: Radius.circular(24.0)),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5), //color of shadow

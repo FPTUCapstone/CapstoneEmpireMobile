@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
+import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
 import 'package:empiregarage_mobile/application_layer/screens/welcome/welcome_screen.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/error_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'application_layer/on_going_service/on_going_service.dart';
+import 'application_layer/screens/main_page/main_page.dart';
 import 'firebase_options.dart';
 
 // ignore: depend_on_referenced_packages
@@ -73,11 +75,16 @@ class _MyAppState extends State<MyApp> {
         );
         final routeFromMessage = message.data["route"];
         var jsonRoute = jsonDecode(routeFromMessage);
+        Get.offAll(() => const MainPage());
         switch (jsonRoute['route']) {
           case "qr-checkin-success":
-            Get.to(() => OnGoingService(
-                  servicesId: jsonRoute['orderServiceId'] as int,
-                ));
+            if (jsonRoute['orderServiceId'] != null) {
+              Get.to(() => OnGoingService(
+                    servicesId: jsonRoute['orderServiceId'] as int,
+                  ));
+            } else {
+              Get.to(() => BookingDetailv2(bookingId: jsonRoute['bookingId'] as int));
+            }
             break;
           case "diagnose-success":
             Get.to(() => OnGoingService(
@@ -89,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                   servicesId: jsonRoute['orderServiceId'] as int,
                 ));
             break;
-          case "qr-checkout-success":
+          case "checkout-success":
             Get.to(() => ServiceActivityDetail(
                 orderServicesId: jsonRoute['orderServiceId'] as int));
             break;

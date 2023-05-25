@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
@@ -79,7 +80,7 @@ class _HomePageState extends State<Activities> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _loading
-          ? const Loading()
+          ? const ScreenLoadingNoOpacity()
           : Scaffold(
               backgroundColor: Colors.white,
               appBar: PreferredSize(

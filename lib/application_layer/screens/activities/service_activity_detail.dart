@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/app_settings.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
@@ -110,7 +111,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
     }
 
     return _loading == true
-        ? const Loading()
+        ? const ScreenLoadingNoOpacity()
         : Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
