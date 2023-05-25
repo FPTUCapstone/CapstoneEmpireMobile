@@ -132,6 +132,7 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
                   // height: 300.h,
                   child: RefreshIndicator(
                     onRefresh: refresh,
+                    color: AppColors.blue600,
                     child: _loading
                         ? const Loading()
                         : ListView.builder(

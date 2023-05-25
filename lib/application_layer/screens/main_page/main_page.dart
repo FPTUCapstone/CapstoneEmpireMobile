@@ -1,9 +1,11 @@
 import 'package:empiregarage_mobile/application_layer/screens/orders/orders.dart';
+import 'package:empiregarage_mobile/application_layer/screens/user_profile/health_car_record_management.dart';
 import 'package:empiregarage_mobile/application_layer/screens/user_profile/user_profile_setting.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../activities/activities.dart';
@@ -59,9 +61,16 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ImageIcon(
-                        const AssetImage(
-                            "assets/image/icon-logo/mainpage-home.png"),
+                      // ImageIcon(
+                      //   const AssetImage(
+                      //       "assets/image/icon-logo/mainpage-home.png"),
+                      //   size: 20,
+                      //   color: currentTab == 1
+                      //       ? AppColors.buttonColor
+                      //       : AppColors.grey400,
+                      // ),
+                      FaIcon(
+                        FontAwesomeIcons.solidCompass,
                         size: 20,
                         color: currentTab == 1
                             ? AppColors.buttonColor
@@ -103,9 +112,16 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ImageIcon(
-                        const AssetImage(
-                            "assets/image/icon-logo/mainpage-activity.png"),
+                      // ImageIcon(
+                      //   const AssetImage(
+                      //       "assets/image/icon-logo/mainpage-activity.png"),
+                      //   size: 20,
+                      //   color: currentTab == 2
+                      //       ? AppColors.buttonColor
+                      //       : AppColors.grey400,
+                      // ),
+                      FaIcon(
+                        FontAwesomeIcons.listUl,
                         size: 20,
                         color: currentTab == 2
                             ? AppColors.buttonColor
@@ -140,10 +156,8 @@ class _MainPageState extends State<MainPage> {
                 shape: const CircleBorder(),
                 color: AppColors.buttonColor,
                 onPressed: () {
-                  Get.bottomSheet(
-                    const PickDateBooking(),
-                    isScrollControlled: true
-                  );
+                  Get.bottomSheet(const PickDateBooking(),
+                      isScrollControlled: true);
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -162,7 +176,10 @@ class _MainPageState extends State<MainPage> {
                   minWidth: 20.w,
                   onPressed: () {
                     setState(() {
-                      currentScreen = const Orders();
+                      currentScreen = HealthCarRecordManagement(
+                        onSelected: (int id) {},
+                        selectedCar: 1,
+                      );
                       currentTab = 3;
                     });
                   },
@@ -170,14 +187,21 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ImageIcon(
-                        const AssetImage(
-                            "assets/image/icon-logo/mainpage-diagnose.png"),
+                      FaIcon(
+                        FontAwesomeIcons.car,
                         size: 20,
                         color: currentTab == 3
                             ? AppColors.buttonColor
                             : AppColors.grey400,
                       ),
+                      // ImageIcon(
+                      //   const AssetImage(
+                      //       "assets/image/icon-logo/mainpage-diagnose.png"),
+                      //   size: 20,
+                      //   color: currentTab == 3
+                      //       ? AppColors.buttonColor
+                      //       : AppColors.grey400,
+                      // ),
                       // Visibility(
                       //   visible: currentTab == 3,
                       //   child: Padding(
@@ -214,9 +238,16 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ImageIcon(
-                        const AssetImage(
-                            "assets/image/icon-logo/mainpage-profile.png"),
+                      // ImageIcon(
+                      //   const AssetImage(
+                      //       "assets/image/icon-logo/mainpage-profile.png"),
+                      //   size: 20,
+                      //   color: currentTab == 4
+                      //       ? AppColors.buttonColor
+                      //       : AppColors.grey400,
+                      // ),
+                      FaIcon(
+                        FontAwesomeIcons.solidUser,
                         size: 20,
                         color: currentTab == 4
                             ? AppColors.buttonColor

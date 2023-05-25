@@ -55,8 +55,10 @@ class _QRCodePageState extends State<QRCodePage> {
     return Scaffold(
       backgroundColor: AppColors.buttonColor,
       appBar: AppBar(
+        toolbarHeight: 80,
+        leadingWidth: 60,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only( left: 20,top: 30),
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -79,13 +81,16 @@ class _QRCodePageState extends State<QRCodePage> {
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         centerTitle: true,
-        title: const Text('Quét mã QR Code',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              color: Colors.white,
-            )),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: Text('Quét mã QR Code',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Colors.white,
+              )),
+        ),
       ),
       body: Center(
         child: FutureBuilder(
@@ -99,8 +104,7 @@ class _QRCodePageState extends State<QRCodePage> {
                 String car = ' ${_booking!.car.carLisenceNo}';
                 return _qrCodeData != null
                     ? Container(
-                        height: 450.h,
-                        width: 320.w,
+                      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius:
@@ -119,7 +123,7 @@ class _QRCodePageState extends State<QRCodePage> {
                             QrImage(
                               data: _qrCodeData.toString(),
                               version: QrVersions.auto,
-                              size: 200,
+                              size: 250,
                             ),
                             const SizedBox(height: 10),
                             Row(

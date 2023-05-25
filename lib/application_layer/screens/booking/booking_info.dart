@@ -5,7 +5,6 @@ import 'package:empiregarage_mobile/application_layer/screens/main_page/main_pag
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/tag_editor.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -57,6 +56,7 @@ class _BookingInfoState extends State<BookingInfo> {
   // final List<SymptonResponseModel> _listSuggestService = [];
 
   double _bookingPrice = 0;
+  double _initBookingPrice = 0;
 
   PaymentRequestModel model = PaymentRequestModel(
       orderType: '', amount: 0, orderDescription: '', name: '');
@@ -74,9 +74,9 @@ class _BookingInfoState extends State<BookingInfo> {
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
     setState(() {
-      _bookingPrice = response;
+      _initBookingPrice = response;
     });
-    return _bookingPrice;
+    return _initBookingPrice;
   }
 
   // List<String> _getSuggestions(String query) {
@@ -191,9 +191,9 @@ class _BookingInfoState extends State<BookingInfo> {
   @override
   void initState() {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
+    _getBookingPrice();
     _loadOptions();
     _getUserCar();
-
     super.initState();
   }
 
@@ -281,41 +281,42 @@ class _BookingInfoState extends State<BookingInfo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: !_loading
-          ? const ScreenLoadingNoOpacity()
-          : Scaffold(
-              resizeToAvoidBottomInset: false,
-              backgroundColor: AppColors.lightGrey,
-              appBar: AppBar(
-                centerTitle: true,
-                backgroundColor: Colors.white,
-                leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    size: 32,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-                title: Center(
-                  child: SizedBox(
-                    width: 200.w,
-                    child: Text(
-                      "Đặt lịch - ${formatDate(widget.selectedDate.toString(), false)}",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                  ),
+      home: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: AppColors.lightGrey,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.keyboard_arrow_down_outlined,
+              size: 32,
+              color: AppColors.lightTextColor,
+            ),
+          ),
+          title: Center(
+            child: SizedBox(
+              width: 200.w,
+              child: Text(
+                "Đặt lịch - ${formatDate(widget.selectedDate.toString(), false)}",
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
                 ),
               ),
-              body: RefreshIndicator(
+            ),
+          ),
+        ),
+        body: !_loading
+            ? const Loading()
+            : RefreshIndicator(
                 onRefresh: refresh,
+                color: AppColors.blue600,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   child: ListView(
@@ -675,7 +676,9 @@ class _BookingInfoState extends State<BookingInfo> {
                           options: options,
                           onChanged: (tags) {
                             if (tags.isNotEmpty) {
-                              _getBookingPrice();
+                              setState(() {
+                                _bookingPrice = _initBookingPrice;
+                              });
                             } else {
                               setState(() {
                                 _bookingPrice = 0;
@@ -979,86 +982,83 @@ class _BookingInfoState extends State<BookingInfo> {
                   ),
                 ),
               ),
-              bottomNavigationBar: Container(
-                height: 100.h,
-                decoration: const BoxDecoration(
-                    border: Border(
-                        top: BorderSide(color: AppColors.grey100, width: 2))),
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            // Check car can booking or not
-                            var response =
-                                await CarService().canBook(_selectedCar);
-                            if (response.statusCode == 500) {
-                              Get.bottomSheet(
-                                BottomPopup(
-                                  image:
-                                      'assets/image/icon-logo/failed-icon.png',
-                                  title: "Không thể đặt lịch",
-                                  body: jsonDecode(response.body)['message'],
-                                  buttonTitle: "Thử lại",
-                                  action: () {
-                                    Get.back();
-                                  },
-                                ),
-                              );
-                            } else {
-                              if (_listSymptom.isEmpty &&
-                                  _unresolvedProblems.isEmpty) {
-                                setState(() {
-                                  _emptySymtomp = true;
-                                });
-                                return;
-                              } else {
-                                if (_listSymptom.isEmpty &&
-                                    _unresolvedProblems.isNotEmpty) {
-                                  _onCallBackFromPayment();
-                                } else {
-                                  PaymentRequestModel paymentRequestModel =
-                                      PaymentRequestModel(
-                                          amount: _bookingPrice,
-                                          name: 'Booking payment',
-                                          orderDescription: 'Booking payment',
-                                          orderType: 'VNpay');
-                                  var responsePayment =
-                                      await _payBookingFee(paymentRequestModel);
-                                  Get.to(() => BookingPayment(
-                                        url: responsePayment,
-                                        callback: _onCallBackFromPayment,
-                                      ));
-                                }
-                              }
-                            }
-
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            fixedSize: Size.fromHeight(50.w),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
+        bottomNavigationBar: Container(
+          height: 100.h,
+          decoration: const BoxDecoration(
+              border:
+                  Border(top: BorderSide(color: AppColors.grey100, width: 2))),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      // Check car can booking or not
+                      var response = await CarService().canBook(_selectedCar);
+                      if (response.statusCode == 500) {
+                        Get.bottomSheet(
+                          BottomPopup(
+                            image: 'assets/image/icon-logo/failed-icon.png',
+                            title: "Không thể đặt lịch",
+                            body: jsonDecode(response.body)['message'],
+                            buttonTitle: "Thử lại",
+                            action: () {
+                              Get.back();
+                            },
                           ),
-                          child: Text(
-                            'Xác nhận',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                        );
+                      } else {
+                        if (_listSymptom.isEmpty &&
+                            _unresolvedProblems.isEmpty) {
+                          setState(() {
+                            _emptySymtomp = true;
+                          });
+                          return;
+                        } else {
+                          if (_listSymptom.isEmpty &&
+                              _unresolvedProblems.isNotEmpty) {
+                            _onCallBackFromPayment();
+                          } else {
+                            PaymentRequestModel paymentRequestModel =
+                                PaymentRequestModel(
+                                    amount: _bookingPrice,
+                                    name: 'Booking payment',
+                                    orderDescription: 'Booking payment',
+                                    orderType: 'VNpay');
+                            var responsePayment =
+                                await _payBookingFee(paymentRequestModel);
+                            Get.to(() => BookingPayment(
+                                  url: responsePayment,
+                                  callback: _onCallBackFromPayment,
+                                ));
+                          }
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.buttonColor,
+                      fixedSize: Size.fromHeight(50.w),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    ],
+                    ),
+                    child: Text(
+                      'Xác nhận',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
+          ),
+        ),
+      ),
     );
   }
 }

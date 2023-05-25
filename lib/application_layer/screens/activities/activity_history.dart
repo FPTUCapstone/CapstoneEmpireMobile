@@ -2,7 +2,7 @@ import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_
 import 'package:empiregarage_mobile/application_layer/screens/activities/activities.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/activity_services/activity_service.dart';
@@ -93,12 +93,11 @@ class _ActivityHistoryState extends State<ActivityHistory> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: _loading
-          ? const ScreenLoadingNoOpacity()
-          : Scaffold(
+      home: Scaffold(
               backgroundColor: Colors.white,
               body: RefreshIndicator(
                 onRefresh: reload,
+                color: AppColors.blue600,
                 child: ListView(children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
@@ -151,7 +150,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                             onSelectedFilter: _onSelectedFilter,
                           ),
                         ),
-                        Padding(
+                        _loading ? const Loading() :Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.sp),
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),

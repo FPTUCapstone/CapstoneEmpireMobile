@@ -2,7 +2,6 @@ import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
@@ -79,9 +78,7 @@ class _HomePageState extends State<Activities> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: _loading
-          ? const ScreenLoadingNoOpacity()
-          : Scaffold(
+      home: Scaffold(
               backgroundColor: Colors.white,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(100),
@@ -132,9 +129,10 @@ class _HomePageState extends State<Activities> {
                   ),
                 ),
               ),
-              body: SafeArea(
+              body: _loading ? const Loading() :SafeArea(
                 child: RefreshIndicator(
                   onRefresh: reload,
+                  color: AppColors.blue600,
                   child: ListView(children: [
                     SizedBox(
                       height: 15.h,
@@ -218,10 +216,13 @@ class _HomePageState extends State<Activities> {
                       height: 10.h,
                     ),
                     _listRecent.isEmpty
-                        ? Text(
-                            'Chưa có hoạt động nào',
-                            style: AppStyles.text400(fontsize: 16.sp),
-                          )
+                        ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.w),
+                          child: Text(
+                              'Chưa có hoạt động nào',
+                              style: AppStyles.text400(fontsize: 12.sp),
+                            ),
+                        )
                         : ListView.builder(
                             physics: const ScrollPhysics(
                                 parent: NeverScrollableScrollPhysics()),

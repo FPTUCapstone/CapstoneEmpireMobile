@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
               color: Colors.black,
             )),
       ),
-      body: ListView(
+      body: _loading ? const Loading() : ListView(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.sp),
