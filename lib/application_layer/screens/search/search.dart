@@ -307,8 +307,11 @@ class _SearchPageState extends State<SearchPage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Image.asset(
-                                            "assets/image/error-image/not-founded.png",
+                                          Container(
+                                            margin: const EdgeInsets.all(30),
+                                            child: Image.asset(
+                                              "assets/image/error-image/not-founded.png",
+                                            ),
                                           ),
                                           ListTile(
                                             title: Padding(

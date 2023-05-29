@@ -186,7 +186,6 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                           right: 0,
                           child: Container(
                             width: 375.w,
-                            height: 500.h,
                             decoration: BoxDecoration(
                               color: AppColors.white100,
                               borderRadius: BorderRadius.only(

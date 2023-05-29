@@ -74,7 +74,7 @@ class _NotificationPageState extends State<NotificationPage> {
         //     ),
         //   ),
         // ],
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         centerTitle: true,
         title: const Text('Thông báo',

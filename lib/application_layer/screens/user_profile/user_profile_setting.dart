@@ -53,7 +53,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
           ? const Loading()
           : Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.transparent,
+                backgroundColor: Colors.white,
                 shadowColor: Colors.transparent,
                 title: SizedBox(
                   height: 40.h,

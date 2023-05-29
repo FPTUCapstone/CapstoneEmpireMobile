@@ -13,6 +13,18 @@ class BookingProblemSeeDetail extends StatefulWidget {
 }
 
 class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
+  MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {
+    getColor(Set<MaterialState> states) {
+      if (states.contains(MaterialState.pressed)) {
+        return colorPressed;
+      } else {
+        return color;
+      }
+    }
+
+    return MaterialStateProperty.resolveWith(getColor);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,179 +60,219 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
               color: Colors.black,
             )),
       ),
-      backgroundColor: AppColors.grey600,
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 24),
-            child: Container(
-              color: AppColors.white100,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 24, right: 24, top: 12, bottom: 12),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: const <Widget>[
-                        Text('Tên vấn đề',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Colors.black,
+      backgroundColor: AppColors.white100,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 20.h,
+            ),
+            SizedBox(
+              height: 30.h,
+              child: Row(
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    //TODO
+                    itemCount: 1,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 24),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            shadowColor: MaterialStateColor.resolveWith(
+                                (states) => Colors.transparent),
+                            foregroundColor: getColor(AppColors.buttonColor,
+                                AppColors.whiteButtonColor),
+                            backgroundColor: getColor(AppColors.whiteButtonColor,
+                                AppColors.buttonColor),
+                            shape:
+                                MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
                             )),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: const <Widget>[
-                        Text('Tên vấn đề',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: Colors.black,
-                            )),
-                      ],
-                    )
-                  ],
-                ),
+                          ),
+                          child: const Text('1/1'),
+                        ),
+                      );
+                    },
+                  )
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 24),
-            child: Container(
-              color: AppColors.white100,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 24, right: 24, top: 12, bottom: 12),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: const <Widget>[
-                        Text('Ghi chú của kỹ thuật viên',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Colors.black,
-                            )),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 310.w,
-                          child: const Text('Tên vấn đề',
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Container(
+                color: AppColors.white100,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 12, bottom: 12),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: const <Widget>[
+                          Text('Tên vấn đề',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Colors.black,
+                              )),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: const <Widget>[
+                          Text('Tên vấn đề',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
                                 color: Colors.black,
                               )),
-                        ),
-                      ],
-                    )
-                  ],
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 24),
-            child: Container(
-              color: AppColors.white100,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 24, right: 24, top: 12, bottom: 12),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: const <Widget>[
-                        Text('Dịch vụ được gợi ý',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Colors.black,
-                            )),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 310.w,
-                          child: const Text('Những dịch  vụ đã  được gợi ý',
+            Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: Container(
+                color: AppColors.white100,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 12, bottom: 12),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: const <Widget>[
+                          Text('Ghi chú của kỹ thuật viên',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: AppColors.lightTextColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Colors.black,
                               )),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 40),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 3,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Column(
-                            children: <Widget>[
-                              Row(
-                                children: const <Widget>[
-                                  Text('Dịch vụ được gợi ý',
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                      )),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: const <Widget>[
-                                  Text(
-                                      'Giá: Những dịch  vụ đã  được gợi ý',
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: AppColors.lightTextColor,
-                                      )),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                            ],
-                          );
-                        },
+                        ],
                       ),
-                    )
-                  ],
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 310.w,
+                            child: const Text('Tên vấn đề',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                )),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: Container(
+                color: AppColors.white100,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 12, bottom: 12),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: const <Widget>[
+                          Text('Dịch vụ được gợi ý',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Colors.black,
+                              )),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 310.w,
+                            child: const Text('Những dịch  vụ đã  được gợi ý',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: AppColors.lightTextColor,
+                                )),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 15,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              children: <Widget>[
+                                Row(
+                                  children: const <Widget>[
+                                    Text('Dịch vụ được gợi ý',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                        )),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: const <Widget>[
+                                    Text('Giá: Những dịch  vụ đã  được gợi ý',
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                          color: AppColors.lightTextColor,
+                                        )),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 40,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
