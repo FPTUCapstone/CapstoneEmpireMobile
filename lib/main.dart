@@ -61,30 +61,22 @@ class _MyAppState extends State<MyApp> {
           print(message.notification!.body);
           print(message.notification!.title);
         }
-        Get.snackbar(
-          title,
-          body,
-          icon: Image.asset(
-            'assets/image/app-logo/launcher.png',
-            height: 30,
-            width: 30,
-          ),
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.white.withOpacity(0.5),
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15)
-        );
+        Get.snackbar(title, body,
+            icon: Image.asset(
+              'assets/image/app-logo/launcher.png',
+              height: 30,
+              width: 30,
+            ),
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.white.withOpacity(0.5),
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15));
         final routeFromMessage = message.data["route"];
         var jsonRoute = jsonDecode(routeFromMessage);
         Get.offAll(() => const MainPage());
         switch (jsonRoute['route']) {
           case "qr-checkin-success":
-            if (jsonRoute['orderServiceId'] != null) {
-              Get.to(() => OnGoingService(
-                    servicesId: jsonRoute['orderServiceId'] as int,
-                  ));
-            } else {
-              Get.to(() => BookingDetailv2(bookingId: jsonRoute['bookingId'] as int));
-            }
+            Get.to(() =>
+                BookingDetailv2(bookingId: jsonRoute['bookingId'] as int));
             break;
           case "diagnose-success":
             Get.to(() => OnGoingService(

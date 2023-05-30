@@ -66,7 +66,8 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
           for (var item in _listOrderServiceDetails) {
             sum += int.parse(item.price.toString());
           }
-          sumAfter = sum - _bookingPrice;
+          sum += _bookingPrice;
+          sumAfter = sum;
           _loading = false;
         });
       }
@@ -427,41 +428,41 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                               SizedBox(
                                 height: 10.sp,
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 10.sp),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "Phí đặt lịch",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      NumberFormat.currency(
-                                              decimalDigits: 0,
-                                              locale: 'vi_VN',
-                                              symbol: 'đ')
-                                          .format(-_bookingPrice)
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.sp,
-                              ),
+                              // Padding(
+                              //   padding:
+                              //       EdgeInsets.symmetric(horizontal: 10.sp),
+                              //   child: Row(
+                              //     children: [
+                              //       Text(
+                              //         "Phí đặt lịch",
+                              //         style: TextStyle(
+                              //           fontFamily: 'Roboto',
+                              //           fontSize: 10.sp,
+                              //           fontWeight: FontWeight.w600,
+                              //           color: Colors.red,
+                              //         ),
+                              //       ),
+                              //       const Spacer(),
+                              //       Text(
+                              //         NumberFormat.currency(
+                              //                 decimalDigits: 0,
+                              //                 locale: 'vi_VN',
+                              //                 symbol: 'đ')
+                              //             .format(-_bookingPrice)
+                              //             .toString(),
+                              //         style: TextStyle(
+                              //           fontFamily: 'Roboto',
+                              //           fontSize: 10.sp,
+                              //           fontWeight: FontWeight.w400,
+                              //           color: Colors.red,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 10.sp,
+                              // ),
                               Padding(
                                 padding:
                                     EdgeInsets.symmetric(horizontal: 10.sp),
