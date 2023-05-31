@@ -1,5 +1,5 @@
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
@@ -39,49 +39,51 @@ class _HealthCarRecordManagementDetailState
 
   @override
   Widget build(BuildContext context) {
-    return _loading
-        ? const ScreenLoadingNoOpacity()
-        : DefaultTabController(
-            length: _car!.healthCarRecords.length,
-            child: Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                toolbarHeight: 60.sp,
-                backgroundColor: Colors.white,
-                shadowColor: Colors.transparent,
-                leading: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                  child: Container(
-                    height: 42,
-                    width: 42,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                      border: Border.all(
-                        color: AppColors.searchBarColor,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back_outlined,
-                          color: AppColors.blackTextColor,
-                        )),
-                  ),
+    return DefaultTabController(
+      length: _loading ? 0 : _car!.healthCarRecords.length,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          toolbarHeight: 60.sp,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.transparent,
+          leading: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+            child: Container(
+              height: 42,
+              width: 42,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.transparent,
+                border: Border.all(
+                  color: AppColors.searchBarColor,
+                  width: 1.0,
                 ),
-                leadingWidth: 84.sp,
-                centerTitle: true,
-                title: Text(_car!.carLicenseNo,
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    )),
-                bottom: TabBar(
+              ),
+              child: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_outlined,
+                    color: AppColors.blackTextColor,
+                  )),
+            ),
+          ),
+          leadingWidth: 84.sp,
+          centerTitle: true,
+          title: _loading
+              ? const Loading()
+              : Text(_car!.carLicenseNo,
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                    color: Colors.black,
+                  )),
+          bottom: _loading
+              ? null
+              : TabBar(
                   padding: EdgeInsets.symmetric(horizontal: 20.sp),
                   unselectedLabelColor: AppColors.blueTextColor,
                   indicatorSize: TabBarIndicatorSize.tab,
@@ -103,8 +105,10 @@ class _HealthCarRecordManagementDetailState
                           ))
                       .toList(),
                 ),
-              ),
-              body: TabBarView(
+        ),
+        body: _loading
+            ? const Loading()
+            : TabBarView(
                 children: _car!.healthCarRecords
                     .map(
                       (record) => SingleChildScrollView(
@@ -233,7 +237,9 @@ class _HealthCarRecordManagementDetailState
                     )
                     .toList(),
               ),
-              bottomNavigationBar: DecoratedBox(
+        bottomNavigationBar: _loading
+            ? null
+            : DecoratedBox(
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.symmetric(
@@ -260,7 +266,7 @@ class _HealthCarRecordManagementDetailState
                   ),
                 ),
               ),
-            ),
-          );
+      ),
+    );
   }
 }

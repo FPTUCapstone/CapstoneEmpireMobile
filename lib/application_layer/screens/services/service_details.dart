@@ -1,5 +1,5 @@
-import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/move_to_another_app.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:empiregarage_mobile/models/response/item.dart';
 import 'package:empiregarage_mobile/services/item_service/item_service.dart';
@@ -41,9 +41,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: _loading
-          ? Loading(
-              backgroundColor: Colors.grey[200],
-            )
+          ? const ScreenLoadingNoOpacity()
           : Scaffold(
               body: Column(
                 children: [

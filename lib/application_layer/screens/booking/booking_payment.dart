@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
+import 'package:empiregarage_mobile/helper/webview_helper.dart';
 import 'package:empiregarage_mobile/models/response/payment_response.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,48 +24,64 @@ class BookingPayment extends StatefulWidget {
 
 class _BookingPaymentState extends State<BookingPayment> {
   late WebViewController _controller;
+  final LoadingWebPageBloc loadingWebPageBloc = LoadingWebPageBloc();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: WebView(
-          initialUrl: widget.url,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController controller) {
-            _controller = controller;
-          },
-          onPageFinished: (String url) async {
-            final String json =
-                // ignore: deprecated_member_use
-                await _controller.evaluateJavascript('document.body.innerText');
-            if (isJson(json)) {
-              final decoded = jsonDecode(json);
-              log(decoded);
-              // Process the decoded JSON data here
-              try {
-                PaymentResponseModel paymentResponseModel =
-                    PaymentResponseModel.fromJson(jsonDecode(decoded));
-                log(paymentResponseModel.transactionId);
-                // ignore: unrelated_type_equality_checks
-                if (paymentResponseModel.vnPayResponseCode == "00" &&
-                    paymentResponseModel.success == true) {
-                  Get.back();
-                  widget.callback();
-                } else {
-                  Get.back();
-                  log("Payment failed");
-                  Get.bottomSheet(const BookingFailed(
-                    message: 'Thanh toán thất bại',
-                  ));
+        child: Stack(
+          children: [
+            WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController controller) {
+                _controller = controller;
+              },
+              onPageFinished: (String url) async {
+                final String json =
+                    // ignore: deprecated_member_use
+                    await _controller
+                        .evaluateJavascript('document.body.innerText');
+                if (isJson(json)) {
+                  final decoded = jsonDecode(json);
+                  log(decoded);
+                  // Process the decoded JSON data here
+                  try {
+                    PaymentResponseModel paymentResponseModel =
+                        PaymentResponseModel.fromJson(jsonDecode(decoded));
+                    log(paymentResponseModel.transactionId);
+                    // ignore: unrelated_type_equality_checks
+                    if (paymentResponseModel.vnPayResponseCode == "00" &&
+                        paymentResponseModel.success == true) {
+                      loadingWebPageBloc.add(LoadingWebPageEvent(false));
+                      Get.back();
+                      widget.callback();
+                    } else {
+                      Get.back();
+                      log("Payment failed");
+                      Get.bottomSheet(const BookingFailed(
+                        message: 'Thanh toán thất bại',
+                      ));
+                    }
+                  } catch (e) {
+                    e.toString();
+                    return;
+                  }
                 }
-              } catch (e) {
-                e.toString();
-                return;
-              }
-            }
-          },
+              },
+            ),
+            StreamBuilder<bool>(
+                stream: loadingWebPageBloc.loadingStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    return const ScreenLoadingNoOpacity();
+                  } else {
+                    return Container();
+                  }
+                }),
+          ],
         ),
       ),
     );

@@ -5,7 +5,6 @@ import 'package:empiregarage_mobile/application_layer/screens/main_page/main_pag
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/chose_payment_method.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/tag_editor.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -16,12 +15,10 @@ import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
-import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:empiregarage_mobile/helper/notification_helper.dart';
 
 import '../../../common/colors.dart';
 import '../../../helper/common_helper.dart';
@@ -59,6 +56,7 @@ class _BookingInfoState extends State<BookingInfo> {
   // final List<SymptonResponseModel> _listSuggestService = [];
 
   double _bookingPrice = 0;
+  double _initBookingPrice = 0;
 
   PaymentRequestModel model = PaymentRequestModel(
       orderType: '', amount: 0, orderDescription: '', name: '');
@@ -76,9 +74,9 @@ class _BookingInfoState extends State<BookingInfo> {
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
     setState(() {
-      _bookingPrice = response;
+      _initBookingPrice = response;
     });
-    return _bookingPrice;
+    return _initBookingPrice;
   }
 
   // List<String> _getSuggestions(String query) {
@@ -196,7 +194,6 @@ class _BookingInfoState extends State<BookingInfo> {
     _getBookingPrice();
     _loadOptions();
     _getUserCar();
-
     super.initState();
   }
 
@@ -210,7 +207,7 @@ class _BookingInfoState extends State<BookingInfo> {
     return _loadData();
   }
 
-  _onCallBackFromPayment() async {
+  Future _onCallBackFromPayment() async {
     setState(() {
       _loading = false;
     });
@@ -246,13 +243,6 @@ class _BookingInfoState extends State<BookingInfo> {
       );
     } catch (RuntimeBinderException) {
       if (response != null) {
-        var listUser = await UserService().getListUser();
-        var listRecep =
-            listUser.where((element) => element.roleId == "RE").toList();
-        for (var recep in listRecep) {
-          sendNotification(recep.id, "Có đặt lịch mới #${response.code}",
-              "Có khách hàng vừa đặt lịch kiểm tra xe tại garage");
-        }
         setState(() {
           _loading = true;
         });
@@ -291,42 +281,42 @@ class _BookingInfoState extends State<BookingInfo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: !_loading
-          ? const ScreenLoadingNoOpacity()
-          : Scaffold(
-              resizeToAvoidBottomInset: false,
-              backgroundColor: AppColors.lightGrey,
-              appBar: AppBar(
-                centerTitle: true,
-                backgroundColor: Colors.white,
-                leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    size: 32,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-                title: Center(
-                  child: SizedBox(
-                    width: 200.w,
-                    child: Text(
-                      "Đặt lịch - ${formatDate(widget.selectedDate.toString(), false)}",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                  ),
+      home: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.keyboard_arrow_down_outlined,
+              size: 32,
+              color: AppColors.lightTextColor,
+            ),
+          ),
+          title: Center(
+            child: SizedBox(
+              width: 200.w,
+              child: Text(
+                "Đặt lịch - ${formatDate(widget.selectedDate.toString(), false)}",
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
                 ),
               ),
-              body: RefreshIndicator(
-                color: Colors.white,
+            ),
+          ),
+        ),
+        body: !_loading
+            ? const Loading()
+            : RefreshIndicator(
                 onRefresh: refresh,
+                color: AppColors.blue600,
                 child: ListView(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -377,8 +367,8 @@ class _BookingInfoState extends State<BookingInfo> {
                     //     ],
                     //   ),
                     // ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 24, right: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -465,7 +455,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                 child: SizedBox(
                                   height: 55.h,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
                                     children: [
                                       const Icon(
                                         Icons.add_circle_outline,
@@ -567,7 +558,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                           Text(
                                             _listCar
                                                 .where((element) =>
-                                                    element.id == _selectedCar)
+                                                    element.id ==
+                                                    _selectedCar)
                                                 .first
                                                 .carLisenceNo,
                                             style: TextStyle(
@@ -583,7 +575,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                           Text(
                                             _listCar
                                                 .where((element) =>
-                                                    element.id == _selectedCar)
+                                                    element.id ==
+                                                    _selectedCar)
                                                 .first
                                                 .carModel,
                                             style: TextStyle(
@@ -607,28 +600,31 @@ class _BookingInfoState extends State<BookingInfo> {
                                       ],
                                     ),
                                   ),
-                                  _isCarHasHCR ? const Divider() : Container(),
+                                  _isCarHasHCR
+                                      ? const Divider()
+                                      : Container(),
                                   _loadHCR
                                       ? _isCarHasHCR
                                           ? InkWell(
                                               onTap: () {
-                                                Get.to(
-                                                    () => BookingProblemHistory(
-                                                          car: _carProfile,
-                                                          onChooseUnresolvedProblemsCallBack:
-                                                              (unresolvedProblems) {
-                                                            setState(() {
-                                                              _unresolvedProblems =
-                                                                  unresolvedProblems;
-                                                            });
-                                                          },
-                                                        ));
+                                                Get.to(() =>
+                                                    BookingProblemHistory(
+                                                      car: _carProfile,
+                                                      onChooseUnresolvedProblemsCallBack:
+                                                          (unresolvedProblems) {
+                                                        setState(() {
+                                                          _unresolvedProblems =
+                                                              unresolvedProblems;
+                                                        });
+                                                      },
+                                                    ));
                                               },
                                               child: Container(
                                                 margin: EdgeInsets.all(8.sp),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      MainAxisAlignment
+                                                          .center,
                                                   children: [
                                                     Text(
                                                       'Lịch sử sửa chữa',
@@ -673,7 +669,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       ),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 10.sp,
                     ),
                     // Row(
                     //   children: <Widget>[
@@ -684,11 +680,20 @@ class _BookingInfoState extends State<BookingInfo> {
                     //     ),
                     //   ],
                     // ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 24, right: 24),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: TagEditor(
                           options: options,
                           onChanged: (tags) {
+                            if (tags.isNotEmpty) {
+                              setState(() {
+                                _bookingPrice = _initBookingPrice;
+                              });
+                            } else {
+                              setState(() {
+                                _bookingPrice = 0;
+                              });
+                            }
                             setState(() {
                               _listSymptom = tags;
                             });
@@ -699,6 +704,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             });
                           }),
                     ),
+
                     _emptySymtomp
                         ? Text(
                             'Vui lòng nhập triệu chứng',
@@ -739,8 +745,9 @@ class _BookingInfoState extends State<BookingInfo> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                           color: Colors.grey[300],
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(16))),
+                                          borderRadius:
+                                              const BorderRadius.all(
+                                                  Radius.circular(16))),
                                       child: Column(
                                         children: [
                                           ListTile(
@@ -750,7 +757,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                                 fontFamily: 'Roboto',
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500,
-                                                color: AppColors.blackTextColor,
+                                                color:
+                                                    AppColors.blackTextColor,
                                               ),
                                             ),
                                             trailing: InkWell(
@@ -762,7 +770,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                               },
                                               child: const Icon(
                                                 Icons.cancel,
-                                                color: AppColors.blackTextColor,
+                                                color:
+                                                    AppColors.blackTextColor,
                                               ),
                                             ),
                                           ),
@@ -1002,25 +1011,45 @@ class _BookingInfoState extends State<BookingInfo> {
                   ],
                 ),
               ),
-              bottomNavigationBar: Container(
-                height: 100.h,
-                decoration: const BoxDecoration(
-                    border: Border(
-                        top: BorderSide(color: AppColors.grey100, width: 2))),
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if (_listSymptom.isEmpty) {
-                              setState(() {
-                                _emptySymtomp = true;
-                              });
-                              return;
-                            }
+        bottomNavigationBar: Container(
+          height: 100.h,
+          decoration: const BoxDecoration(
+              border:
+                  Border(top: BorderSide(color: AppColors.grey100, width: 2))),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      // Check car can booking or not
+                      var response = await CarService().canBook(_selectedCar);
+                      if (response.statusCode == 500) {
+                        Get.bottomSheet(
+                          BottomPopup(
+                            image: 'assets/image/icon-logo/failed-icon.png',
+                            title: "Không thể đặt lịch",
+                            body: jsonDecode(response.body)['message'],
+                            buttonTitle: "Thử lại",
+                            action: () {
+                              Get.back();
+                            },
+                          ),
+                        );
+                      } else {
+                        if (_listSymptom.isEmpty &&
+                            _unresolvedProblems.isEmpty) {
+                          setState(() {
+                            _emptySymtomp = true;
+                          });
+                          return;
+                        } else {
+                          if (_listSymptom.isEmpty &&
+                              _unresolvedProblems.isNotEmpty) {
+                            _onCallBackFromPayment();
+                          } else {
                             PaymentRequestModel paymentRequestModel =
                                 PaymentRequestModel(
                                     amount: _bookingPrice,
@@ -1033,29 +1062,32 @@ class _BookingInfoState extends State<BookingInfo> {
                                   url: responsePayment,
                                   callback: _onCallBackFromPayment,
                                 ));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            fixedSize: Size.fromHeight(50.w),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          child: Text(
-                            'Xác nhận',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                          }
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.buttonColor,
+                      fixedSize: Size.fromHeight(50.w),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    ],
+                    ),
+                    child: Text(
+                      'Xác nhận',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
+          ),
+        ),
+      ),
     );
   }
 }

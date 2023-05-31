@@ -66,7 +66,8 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
           for (var item in _listOrderServiceDetails) {
             sum += int.parse(item.price.toString());
           }
-          sumAfter = sum - _bookingPrice;
+          sum += _bookingPrice;
+          sumAfter = sum;
           _loading = false;
         });
       }
@@ -109,25 +110,25 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
       const Loading();
     }
 
-    return _loading == true
-        ? const Loading()
-        : Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              toolbarHeight: 55.sp,
-              leading: Padding(
-                padding: EdgeInsets.only(top: 10.sp),
-                child: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_sharp,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              title: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        toolbarHeight: 55.sp,
+        leading: Padding(
+          padding: EdgeInsets.only(top: 10.sp),
+          child: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.keyboard_arrow_down_sharp,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        title: _loading == true
+            ? const Loading()
+            : Padding(
                 padding: EdgeInsets.only(top: 10.sp),
                 child: Text(
                   _orderServices!.car.carLisenceNo,
@@ -140,9 +141,11 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                   ),
                 ),
               ),
-              centerTitle: true,
-            ),
-            body: SingleChildScrollView(
+        centerTitle: true,
+      ),
+      body: _loading == true
+          ? const Loading()
+          : SingleChildScrollView(
               child: Container(
                 color: const Color(0xfff9f9f9),
                 child: Column(
@@ -403,7 +406,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       ),
                                     ),
                                     const Spacer(),
-                                        
+
                                     // Màn này chưa có hàm tính tổng nha Trung
                                     Text(
                                       NumberFormat.currency(
@@ -425,41 +428,41 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                               SizedBox(
                                 height: 10.sp,
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 10.sp),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "Phí đặt lịch",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      NumberFormat.currency(
-                                              decimalDigits: 0,
-                                              locale: 'vi_VN',
-                                              symbol: 'đ')
-                                          .format(-_bookingPrice)
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.sp,
-                              ),
+                              // Padding(
+                              //   padding:
+                              //       EdgeInsets.symmetric(horizontal: 10.sp),
+                              //   child: Row(
+                              //     children: [
+                              //       Text(
+                              //         "Phí đặt lịch",
+                              //         style: TextStyle(
+                              //           fontFamily: 'Roboto',
+                              //           fontSize: 10.sp,
+                              //           fontWeight: FontWeight.w600,
+                              //           color: Colors.red,
+                              //         ),
+                              //       ),
+                              //       const Spacer(),
+                              //       Text(
+                              //         NumberFormat.currency(
+                              //                 decimalDigits: 0,
+                              //                 locale: 'vi_VN',
+                              //                 symbol: 'đ')
+                              //             .format(-_bookingPrice)
+                              //             .toString(),
+                              //         style: TextStyle(
+                              //           fontFamily: 'Roboto',
+                              //           fontSize: 10.sp,
+                              //           fontWeight: FontWeight.w400,
+                              //           color: Colors.red,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 10.sp,
+                              // ),
                               Padding(
                                 padding:
                                     EdgeInsets.symmetric(horizontal: 10.sp),
@@ -526,8 +529,9 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                 height: 10.sp,
                                 child: Center(
                                     child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.sp,),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10.sp,
+                                  ),
                                   child: const Divider(thickness: 1),
                                 )),
                               ),
@@ -592,34 +596,34 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                 ),
               ),
             ),
-            bottomNavigationBar: DecoratedBox(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.symmetric(
-                      horizontal: BorderSide.merge(
-                          BorderSide(color: Colors.grey.shade200, width: 1),
-                          BorderSide.none))),
-              child: Container(
-                margin: const EdgeInsets.all(20),
-                width: double.infinity,
-                height: 52.h,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.bottomSheet(const PickDateBooking());
-                  },
-                  style: AppStyles.button16(),
-                  child: Text(
-                    'Đặt lịch lại',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+      bottomNavigationBar: DecoratedBox(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.symmetric(
+                horizontal: BorderSide.merge(
+                    BorderSide(color: Colors.grey.shade200, width: 1),
+                    BorderSide.none))),
+        child: Container(
+          margin: const EdgeInsets.all(20),
+          width: double.infinity,
+          height: 52.h,
+          child: ElevatedButton(
+            onPressed: () {
+              Get.bottomSheet(const PickDateBooking());
+            },
+            style: AppStyles.button16(),
+            child: Text(
+              'Đặt lịch lại',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          );
+          ),
+        ),
+      ),
+    );
   }
 }
 

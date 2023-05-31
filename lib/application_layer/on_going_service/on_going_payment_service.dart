@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
+import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -107,8 +108,8 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     if (result == null || result.statusCode != 204) {
       throw Exception("Insert order detail fail");
     } else {
-      Get.back();
-      Get.off(() => OnGoingService(
+      Get.offAll(const MainPage());
+      Get.to(() => OnGoingService(
             servicesId: _orderServicesResponseModel!.id,
           ));
       Get.bottomSheet(

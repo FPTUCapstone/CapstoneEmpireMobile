@@ -4,8 +4,8 @@ import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service_body.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/recommend_chose_service.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_doing_service.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/on_going_service_progress_bar.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -126,35 +126,38 @@ class _OnGoingServiceState extends State<OnGoingService> {
 
   @override
   Widget build(BuildContext context) {
-    return _loading
-        ? const ScreenLoadingNoOpacity()
-        : Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              leading: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.black,
-                ),
-              ),
-              title: Text(
-                _getStatus(_response!.status),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blackTextColor,
-                ),
-              ),
-              centerTitle: true,
-            ),
-            body: RefreshIndicator(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.black,
+          ),
+        ),
+        title: _loading
+          ? const Loading()
+          : Text(
+          _getStatus(_response!.status),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+            color: AppColors.blackTextColor,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: _loading
+          ? const Loading()
+          : RefreshIndicator(
               onRefresh: _reload,
+              color: AppColors.blue600,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -168,6 +171,6 @@ class _OnGoingServiceState extends State<OnGoingService> {
                 ),
               ),
             ),
-          );
+    );
   }
 }

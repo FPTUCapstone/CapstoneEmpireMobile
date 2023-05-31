@@ -1,7 +1,6 @@
 import 'package:empiregarage_mobile/application_layer/screens/activities/qrcode.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/app_settings.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
@@ -23,8 +22,6 @@ class BookingDetailv2 extends StatefulWidget {
 }
 
 class _BookingDetailv2State extends State<BookingDetailv2> {
-  double _bookingPrice = 0;
-
   BookingResponseModel? _booking;
   bool _loading = true;
   late DateTime _bookingDate;
@@ -38,18 +35,8 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
     });
   }
 
-  _getBookingPrice() async {
-    var response = await BookingService().getBookingPrice();
-    if (!mounted) return;
-    setState(() {
-      _bookingPrice = response;
-    });
-    return _bookingPrice;
-  }
-
   @override
   void initState() {
-    _getBookingPrice();
     _fetchData();
     super.initState();
   }
@@ -67,22 +54,22 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: _loading
-          ? const ScreenLoadingNoOpacity()
-          : Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                toolbarHeight: 55.sp,
-                leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_sharp,
-                    color: Colors.black,
-                  ),
-                ),
-                title: Text(
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          toolbarHeight: 55.sp,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.keyboard_arrow_down_sharp,
+              color: Colors.black,
+            ),
+          ),
+          title: _loading
+              ? const Loading()
+              : Text(
                   "Ngày ${_bookingDate.day.toString().padLeft(2, '0')} tháng ${_bookingDate.month.toString().padLeft(2, '0')}, ${_bookingDate.year}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -92,46 +79,47 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                     color: AppColors.blackTextColor,
                   ),
                 ),
-                centerTitle: true,
-                actions:
-                    _booking!.isArrived == true || _booking!.isActived == false
-                        ? null
-                        : [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.w),
-                              child: InkWell(
-                                  onTap: () {},
-                                  child: PopupMenuButton<String>(
-                                    icon: const Icon(
-                                      Icons.more_horiz,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                    itemBuilder: (BuildContext context) =>
-                                        <PopupMenuEntry<String>>[
-                                      PopupMenuItem<String>(
-                                        value: 'cancel',
-                                        child: Text('Hủy',
-                                            style: AppStyles.text400(
-                                                fontsize: 14.sp,
-                                                color: AppColors.errorIcon)),
-                                      ),
-                                    ],
-                                    onSelected: (String selectedItem) {
-                                      switch (selectedItem) {
-                                        case 'cancel':
-                                          Get.bottomSheet(
-                                            CancelBooking(booking: _booking),
-                                            backgroundColor: Colors.transparent,
-                                          );
-                                          break;
-                                        default:
-                                      }
-                                    },
-                                  )),
-                            )
+          centerTitle: true,
+          actions: _loading ? null : _booking!.isArrived == true || _booking!.isActived == false
+              ? null
+              : [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    child: InkWell(
+                        onTap: () {},
+                        child: PopupMenuButton<String>(
+                          icon: const Icon(
+                            Icons.more_horiz,
+                            color: AppColors.blackTextColor,
+                          ),
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<String>>[
+                            PopupMenuItem<String>(
+                              value: 'cancel',
+                              child: Text('Hủy',
+                                  style: AppStyles.text400(
+                                      fontsize: 14.sp,
+                                      color: AppColors.errorIcon)),
+                            ),
                           ],
-              ),
-              body: SingleChildScrollView(
+                          onSelected: (String selectedItem) {
+                            switch (selectedItem) {
+                              case 'cancel':
+                                Get.bottomSheet(
+                                  CancelBooking(booking: _booking),
+                                  backgroundColor: Colors.transparent,
+                                );
+                                break;
+                              default:
+                            }
+                          },
+                        )),
+                  )
+                ],
+        ),
+        body: _loading
+            ? const Loading()
+            : SingleChildScrollView(
                 child: Container(
                   color: const Color(0xfff9f9f9),
                   child: Column(
@@ -277,13 +265,13 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                             ),
                             CustomRow(
                               title: 'Phí đặt lịch',
-                              value: formatCurrency(_bookingPrice),
+                              value: formatCurrency(_booking!.total),
                               textStyle: AppStyles.text400(fontsize: 10.sp),
                             ),
                             const CustomSpacer(),
                             CustomRow(
                               title: 'Tổng cộng',
-                              value: formatCurrency(_bookingPrice),
+                              value: formatCurrency(_booking!.total),
                               textStyle: AppStyles.header600(fontsize: 10.sp),
                             ),
                             const CustomSpacer(),
@@ -446,51 +434,53 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                   ),
                 ),
               ),
-              bottomNavigationBar: DecoratedBox(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.symmetric(
-                        horizontal: BorderSide.merge(
-                            BorderSide(color: Colors.grey.shade200, width: 1),
-                            BorderSide.none))),
-                child: Container(
-                  margin: const EdgeInsets.all(20),
-                  width: double.infinity,
-                  height: 52.h,
-                  child: _booking!.dayLeft == 0
-                      ? ElevatedButton(
-                          onPressed: () {
-                            Get.to(() => QRCodePage(
-                                  bookingId: _booking!.id,
-                                ));
-                          },
-                          style: AppStyles.button16(),
-                          child: Text(
-                            'Check-in',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        )
-                      : ElevatedButton(
-                          onPressed: () {
-                            Get.bottomSheet(const PickDateBooking());
-                          },
-                          style: AppStyles.button16(),
-                          child: Text(
-                            'Đặt lịch lại',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                ),
-              ),
-            ),
+        bottomNavigationBar: _loading
+              ? null
+              : DecoratedBox(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.symmetric(
+                  horizontal: BorderSide.merge(
+                      BorderSide(color: Colors.grey.shade200, width: 1),
+                      BorderSide.none))),
+          child: Container(
+            margin: const EdgeInsets.all(20),
+            width: double.infinity,
+            height: 52.h,
+            child: _booking!.dayLeft == 0
+                ? ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => QRCodePage(
+                            bookingId: _booking!.id,
+                          ));
+                    },
+                    style: AppStyles.button16(),
+                    child: Text(
+                      'Check-in',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                : ElevatedButton(
+                    onPressed: () {
+                      Get.bottomSheet(const PickDateBooking());
+                    },
+                    style: AppStyles.button16(),
+                    child: Text(
+                      'Đặt lịch lại',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -545,9 +535,9 @@ class CancelBooking extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 backgroundColor: AppColors.blue600,
                 fixedSize: Size.fromHeight(50.w),
-                maximumSize: Size.fromWidth(130.w),
+                maximumSize: Size.fromWidth(150.w),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(36),
+                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
               child: Text(
@@ -563,9 +553,9 @@ class CancelBooking extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.errorIcon,
                 fixedSize: Size.fromHeight(50.w),
-                maximumSize: Size.fromWidth(130.w),
+                maximumSize: Size.fromWidth(150.w),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(36),
+                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
               onPressed: () async {

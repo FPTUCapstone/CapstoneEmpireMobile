@@ -78,9 +78,7 @@ class _HomePageState extends State<Activities> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: _loading
-          ? const Loading()
-          : Scaffold(
+      home: Scaffold(
               backgroundColor: Colors.white,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(100),
@@ -131,9 +129,10 @@ class _HomePageState extends State<Activities> {
                   ),
                 ),
               ),
-              body: SafeArea(
+              body: _loading ? const Loading() :SafeArea(
                 child: RefreshIndicator(
                   onRefresh: reload,
+                  color: AppColors.blue600,
                   child: ListView(children: [
                     SizedBox(
                       height: 15.h,
@@ -217,10 +216,13 @@ class _HomePageState extends State<Activities> {
                       height: 10.h,
                     ),
                     _listRecent.isEmpty
-                        ? Text(
-                            'Chưa có hoạt động nào',
-                            style: AppStyles.text400(fontsize: 16.sp),
-                          )
+                        ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24.w),
+                          child: Text(
+                              'Chưa có hoạt động nào',
+                              style: AppStyles.text400(fontsize: 12.sp),
+                            ),
+                        )
                         : ListView.builder(
                             physics: const ScrollPhysics(
                                 parent: NeverScrollableScrollPhysics()),
