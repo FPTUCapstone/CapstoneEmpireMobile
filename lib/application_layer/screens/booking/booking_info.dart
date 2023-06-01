@@ -10,10 +10,13 @@ import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
+import 'package:empiregarage_mobile/models/response/brand.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
+import 'package:empiregarage_mobile/models/response/modelsymptom.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
+import 'package:empiregarage_mobile/services/model_services/model_service.dart';
 import 'package:empiregarage_mobile/services/symptoms_service/symptoms_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,6 +66,8 @@ class _BookingInfoState extends State<BookingInfo> {
 
   bool _emptySymtomp = false;
 
+  List<ModelSymptom> _listExpectedPrice = [];
+
   _payBookingFee(PaymentRequestModel model) async {
     var response = await PaymentServices().createNewPaymentForBooking(model);
     if (response!.statusCode == 500) {
@@ -102,6 +107,7 @@ class _BookingInfoState extends State<BookingInfo> {
   bool _loadHCR = false;
   CarProfile? _carProfile;
   List<UnresolvedProblem> _unresolvedProblems = [];
+  ModelSlimResponse? _model;
 
   _loadOptions() async {
     var result = await SymptomsService().fetchListSymptoms();
@@ -109,6 +115,22 @@ class _BookingInfoState extends State<BookingInfo> {
       setState(() {
         options = result;
       });
+    }
+  }
+
+  _getModel(String modelName, String brandName) async {
+    var model = await ModelService().getModel(modelName, brandName);
+    setState(() {
+      _model = model;
+    });
+  }
+
+  _onSelectSymtomAndCar(int symptomId) async {
+    if (_model == null) return;
+    var modelSymptom =
+        await ModelService().getExpectedPrice(_model!.id, symptomId);
+    if (modelSymptom != null) {
+      return modelSymptom;
     }
   }
 
@@ -128,6 +150,8 @@ class _BookingInfoState extends State<BookingInfo> {
       _loadHCR = false;
       _loading = true;
     });
+    var car = _listCar.where((element) => element.id == _selectedCar).first;
+    await _getModel(car.carModel, car.carBrand);
     bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
     setState(() {
       _isCarHasHCR = isCarHasHCR;
@@ -149,6 +173,7 @@ class _BookingInfoState extends State<BookingInfo> {
       setState(() {
         _listSymptom.clear();
         _unresolvedProblems.clear();
+        _listExpectedPrice.clear();
       });
     }
   }
@@ -164,6 +189,8 @@ class _BookingInfoState extends State<BookingInfo> {
       _isCarHasHCR = isCarHasHCR;
       _loadHCR = true;
     });
+    var car = _listCar.where((element) => element.id == _selectedCar).first;
+    await _getModel(car.carModel, car.carBrand);
   }
 
   void _onCallBack(int selectedCar) async {
@@ -455,8 +482,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 child: SizedBox(
                                   height: 55.h,
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
                                         Icons.add_circle_outline,
@@ -558,8 +584,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                           Text(
                                             _listCar
                                                 .where((element) =>
-                                                    element.id ==
-                                                    _selectedCar)
+                                                    element.id == _selectedCar)
                                                 .first
                                                 .carLisenceNo,
                                             style: TextStyle(
@@ -575,8 +600,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                           Text(
                                             _listCar
                                                 .where((element) =>
-                                                    element.id ==
-                                                    _selectedCar)
+                                                    element.id == _selectedCar)
                                                 .first
                                                 .carModel,
                                             style: TextStyle(
@@ -600,31 +624,28 @@ class _BookingInfoState extends State<BookingInfo> {
                                       ],
                                     ),
                                   ),
-                                  _isCarHasHCR
-                                      ? const Divider()
-                                      : Container(),
+                                  _isCarHasHCR ? const Divider() : Container(),
                                   _loadHCR
                                       ? _isCarHasHCR
                                           ? InkWell(
                                               onTap: () {
-                                                Get.to(() =>
-                                                    BookingProblemHistory(
-                                                      car: _carProfile,
-                                                      onChooseUnresolvedProblemsCallBack:
-                                                          (unresolvedProblems) {
-                                                        setState(() {
-                                                          _unresolvedProblems =
-                                                              unresolvedProblems;
-                                                        });
-                                                      },
-                                                    ));
+                                                Get.to(
+                                                    () => BookingProblemHistory(
+                                                          car: _carProfile,
+                                                          onChooseUnresolvedProblemsCallBack:
+                                                              (unresolvedProblems) {
+                                                            setState(() {
+                                                              _unresolvedProblems =
+                                                                  unresolvedProblems;
+                                                            });
+                                                          },
+                                                        ));
                                               },
                                               child: Container(
                                                 margin: EdgeInsets.all(8.sp),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Text(
                                                       'Lịch sử sửa chữa',
@@ -684,7 +705,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: TagEditor(
                           options: options,
-                          onChanged: (tags) {
+                          onChanged: (tags) async {
                             if (tags.isNotEmpty) {
                               setState(() {
                                 _bookingPrice = _initBookingPrice;
@@ -697,6 +718,15 @@ class _BookingInfoState extends State<BookingInfo> {
                             setState(() {
                               _listSymptom = tags;
                             });
+                            List<ModelSymptom> list = [];
+                            for (var element in _listSymptom) {
+                              var modelSymptom =
+                                  await _onSelectSymtomAndCar(element.id);
+                                list.add(modelSymptom);
+                            }
+                            setState(() {
+                              _listExpectedPrice = list;
+                            });
                           },
                           emptySymptom: (emptySymtomp) {
                             setState(() {
@@ -706,14 +736,55 @@ class _BookingInfoState extends State<BookingInfo> {
                     ),
 
                     _emptySymtomp
-                        ? Text(
-                            'Vui lòng nhập triệu chứng',
-                            style: AppStyles.text400(
-                                fontsize: 12.sp, color: AppColors.errorIcon),
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Text(
+                              'Vui lòng nhập triệu chứng',
+                              style: AppStyles.text400(
+                                  fontsize: 12.sp, color: AppColors.errorIcon),
+                            ),
                           )
                         : Container(),
+                    Visibility(
+                      visible: _listExpectedPrice.isNotEmpty,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.sp),
+                              child: Text(
+                                "Giá dự kiến",
+                                style: AppStyles.header600(fontsize: 12.sp),
+                              ),
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: _listExpectedPrice.length,
+                              itemBuilder: (context, index) {
+                                if (_listExpectedPrice[index].symptomName ==
+                                        null ||
+                                    _listExpectedPrice[index].expectedPrice ==
+                                        null) {
+                                  return Container();
+                                }
+                                return CustomRowWithoutPadding(
+                                  title: _listExpectedPrice[index]
+                                      .symptomName
+                                      .toString(),
+                                  value: formatCurrency(_listExpectedPrice[index]
+                                      .expectedPrice),
+                                  textStyle: AppStyles.text400(fontsize: 12.sp),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                     SizedBox(
-                      height: 15.h,
+                      height: 10.h,
                     ),
                     _unresolvedProblems.isNotEmpty
                         ? Column(
@@ -745,9 +816,8 @@ class _BookingInfoState extends State<BookingInfo> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                           color: Colors.grey[300],
-                                          borderRadius:
-                                              const BorderRadius.all(
-                                                  Radius.circular(16))),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(16))),
                                       child: Column(
                                         children: [
                                           ListTile(
@@ -757,8 +827,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                                 fontFamily: 'Roboto',
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500,
-                                                color:
-                                                    AppColors.blackTextColor,
+                                                color: AppColors.blackTextColor,
                                               ),
                                             ),
                                             trailing: InkWell(
@@ -770,8 +839,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                               },
                                               child: const Icon(
                                                 Icons.cancel,
-                                                color:
-                                                    AppColors.blackTextColor,
+                                                color: AppColors.blackTextColor,
                                               ),
                                             ),
                                           ),

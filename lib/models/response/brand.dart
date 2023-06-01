@@ -59,3 +59,35 @@ class ModelResponseModel {
     );
   }
 }
+
+class ModelSlimResponse {
+  ModelSlimResponse({
+    required this.id,
+    required this.name,
+  });
+
+  final int id;
+  final String name;
+  factory ModelSlimResponse.fromJson(Map<String, dynamic> json) {
+    return ModelSlimResponse(
+      id: json['id'] as int,
+      name: json['name'] as String,
+    );
+  }
+}
+
+class ModelSymptomResponse {
+  ModelSymptomResponse({
+    this.symptomName,
+    this.expectedPrice,
+  });
+
+  final String? symptomName;
+  final double? expectedPrice;
+  factory ModelSymptomResponse.fromJson(Map<String, dynamic> json) {
+    return ModelSymptomResponse(
+      symptomName: json['symptomName'],
+      expectedPrice: json['expectedPrice'],
+    );
+  }
+}

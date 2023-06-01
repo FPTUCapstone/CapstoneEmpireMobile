@@ -447,7 +447,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
             margin: const EdgeInsets.all(20),
             width: double.infinity,
             height: 52.h,
-            child: _booking!.dayLeft == 0
+            child: _booking!.dayLeft == 0 && _booking!.isArrived == false
                 ? ElevatedButton(
                     onPressed: () {
                       Get.to(() => QRCodePage(
@@ -464,7 +464,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                       ),
                     ),
                   )
-                : ElevatedButton(
+                : _booking!.dayLeft != 0  ? ElevatedButton(
                     onPressed: () {
                       Get.bottomSheet(const PickDateBooking());
                     },
@@ -477,7 +477,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
+                  ) : Container(),
           ),
         ),
       ),
