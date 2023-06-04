@@ -12,7 +12,6 @@ import 'package:empiregarage_mobile/models/request/booking_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/brand.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
-import 'package:empiregarage_mobile/models/response/modelsymptom.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
@@ -65,8 +64,6 @@ class _BookingInfoState extends State<BookingInfo> {
       orderType: '', amount: 0, orderDescription: '', name: '');
 
   bool _emptySymtomp = false;
-
-  List<ModelSymptom> _listExpectedPrice = [];
 
   _payBookingFee(PaymentRequestModel model) async {
     var response = await PaymentServices().createNewPaymentForBooking(model);
@@ -173,7 +170,6 @@ class _BookingInfoState extends State<BookingInfo> {
       setState(() {
         _listSymptom.clear();
         _unresolvedProblems.clear();
-        _listExpectedPrice.clear();
       });
     }
   }
@@ -256,6 +252,7 @@ class _BookingInfoState extends State<BookingInfo> {
       setState(() {
         _loading = true;
       });
+      Get.back();
       Get.bottomSheet(
         BottomPopup(
           image: 'assets/image/icon-logo/failed-icon.png',
@@ -273,6 +270,7 @@ class _BookingInfoState extends State<BookingInfo> {
         setState(() {
           _loading = true;
         });
+        Get.back();
         Get.bottomSheet(
           BottomPopup(
             image: 'assets/image/icon-logo/successfull-icon.png',
@@ -692,48 +690,32 @@ class _BookingInfoState extends State<BookingInfo> {
                     SizedBox(
                       height: 10.sp,
                     ),
-                    // Row(
-                    //   children: <Widget>[
-                    //     Expanded(
-                    //       child: SearchableDropdown(
-                    //           options: options,
-                    //           onSelectedItem: _onCallBackSymptoms),
-                    //     ),
-                    //   ],
-                    // ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
-                      child: TagEditor(
-                          options: options,
-                          onChanged: (tags) async {
-                            if (tags.isNotEmpty) {
+                    if (_model != null)
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: TagEditor(
+                            options: options,
+                            modelId: _model!.id,
+                            onChanged: (tags) async {
+                              if (tags.isNotEmpty) {
+                                setState(() {
+                                  _bookingPrice = _initBookingPrice;
+                                });
+                              } else {
+                                setState(() {
+                                  _bookingPrice = 0;
+                                });
+                              }
                               setState(() {
-                                _bookingPrice = _initBookingPrice;
+                                _listSymptom = tags;
                               });
-                            } else {
+                            },
+                            emptySymptom: (emptySymtomp) {
                               setState(() {
-                                _bookingPrice = 0;
+                                _emptySymtomp = emptySymtomp;
                               });
-                            }
-                            setState(() {
-                              _listSymptom = tags;
-                            });
-                            List<ModelSymptom> list = [];
-                            for (var element in _listSymptom) {
-                              var modelSymptom =
-                                  await _onSelectSymtomAndCar(element.id);
-                                list.add(modelSymptom);
-                            }
-                            setState(() {
-                              _listExpectedPrice = list;
-                            });
-                          },
-                          emptySymptom: (emptySymtomp) {
-                            setState(() {
-                              _emptySymtomp = emptySymtomp;
-                            });
-                          }),
-                    ),
+                            }),
+                      ),
 
                     _emptySymtomp
                         ? Padding(
@@ -745,212 +727,79 @@ class _BookingInfoState extends State<BookingInfo> {
                             ),
                           )
                         : Container(),
-                    Visibility(
-                      visible: _listExpectedPrice.isNotEmpty,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 24.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.sp),
-                              child: Text(
-                                "Giá dự kiến",
-                                style: AppStyles.header600(fontsize: 12.sp),
-                              ),
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: _listExpectedPrice.length,
-                              itemBuilder: (context, index) {
-                                if (_listExpectedPrice[index].symptomName ==
-                                        null ||
-                                    _listExpectedPrice[index].expectedPrice ==
-                                        null) {
-                                  return Container();
-                                }
-                                return CustomRowWithoutPadding(
-                                  title: _listExpectedPrice[index]
-                                      .symptomName
-                                      .toString(),
-                                  value: formatCurrency(_listExpectedPrice[index]
-                                      .expectedPrice),
-                                  textStyle: AppStyles.text400(fontsize: 12.sp),
-                                );
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: 10.h,
                     ),
                     _unresolvedProblems.isNotEmpty
-                        ? Column(
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  Text(
-                                    "Vấn đề tái sửa chữa",
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Vấn đề tái sửa chữa",
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.blackTextColor,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: _unresolvedProblems.length,
-                                itemBuilder: (context, index) {
-                                  var item = _unresolvedProblems[index];
-                                  return Padding(
-                                    padding: EdgeInsets.only(top: 10.h),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey[300],
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(16))),
-                                      child: Column(
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: _unresolvedProblems.length,
+                                  itemBuilder: (context, index) {
+                                    var item = _unresolvedProblems[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2.5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          ListTile(
-                                            title: Text(
-                                              item.name,
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColors.blackTextColor,
-                                              ),
+                                          Text(
+                                            item.name,
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.blackTextColor,
                                             ),
-                                            trailing: InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  _unresolvedProblems
-                                                      .remove(item);
-                                                });
-                                              },
-                                              child: const Icon(
-                                                Icons.cancel,
-                                                color: AppColors.blackTextColor,
-                                              ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                _unresolvedProblems
+                                                    .remove(item);
+                                              });
+                                            },
+                                            child: const Icon(
+                                              Icons.cancel,
+                                              size: 18,
+                                              color: AppColors.blackTextColor,
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                            ],
+                                    );
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                              ],
+                            ),
                           )
                         : Container(),
-                    Container(
-                      margin: const EdgeInsets.only(left: 24, right: 24),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Phương thức thanh toán",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                          const Spacer(),
-                          TextButton(
-                            onPressed: () {
-                              Get.bottomSheet(const ChosePaymentMethod());
-                            },
-                            child: Text(
-                              "Chọn",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.blueTextColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 24, right: 24),
-                      child: Text(
-                        "Phương thức được chọn",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.lightTextColor,
-                        ),
-                      ),
-                    ),
                     SizedBox(
-                      height: 10.h,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.bottomSheet(const ChosePaymentMethod());
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 24, right: 24),
-                        height: 55.h,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                blurRadius: 10,
-                                offset: const Offset(0, 1),
-                              )
-                            ],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16))),
-                        child: ListTile(
-                          leading: Image.asset(
-                            "assets/image/icon-logo/vnpay.png",
-                            height: 50.h,
-                            width: 50.w,
-                          ),
-                          title: Text(
-                            "VNPAY",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                          trailing: Column(
-                            children: [
-                              SizedBox(height: 15.h),
-                              const Icon(
-                                Icons.radio_button_checked,
-                                color: AppColors.buttonColor,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    SizedBox(
-                      height: 15.h,
+                      height: 10.sp,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 24, right: 24),
@@ -972,7 +821,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       child: Row(
                         children: [
                           Text(
-                            "Phí đặt chỗ",
+                            "Phí kiểm tra",
                             style: TextStyle(
                               fontFamily: 'Roboto',
                               fontSize: 10.sp,
@@ -990,7 +839,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 .toString(),
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontSize: 14.sp,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
                             ),
@@ -1013,7 +862,7 @@ class _BookingInfoState extends State<BookingInfo> {
                             "Tổng cộng",
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
                             ),
@@ -1028,7 +877,7 @@ class _BookingInfoState extends State<BookingInfo> {
                                 .toString(),
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTextColor,
                             ),
@@ -1091,48 +940,8 @@ class _BookingInfoState extends State<BookingInfo> {
               children: <Widget>[
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () async {
-                      // Check car can booking or not
-                      var response = await CarService().canBook(_selectedCar);
-                      if (response.statusCode == 500) {
-                        Get.bottomSheet(
-                          BottomPopup(
-                            image: 'assets/image/icon-logo/failed-icon.png',
-                            title: "Không thể đặt lịch",
-                            body: jsonDecode(response.body)['message'],
-                            buttonTitle: "Thử lại",
-                            action: () {
-                              Get.back();
-                            },
-                          ),
-                        );
-                      } else {
-                        if (_listSymptom.isEmpty &&
-                            _unresolvedProblems.isEmpty) {
-                          setState(() {
-                            _emptySymtomp = true;
-                          });
-                          return;
-                        } else {
-                          if (_listSymptom.isEmpty &&
-                              _unresolvedProblems.isNotEmpty) {
-                            _onCallBackFromPayment();
-                          } else {
-                            PaymentRequestModel paymentRequestModel =
-                                PaymentRequestModel(
-                                    amount: _bookingPrice,
-                                    name: 'Booking payment',
-                                    orderDescription: 'Booking payment',
-                                    orderType: 'VNpay');
-                            var responsePayment =
-                                await _payBookingFee(paymentRequestModel);
-                            Get.to(() => BookingPayment(
-                                  url: responsePayment,
-                                  callback: _onCallBackFromPayment,
-                                ));
-                          }
-                        }
-                      }
+                    onPressed: () {
+                      Get.to(() => ChosePaymentMethod(excute: executeBook));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonColor,
@@ -1142,7 +951,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       ),
                     ),
                     child: Text(
-                      'Xác nhận',
+                      'Tiếp tục',
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 15.sp,
@@ -1157,5 +966,45 @@ class _BookingInfoState extends State<BookingInfo> {
         ),
       ),
     );
+  }
+
+  executeBook() async {
+    // Check car can booking or not
+    var response = await CarService().canBook(_selectedCar);
+    if (response.statusCode == 500) {
+      Get.bottomSheet(
+        BottomPopup(
+          image: 'assets/image/icon-logo/failed-icon.png',
+          title: "Không thể đặt lịch",
+          body: jsonDecode(response.body)['message'],
+          buttonTitle: "Thử lại",
+          action: () {
+            Get.back();
+          },
+        ),
+      );
+    } else {
+      if (_listSymptom.isEmpty && _unresolvedProblems.isEmpty) {
+        setState(() {
+          _emptySymtomp = true;
+        });
+        return;
+      } else {
+        if (_listSymptom.isEmpty && _unresolvedProblems.isNotEmpty) {
+          _onCallBackFromPayment();
+        } else {
+          PaymentRequestModel paymentRequestModel = PaymentRequestModel(
+              amount: _bookingPrice,
+              name: 'Booking payment',
+              orderDescription: 'Booking payment',
+              orderType: 'VNpay');
+          var responsePayment = await _payBookingFee(paymentRequestModel);
+          Get.to(() => BookingPayment(
+                url: responsePayment,
+                callback: _onCallBackFromPayment,
+              ));
+        }
+      }
+    }
   }
 }

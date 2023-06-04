@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
+import 'package:empiregarage_mobile/services/model_services/model_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -33,6 +34,14 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
       _booking = booking;
       _loading = false;
     });
+  }
+
+  _onSelectSymtomAndCar(int symptomId) async {
+    var modelSymptom =
+        await ModelService().getExpectedPrice(_booking!.car.id, symptomId);
+    // if (modelSymptom != null) {
+    return modelSymptom!.expectedPrice;
+    // }
   }
 
   @override
@@ -80,42 +89,44 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                   ),
                 ),
           centerTitle: true,
-          actions: _loading ? null : _booking!.isArrived == true || _booking!.isActived == false
+          actions: _loading
               ? null
-              : [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-                    child: InkWell(
-                        onTap: () {},
-                        child: PopupMenuButton<String>(
-                          icon: const Icon(
-                            Icons.more_horiz,
-                            color: AppColors.blackTextColor,
-                          ),
-                          itemBuilder: (BuildContext context) =>
-                              <PopupMenuEntry<String>>[
-                            PopupMenuItem<String>(
-                              value: 'cancel',
-                              child: Text('Hủy',
-                                  style: AppStyles.text400(
-                                      fontsize: 14.sp,
-                                      color: AppColors.errorIcon)),
-                            ),
-                          ],
-                          onSelected: (String selectedItem) {
-                            switch (selectedItem) {
-                              case 'cancel':
-                                Get.bottomSheet(
-                                  CancelBooking(booking: _booking),
-                                  backgroundColor: Colors.transparent,
-                                );
-                                break;
-                              default:
-                            }
-                          },
-                        )),
-                  )
-                ],
+              : _booking!.isArrived == true || _booking!.isActived == false
+                  ? null
+                  : [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: InkWell(
+                            onTap: () {},
+                            child: PopupMenuButton<String>(
+                              icon: const Icon(
+                                Icons.more_horiz,
+                                color: AppColors.blackTextColor,
+                              ),
+                              itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<String>>[
+                                PopupMenuItem<String>(
+                                  value: 'cancel',
+                                  child: Text('Hủy',
+                                      style: AppStyles.text400(
+                                          fontsize: 14.sp,
+                                          color: AppColors.errorIcon)),
+                                ),
+                              ],
+                              onSelected: (String selectedItem) {
+                                switch (selectedItem) {
+                                  case 'cancel':
+                                    Get.bottomSheet(
+                                      CancelBooking(booking: _booking),
+                                      backgroundColor: Colors.transparent,
+                                    );
+                                    break;
+                                  default:
+                                }
+                              },
+                            )),
+                      )
+                    ],
         ),
         body: _loading
             ? const Loading()
@@ -242,81 +253,46 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                         height: 10.sp,
                       ),
                       Container(
-                        color: Colors.white,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
                         padding: EdgeInsets.symmetric(horizontal: 10.sp),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: 10.sp, right: 10.sp, top: 20.sp),
-                              child: Text(
-                                "Tóm tắt hóa đơn",
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.sp,
-                            ),
-                            CustomRow(
-                              title: 'Phí đặt lịch',
-                              value: formatCurrency(_booking!.total),
-                              textStyle: AppStyles.text400(fontsize: 10.sp),
-                            ),
-                            const CustomSpacer(),
-                            CustomRow(
-                              title: 'Tổng cộng',
-                              value: formatCurrency(_booking!.total),
-                              textStyle: AppStyles.header600(fontsize: 10.sp),
-                            ),
-                            const CustomSpacer(),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.sp, vertical: 10.sp),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Phương thức thanh toán',
-                                    style: AppStyles.text400(fontsize: 10.sp),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 10.sp,
+                                      right: 10.sp,
+                                      top: 20.sp,
+                                      bottom: 5.sp),
+                                  child: Text(
+                                    "Thông tin phương tiện",
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
                                   ),
-                                  Image.asset(
-                                    'assets/image/icon-logo/vnpay.png',
-                                    height: 12.sp,
-                                  )
-                                ],
-                              ),
-                            ),
-                            const CustomSpacer(),
-                            CustomRow(
-                              title: 'Biển số xe',
-                              value: _booking!.car.carLisenceNo.toString(),
-                              textStyle: AppStyles.text400(fontsize: 10.sp),
-                            ),
-                            CustomRow(
-                              title: 'Dòng xe',
-                              value:
-                                  '${_booking!.car.carBrand} ${_booking!.car.carModel}',
-                              textStyle: AppStyles.text400(fontsize: 10.sp),
-                            ),
-                            CustomRow(
-                              title: 'Tên chủ xe',
-                              value: _booking!.user.fullname,
-                              textStyle: AppStyles.text400(fontsize: 10.sp),
-                            ),
-                            CustomRow(
-                              title: 'Số điện thoại',
-                              value: _booking!.user.phone,
-                              textStyle: AppStyles.text400(fontsize: 10.sp),
-                            ),
-                            SizedBox(
-                              height: 15.h,
+                                ),
+                                CustomRow(
+                                  title: 'Biển số xe',
+                                  value: _booking!.car.carLisenceNo.toString(),
+                                  textStyle: AppStyles.text400(fontsize: 10.sp),
+                                ),
+                                CustomRow(
+                                  title: 'Dòng xe',
+                                  value:
+                                      '${_booking!.car.carBrand} ${_booking!.car.carModel}',
+                                  textStyle: AppStyles.text400(fontsize: 10.sp),
+                                ),
+                                SizedBox(
+                                  height: 15.sp,
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -357,15 +333,52 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                     itemCount: _booking!.symptoms.length,
                                     itemBuilder: (context, index) {
                                       var item = _booking!.symptoms[index];
-                                      return Container(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 5.sp),
-                                          margin: EdgeInsets.only(left: 2.sp),
-                                          child: Text(
-                                            item.name.toString(),
-                                            style: AppStyles.text400(
-                                                fontsize: 10.sp),
-                                          ));
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 5.sp),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              item.name.toString(),
+                                              style: AppStyles.text400(
+                                                  fontsize: 10.sp),
+                                            ),
+                                            Visibility(
+                                              visible: _booking != null,
+                                              child: FutureBuilder(
+                                                future: _onSelectSymtomAndCar(
+                                                    item.id),
+                                                // initialData: "Đang lấy giá",
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot snapshot) {
+                                                  if (snapshot.hasError) {
+                                                    return Text(
+                                                      "Giá liên hệ",
+                                                      style: AppStyles.text400(
+                                                          fontsize: 10.sp),
+                                                    );
+                                                  }
+                                                  if (!snapshot.hasData) {
+                                                    return Text(
+                                                      "Đang lấy giá",
+                                                      style: AppStyles.text400(
+                                                          fontsize: 10.sp),
+                                                    );
+                                                  }
+                                                  return Text(
+                                                    formatCurrency(
+                                                        snapshot.data),
+                                                    style: AppStyles.text400(
+                                                        fontsize: 10.sp),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
                                     },
                                   ),
                                 ),
@@ -430,56 +443,121 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                           ],
                         ),
                       ),
+                      SizedBox(
+                        height: 10.sp,
+                      ),
+                      Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 10.sp, right: 10.sp, top: 20.sp),
+                              child: Text(
+                                "Tóm tắt hóa đơn",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.sp,
+                            ),
+                            CustomRow(
+                              title: 'Phí đặt lịch',
+                              value: formatCurrency(_booking!.total),
+                              textStyle: AppStyles.text400(fontsize: 10.sp),
+                            ),
+                            const CustomSpacer(),
+                            CustomRow(
+                              title: 'Tổng cộng',
+                              value: formatCurrency(_booking!.total),
+                              textStyle: AppStyles.header600(fontsize: 10.sp),
+                            ),
+                            const CustomSpacer(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.sp, vertical: 10.sp),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Phương thức thanh toán',
+                                    style: AppStyles.text400(fontsize: 10.sp),
+                                  ),
+                                  Image.asset(
+                                    'assets/image/icon-logo/vnpay.png',
+                                    height: 12.sp,
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
         bottomNavigationBar: _loading
-              ? null
-              : DecoratedBox(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.symmetric(
-                  horizontal: BorderSide.merge(
-                      BorderSide(color: Colors.grey.shade200, width: 1),
-                      BorderSide.none))),
-          child: Container(
-            margin: const EdgeInsets.all(20),
-            width: double.infinity,
-            height: 52.h,
-            child: _booking!.dayLeft == 0 && _booking!.isArrived == false
-                ? ElevatedButton(
-                    onPressed: () {
-                      Get.to(() => QRCodePage(
-                            bookingId: _booking!.id,
-                          ));
-                    },
-                    style: AppStyles.button16(),
-                    child: Text(
-                      'Check-in',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
+            ? null
+            : _booking!.dayLeft == 0 && _booking!.isArrived
+                ? null
+                : DecoratedBox(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.symmetric(
+                            horizontal: BorderSide.merge(
+                                BorderSide(
+                                    color: Colors.grey.shade200, width: 1),
+                                BorderSide.none))),
+                    child: Container(
+                      margin: const EdgeInsets.all(20),
+                      width: double.infinity,
+                      height: 52.h,
+                      child:
+                          _booking!.dayLeft == 0 && _booking!.isArrived == false
+                              ? ElevatedButton(
+                                  onPressed: () {
+                                    Get.to(() => QRCodePage(
+                                          bookingId: _booking!.id,
+                                        ));
+                                  },
+                                  style: AppStyles.button16(),
+                                  child: Text(
+                                    'Check-in',
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                )
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    Get.bottomSheet(const PickDateBooking());
+                                  },
+                                  style: AppStyles.button16(),
+                                  child: Text(
+                                    'Đặt lịch lại',
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
                     ),
-                  )
-                : _booking!.dayLeft != 0  ? ElevatedButton(
-                    onPressed: () {
-                      Get.bottomSheet(const PickDateBooking());
-                    },
-                    style: AppStyles.button16(),
-                    child: Text(
-                      'Đặt lịch lại',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ) : Container(),
-          ),
-        ),
+                  ),
       ),
     );
   }

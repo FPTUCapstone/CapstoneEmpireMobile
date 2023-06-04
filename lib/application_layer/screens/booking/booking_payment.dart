@@ -56,7 +56,6 @@ class _BookingPaymentState extends State<BookingPayment> {
                     if (paymentResponseModel.vnPayResponseCode == "00" &&
                         paymentResponseModel.success == true) {
                       loadingWebPageBloc.add(LoadingWebPageEvent(false));
-                      Get.back();
                       widget.callback();
                     } else {
                       Get.back();

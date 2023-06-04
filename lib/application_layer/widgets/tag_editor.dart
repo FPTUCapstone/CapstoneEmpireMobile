@@ -1,5 +1,7 @@
 import 'package:empiregarage_mobile/common/style.dart';
+import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
+import 'package:empiregarage_mobile/services/model_services/model_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,12 +11,15 @@ class TagEditor extends StatefulWidget {
   final List<SymptonResponseModel> options;
   final void Function(List<SymptonResponseModel>) onChanged;
   final void Function(bool) emptySymptom;
+  final int modelId;
 
-  const TagEditor(
-      {super.key,
-      required this.onChanged,
-      required this.options,
-      required this.emptySymptom});
+  const TagEditor({
+    super.key,
+    required this.onChanged,
+    required this.options,
+    required this.emptySymptom,
+    required this.modelId,
+  });
 
   @override
   // ignore: library_private_types_in_public_api
@@ -25,11 +30,20 @@ class _TagEditorState extends State<TagEditor> {
   final TextEditingController _controller = TextEditingController();
   List<SymptonResponseModel> _selectedTags = [];
   List<SymptonResponseModel> _suggestedTags = [];
+  final double _sum = 0;
 
   @override
   void initState() {
     super.initState();
     _selectedTags = [];
+  }
+
+  _onSelectSymtomAndCar(int symptomId) async {
+    var modelSymptom =
+        await ModelService().getExpectedPrice(widget.modelId, symptomId);
+    if (modelSymptom != null) {
+      return modelSymptom.expectedPrice;
+    }
   }
 
   @override
@@ -92,23 +106,6 @@ class _TagEditorState extends State<TagEditor> {
             }
           },
         ),
-        Wrap(
-          spacing: 8.0,
-          children: _selectedTags.map((tag) {
-            return Chip(
-              label: Text(
-                tag.name.toString(),
-                style: AppStyles.text400(fontsize: 12.sp),
-              ),
-              onDeleted: () {
-                setState(() {
-                  _selectedTags.remove(tag);
-                  widget.onChanged(_selectedTags);
-                });
-              },
-            );
-          }).toList(),
-        ),
         if (_suggestedTags.isNotEmpty)
           Container(
             decoration: BoxDecoration(
@@ -144,6 +141,116 @@ class _TagEditorState extends State<TagEditor> {
               },
             ),
           ),
+        Visibility(
+          visible: _selectedTags.isNotEmpty,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15, bottom: 5),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Mục",
+                    style: AppStyles.header600(fontsize: 12.sp),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Giá dự kiến",
+                        style: AppStyles.header600(fontsize: 12.sp),
+                      ),
+                      const SizedBox(
+                        width: 28,
+                      ),
+                    ],
+                  ),
+                ]),
+          ),
+        ),
+        ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: _selectedTags.map((tag) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    tag.name.toString(),
+                    style: AppStyles.text400(fontsize: 10.sp),
+                  ),
+                  Row(
+                    children: [
+                      FutureBuilder(
+                        future: _onSelectSymtomAndCar(tag.id),
+                        // initialData: "Đang lấy giá",
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (!snapshot.hasData) {
+                            return Text(
+                              "Đang lấy giá",
+                              style: AppStyles.text400(fontsize: 10.sp),
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return Text(
+                              "Lấy giá lỗi",
+                              style: AppStyles.text400(fontsize: 10.sp),
+                            );
+                          }
+                          return Text(
+                            formatCurrency(snapshot.data),
+                            style: AppStyles.text400(fontsize: 10.sp),
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            _selectedTags.remove(tag);
+                            widget.onChanged(_selectedTags);
+                          });
+                        },
+                        child: const Icon(
+                          Icons.cancel,
+                          size: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ),
+        // Visibility(
+        //   visible: _selectedTags.isNotEmpty,
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(top: 2.5, bottom: 5),
+        //     child: Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           Text(
+        //             "Tổng chi phí dự kiến",
+        //             style: AppStyles.header600(fontsize: 12.sp),
+        //           ),
+        //           Row(
+        //             children: [
+        //               Text(
+        //                 formatCurrency(_sum),
+        //                 style: AppStyles.header600(fontsize: 12.sp),
+        //               ),
+        //               const SizedBox(
+        //                 width: 28,
+        //               ),
+        //             ],
+        //           ),
+        //         ]),
+        //   ),
+        // ),
       ],
     );
   }

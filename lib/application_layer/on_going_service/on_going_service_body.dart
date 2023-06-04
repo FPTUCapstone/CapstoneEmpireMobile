@@ -27,7 +27,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
           height: 10.sp,
         ),
         Text(
-          "Kỹ thuật viên đang kiểm tra",
+          "Di chuyển vào bãi",
           style: TextStyle(
             fontFamily: 'Roboto',
             fontSize: 12.sp,
@@ -38,7 +38,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
           child: Text(
-            "Bạn sẽ có thể xem được các chuẩn đoán sau khi kỹ thuật viên hoàn tất việc kiểm tra",
+            "Vui lòng di chuyển ${widget.order.car.carLisenceNo} vào bãi để kỹ thuật viên tiến hành kiểm tra phương tiện",
             style: TextStyle(
               fontFamily: 'Roboto',
               fontSize: 10.sp,
@@ -75,7 +75,9 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Kỹ thuật viên",
+                  widget.expert != null && widget.expert!.phone != null
+                      ? widget.expert!.phone.toString()
+                      : "Chưa có số điện thoại",
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 10.sp,

@@ -240,12 +240,15 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                     }
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 5.sp),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 5.sp, vertical: 5.sp),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               item.name.toString(),
@@ -256,7 +259,9 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                                 color: AppColors.blackTextColor,
                                               ),
                                             ),
-                                            SizedBox(height: 5.sp,),
+                                            SizedBox(
+                                              height: 5.sp,
+                                            ),
                                             Text(
                                               formatCurrency(item.presentPrice),
                                               style: TextStyle(
@@ -286,7 +291,10 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                 const Divider(
                   thickness: 1,
                 ),
-                CustomRowWithoutPadding(title: "Tổng tạm tính", value: formatCurrency(_sum), textStyle: AppStyles.header600(fontsize: 12.sp)),
+                CustomRowWithoutPadding(
+                    title: "Tổng tạm tính",
+                    value: formatCurrency(_sum),
+                    textStyle: AppStyles.header600(fontsize: 12.sp)),
                 const Divider(
                   thickness: 1,
                 ),

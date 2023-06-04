@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
+import 'package:empiregarage_mobile/application_layer/screens/activities/qrcode.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail_v2.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
@@ -79,57 +80,58 @@ class _HomePageState extends State<Activities> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-              backgroundColor: Colors.white,
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(100),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20.h),
-                  child: AppBar(
-                    titleSpacing: 24.w,
-                    toolbarHeight: 100.h,
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    title: Text('Hoạt động',
-                        style: AppStyles.header600(fontsize: 20.sp)),
-                    actions: [
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 24.w),
-                          child: ElevatedButton.icon(
-                            icon: Icon(Icons.refresh, size: 18.sp),
-                            onPressed: () {
-                              Get.to(() => const ActivityHistory());
-                            },
-                            style: ButtonStyle(
-                              shadowColor: getColor(
-                                  Colors.transparent, Colors.transparent),
-                              foregroundColor: getColor(
-                                  AppColors.blackTextColor,
-                                  AppColors.whiteButtonColor),
-                              backgroundColor: getColor(
-                                  AppColors.blue100, AppColors.buttonColor),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              )),
-                            ),
-                            label: Text(
-                              'Lịch sử',
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Roboto',
-                                  color: AppColors.blackTextColor),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(100),
+          child: Padding(
+            padding: EdgeInsets.only(top: 20.h),
+            child: AppBar(
+              titleSpacing: 24.w,
+              toolbarHeight: 100.h,
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+              title: Text('Hoạt động',
+                  style: AppStyles.header600(fontsize: 20.sp)),
+              actions: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 24.w),
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.refresh, size: 18.sp),
+                      onPressed: () {
+                        Get.to(() => const ActivityHistory());
+                      },
+                      style: ButtonStyle(
+                        shadowColor:
+                            getColor(Colors.transparent, Colors.transparent),
+                        foregroundColor: getColor(AppColors.blackTextColor,
+                            AppColors.whiteButtonColor),
+                        backgroundColor:
+                            getColor(AppColors.blue100, AppColors.buttonColor),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        )),
+                      ),
+                      label: Text(
+                        'Lịch sử',
+                        style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Roboto',
+                            color: AppColors.blackTextColor),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              body: _loading ? const Loading() :SafeArea(
+                )
+              ],
+            ),
+          ),
+        ),
+        body: _loading
+            ? const Loading()
+            : SafeArea(
                 child: RefreshIndicator(
                   onRefresh: reload,
                   color: AppColors.blue600,
@@ -217,12 +219,12 @@ class _HomePageState extends State<Activities> {
                     ),
                     _listRecent.isEmpty
                         ? Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24.w),
-                          child: Text(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Text(
                               'Chưa có hoạt động nào',
                               style: AppStyles.text400(fontsize: 12.sp),
                             ),
-                        )
+                          )
                         : ListView.builder(
                             physics: const ScrollPhysics(
                                 parent: NeverScrollableScrollPhysics()),
@@ -271,7 +273,7 @@ class _HomePageState extends State<Activities> {
                   ]),
                 ),
               ),
-            ),
+      ),
     );
   }
 }
@@ -434,7 +436,20 @@ class _ActivityChipState extends State<ActivityChip> {
                 formatCurrency(widget.total),
                 style: AppStyles.text400(fontsize: 12.sp),
               )
-            : null,
+            : widget.isBooking && widget.daysLeft == 0
+                ? Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => QRCodePage(
+                              bookingId: item.id,
+                            ));
+                      },
+                      child: Icon(Icons.qr_code_scanner,
+                          color: AppColors.blueTextColor, size: 30.w),
+                    ),
+                  )
+                : null,
       ),
     );
   }
