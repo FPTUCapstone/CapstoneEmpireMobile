@@ -131,12 +131,14 @@ class HealthCarRecordProblem {
 class Problem {
   int? id;
   String? name;
+  int? intendedMinutes;
   List<Item2>? items;
 
   Problem({
     this.id,
     this.name,
     this.items,
+    this.intendedMinutes
   });
 
   Problem.fromJson(Map<String, dynamic> json) {
@@ -148,6 +150,7 @@ class Problem {
         items?.add(Item2.fromJson(v));
       });
     }
+    intendedMinutes = json['intendedMinutes'];
   }
 }
 

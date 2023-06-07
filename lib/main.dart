@@ -75,8 +75,14 @@ class _MyAppState extends State<MyApp> {
         Get.offAll(() => const MainPage());
         switch (jsonRoute['route']) {
           case "qr-checkin-success":
-            Get.to(() =>
-                BookingDetailv2(bookingId: jsonRoute['bookingId'] as int));
+            if (jsonRoute['orderServiceId'] != null) {
+              Get.to(() => OnGoingService(
+                    servicesId: jsonRoute['orderServiceId'] as int,
+                  ));
+            } else {
+              Get.to(() =>
+                  BookingDetailv2(bookingId: jsonRoute['bookingId'] as int));
+            }
             break;
           case "diagnose-success":
             Get.to(() => OnGoingService(

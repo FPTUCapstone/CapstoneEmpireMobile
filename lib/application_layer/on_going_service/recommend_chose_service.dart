@@ -64,7 +64,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
             if (list2 != null) {
               for (var element in list2) {
                 if (element.isDefault == true) {
-                  _confirmService(element);
+                  _confirmService(element, item2.problem.intendedMinutes);
                 }
               }
             }
@@ -88,10 +88,10 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     }
   }
 
-  _confirmService(Item2 item) {
+  _confirmService(Item2 item, int? intendedMinutes) {
     setState(() {
       var detail = OrderServiceDetailRequestModel(
-          itemId: item.id, price: double.parse(item.presentPrice.toString()));
+          itemId: item.id, price: double.parse(item.presentPrice.toString()), intendedMinutes: intendedMinutes);
       _listOrderServiceDetails.add(detail);
       _sum += double.parse(item.presentPrice.toString());
     });
@@ -236,7 +236,10 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                               e.presentPrice.toString());
                                         }
                                       }
-                                      _confirmService(item);
+                                      _confirmService(
+                                          item,
+                                          healthCarRecordProblem
+                                              .problem.intendedMinutes);
                                     }
                                   },
                                   child: Container(

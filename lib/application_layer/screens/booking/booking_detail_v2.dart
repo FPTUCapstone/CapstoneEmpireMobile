@@ -469,7 +469,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                               height: 10.sp,
                             ),
                             CustomRow(
-                              title: 'Phí đặt lịch',
+                              title: 'Khấu trừ từ đặt lịch',
                               value: formatCurrency(_booking!.total),
                               textStyle: AppStyles.text400(fontsize: 10.sp),
                             ),

@@ -29,7 +29,6 @@ class _BookingPaymentState extends State<BookingPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Stack(
           children: [
@@ -56,6 +55,7 @@ class _BookingPaymentState extends State<BookingPayment> {
                     if (paymentResponseModel.vnPayResponseCode == "00" &&
                         paymentResponseModel.success == true) {
                       loadingWebPageBloc.add(LoadingWebPageEvent(false));
+                      // ignore: use_build_context_synchronously
                       widget.callback();
                     } else {
                       Get.back();

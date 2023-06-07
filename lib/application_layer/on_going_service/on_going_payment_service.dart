@@ -44,6 +44,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
   bool _expand = false;
+  int _totalMinutes = 0;
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
@@ -68,6 +69,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
           }
           sum += prepaid;
           sumAfter = sum - prepaid;
+          _calculateTotalIntendedMinutes();
           _loading = false;
         });
       }
@@ -149,6 +151,12 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     return "";
   }
 
+  _calculateTotalIntendedMinutes() {
+    for (var element in _listOrderServiceDetails) {
+      _totalMinutes += element.intendedMinutes ?? 0;
+    }
+  }
+
   @override
   void initState() {
     _getBookingPrice();
@@ -190,6 +198,18 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                   trimMode: TrimMode.Line,
                   trimCollapsedText: ' Read more',
                   trimExpandedText: ' Show less',
+                ),
+                SizedBox(height: 10.sp),
+                const Divider(thickness: 1),
+                SizedBox(height: 10.sp),
+                Text(
+                  "Thời gian sửa chữa dự tính: $_totalMinutes phút",
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.blackTextColor,
+                  ),
                 ),
                 SizedBox(height: 10.sp),
                 const Divider(thickness: 1),
@@ -310,7 +330,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                   textStyle: AppStyles.header600(fontsize: 10.sp),
                 ),
                 CustomRowWithoutPadding(
-                  title: 'Phí đặt lịch',
+                  title: 'Khấu trừ từ đặt lịch',
                   value: "-${formatCurrency(prepaid)}",
                   textStyle:
                       AppStyles.header600(fontsize: 10.sp, color: Colors.red),

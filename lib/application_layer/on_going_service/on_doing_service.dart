@@ -275,7 +275,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                 //   textStyle: AppStyles.header600(fontsize: 10.sp),
                 // ),
                 // CustomRowWithoutPadding(
-                //   title: 'Phí đặt lịch',
+                //   title: 'Khấu trừ từ đặt lịch',
                 //   value: "-${formatCurrency(prepaid)}",
                 //   textStyle:
                 //       AppStyles.header600(fontsize: 10.sp, color: Colors.red),

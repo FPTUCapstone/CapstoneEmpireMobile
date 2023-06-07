@@ -434,7 +434,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                               //   child: Row(
                               //     children: [
                               //       Text(
-                              //         "Phí đặt lịch",
+                              //         "Khấu trừ từ đặt lịch",
                               //         style: TextStyle(
                               //           fontFamily: 'Roboto',
                               //           fontSize: 10.sp,
