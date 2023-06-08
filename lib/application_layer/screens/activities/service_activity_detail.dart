@@ -268,15 +268,6 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                         bottom: 10.sp),
                                     child: Row(
                                       children: [
-                                        Text(
-                                          "1x",
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blackTextColor,
-                                          ),
-                                        ),
                                         SizedBox(
                                           width: 20.w,
                                         ),
@@ -320,18 +311,6 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                     left: 10.sp, right: 10.sp, bottom: 10.sp),
                                 child: Row(
                                   children: [
-                                    Text(
-                                      "1x",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.white100,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 20.w,
-                                    ),
                                     Text(
                                       "Phí kiểm tra",
                                       style: TextStyle(

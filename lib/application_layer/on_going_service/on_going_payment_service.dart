@@ -231,12 +231,8 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          "1x",
-                          style: AppStyles.header600(fontsize: 10.sp),
-                        ),
                         SizedBox(
-                          width: 10.sp,
+                          width: 20.sp,
                         ),
                         Expanded(
                             child: Padding(
@@ -283,14 +279,6 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "1x",
-                      style: AppStyles.header600(fontsize: 10.sp)
-                          .merge(const TextStyle(color: Colors.transparent)),
-                    ),
-                    SizedBox(
-                      width: 10.sp,
-                    ),
                     Expanded(
                         child: CustomRowWithoutPadding(
                             title: "Phí kiểm tra",
