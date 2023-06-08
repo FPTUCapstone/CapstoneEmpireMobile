@@ -190,13 +190,6 @@ class _CompleteServiceState extends State<CompleteService> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          "1x",
-                          style: AppStyles.header600(fontsize: 10.sp),
-                        ),
-                        SizedBox(
-                          width: 10.sp,
-                        ),
                         Expanded(
                             child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 5.sp),
@@ -247,14 +240,6 @@ class _CompleteServiceState extends State<CompleteService> {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "1x",
-                      style: AppStyles.header600(fontsize: 10.sp)
-                          .merge(const TextStyle(color: Colors.transparent)),
-                    ),
-                    SizedBox(
-                      width: 10.sp,
-                    ),
                     Expanded(
                         child: CustomRowWithoutPadding(
                             title: "Phí kiểm tra",

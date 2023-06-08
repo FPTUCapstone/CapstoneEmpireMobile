@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../common/colors.dart';
+import '../../../models/response/brand.dart';
 import '../main_page/main_page.dart';
 
 class BookingDetailv2 extends StatefulWidget {
@@ -26,28 +27,50 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
   BookingResponseModel? _booking;
   bool _loading = true;
   late DateTime _bookingDate;
+  ModelSlimResponse? _model;
+
+  _getModel(String modelName, String brandName) async {
+    var model = await ModelService().getModel(modelName, brandName);
+
+    return model;
+  }
 
   _fetchData() async {
     var booking = await BookingService().getBookingById(widget.bookingId);
     if (!mounted) return;
+    _booking = booking;
+    await getExpectedPrice(booking);
     setState(() {
-      _booking = booking;
       _loading = false;
     });
   }
 
   _onSelectSymtomAndCar(int symptomId) async {
-    var modelSymptom =
-        await ModelService().getExpectedPrice(_booking!.car.id, symptomId);
-    // if (modelSymptom != null) {
-    return modelSymptom!.expectedPrice;
-    // }
+    var carModel =
+        await _getModel(_booking!.car.carModel, _booking!.car.carBrand);
+    if (carModel != null) {
+      var modelSymptom =
+          await ModelService().getExpectedPrice(carModel.id, symptomId);
+      if (modelSymptom != null) {
+        return modelSymptom.expectedPrice;
+      }
+      return null;
+    }
+    return null;
   }
 
   @override
   void initState() {
     _fetchData();
     super.initState();
+  }
+
+  getExpectedPrice(booking) async {
+    if (booking != null) {
+      for (var element in booking!.symptoms) {
+        element.expectedPrice = await _onSelectSymtomAndCar(element.id);
+      }
+    }
   }
 
   @override
@@ -346,36 +369,24 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                                   fontsize: 10.sp),
                                             ),
                                             Visibility(
-                                              visible: _booking != null,
-                                              child: FutureBuilder(
-                                                future: _onSelectSymtomAndCar(
-                                                    item.id),
-                                                // initialData: "Đang lấy giá",
-                                                builder: (BuildContext context,
-                                                    AsyncSnapshot snapshot) {
-                                                  if (snapshot.hasError) {
-                                                    return Text(
-                                                      "Giá liên hệ",
-                                                      style: AppStyles.text400(
-                                                          fontsize: 10.sp),
-                                                    );
-                                                  }
-                                                  if (!snapshot.hasData) {
-                                                    return Text(
-                                                      "Đang lấy giá",
-                                                      style: AppStyles.text400(
-                                                          fontsize: 10.sp),
-                                                    );
-                                                  }
-                                                  return Text(
-                                                    formatCurrency(
-                                                        snapshot.data),
-                                                    style: AppStyles.text400(
-                                                        fontsize: 10.sp),
-                                                  );
-                                                },
-                                              ),
-                                            ),
+                                                visible: _booking != null,
+                                                child: item.expectedPrice ==
+                                                        null
+                                                    ? Text(
+                                                        "Chưa định giá",
+                                                        style:
+                                                            AppStyles.text400(
+                                                                fontsize:
+                                                                    10.sp),
+                                                      )
+                                                    : Text(
+                                                        formatCurrency(
+                                                            item.expectedPrice),
+                                                        style:
+                                                            AppStyles.text400(
+                                                                fontsize:
+                                                                    10.sp),
+                                                      )),
                                           ],
                                         ),
                                       );
