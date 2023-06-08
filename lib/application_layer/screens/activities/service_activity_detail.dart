@@ -268,9 +268,6 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                         bottom: 10.sp),
                                     child: Row(
                                       children: [
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
                                         Text(
                                           _orderServices!
                                               .orderServiceDetails![index]

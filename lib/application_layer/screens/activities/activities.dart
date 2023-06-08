@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/on_going_service/check_out_qrcode_page.dart';
 import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/qrcode.dart';
 import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
@@ -436,14 +437,19 @@ class _ActivityChipState extends State<ActivityChip> {
                 formatCurrency(widget.total),
                 style: AppStyles.text400(fontsize: 12.sp),
               )
-            : widget.isBooking && widget.daysLeft == 0
+            : (widget.isBooking && widget.daysLeft == 0) ||
+                    (!widget.isBooking && item.status == 4)
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: InkWell(
                       onTap: () {
-                        Get.to(() => QRCodePage(
-                              bookingId: item.id,
-                            ));
+                        (!item.isBooking && item.status == 4)
+                            ? Get.to(() => CheckOutQRCodePage(
+                                  id: item.id,
+                                ))
+                            : Get.to(() => QRCodePage(
+                                  bookingId: item.id,
+                                ));
                       },
                       child: Icon(Icons.qr_code_scanner,
                           color: AppColors.blueTextColor, size: 30.w),

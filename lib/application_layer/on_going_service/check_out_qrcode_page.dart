@@ -55,8 +55,10 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
     return Scaffold(
       backgroundColor: AppColors.buttonColor,
       appBar: AppBar(
+        toolbarHeight: 80,
+        leadingWidth: 60,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 20, top: 30),
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -79,13 +81,16 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         centerTitle: true,
-        title: const Text('Quét mã QR Code',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              color: Colors.white,
-            )),
+        title: const Padding(
+          padding: EdgeInsets.only(top: 30),
+          child: Text('Quét mã QR Code',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Colors.white,
+              )),
+        ),
       ),
       body: Center(
         child: FutureBuilder(
@@ -101,8 +106,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                 String car = _orderService!.car.carLisenceNo;
                 return _qrCodeData != null
                     ? Container(
-                        height: 450.h,
-                        width: 320.w,
+                        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius:
@@ -114,14 +118,14 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   color: AppColors.lightTextColor,
                                 )),
                             const SizedBox(height: 10),
                             QrImage(
                               data: _qrCodeData.toString(),
                               version: QrVersions.auto,
-                              size: 200,
+                              size: 250,
                             ),
                             const SizedBox(height: 10),
                             Row(
@@ -131,7 +135,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 10,
+                                      fontSize: 14,
                                       color: AppColors.lightTextColor,
                                     )),
                                 CountdownTimer(
@@ -201,14 +205,14 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Giờ vào bãi',
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                   ),
@@ -222,7 +226,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                         style: const TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.blackTextColor,
                                         )),
                                     trailing: Text(date,
@@ -231,7 +235,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                         style: const TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.blackTextColor,
                                         )),
                                   ),
@@ -246,14 +250,14 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                     trailing: Text('Phương tiện',
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.lightTextColor,
                                         )),
                                   ),
@@ -265,7 +269,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                         style: const TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 16,
+                                          fontSize: 12,
                                           color: AppColors.blackTextColor,
                                         )),
                                     trailing: SizedBox(
@@ -277,7 +281,7 @@ class _CheckOutQRCodePageState extends State<CheckOutQRCodePage> {
                                           style: const TextStyle(
                                             fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 16,
+                                            fontSize: 12,
                                             color: AppColors.blackTextColor,
                                           )),
                                     ),

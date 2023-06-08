@@ -171,9 +171,6 @@ class _OnDoingServiceState extends State<OnDoingService> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 20.w,
-                        ),
                         Expanded(
                             child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 5.sp),

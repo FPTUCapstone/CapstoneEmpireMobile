@@ -278,23 +278,14 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                           color: AppColors.buttonColor,
                                         ),
                                         SizedBox(width: 5.sp),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              item.name.toString(),
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.blackTextColor,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5.sp,
-                                            ),
-                                          ],
+                                        Text(
+                                          item.name.toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColors.blackTextColor,
+                                          ),
                                         ),
                                         // SizedBox(width: 120.sp),
                                         const Spacer(),

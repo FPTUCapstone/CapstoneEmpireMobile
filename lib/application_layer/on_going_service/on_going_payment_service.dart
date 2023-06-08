@@ -231,9 +231,6 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 20.sp,
-                        ),
                         Expanded(
                             child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 5.sp),
