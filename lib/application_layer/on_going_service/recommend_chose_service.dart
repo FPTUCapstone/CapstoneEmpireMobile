@@ -91,7 +91,9 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
   _confirmService(Item2 item, int? intendedMinutes) {
     setState(() {
       var detail = OrderServiceDetailRequestModel(
-          itemId: item.id, price: double.parse(item.presentPrice.toString()), intendedMinutes: intendedMinutes);
+          itemId: item.id,
+          price: double.parse(item.presentPrice.toString()),
+          intendedMinutes: intendedMinutes);
       _listOrderServiceDetails.add(detail);
       _sum += double.parse(item.presentPrice.toString());
     });
@@ -121,7 +123,6 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     super.initState();
     _getOrderServices();
   }
-  String loremIpsum = "loremIpsum lorem Ipsum lorem Ipsum";
 
   @override
   Widget build(BuildContext context) {
@@ -189,19 +190,38 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     itemBuilder: (context, index) {
                       var healthCarRecordProblem = _orderServicesResponseModel!
                           .healthCarRecord!.healthCarRecordProblems![index];
+                          var selectedIndex = -1;
+                          if (healthCarRecordProblem.problem.items != null) {
+                            for (var element in healthCarRecordProblem.problem.items!) {
+                              var flag = _checkService(element);
+                              if (flag == true) {
+                                selectedIndex = healthCarRecordProblem.problem.items!.indexOf(element);
+                              }
+                            }
+                          }
                       return ExpansionTile(
-                        title: Text(
-                          healthCarRecordProblem.problem.name.toString(),
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
+                          initiallyExpanded: true,
+                          childrenPadding: EdgeInsets.zero,
+                          tilePadding: EdgeInsets.zero,
+                          shape: Border.all(color: Colors.white),
+                          collapsedShape: Border.all(color: Colors.white),
+                          iconColor: AppColors.blueTextColor,
+                          title: Text(
+                            healthCarRecordProblem.problem.name.toString(),
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
                           ),
-                        ),
-                          subtitle: Text("abc"),
-                          //shrinkWrap: true,
-                          //physics: const NeverScrollableScrollPhysics(),
+                          subtitle: selectedIndex != -1 ? Text("Đã chọn: ${healthCarRecordProblem.problem.items![selectedIndex].name}", style: AppStyles.text400(fontsize: 10.sp)) : null,
+                          trailing: selectedIndex != -1 ? Text(formatCurrency(healthCarRecordProblem.problem.items![selectedIndex].presentPrice), style: AppStyles.text400(fontsize: 10.sp)) : null,
+                          onExpansionChanged: (value) {
+                            if (value == false ){
+
+                            }
+                          },
                           children: [
                             SizedBox(height: 5.sp),
                             ListView.builder(
@@ -277,7 +297,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                           ],
                                         ),
                                         // SizedBox(width: 120.sp),
-                                        Spacer(),
+                                        const Spacer(),
                                         Text(
                                           formatCurrency(item.presentPrice),
                                           style: TextStyle(
@@ -287,7 +307,6 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                             color: AppColors.lightTextColor,
                                           ),
                                         ),
-
                                       ],
                                     ),
                                   ),
@@ -343,5 +362,3 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
           );
   }
 }
-
-
