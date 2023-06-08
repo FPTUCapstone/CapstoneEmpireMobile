@@ -121,6 +121,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     super.initState();
     _getOrderServices();
   }
+  String loremIpsum = "loremIpsum lorem Ipsum lorem Ipsum";
 
   @override
   Widget build(BuildContext context) {
@@ -188,19 +189,20 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     itemBuilder: (context, index) {
                       var healthCarRecordProblem = _orderServicesResponseModel!
                           .healthCarRecord!.healthCarRecordProblems![index];
-                      return ListView(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
+                      return ExpansionTile(
+                        title: Text(
+                          healthCarRecordProblem.problem.name.toString(),
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
+                          ),
+                        ),
+                          subtitle: Text("abc"),
+                          //shrinkWrap: true,
+                          //physics: const NeverScrollableScrollPhysics(),
                           children: [
-                            Text(
-                              healthCarRecordProblem.problem.name.toString(),
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
                             SizedBox(height: 5.sp),
                             ListView.builder(
                               shrinkWrap: true,
@@ -246,9 +248,16 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                     margin: EdgeInsets.symmetric(
                                         horizontal: 5.sp, vertical: 5.sp),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      // mainAxisAlignment:
+                                      //     MainAxisAlignment.spaceBetween,
                                       children: [
+                                        Icon(
+                                          _checkService(item)
+                                              ? Icons.radio_button_checked
+                                              : Icons.radio_button_unchecked,
+                                          color: AppColors.buttonColor,
+                                        ),
+                                        SizedBox(width: 5.sp),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -265,23 +274,20 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                             SizedBox(
                                               height: 5.sp,
                                             ),
-                                            Text(
-                                              formatCurrency(item.presentPrice),
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.lightTextColor,
-                                              ),
-                                            )
                                           ],
                                         ),
-                                        Icon(
-                                          _checkService(item)
-                                              ? Icons.radio_button_checked
-                                              : Icons.radio_button_unchecked,
-                                          color: AppColors.buttonColor,
+                                        // SizedBox(width: 120.sp),
+                                        Spacer(),
+                                        Text(
+                                          formatCurrency(item.presentPrice),
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColors.lightTextColor,
+                                          ),
                                         ),
+
                                       ],
                                     ),
                                   ),
@@ -337,3 +343,5 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
           );
   }
 }
+
+
