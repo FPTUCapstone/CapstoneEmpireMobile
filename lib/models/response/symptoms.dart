@@ -8,6 +8,7 @@ class SymptonResponseModel{
   int id;
   String? name;
   int? intendedMinutes;
+  double? expectedPrice;
 
   factory SymptonResponseModel.fromJson(Map<String,dynamic> json){
     return SymptonResponseModel(

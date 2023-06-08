@@ -14,6 +14,21 @@ class AppStyles {
     );
   }
 
+  static Widget divider(
+      {EdgeInsetsGeometry padding =
+          const EdgeInsets.symmetric(horizontal: 10)}) {
+    return SizedBox(
+      height: 10.sp,
+      child: Center(
+          child: Padding(
+        padding: padding,
+        child: const Divider(
+          thickness: 1,
+        ),
+      )),
+    );
+  }
+
   static TextStyle header600(
       {double fontsize = 16, Color color = Colors.black}) {
     return TextStyle(
@@ -39,8 +54,7 @@ class AppStyles {
             borderRadius: const BorderRadius.all(Radius.circular(16)),
             borderSide: BorderSide(color: Colors.grey.shade200)),
         suffixIcon: suffixIcon,
-        errorText: errorText
-        );
+        errorText: errorText);
   }
 
   static ButtonStyle button16({color = const Color(0xFF2C53D2)}) {

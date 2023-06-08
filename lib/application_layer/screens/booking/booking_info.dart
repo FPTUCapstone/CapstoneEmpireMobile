@@ -107,10 +107,10 @@ class _BookingInfoState extends State<BookingInfo> {
   ModelSlimResponse? _model;
 
   _loadOptions() async {
-    var result = await SymptomsService().fetchListSymptoms();
-    if (result != null) {
+    var symptoms = await SymptomsService().fetchListSymptoms();
+    if (symptoms != null) {
       setState(() {
-        options = result;
+        options = symptoms;
       });
     }
   }
@@ -127,7 +127,7 @@ class _BookingInfoState extends State<BookingInfo> {
     var modelSymptom =
         await ModelService().getExpectedPrice(_model!.id, symptomId);
     if (modelSymptom != null) {
-      return modelSymptom;
+      return modelSymptom.expectedPrice ;
     }
   }
 
@@ -149,6 +149,9 @@ class _BookingInfoState extends State<BookingInfo> {
     });
     var car = _listCar.where((element) => element.id == _selectedCar).first;
     await _getModel(car.carModel, car.carBrand);
+    for (var element in options) {
+        element.expectedPrice = await _onSelectSymtomAndCar(element.id);
+      }
     bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
     setState(() {
       _isCarHasHCR = isCarHasHCR;
@@ -187,6 +190,9 @@ class _BookingInfoState extends State<BookingInfo> {
     });
     var car = _listCar.where((element) => element.id == _selectedCar).first;
     await _getModel(car.carModel, car.carBrand);
+    for (var element in options) {
+        element.expectedPrice = await _onSelectSymtomAndCar(element.id);
+      }
   }
 
   void _onCallBack(int selectedCar) async {
@@ -222,8 +228,8 @@ class _BookingInfoState extends State<BookingInfo> {
 
   _loadData() async {
     _dateController.text = widget.selectedDate.toString().substring(0, 10);
-    await _loadOptions();
     await _getUserCar();
+    await _loadOptions();
   }
 
   Future refresh() {
@@ -847,42 +853,39 @@ class _BookingInfoState extends State<BookingInfo> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 22.h,
-                      child: const Divider(
-                        thickness: 1,
-                        color: AppColors.searchBarColor,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 24, right: 24),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Tổng cộng",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
+                    AppStyles.divider(),
+                    Padding(
+                       padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 24, right: 24),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Tổng cộng",
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
                             ),
-                          ),
-                          const Spacer(),
-                          Text(
-                            NumberFormat.currency(
-                                    decimalDigits: 0,
-                                    locale: 'vi_VN',
-                                    symbol: "đ")
-                                .format(_bookingPrice)
-                                .toString(),
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
+                            const Spacer(),
+                            Text(
+                              NumberFormat.currency(
+                                      decimalDigits: 0,
+                                      locale: 'vi_VN',
+                                      symbol: "đ")
+                                  .format(_bookingPrice)
+                                  .toString(),
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(

@@ -30,7 +30,6 @@ class _TagEditorState extends State<TagEditor> {
   final TextEditingController _controller = TextEditingController();
   List<SymptonResponseModel> _selectedTags = [];
   List<SymptonResponseModel> _suggestedTags = [];
-  final double _sum = 0;
 
   @override
   void initState() {
@@ -44,6 +43,14 @@ class _TagEditorState extends State<TagEditor> {
     if (modelSymptom != null) {
       return modelSymptom.expectedPrice;
     }
+  }
+
+  Future<double> _sumExpectedPrice() async {
+    double sum = 0;
+    for (var element in _selectedTags) {
+      sum += element.expectedPrice ?? 0;
+    }
+    return sum;
   }
 
   @override
@@ -181,29 +188,15 @@ class _TagEditorState extends State<TagEditor> {
                   ),
                   Row(
                     children: [
-                      FutureBuilder(
-                        future: _onSelectSymtomAndCar(tag.id),
-                        // initialData: "Đang lấy giá",
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          if (!snapshot.hasData) {
-                            return Text(
-                              "Đang lấy giá",
+                      tag.expectedPrice == null
+                          ? Text(
+                              "Chưa định giá",
                               style: AppStyles.text400(fontsize: 10.sp),
-                            );
-                          }
-                          if (snapshot.hasError) {
-                            return Text(
-                              "Lấy giá lỗi",
+                            )
+                          : Text(
+                              formatCurrency(tag.expectedPrice),
                               style: AppStyles.text400(fontsize: 10.sp),
-                            );
-                          }
-                          return Text(
-                            formatCurrency(snapshot.data),
-                            style: AppStyles.text400(fontsize: 10.sp),
-                          );
-                        },
-                      ),
+                            ),
                       const SizedBox(
                         width: 10,
                       ),
@@ -226,31 +219,54 @@ class _TagEditorState extends State<TagEditor> {
             );
           }).toList(),
         ),
-        // Visibility(
-        //   visible: _selectedTags.isNotEmpty,
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(top: 2.5, bottom: 5),
-        //     child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           Text(
-        //             "Tổng chi phí dự kiến",
-        //             style: AppStyles.header600(fontsize: 12.sp),
-        //           ),
-        //           Row(
-        //             children: [
-        //               Text(
-        //                 formatCurrency(_sum),
-        //                 style: AppStyles.header600(fontsize: 12.sp),
-        //               ),
-        //               const SizedBox(
-        //                 width: 28,
-        //               ),
-        //             ],
-        //           ),
-        //         ]),
-        //   ),
-        // ),
+        Visibility(
+          visible: _selectedTags.isNotEmpty,
+          child: Column(
+            children: [
+              AppStyles.divider(padding: EdgeInsets.zero),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Tổng chi phí dự kiến",
+                        style: AppStyles.header600(fontsize: 12.sp),
+                      ),
+                      Row(
+                        children: [
+                          FutureBuilder(
+                            future: _sumExpectedPrice(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text(
+                                  '0',
+                                  style: AppStyles.header600(fontsize: 12.sp),
+                                );
+                              }
+                              if (!snapshot.hasData) {
+                                return Text(
+                                  "0",
+                                  style: AppStyles.header600(fontsize: 12.sp),
+                                );
+                              }
+                              return Text(
+                                formatCurrency(snapshot.data),
+                                style: AppStyles.header600(fontsize: 12.sp),
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                            width: 28,
+                          ),
+                        ],
+                      ),
+                    ]),
+              ),
+              AppStyles.divider(padding: EdgeInsets.zero),
+            ],
+          ),
+        ),
       ],
     );
   }
