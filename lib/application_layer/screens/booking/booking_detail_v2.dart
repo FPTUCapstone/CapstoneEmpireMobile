@@ -45,6 +45,14 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
     });
   }
 
+  Future<double> _sumExpectedPrice() async {
+    double sum = 0;
+    for (var element in _booking!.symptoms) {
+      sum += element.expectedPrice ?? 0;
+    }
+    return sum;
+  }
+
   _onSelectSymtomAndCar(int symptomId) async {
     var carModel =
         await _getModel(_booking!.car.carModel, _booking!.car.carBrand);
@@ -393,6 +401,48 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                     },
                                   ),
                                 ),
+                                AppStyles.divider(padding: EdgeInsets.zero),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.sp),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Tổng chi phí dự kiến",
+                                          style: AppStyles.header600(
+                                              fontsize: 12.sp),
+                                        ),
+                                        const Spacer(),
+                                        FutureBuilder(
+                                          future: _sumExpectedPrice(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasError) {
+                                              return Text(
+                                                '0',
+                                                style: AppStyles.header600(
+                                                    fontsize: 12.sp),
+                                              );
+                                            }
+                                            if (!snapshot.hasData) {
+                                              return Text(
+                                                "0",
+                                                style: AppStyles.header600(
+                                                    fontsize: 12.sp),
+                                              );
+                                            }
+                                            return Text(
+                                              formatCurrency(snapshot.data),
+                                              style: AppStyles.header600(
+                                                  fontsize: 12.sp),
+                                            );
+                                          },
+                                        ),
+                                        
+                                      ]),
+                                ),
+                                AppStyles.divider(padding: EdgeInsets.zero),
                                 Visibility(
                                     visible:
                                         _booking!.unresolvedProblems.isNotEmpty,
