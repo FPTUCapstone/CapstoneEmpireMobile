@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
 import 'package:empiregarage_mobile/models/response/check_out_qr_code_response_model.dart';
+import 'package:empiregarage_mobile/models/response/workload.dart';
 
 import '../../common/api_part.dart';
 import '../../common/jwt_interceptor.dart';
@@ -142,6 +143,34 @@ class OrderServices {
         } else {
           return null;
         }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+  Future<Workload?> getWorkload(int expertId) async {
+    String apiUrl = "${APIPath.path}/workloads?expertId=$expertId";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        var workload = Workload.fromJson(jsonDecode(response.body));
+        return workload;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+  Future<Workload?> getExpectedWorkload(int expertId, int totalPoints) async {
+    String apiUrl = "${APIPath.path}/workloads/expected-finish-time?expertId=$expertId&points=$totalPoints";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        var workload = Workload.fromJson(jsonDecode(response.body));
+        return workload;
       }
     } catch (e) {
       log(e.toString());

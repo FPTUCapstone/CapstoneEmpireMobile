@@ -3,6 +3,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
+import 'package:empiregarage_mobile/models/response/workload.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,16 @@ class _OnDoingServiceState extends State<OnDoingService> {
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
   bool _expand = false;
+  Workload? _workload;
+
+  _getExpertWorkload() async {
+    if (_orderServicesResponseModel!.expert != null) {
+      var workload = await OrderServices().getWorkload(_orderServicesResponseModel!.expert!.id);
+      setState(() {
+        _workload = workload;
+      });
+    }
+  }
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
@@ -70,6 +81,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
             sum += int.parse(item.price.toString());
           }
           sumAfter = sum - prepaid;
+          _getExpertWorkload();
           _loading = false;
         });
       }
@@ -126,6 +138,41 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   ),
                 ),
                 const Divider(thickness: 1),
+                _workload != null ? Column(
+          children: [
+            SizedBox(
+              height: 10.sp,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.sp),
+              child: Text(
+                "Thời gian hoàn thành sửa chữa dự kiến",
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5.sp,
+            ),
+            Text(
+              formatDate(_workload!.intendedFinishTime.toString(), true),
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.blackTextColor,
+              ),
+            ),
+            SizedBox(
+              height: 10.sp,
+            ),
+            const Divider(thickness: 1),
+          ],
+        ) : Container(),
                 SizedBox(height: 10.sp),
                 Text(
                   "Kết quả chuẩn đoán",

@@ -1,5 +1,8 @@
+import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
+import 'package:empiregarage_mobile/models/response/workload.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
+import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,6 +18,23 @@ class OnGoingServiceBody extends StatefulWidget {
 }
 
 class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
+  Workload? _workload;
+
+  _getExpertWorkload() async {
+    if (widget.expert != null) {
+      var workload = await OrderServices().getWorkload(widget.expert!.id);
+      setState(() {
+        _workload = workload;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _getExpertWorkload();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,6 +72,47 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
           padding: EdgeInsets.symmetric(horizontal: 20.sp),
           child: const Divider(thickness: 1),
         ),
+        _workload != null ? Column(
+          children: [
+            SizedBox(
+              height: 10.sp,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.sp),
+              child: Text(
+                "Thời gian hoàn thành chẩn đoán dự kiến",
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5.sp,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.sp),
+              child: Text(
+                formatDate(_workload!.intendedFinishTime.toString(), true),
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.sp,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.sp),
+              child: const Divider(thickness: 1),
+            ),
+          ],
+        ) : Container(),
         ListTile(
           leading: Image.asset(
             "assets/image/service-picture/mechanicPic.png",

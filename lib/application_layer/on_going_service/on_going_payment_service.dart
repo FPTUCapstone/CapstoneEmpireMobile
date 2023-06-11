@@ -5,6 +5,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
+import 'package:empiregarage_mobile/models/response/workload.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/payment_services/payment_services.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,23 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   bool _loading = true;
   bool _expand = false;
   int _totalMinutes = 0;
+  Workload? _workload;
+
+  _getExpectedWorkload() async {
+    if (_orderServicesResponseModel != null) {
+      var currentExpertWorkload = await OrderServices()
+          .getWorkload(_orderServicesResponseModel!.expert!.id);
+      if (currentExpertWorkload != null) {
+        var totalPoints =
+            _totalMinutes / currentExpertWorkload.minutesPerWorkload;
+        var workload = await OrderServices().getExpectedWorkload(
+            _orderServicesResponseModel!.expert!.id, totalPoints.toInt());
+        setState(() {
+          _workload = workload;
+        });
+      }
+    }
+  }
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
@@ -70,6 +88,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
           sum += prepaid;
           sumAfter = sum - prepaid;
           _calculateTotalIntendedMinutes();
+          _getExpectedWorkload();
           _loading = false;
         });
       }
@@ -202,15 +221,52 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 SizedBox(height: 10.sp),
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),
-                Text(
-                  "Thời gian sửa chữa dự tính: $_totalMinutes phút",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
-                  ),
+                RichText(
+                  text: TextSpan(
+                      text: "Ước lượng: ",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.blackTextColor,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "$_totalMinutes phút",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
+                          ),
+                        ),
+                      ]),
                 ),
+                _workload != null ? SizedBox(height: 5.sp) : Container(),
+                _workload != null
+                    ? RichText(
+                        text: TextSpan(
+                            text: "Thời gian sửa chữa hoàn tất dự kiến: ",
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blackTextColor,
+                            ),
+                            children: [
+                              TextSpan(
+                                text:
+                                    formatDate(_workload!.intendedFinishTime.toString(), true),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              )
+                            ]),
+                      )
+                    : Container(),
                 SizedBox(height: 10.sp),
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),
