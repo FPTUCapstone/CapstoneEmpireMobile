@@ -22,7 +22,7 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
 
   _getExpertWorkload() async {
     if (widget.expert != null) {
-      var workload = await OrderServices().getWorkload(widget.expert!.id);
+      var workload = await OrderServices().getOrderServiceWorkload(widget.expert!.id, widget.order.id);
       setState(() {
         _workload = workload;
       });

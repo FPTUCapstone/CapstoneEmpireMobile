@@ -177,4 +177,18 @@ class OrderServices {
     }
     return null;
   }
+
+  Future<Workload?> getOrderServiceWorkload(int expertId, int orderServiceId) async {
+    String apiUrl = "${APIPath.path}/workloads/by-order-service?expertId=$expertId&orderServiceId=$orderServiceId";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        var workload = Workload.fromJson(jsonDecode(response.body));
+        return workload;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 }

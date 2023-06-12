@@ -50,7 +50,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
 
   _getExpertWorkload() async {
     if (_orderServicesResponseModel!.expert != null) {
-      var workload = await OrderServices().getWorkload(_orderServicesResponseModel!.expert!.id);
+      var workload = await OrderServices().getOrderServiceWorkload(_orderServicesResponseModel!.expert!.id, _orderServicesResponseModel!.id);
       setState(() {
         _workload = workload;
       });
