@@ -223,15 +223,6 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                             }
                           },
                           children: [
-                            Text(
-                              healthCarRecordProblem.problem.name.toString(),
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
                             SizedBox(height: 5.sp),
                             ListView.builder(
                               shrinkWrap: true,
@@ -277,8 +268,8 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                     margin: EdgeInsets.symmetric(
                                         horizontal: 5.sp, vertical: 5.sp),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      // mainAxisAlignment:
+                                      //     MainAxisAlignment.spaceBetween,
                                       children: [
                                         Icon(
                                           _checkService(item)
