@@ -944,7 +944,33 @@ class _BookingInfoState extends State<BookingInfo> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(() => ChosePaymentMethod(excute: executeBook));
+                      if(_listSymptom.isEmpty && _unresolvedProblems.isEmpty){
+                        Get.bottomSheet(
+                          BottomPopup(
+                            image: 'assets/image/icon-logo/failed-icon.png',
+                            title: "Đặt lịch thất bại",
+                            body: 'Vui lòng nhập triệu chứng',
+                            buttonTitle: "Thử lại",
+                            action: () {
+                              Get.back();
+                            },
+                          ),
+                          backgroundColor: Colors.transparent,
+                        );
+                      } else{
+                        Get.bottomSheet(
+                          BottomPopup(
+                            image: 'assets/image/service-picture/paying.png',
+                            title: "Bạn có muốn thanh toán không?",
+                            body: '',
+                            buttonTitle: "Tiếp tục",
+                            action: () {
+                              Get.to(() => ChosePaymentMethod(excute: executeBook));
+                            },
+                          ),
+                          backgroundColor: Colors.transparent,
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonColor,
@@ -954,7 +980,7 @@ class _BookingInfoState extends State<BookingInfo> {
                       ),
                     ),
                     child: Text(
-                      'Tiếp tục',
+                      'Thanh toán',
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 15.sp,
