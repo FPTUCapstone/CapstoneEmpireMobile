@@ -47,12 +47,21 @@ class _OnDoingServiceState extends State<OnDoingService> {
   bool _loading = true;
   bool _expand = false;
   Workload? _workload;
+  Workload? _startWorkload;
 
   _getExpertWorkload() async {
     if (_orderServicesResponseModel!.expert != null) {
-      var workload = await OrderServices().getOrderServiceWorkload(_orderServicesResponseModel!.expert!.id, _orderServicesResponseModel!.id);
+      var workload = await OrderServices().getOrderServiceWorkload(
+          _orderServicesResponseModel!.expert!.id,
+          _orderServicesResponseModel!.id);
+      if (workload != null) {
+        var startWorkload = await OrderServices()
+            .getStartWorkload(_orderServicesResponseModel!.expert!.id, _orderServicesResponseModel!.id);
+        _startWorkload = startWorkload;
+      }
       setState(() {
         _workload = workload;
+        _startWorkload;
       });
     }
   }
@@ -138,41 +147,49 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   ),
                 ),
                 const Divider(thickness: 1),
-                _workload != null ? Column(
-          children: [
-            SizedBox(
-              height: 10.sp,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.sp),
-              child: Text(
-                "Thời gian hoàn thành sửa chữa dự kiến",
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.blackTextColor,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5.sp,
-            ),
-            Text(
-              formatDate(_workload!.intendedFinishTime.toString(), true),
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.blackTextColor,
-              ),
-            ),
-            SizedBox(
-              height: 10.sp,
-            ),
-            const Divider(thickness: 1),
-          ],
-        ) : Container(),
+                (_workload != null && _startWorkload != null)
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 10.sp,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: Text(
+                              "Thời gian sửa chữa dự kiến",
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.sp,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: Text(
+                              "${formatDateIncludeTime(_startWorkload!.intendedFinishTime.toString(), false)} - ${formatDateIncludeTime(_workload!.intendedFinishTime.toString(), false)}",
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.sp,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            child: const Divider(thickness: 1),
+                          ),
+                        ],
+                      )
+                    : Container(),
                 SizedBox(height: 10.sp),
                 Text(
                   "Kết quả chuẩn đoán",

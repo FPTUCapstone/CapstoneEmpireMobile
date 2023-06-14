@@ -15,6 +15,20 @@ String formatDate(String dateTime, bool? includeTime) {
   return formattedDate;
 }
 
+String formatDateIncludeTime(String dateTime, bool? includeYear) {
+  var value = DateTime.parse(dateTime);
+  NumberFormat formatter = NumberFormat("00");
+  String formattedDate = "";
+  if (includeYear == true) {
+    formattedDate =
+        "${formatter.format(value.hour)}:${formatter.format(value.minute)}, ${formatter.format(value.day)}/${formatter.format(value.month)}/${value.year}";
+  } else {
+    formattedDate =
+        "${formatter.format(value.hour)}:${formatter.format(value.minute)}, ${formatter.format(value.day)}/${formatter.format(value.month)}";
+  }
+  return formattedDate;
+}
+
 String formatCurrency(dynamic number) {
   return NumberFormat.currency(decimalDigits: 0, locale: 'vi_VN', symbol: 'đ')
       .format(number)

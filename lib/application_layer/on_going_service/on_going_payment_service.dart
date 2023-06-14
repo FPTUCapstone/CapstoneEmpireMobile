@@ -47,6 +47,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
   bool _expand = false;
   int _totalMinutes = 0;
   Workload? _workload;
+  Workload? _currentExpertWorkload;
 
   _getExpectedWorkload() async {
     if (_orderServicesResponseModel != null) {
@@ -59,6 +60,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
             _orderServicesResponseModel!.expert!.id, totalPoints.toInt());
         setState(() {
           _workload = workload;
+          _currentExpertWorkload = currentExpertWorkload;
         });
       }
     }
@@ -221,6 +223,56 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 SizedBox(height: 10.sp),
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),
+                _currentExpertWorkload != null
+                    ? RichText(
+                        text: TextSpan(
+                            text: "Thời gian bắt đầu dự kiến: ",
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blackTextColor,
+                            ),
+                            children: [
+                              TextSpan(
+                                text:
+                                    formatDate(_currentExpertWorkload!.intendedFinishTime.toString(), true),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              )
+                            ]),
+                      )
+                    : Container(),
+                _currentExpertWorkload != null ? SizedBox(height: 5.sp) : Container(),
+                _workload != null
+                    ? RichText(
+                        text: TextSpan(
+                            text: "Thời gian hoàn tất dự kiến: ",
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blackTextColor,
+                            ),
+                            children: [
+                              TextSpan(
+                                text:
+                                    formatDate(_workload!.intendedFinishTime.toString(), true),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              )
+                            ]),
+                      )
+                    : Container(),
+                _workload != null ? SizedBox(height: 5.sp) : Container(),
                 RichText(
                   text: TextSpan(
                       text: "Ước lượng: ",
@@ -235,38 +287,13 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           text: "$_totalMinutes phút",
                           style: TextStyle(
                             fontFamily: 'Roboto',
-                            fontSize: 12.sp,
+                            fontSize: 10.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blackTextColor,
                           ),
                         ),
                       ]),
                 ),
-                _workload != null ? SizedBox(height: 5.sp) : Container(),
-                _workload != null
-                    ? RichText(
-                        text: TextSpan(
-                            text: "Thời gian sửa chữa hoàn tất dự kiến: ",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.blackTextColor,
-                            ),
-                            children: [
-                              TextSpan(
-                                text:
-                                    formatDate(_workload!.intendedFinishTime.toString(), true),
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              )
-                            ]),
-                      )
-                    : Container(),
                 SizedBox(height: 10.sp),
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),

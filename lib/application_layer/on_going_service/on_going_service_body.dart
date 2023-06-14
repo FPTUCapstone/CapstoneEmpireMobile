@@ -19,12 +19,20 @@ class OnGoingServiceBody extends StatefulWidget {
 
 class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
   Workload? _workload;
+  Workload? _startWorkload;
 
   _getExpertWorkload() async {
     if (widget.expert != null) {
-      var workload = await OrderServices().getOrderServiceWorkload(widget.expert!.id, widget.order.id);
+      var workload = await OrderServices()
+          .getOrderServiceWorkload(widget.expert!.id, widget.order.id);
+      if (workload != null) {
+        var startWorkload = await OrderServices()
+            .getStartWorkload(widget.expert!.id, widget.order.id);
+        _startWorkload = startWorkload;
+      }
       setState(() {
         _workload = workload;
+        _startWorkload;
       });
     }
   }
@@ -72,47 +80,49 @@ class _OnGoingServiceBodyState extends State<OnGoingServiceBody> {
           padding: EdgeInsets.symmetric(horizontal: 20.sp),
           child: const Divider(thickness: 1),
         ),
-        _workload != null ? Column(
-          children: [
-            SizedBox(
-              height: 10.sp,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.sp),
-              child: Text(
-                "Thời gian hoàn thành chẩn đoán dự kiến",
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.blackTextColor,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5.sp,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.sp),
-              child: Text(
-                formatDate(_workload!.intendedFinishTime.toString(), true),
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blackTextColor,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.sp,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.sp),
-              child: const Divider(thickness: 1),
-            ),
-          ],
-        ) : Container(),
+        (_workload != null && _startWorkload != null)
+            ? Column(
+                children: [
+                  SizedBox(
+                    height: 10.sp,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                    child: Text(
+                      "Thời gian chẩn đoán dự kiến",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5.sp,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                    child: Text(
+                      "${formatDateIncludeTime(_startWorkload!.intendedFinishTime.toString(), false)} - ${formatDateIncludeTime(_workload!.intendedFinishTime.toString(), false)}",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.sp,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                    child: const Divider(thickness: 1),
+                  ),
+                ],
+              )
+            : Container(),
         ListTile(
           leading: Image.asset(
             "assets/image/service-picture/mechanicPic.png",
