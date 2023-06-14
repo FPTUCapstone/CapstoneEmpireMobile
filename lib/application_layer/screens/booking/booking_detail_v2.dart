@@ -381,20 +381,20 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                                 child: item.expectedPrice ==
                                                         null
                                                     ? Text(
-                                                        "Chưa định giá",
+                                                        "Định giá sau chẩn đoán",
                                                         style:
                                                             AppStyles.text400(
                                                                 fontsize:
                                                                     10.sp),
                                                       )
                                                     : Text(
-                                                        formatCurrency(
-                                                            item.expectedPrice),
-                                                        style:
-                                                            AppStyles.text400(
-                                                                fontsize:
-                                                                    10.sp),
-                                                      )),
+                                                      formatCurrency(item
+                                                          .expectedPrice),
+                                                      style: AppStyles
+                                                          .text400(
+                                                              fontsize:
+                                                                  10.sp),
+                                                    )),
                                           ],
                                         ),
                                       );
@@ -410,7 +410,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Tổng chi phí dự kiến",
+                                          "Tổng chi phí dự kiến tối thiểu",
                                           style: AppStyles.header600(
                                               fontsize: 12.sp),
                                         ),
@@ -439,7 +439,6 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                             );
                                           },
                                         ),
-                                        
                                       ]),
                                 ),
                                 AppStyles.divider(padding: EdgeInsets.zero),

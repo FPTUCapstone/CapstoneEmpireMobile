@@ -62,29 +62,6 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
         toolbarHeight: 80.sp,
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
-        leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.sp),
-          child: Container(
-            height: 42,
-            width: 42,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.transparent,
-              border: Border.all(
-                color: AppColors.searchBarColor,
-                width: 1.0,
-              ),
-            ),
-            child: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(
-                  Icons.arrow_back_outlined,
-                  color: AppColors.blackTextColor,
-                )),
-          ),
-        ),
         leadingWidth: 84.sp,
         centerTitle: true,
         title: Text('Kết quả chẩn đoán',

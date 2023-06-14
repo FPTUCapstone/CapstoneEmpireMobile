@@ -162,7 +162,7 @@ class _TagEditorState extends State<TagEditor> {
                   Row(
                     children: [
                       Text(
-                        "Giá dự kiến",
+                        "Giá dự kiến tối thiểu",
                         style: AppStyles.header600(fontsize: 12.sp),
                       ),
                       const SizedBox(
@@ -190,13 +190,13 @@ class _TagEditorState extends State<TagEditor> {
                     children: [
                       tag.expectedPrice == null
                           ? Text(
-                              "Chưa định giá",
+                              "Định giá sau chẩn đoán",
                               style: AppStyles.text400(fontsize: 10.sp),
                             )
                           : Text(
-                              formatCurrency(tag.expectedPrice),
-                              style: AppStyles.text400(fontsize: 10.sp),
-                            ),
+                            formatCurrency(tag.expectedPrice),
+                            style: AppStyles.text400(fontsize: 10.sp),
+                          ),
                       const SizedBox(
                         width: 10,
                       ),
@@ -230,7 +230,7 @@ class _TagEditorState extends State<TagEditor> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Tổng chi phí dự kiến",
+                        "Tổng chi phí dự kiến tối thiểu",
                         style: AppStyles.header600(fontsize: 12.sp),
                       ),
                       Row(
