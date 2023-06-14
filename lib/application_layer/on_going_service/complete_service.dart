@@ -1,5 +1,6 @@
 import 'package:empiregarage_mobile/application_layer/on_going_service/check_out_qrcode_page.dart';
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
+import 'package:empiregarage_mobile/application_layer/screens/orders/order_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
@@ -99,17 +100,6 @@ class _CompleteServiceState extends State<CompleteService> {
                 SizedBox(
                   height: 10.sp,
                 ),
-                Center(
-                  child: Text(
-                    "Phương tiện đã được sửa chữa hoàn tất",
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                    ),
-                  ),
-                ),
                 InkWell(
                   onTap: () async {
                     Get.to(() => CheckOutQRCodePage(
@@ -142,6 +132,42 @@ class _CompleteServiceState extends State<CompleteService> {
                         )
                       ],
                     ),
+                  ),
+                ),
+                Center(
+
+                  child: Column(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => OrderDetail(_orderServicesResponseModel!));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(5.sp),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Xem ghi chú và đính kèm hình ảnh từ kỹ thuật viên',
+                                style: AppStyles.header600(
+                                    fontsize: 10.sp,
+                                    color: AppColors
+                                        .blackTextColor),
+                              ),
+                              const Icon(
+                                Icons
+                                    .navigate_next_outlined,
+                                color: AppColors
+                                    .blueTextColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const Divider(thickness: 1),
