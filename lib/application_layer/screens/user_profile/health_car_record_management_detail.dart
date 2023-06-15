@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/screens/activities/service_activity_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -31,6 +32,11 @@ class _HealthCarRecordManagementDetailState
 
   _getCarProfile(int carId) async {
     var car = await CarService().getCarProfle(carId);
+    if (car != null) {
+      car.healthCarRecords.sort(
+        (a, b) => b.createdAt.compareTo(a.createdAt),
+      );
+    }
     setState(() {
       _car = car;
       _loading = false;
@@ -118,9 +124,6 @@ class _HealthCarRecordManagementDetailState
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 20.h,
-                                ),
-                                SizedBox(
                                   height: 15.h,
                                 ),
                                 const Divider(
@@ -151,141 +154,8 @@ class _HealthCarRecordManagementDetailState
                                 SizedBox(height: 10.sp),
                                 const Divider(thickness: 1),
                                 SizedBox(height: 10.sp),
-                                // Text(
-                                //   "Các vấn đề đã hoàn tất",
-                                //   style: TextStyle(
-                                //     fontFamily: 'Roboto',
-                                //     fontSize: 12.sp,
-                                //     fontWeight: FontWeight.w600,
-                                //     color: AppColors.blackTextColor,
-                                //   ),
-                                // ),
-                                // SizedBox(height: 5.sp),
-                                // Text(
-                                //   "Danh sách những dịch vụ đã hoàn tất sửa chữa",
-                                //   style: TextStyle(
-                                //     fontFamily: 'Roboto',
-                                //     fontSize: 10.sp,
-                                //     fontWeight: FontWeight.w400,
-                                //     color: AppColors.lightTextColor,
-                                //   ),
-                                // ),
-                                // SizedBox(height: 15.sp),
-                                // Text(
-                                //   "Tên dịch vụ",
-                                //   style: TextStyle(
-                                //     fontFamily: 'Roboto',
-                                //     fontSize: 12.sp,
-                                //     fontWeight: FontWeight.w600,
-                                //     color: AppColors.blackTextColor,
-                                //   ),
-                                // ),
-                                // SizedBox(height: 15.sp),
-                                // ListView.builder(
-                                //     shrinkWrap: true,
-                                //     physics:
-                                //         const NeverScrollableScrollPhysics(),
-                                //     itemCount: record.problems.length,
-                                //     itemBuilder: (context, index) {
-                                //       var hcrproblem = record.problems[index];
-                                //       return Column(
-                                //         crossAxisAlignment:
-                                //             CrossAxisAlignment.start,
-                                //         children: [
-                                //           GestureDetector(
-                                //             onTap: () {
-                                //               //TODO
-                                //             },
-                                //             child: Row(
-                                //               children: [
-                                //                 Text(
-                                //                   hcrproblem.problem.name,
-                                //                   style: TextStyle(
-                                //                     fontFamily: 'Roboto',
-                                //                     fontSize: 10.sp,
-                                //                     fontWeight: FontWeight.w600,
-                                //                     color: AppColors
-                                //                         .blackTextColor,
-                                //                   ),
-                                //                 ),
-                                //                 const Spacer(),
-                                //                 const Icon(
-                                //                   Icons.arrow_forward_ios,
-                                //                   color:
-                                //                       AppColors.blackTextColor,
-                                //                   size: 22,
-                                //                 )
-                                //               ],
-                                //             ),
-                                //           ),
-                                //           SizedBox(height: 5.sp),
-                                //           ListView.builder(
-                                //             shrinkWrap: true,
-                                //             physics:
-                                //                 const NeverScrollableScrollPhysics(),
-                                //             itemCount:
-                                //                 hcrproblem.problem.items.length,
-                                //             itemBuilder: (context, index) {
-                                //               var item = hcrproblem
-                                //                   .problem.items[index];
-                                //               return Container(
-                                //                 margin: EdgeInsets.symmetric(
-                                //                     horizontal: 5.sp,
-                                //                     vertical: 5.sp),
-                                //                 child: Row(
-                                //                   mainAxisAlignment:
-                                //                       MainAxisAlignment
-                                //                           .spaceBetween,
-                                //                   children: [
-                                //                     Text(
-                                //                       item.name.toString(),
-                                //                       style: TextStyle(
-                                //                         fontFamily: 'Roboto',
-                                //                         fontSize: 10.sp,
-                                //                         fontWeight:
-                                //                             FontWeight.w400,
-                                //                         color: AppColors
-                                //                             .blackTextColor,
-                                //                       ),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //               );
-                                //             },
-                                //           ),
-                                //           SizedBox(height: 10.sp),
-                                //         ],
-                                //       );
-                                //     }),
-                                const Divider(thickness: 1),
-                                GestureDetector(
-                                  onTap: () {
-                                    //TODO
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Xem chi tiết hóa đơn",
-                                        style: TextStyle(
-                                          fontFamily: 'Roboto',
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.blue600,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      const Icon(
-                                        Icons.arrow_forward_ios,
-                                        color: AppColors.blueTextColor,
-                                        size: 14,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                const Divider(thickness: 1),
-                                SizedBox(height: 10.sp),
                                 Text(
-                                  "Vấn đề được phát hiện dựa trên kết quả phân tích",
+                                  "Các vấn đề được tìm thấy",
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 12.sp,
@@ -295,22 +165,12 @@ class _HealthCarRecordManagementDetailState
                                 ),
                                 SizedBox(height: 5.sp),
                                 Text(
-                                  "Danh sách sau bao gồm các dịch vụ gợi ý",
+                                  "Danh sách sau bao gồm những dịch vụ gợi ý",
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 10.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.lightTextColor,
-                                  ),
-                                ),
-                                SizedBox(height: 15.sp),
-                                Text(
-                                  "Tên vấn đề",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
                                   ),
                                 ),
                                 SizedBox(height: 15.sp),
@@ -324,40 +184,156 @@ class _HealthCarRecordManagementDetailState
                                       return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10,right: 10),
+                                          GestureDetector(
+                                            onTap: () {
+                                              //TODO
+                                            },
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   hcrproblem.problem.name,
                                                   style: TextStyle(
                                                     fontFamily: 'Roboto',
-                                                    fontSize: 10.sp,
+                                                    fontSize: 12.sp,
                                                     fontWeight: FontWeight.w400,
-                                                    color:
-                                                        AppColors.blackTextColor,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  hcrproblem.problem.items[index].presentPrice.toString(),
-                                                  style: TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 10.sp,
-                                                    fontWeight: FontWeight.w600,
                                                     color: AppColors
                                                         .blackTextColor,
                                                   ),
                                                 ),
+                                                Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color:
+                                                      AppColors.blackTextColor,
+                                                  size: 12.sp,
+                                                )
                                               ],
                                             ),
                                           ),
-                                          SizedBox(height: 15.sp),
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount:
+                                                hcrproblem.problem.items.length,
+                                            itemBuilder: (context, index) {
+                                              var item = hcrproblem
+                                                  .problem.items[index];
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 5.sp),
+                                                child: Text(
+                                                  item.name.toString(),
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 10.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColors.grey500,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          SizedBox(height: 5.sp),
                                         ],
                                       );
                                     }),
+                                record.orderServiceId != null
+                                    ? Column(
+                                        children: [
+                                          SizedBox(height: 10.sp),
+                                          InkWell(
+                                            onTap: () {
+                                              Get.to(
+                                                  () => ServiceActivityDetail(
+                                                        orderServicesId: record
+                                                            .orderServiceId!,
+                                                      ));
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Xem chi tiết hóa đơn",
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 10.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColors.blue600,
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color:
+                                                      AppColors.blueTextColor,
+                                                  size: 12.sp,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                                // SizedBox(height: 5.sp),
+                                // const Divider(thickness: 1),
+                                // SizedBox(height: 10.sp),
+                                // Text(
+                                //   "Các vấn đề chưa sửa chữa",
+                                //   style: TextStyle(
+                                //     fontFamily: 'Roboto',
+                                //     fontSize: 12.sp,
+                                //     fontWeight: FontWeight.w600,
+                                //     color: AppColors.blackTextColor,
+                                //   ),
+                                // ),
+                                // SizedBox(height: 5.sp),
+                                // Text(
+                                //   "Danh sách sau bao gồm các dịch vụ gợi ý",
+                                //   style: TextStyle(
+                                //     fontFamily: 'Roboto',
+                                //     fontSize: 10.sp,
+                                //     fontWeight: FontWeight.w400,
+                                //     color: AppColors.lightTextColor,
+                                //   ),
+                                // ),
+                                // SizedBox(height: 15.sp),
+                                // ListView.builder(
+                                //   shrinkWrap: true,
+                                //   itemCount: record.problems.where((element) => _car!.unresolvedProblems.any((e) => e.id == element.problem.id)).length,
+                                //   itemBuilder: (context, index) {
+                                //     var problem = record.problems.where((element) => _car!.unresolvedProblems.any((e) => e.id == element.problem.id)).toList()[index];
+                                //     return Column(
+                                //         crossAxisAlignment:
+                                //             CrossAxisAlignment.start,
+                                //         children: [
+                                //           Text(
+                                //             problem.problem.name,
+                                //             style: TextStyle(
+                                //               fontFamily: 'Roboto',
+                                //               fontSize: 12.sp,
+                                //               fontWeight: FontWeight.w600,
+                                //               color: AppColors.blackTextColor,
+                                //             ),
+                                //           ),
+                                //           ListView.builder(
+                                //             shrinkWrap: true,
+                                //             itemCount:
+                                //                 problem.problem.items.length,
+                                //             itemBuilder: (context, index) {
+                                //               var item =
+                                //                   problem.problem.items[index];
+                                //               return Text(item.name);
+                                //             },
+                                //           )
+                                //         ]);
+                                //   },
+                                // ),
+                                SizedBox(height: 15.sp),
                               ]),
                         ),
                       ),

@@ -81,6 +81,7 @@ class HealthCarRecord {
   final String symptom;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final int? orderServiceId;
   final List<HealthCarRecordProblem> problems;
 
   HealthCarRecord({
@@ -89,6 +90,7 @@ class HealthCarRecord {
     required this.createdAt,
     required this.updatedAt,
     required this.problems,
+    this.orderServiceId,
   });
 
   factory HealthCarRecord.fromJson(Map<String, dynamic> json) {
@@ -100,6 +102,7 @@ class HealthCarRecord {
       symptom: json['symptom'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      orderServiceId: json['orderServiceId'],
       problems: problems,
     );
   }

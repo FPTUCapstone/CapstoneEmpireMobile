@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/screens/orders/order_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/pick_date_booking.dart';
 import 'package:empiregarage_mobile/common/app_settings.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -511,22 +512,27 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                   child: const Divider(thickness: 1),
                                 )),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.sp, vertical: 10.sp),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Kết quả chẩn đoán',
-                                      style: AppStyles.header600(
-                                          fontsize: 10.sp,
-                                          color: AppColors.blueTextColor),
-                                    ),
-                                    const Icon(Icons.navigate_next,
-                                        color: AppColors.blueTextColor)
-                                  ],
+                              InkWell(
+                                onTap: () {
+                                  Get.to(() => OrderDetail(_orderServices!));
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 10.sp),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Kết quả chẩn đoán',
+                                        style: AppStyles.header600(
+                                            fontsize: 10.sp,
+                                            color: AppColors.blueTextColor),
+                                      ),
+                                      const Icon(Icons.navigate_next,
+                                          color: AppColors.blueTextColor)
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
