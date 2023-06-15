@@ -26,6 +26,7 @@ class _CarManagementState extends State<CarManagement> {
   late int _selectedCar;
   bool _loading = true;
   final TextEditingController _searchController = TextEditingController();
+  List<CarResponseModel> _initListCar = [];
 
   @override
   void initState() {
@@ -41,6 +42,7 @@ class _CarManagementState extends State<CarManagement> {
     if (!mounted) return;
     setState(() {
       _listCar = listCar;
+      _initListCar = listCar;
       _loading = false;
     });
   }
@@ -51,6 +53,16 @@ class _CarManagementState extends State<CarManagement> {
       widget.onSelected(selectedCar);
     });
     Get.back();
+  }
+
+  void _runFilter(String searchString){
+    if(searchString.isNotEmpty){
+      setState(() {
+        _listCar = _initListCar
+            .where((element) => element.carLisenceNo.toLowerCase()
+            .contains(searchString.toLowerCase())).toList();
+      });
+    }
   }
 
   @override
@@ -132,11 +144,8 @@ class _CarManagementState extends State<CarManagement> {
               width: 335.w,
               height: 45.h,
               child: TextField(
-                focusNode: FocusNode(canRequestFocus: true),
-                onSubmitted: (value) => {
-
-                },
-                controller: _searchController,
+                //focusNode: FocusNode(canRequestFocus: true),
+                onChanged: (value) => _runFilter(value),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.lightGrey500,
@@ -159,7 +168,7 @@ class _CarManagementState extends State<CarManagement> {
                   hintText: 'Tìm kiếm...',
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 1.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
                   ),

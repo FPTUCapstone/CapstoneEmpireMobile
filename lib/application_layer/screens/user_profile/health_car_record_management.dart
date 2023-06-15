@@ -1,6 +1,4 @@
-import 'package:empiregarage_mobile/application_layer/screens/search/search.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
-import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,6 +27,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
   late int _selectedCar;
   bool _loading = true;
   final TextEditingController _searchController = TextEditingController();
+  List<CarResponseModel> _initListCar = [];
 
   @override
   void initState() {
@@ -44,6 +43,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
     if (!mounted) return;
     setState(() {
       _listCar = listCar.where((element) => element.isNew == false).toList();
+      _initListCar = listCar;
       _loading = false;
     });
   }
@@ -54,6 +54,16 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
       widget.onSelected(selectedCar);
     });
     Get.back();
+  }
+
+  void _runFilter(String searchString){
+    if(searchString.isNotEmpty){
+      setState(() {
+        _listCar = _initListCar
+            .where((element) => element.carLisenceNo.toLowerCase()
+            .contains(searchString.toLowerCase())).toList();
+      });
+    }
   }
 
   @override
@@ -107,11 +117,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
               width: 335.w,
               height: 45.h,
               child: TextField(
-                focusNode: FocusNode(canRequestFocus: true),
-                onSubmitted: (value) => {
-
-                },
-                controller: _searchController,
+                onChanged: (value) => _runFilter(value),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.lightGrey500,
@@ -134,7 +140,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
                   hintText: 'Tìm kiếm...',
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
-                    fontSize: 1.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightTextColor,
                   ),
@@ -153,7 +159,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
                       itemBuilder: (context, index) => Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
                         child: CarChipManagement(
-                          car: _listCar[index],
+                          car: _listCar[index] ,
                           selectedCar: _selectedCar,
                           onSelected: _onCarSelected,
                         ),
