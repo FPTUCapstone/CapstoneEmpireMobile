@@ -86,51 +86,43 @@ class _OrderDetailState extends State<OrderDetail> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.sp),
-                      ),
                       InkWell(
                         onTap: () {
-                          Get.to(OrderServiceDetail(index,
-                              widget._orderServicesResponseModel));
+                          Get.to(OrderServiceDetail(
+                              index, widget._orderServicesResponseModel));
                         },
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Text(
-                                widget._orderServicesResponseModel
-                                    .orderServiceDetails![index].item!.name
-                                    .toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12.sp,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Spacer(),
-                              IconButton(
-                                  onPressed: () {
-                                    Get.to(OrderServiceDetail(widget._orderServicesResponseModel.id, widget._orderServicesResponseModel));
-                                  },
-                                  icon: const Icon(
-                                    Icons.keyboard_arrow_right,
-                                    color: AppColors.blueTextColor,
-                                  )),
-                            ],
+                        child: ListTile(
+                          title: Text(
+                            widget._orderServicesResponseModel
+                                .orderServiceDetails![index].item!.name
+                                .toString(),
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12.sp,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                      ),
-
-                      Text(
-                        widget._orderServicesResponseModel
-                            .orderServiceDetails![index].item!.problem!.name
-                            .toString(),
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.sp,
-                          color: AppColors.lightTextColor,
+                          subtitle: Text(
+                            widget._orderServicesResponseModel
+                                .orderServiceDetails![index].item!.problem!.name
+                                .toString(),
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.sp,
+                              color: AppColors.lightTextColor,
+                            ),
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              Get.to(OrderServiceDetail(widget._orderServicesResponseModel.id, widget._orderServicesResponseModel));
+                            },
+                            icon: const Icon(
+                              Icons.keyboard_arrow_right,
+                              color: AppColors.blackTextColor,
+                            )
+                          ),
                         ),
                       ),
                     ],

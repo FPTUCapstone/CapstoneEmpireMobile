@@ -161,7 +161,7 @@ class _CompleteServiceState extends State<CompleteService> {
                                 Icons
                                     .navigate_next_outlined,
                                 color: AppColors
-                                    .blueTextColor,
+                                    .blackTextColor,
                               ),
                             ],
                           ),

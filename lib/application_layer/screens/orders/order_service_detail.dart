@@ -58,7 +58,50 @@ class _OrderServiceDetailState extends State<OrderServiceDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 250,
+              height: 300.h,
+              child: Stack(
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: widget._orderServicesResponseModel
+                        .orderServiceDetails![widget.orderId].images!.length,
+                    itemBuilder: (context, index){
+                      return Row(
+                        children: [
+                          Container(
+                            height: 300.h,
+                            decoration: BoxDecoration(
+                              image: widget._orderServicesResponseModel
+                                  .orderServiceDetails![widget.orderId].images![index].img != "null"
+                                  ? DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(widget._orderServicesResponseModel
+                                    .orderServiceDetails![widget.orderId].images![index].img),
+                              )
+                                  : const DecorationImage(
+                                image: AssetImage(
+                                  "assets/image/error-image/no-image.png",
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Text(widget._orderServicesResponseModel
+                              .orderServiceDetails![widget.orderId].images![index].imgId.toString(),
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: AppColors.blackTextColor,
+                              )
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
             Row(
               children: [
