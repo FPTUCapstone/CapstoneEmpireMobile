@@ -334,6 +334,7 @@ class Item {
   String? photo;
   Category? category;
   SlimProblem? problem;
+  int? warranty;
 
   Item(
       {this.id,
@@ -343,7 +344,8 @@ class Item {
       this.description,
       this.photo,
       this.category,
-      this.problem});
+      this.problem,
+      this.warranty});
 
   Item.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -356,6 +358,7 @@ class Item {
         json['category'] != null ? Category.fromJson(json['category']) : null;
     problem =
         json['problem'] != null ? SlimProblem.fromJson(json['problem']) : null;
+    warranty = json['warranty'];
   }
 
   Map<String, dynamic> toJson() {
