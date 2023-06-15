@@ -28,6 +28,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
   double _bookingPrice = 0;
   double sum = 0;
   double sumAfter = 0;
+  bool _expand = false;
 
   List<String> serviceNames = [
     'Thay lốp',
@@ -269,20 +270,45 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                         bottom: 10.sp),
                                     child: Row(
                                       children: [
-                                        Text(
-                                          _orderServices!
-                                              .orderServiceDetails![index]
-                                              .item!
-                                              .name
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.blackTextColor,
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _orderServices!
+                                                    .orderServiceDetails![index]
+                                                    .item!
+                                                    .name
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.blackTextColor,
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: _expand,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 1.sp),
+                                                  child: Text(
+                                                      _orderServices!
+                                                          .orderServiceDetails![
+                                                              index]
+                                                          .item!
+                                                          .problem!
+                                                          .name
+                                                          .toString(),
+                                                      style: AppStyles.text400(
+                                                          fontsize: 10.sp,
+                                                          color: Colors
+                                                              .grey.shade500)),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        const Spacer(),
                                         Text(
                                           NumberFormat.currency(
                                                   decimalDigits: 0,
@@ -336,22 +362,31 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.sp, vertical: 5.sp),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Thêm chi tiết',
-                                      style: AppStyles.header600(
-                                          fontsize: 10.sp,
-                                          color: Colors.grey.shade500),
-                                    ),
-                                    Icon(Icons.keyboard_arrow_down,
-                                        color: Colors.grey.shade500)
-                                  ],
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _expand = !_expand;
+                                  });
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        _expand ? 'Thu gọn' : 'Thêm chi tiết',
+                                        style: AppStyles.header600(
+                                            fontsize: 10.sp,
+                                            color: Colors.grey.shade500),
+                                      ),
+                                      Icon(
+                                          _expand
+                                              ? Icons.keyboard_arrow_up
+                                              : Icons.keyboard_arrow_down,
+                                          color: Colors.grey.shade500)
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -368,78 +403,6 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                               SizedBox(
                                 height: 10.sp,
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 10.sp),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "Tổng tạm tính",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                    const Spacer(),
-
-                                    // Màn này chưa có hàm tính tổng nha Trung
-                                    Text(
-                                      NumberFormat.currency(
-                                              decimalDigits: 0,
-                                              locale: 'vi_VN',
-                                              symbol: 'đ')
-                                          .format(sum)
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.blackTextColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.sp,
-                              ),
-                              // Padding(
-                              //   padding:
-                              //       EdgeInsets.symmetric(horizontal: 10.sp),
-                              //   child: Row(
-                              //     children: [
-                              //       Text(
-                              //         "Khấu trừ từ đặt lịch",
-                              //         style: TextStyle(
-                              //           fontFamily: 'Roboto',
-                              //           fontSize: 10.sp,
-                              //           fontWeight: FontWeight.w600,
-                              //           color: Colors.red,
-                              //         ),
-                              //       ),
-                              //       const Spacer(),
-                              //       Text(
-                              //         NumberFormat.currency(
-                              //                 decimalDigits: 0,
-                              //                 locale: 'vi_VN',
-                              //                 symbol: 'đ')
-                              //             .format(-_bookingPrice)
-                              //             .toString(),
-                              //         style: TextStyle(
-                              //           fontFamily: 'Roboto',
-                              //           fontSize: 10.sp,
-                              //           fontWeight: FontWeight.w400,
-                              //           color: Colors.red,
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   height: 10.sp,
-                              // ),
                               Padding(
                                 padding:
                                     EdgeInsets.symmetric(horizontal: 10.sp),
@@ -524,7 +487,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Kết quả chẩn đoán',
+                                        'Xem hình ảnh và ghi chú',
                                         style: AppStyles.header600(
                                             fontsize: 10.sp,
                                             color: AppColors.blueTextColor),
