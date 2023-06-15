@@ -100,6 +100,11 @@ class _CompleteServiceState extends State<CompleteService> {
                 SizedBox(
                   height: 10.sp,
                 ),
+                Center(
+                    child: Text(
+                  "Phương tiện đã được sửa chữa hoàn tất",
+                  style: AppStyles.header600(fontsize: 12.sp),
+                )),
                 InkWell(
                   onTap: () async {
                     Get.to(() => CheckOutQRCodePage(
@@ -117,7 +122,7 @@ class _CompleteServiceState extends State<CompleteService> {
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
                             color: AppColors.blueTextColor,
                           ),
                           textAlign: TextAlign.center,
@@ -135,41 +140,35 @@ class _CompleteServiceState extends State<CompleteService> {
                   ),
                 ),
                 Center(
-
                   child: Column(
                     //mainAxisAlignment: MainAxisAlignment.center,
                     //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.to(() => OrderDetail(_orderServicesResponseModel!));
+                          Get.to(
+                              () => OrderDetail(_orderServicesResponseModel!));
                         },
-                        child: Container(
-                          margin: EdgeInsets.all(5.sp),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Xem ghi chú và đính kèm hình ảnh từ kỹ thuật viên',
-                                style: AppStyles.header600(
-                                    fontsize: 10.sp,
-                                    color: AppColors
-                                        .blackTextColor),
-                              ),
-                              const Icon(
-                                Icons
-                                    .navigate_next_outlined,
-                                color: AppColors
-                                    .blackTextColor,
-                              ),
-                            ],
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Xem ghi chú và đính kèm hình ảnh từ kỹ thuật viên',
+                              style: AppStyles.header600(
+                                  fontsize: 10.sp,
+                                  color: AppColors.blueTextColor),
+                            ),
+                            const Icon(
+                              Icons.navigate_next_outlined,
+                              color: AppColors.blueTextColor,
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
+                SizedBox(height: 5.sp),
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),
                 Text(

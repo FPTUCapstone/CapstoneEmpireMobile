@@ -6,12 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class OrderDetail extends StatefulWidget {
-  OrderServicesResponseModel _orderServicesResponseModel;
+  final OrderServicesResponseModel _orderServicesResponseModel;
 
   @override
   State<OrderDetail> createState() => _OrderDetailState();
 
-  OrderDetail(this._orderServicesResponseModel);
+  const OrderDetail(this._orderServicesResponseModel, {super.key});
 }
 
 class _OrderDetailState extends State<OrderDetail> {
@@ -44,15 +44,16 @@ class _OrderDetailState extends State<OrderDetail> {
         shadowColor: Colors.transparent,
         centerTitle: true,
         title: Text(widget._orderServicesResponseModel.car.carLisenceNo,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Colors.black,
             )),
       ),
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.sp),
+        padding: EdgeInsets.symmetric(horizontal: 20.sp),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,17 +67,17 @@ class _OrderDetailState extends State<OrderDetail> {
                 color: Colors.black,
               ),
             ),
+            SizedBox(height: 5.sp),
             Text(
               'Bấm vào từng dịch vụ để xem chi tiết',
               style: TextStyle(
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.w400,
-                fontSize: 12.sp,
+                fontSize: 10.sp,
                 color: AppColors.lightTextColor,
               ),
             ),
             SizedBox(height: 10.sp),
-            Divider(thickness: 2),
             ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -88,17 +89,18 @@ class _OrderDetailState extends State<OrderDetail> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.to(OrderServiceDetail(
+                          Get.to(() => OrderServiceDetail(
                               index, widget._orderServicesResponseModel));
                         },
                         child: ListTile(
+                          contentPadding: EdgeInsets.zero,
                           title: Text(
                             widget._orderServicesResponseModel
                                 .orderServiceDetails![index].item!.name
                                 .toString(),
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                               fontSize: 12.sp,
                               color: Colors.black,
                             ),
@@ -110,18 +112,13 @@ class _OrderDetailState extends State<OrderDetail> {
                             style: TextStyle(
                               fontFamily: 'Roboto',
                               fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
+                              fontSize: 10.sp,
                               color: AppColors.lightTextColor,
                             ),
                           ),
-                          trailing: IconButton(
-                            onPressed: () {
-                              Get.to(OrderServiceDetail(widget._orderServicesResponseModel.id, widget._orderServicesResponseModel));
-                            },
-                            icon: const Icon(
+                          trailing: const Icon(
                               Icons.keyboard_arrow_right,
                               color: AppColors.blackTextColor,
-                            )
                           ),
                         ),
                       ),
