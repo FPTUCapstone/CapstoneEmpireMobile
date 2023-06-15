@@ -117,9 +117,20 @@ class _HealthCarRecordManagementDetailState
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 20.sp),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                const Divider(
+                                  thickness: 1,
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
                                 Text(
-                                  "Kết quả chuẩn đoán",
+                                  "Ghi chú từ kỹ thuật viên",
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 12.sp,
@@ -138,13 +149,146 @@ class _HealthCarRecordManagementDetailState
                                   ),
                                 ),
                                 SizedBox(height: 10.sp),
-                                const Divider(),
+                                const Divider(thickness: 1),
+                                SizedBox(height: 10.sp),
+                                // Text(
+                                //   "Các vấn đề đã hoàn tất",
+                                //   style: TextStyle(
+                                //     fontFamily: 'Roboto',
+                                //     fontSize: 12.sp,
+                                //     fontWeight: FontWeight.w600,
+                                //     color: AppColors.blackTextColor,
+                                //   ),
+                                // ),
+                                // SizedBox(height: 5.sp),
+                                // Text(
+                                //   "Danh sách những dịch vụ đã hoàn tất sửa chữa",
+                                //   style: TextStyle(
+                                //     fontFamily: 'Roboto',
+                                //     fontSize: 10.sp,
+                                //     fontWeight: FontWeight.w400,
+                                //     color: AppColors.lightTextColor,
+                                //   ),
+                                // ),
+                                // SizedBox(height: 15.sp),
+                                // Text(
+                                //   "Tên dịch vụ",
+                                //   style: TextStyle(
+                                //     fontFamily: 'Roboto',
+                                //     fontSize: 12.sp,
+                                //     fontWeight: FontWeight.w600,
+                                //     color: AppColors.blackTextColor,
+                                //   ),
+                                // ),
+                                // SizedBox(height: 15.sp),
+                                // ListView.builder(
+                                //     shrinkWrap: true,
+                                //     physics:
+                                //         const NeverScrollableScrollPhysics(),
+                                //     itemCount: record.problems.length,
+                                //     itemBuilder: (context, index) {
+                                //       var hcrproblem = record.problems[index];
+                                //       return Column(
+                                //         crossAxisAlignment:
+                                //             CrossAxisAlignment.start,
+                                //         children: [
+                                //           GestureDetector(
+                                //             onTap: () {
+                                //               //TODO
+                                //             },
+                                //             child: Row(
+                                //               children: [
+                                //                 Text(
+                                //                   hcrproblem.problem.name,
+                                //                   style: TextStyle(
+                                //                     fontFamily: 'Roboto',
+                                //                     fontSize: 10.sp,
+                                //                     fontWeight: FontWeight.w600,
+                                //                     color: AppColors
+                                //                         .blackTextColor,
+                                //                   ),
+                                //                 ),
+                                //                 const Spacer(),
+                                //                 const Icon(
+                                //                   Icons.arrow_forward_ios,
+                                //                   color:
+                                //                       AppColors.blackTextColor,
+                                //                   size: 22,
+                                //                 )
+                                //               ],
+                                //             ),
+                                //           ),
+                                //           SizedBox(height: 5.sp),
+                                //           ListView.builder(
+                                //             shrinkWrap: true,
+                                //             physics:
+                                //                 const NeverScrollableScrollPhysics(),
+                                //             itemCount:
+                                //                 hcrproblem.problem.items.length,
+                                //             itemBuilder: (context, index) {
+                                //               var item = hcrproblem
+                                //                   .problem.items[index];
+                                //               return Container(
+                                //                 margin: EdgeInsets.symmetric(
+                                //                     horizontal: 5.sp,
+                                //                     vertical: 5.sp),
+                                //                 child: Row(
+                                //                   mainAxisAlignment:
+                                //                       MainAxisAlignment
+                                //                           .spaceBetween,
+                                //                   children: [
+                                //                     Text(
+                                //                       item.name.toString(),
+                                //                       style: TextStyle(
+                                //                         fontFamily: 'Roboto',
+                                //                         fontSize: 10.sp,
+                                //                         fontWeight:
+                                //                             FontWeight.w400,
+                                //                         color: AppColors
+                                //                             .blackTextColor,
+                                //                       ),
+                                //                     ),
+                                //                   ],
+                                //                 ),
+                                //               );
+                                //             },
+                                //           ),
+                                //           SizedBox(height: 10.sp),
+                                //         ],
+                                //       );
+                                //     }),
+                                const Divider(thickness: 1),
+                                GestureDetector(
+                                  onTap: () {
+                                    //TODO
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Xem chi tiết hóa đơn",
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.blue600,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      const Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: AppColors.blueTextColor,
+                                        size: 14,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const Divider(thickness: 1),
                                 SizedBox(height: 10.sp),
                                 Text(
-                                  "Vấn đề phát hiện dựa trên kết quả phân tích",
+                                  "Vấn đề được phát hiện dựa trên kết quả phân tích",
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
-                                    fontSize: 14.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.blackTextColor,
                                   ),
@@ -160,6 +304,16 @@ class _HealthCarRecordManagementDetailState
                                   ),
                                 ),
                                 SizedBox(height: 15.sp),
+                                Text(
+                                  "Tên vấn đề",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                ),
+                                SizedBox(height: 15.sp),
                                 ListView.builder(
                                     shrinkWrap: true,
                                     physics:
@@ -170,64 +324,37 @@ class _HealthCarRecordManagementDetailState
                                       return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+
                                         children: [
-                                          Text(
-                                            hcrproblem.problem.name,
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.blackTextColor,
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10,right: 10),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  hcrproblem.problem.name,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 10.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color:
+                                                        AppColors.blackTextColor,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  hcrproblem.problem.items[index].presentPrice.toString(),
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 10.sp,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColors
+                                                        .blackTextColor,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          SizedBox(height: 5.sp),
-                                          ListView.builder(
-                                            shrinkWrap: true,
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemCount:
-                                                hcrproblem.problem.items.length,
-                                            itemBuilder: (context, index) {
-                                              var item = hcrproblem
-                                                  .problem.items[index];
-                                              return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 5.sp,
-                                                    vertical: 5.sp),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      item.name.toString(),
-                                                      style: TextStyle(
-                                                        fontFamily: 'Roboto',
-                                                        fontSize: 10.sp,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: AppColors
-                                                            .blackTextColor,
-                                                      ),
-                                                    ),
-                                                    item.isSelected
-                                                        ? const Icon(
-                                                            Icons
-                                                                .radio_button_checked,
-                                                            color: AppColors
-                                                                .blueTextColor,
-                                                          )
-                                                        : const Icon(
-                                                            Icons
-                                                                .circle_outlined,
-                                                            color: Colors.grey,
-                                                          )
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                          SizedBox(height: 10.sp),
+                                          SizedBox(height: 15.sp),
                                         ],
                                       );
                                     }),
