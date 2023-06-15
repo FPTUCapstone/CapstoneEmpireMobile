@@ -71,7 +71,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 80.sp,
+        toolbarHeight: 60.sp,
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         leadingWidth: 84.sp,
@@ -80,74 +80,72 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
             style: TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
-              fontSize: 16.sp,
+              fontSize: 18.sp,
               color: Colors.black,
             )),
       ),
-      body: _loading ? const Loading() : Container(
-        child: Column(
-          children: [
-            SizedBox(height: 10.sp),
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.only(left: 24, right: 24),
-              width: 335.w,
-              height: 45.h,
-              child: TextField(
-                onChanged: (value) => _runFilter(value),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppColors.lightGrey500,
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: AppColors.blueTextColor, width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
-                  enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
-                  focusColor: AppColors.searchBarColor,
-                  prefixIcon: const Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Icon(
-                      Icons.search,
-                      color: AppColors.lightTextColor,
-                      size: 20,
-                    ),
-                  ),
-                  hintText: 'Tìm kiếm...',
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
+      body: _loading ? const Loading() : Column(
+        children: [
+          SizedBox(height: 10.sp),
+          Container(
+            color: Colors.white,
+            margin: EdgeInsets.only(left: 20.sp, right: 20.sp),
+            width: 335.w,
+            height: 45.h,
+            child: TextField(
+              onChanged: (value) => _runFilter(value),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: AppColors.lightGrey500,
+                focusedBorder: const OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: AppColors.blueTextColor, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                focusColor: AppColors.searchBarColor,
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Icon(
+                    Icons.search,
                     color: AppColors.lightTextColor,
+                    size: 20,
                   ),
+                ),
+                hintText: 'Tìm kiếm...',
+                hintStyle: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.lightTextColor,
                 ),
               ),
             ),
-            Expanded(
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _listCar.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
-                        child: CarChipManagement(
-                          car: _listCar[index] ,
-                          selectedCar: _selectedCar,
-                          onSelected: _onCarSelected,
-                        ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _listCar.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
+                      child: CarChipManagement(
+                        car: _listCar[index] ,
+                        selectedCar: _selectedCar,
+                        onSelected: _onCarSelected,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

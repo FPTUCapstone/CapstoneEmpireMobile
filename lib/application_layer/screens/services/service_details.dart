@@ -273,24 +273,27 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 15),
+                                  padding: const EdgeInsets.only(left: 15, right: 15),
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: ReadMoreText(
-                                      _item!.description.toString(),
-                                      style: TextStyle(
-                                        height: 1.5,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.blackTextColor,
-                                        fontFamily: 'Roboto',
+                                        horizontal: 5),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: ReadMoreText(
+                                        _item!.description.toString(),
+                                        style: TextStyle(
+                                          height: 1.5,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.blackTextColor,
+                                          fontFamily: 'Roboto',
+                                        ),
+                                        trimLines: 5,
+                                        colorClickableText: AppColors.blueTextColor,
+                                        trimMode: TrimMode.Line,
+                                        trimCollapsedText: ' Read more',
+                                        trimExpandedText: ' Show less',
                                       ),
-                                      trimLines: 5,
-                                      colorClickableText: AppColors.blueTextColor,
-                                      trimMode: TrimMode.Line,
-                                      trimCollapsedText: ' Read more',
-                                      trimExpandedText: ' Show less',
                                     ),
                                   ),
                                 ),

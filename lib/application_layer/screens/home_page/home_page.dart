@@ -230,178 +230,173 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 180.h,
-                    ),
-                    // Container(
-                    //     margin: const EdgeInsets.symmetric(horizontal: 24),
-                    //     child: const HomePageServiceIconButton()),
-                    // SizedBox(
-                    //   height: 10.h,
-                    // ),
-                    !_loadingActivity
-                        ? const Loading()
-                        : Visibility(
-                            visible: _listOngoingActivity.isNotEmpty,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: 20.w, top: 20),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Đang hoạt động",
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.blackTextColor,
-                                            fontFamily: 'Roboto'),
-                                      )
-                                    ],
-                                  ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 180.h,
+                  ),
+                  !_loadingActivity
+                      ? Padding(
+                        padding: EdgeInsets.only(top: 10.sp),
+                        child: const Loading(),
+                      )
+                      : Visibility(
+                          visible: _listOngoingActivity.isNotEmpty,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 20.w, top: 20),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Đang hoạt động",
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.blackTextColor,
+                                          fontFamily: 'Roboto'),
+                                    )
+                                  ],
                                 ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 20.w),
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: _listOngoingActivity.length,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      var item = _listOngoingActivity[index];
-                                      return Padding(
-                                        padding: EdgeInsets.only(bottom: 16.h),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            Get.to(
-                                                () => item.isBooking
-                                                    ? BookingDetailv2(
-                                                        bookingId: item.id,
-                                                      )
-                                                    : OnGoingService(
-                                                        servicesId: item.id,
-                                                      ),
-                                                transition:
-                                                    Transition.downToUp);
-                                          },
-                                          child: DecoratedBox(
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey
-                                                        .withOpacity(0.3),
-                                                    spreadRadius: 1.h,
-                                                    blurRadius: 1.2,
-                                                    offset: Offset(0, 4.h),
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(16))),
-                                            child: SizedBox(
-                                              height: 70.h,
-                                              child: ActivityChip(
-                                                carInfo:
-                                                    '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                                date: item.date.toString(),
-                                                daysLeft: item.daysLeft,
-                                                isBooking: item.isBooking,
-                                                item: item,
-                                                code: item.code != null
-                                                    ? item.code.toString()
-                                                    : "#########",
-                                              ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 20.w),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: _listOngoingActivity.length,
+                                  physics:
+                                      const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var item = _listOngoingActivity[index];
+                                    return Padding(
+                                      padding: EdgeInsets.only(bottom: 16.h),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          Get.to(
+                                              () => item.isBooking
+                                                  ? BookingDetailv2(
+                                                      bookingId: item.id,
+                                                    )
+                                                  : OnGoingService(
+                                                      servicesId: item.id,
+                                                    ),
+                                              transition:
+                                                  Transition.downToUp);
+                                        },
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.3),
+                                                  spreadRadius: 1.h,
+                                                  blurRadius: 1.2,
+                                                  offset: Offset(0, 4.h),
+                                                )
+                                              ],
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(16))),
+                                          child: SizedBox(
+                                            height: 70.h,
+                                            child: ActivityChip(
+                                              carInfo:
+                                                  '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                              date: item.date.toString(),
+                                              daysLeft: item.daysLeft,
+                                              isBooking: item.isBooking,
+                                              item: item,
+                                              code: item.code != null
+                                                  ? item.code.toString()
+                                                  : "#########",
                                             ),
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              ],
-                            ),
-                          ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            "Dịch vụ phổ biến",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                                fontFamily: 'Roboto'),
-                          ),
-                          const Spacer(),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "Xem tất cả",
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.white100,
-                                    fontFamily: 'Roboto'),
-                              ))
-                        ],
-                      ),
-                    ),
-                    !_loadingService ? 
-                    const Loading()
-                    : SizedBox(
-                      height: 260.h,
-                      width: 300.w,
-                      child: ListView.builder(
-                        reverse: false,
-                        scrollDirection: Axis.horizontal,
-                        physics: const ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _filteredItem!.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(() => ServiceDetails(
-                                    itemId: _filteredItem![index].id));
-                              },
-                              child: HomepageFamousService(
-                                backgroundImage: _filteredItem![index].photo,
-                                title: _filteredItem![index].name,
-                                price: _filteredItem![index].prices!.isNotEmpty
-                                    ? NumberFormat.currency(
-                                            decimalDigits: 0,
-                                            locale: 'vi_VN',
-                                            symbol: "đ")
-                                        .format(_filteredItem![index]
-                                            .prices!
-                                            .first
-                                            .price)
-                                        .toString()
-                                    : "Liên hệ",
-                                usageCount: '182',
-                                rating: '4.4',
-                                tag: _filteredItem![index].category != null
-                                    ? _filteredItem![index].category!.name
-                                    : "Dịch vụ",
                               ),
-                            ),
-                          );
-                        },
-                      ),
+                            ],
+                          ),
+                        ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Dịch vụ phổ biến",
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                              fontFamily: 'Roboto'),
+                        ),
+                        const Spacer(),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Xem tất cả",
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.white100,
+                                  fontFamily: 'Roboto'),
+                            ))
+                      ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    )
-                  ],
-                ),
+                  ),
+                  !_loadingService ? 
+                  const Loading()
+                  : SizedBox(
+                    height: 260.h,
+                    width: 300.w,
+                    child: ListView.builder(
+                      reverse: false,
+                      scrollDirection: Axis.horizontal,
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _filteredItem!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(() => ServiceDetails(
+                                  itemId: _filteredItem![index].id));
+                            },
+                            child: HomepageFamousService(
+                              backgroundImage: _filteredItem![index].photo,
+                              title: _filteredItem![index].name,
+                              price: _filteredItem![index].prices!.isNotEmpty
+                                  ? NumberFormat.currency(
+                                          decimalDigits: 0,
+                                          locale: 'vi_VN',
+                                          symbol: "đ")
+                                      .format(_filteredItem![index]
+                                          .prices!
+                                          .first
+                                          .price)
+                                      .toString()
+                                  : "Liên hệ",
+                              usageCount: '182',
+                              rating: '4.4',
+                              tag: _filteredItem![index].category != null
+                                  ? _filteredItem![index].category!.name
+                                  : "Dịch vụ",
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ],
               )
             ],
           ),
