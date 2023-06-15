@@ -263,6 +263,21 @@ class Transaction {
   }
 }
 
+class ImageModel{
+  int imgId;
+  String img;
+
+  ImageModel({required this.imgId, required this.img});
+
+  factory ImageModel.fromJson(Map<String, dynamic> json) {
+    return ImageModel(
+      imgId: json['id'],
+      img: json['img']
+    );
+  }
+
+}
+
 class OrderServiceDetails {
   int? id;
   int? price;
@@ -271,8 +286,10 @@ class OrderServiceDetails {
   String? note;
   bool showNote = false;
   Item? item;
+  List<ImageModel>? images;
 
-  OrderServiceDetails({this.id, this.price, this.isConfirmed, this.item});
+
+  OrderServiceDetails({this.id, this.price, this.isConfirmed, this.item, required this.images});
 
   OrderServiceDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -281,6 +298,10 @@ class OrderServiceDetails {
     done = json['done'];
     note = json['note'];
     item = json['item'] != null ? Item.fromJson(json['item']) : null;
+    images = json['images'] != null
+        ? List<ImageModel>.from(json['images']
+        .map((x) => ImageModel.fromJson(x)))
+        : null;
   }
 
   Map<String, dynamic> toJson() {

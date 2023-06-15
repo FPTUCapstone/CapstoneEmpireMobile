@@ -961,8 +961,8 @@ class _BookingInfoState extends State<BookingInfo> {
                         Get.bottomSheet(
                           BottomPopup(
                             image: 'assets/image/service-picture/paying.png',
-                            title: "Bạn có muốn thanh toán không?",
-                            body: '',
+                            title: "Bạn có muốn thanh toán phí đặt chỗ hay không?",
+                            body: "",
                             buttonTitle: "Tiếp tục",
                             action: () {
                               Get.to(() => ChosePaymentMethod(excute: executeBook));

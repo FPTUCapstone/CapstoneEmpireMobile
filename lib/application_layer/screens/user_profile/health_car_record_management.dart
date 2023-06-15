@@ -1,5 +1,4 @@
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
-import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,6 +26,8 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
   List<CarResponseModel> _listCar = [];
   late int _selectedCar;
   bool _loading = true;
+  final TextEditingController _searchController = TextEditingController();
+  List<CarResponseModel> _initListCar = [];
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
     if (!mounted) return;
     setState(() {
       _listCar = listCar.where((element) => element.isNew == false).toList();
+      _initListCar = listCar;
       _loading = false;
     });
   }
@@ -52,6 +54,16 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
       widget.onSelected(selectedCar);
     });
     Get.back();
+  }
+
+  void _runFilter(String searchString){
+    if(searchString.isNotEmpty){
+      setState(() {
+        _listCar = _initListCar
+            .where((element) => element.carLisenceNo.toLowerCase()
+            .contains(searchString.toLowerCase())).toList();
+      });
+    }
   }
 
   @override
@@ -72,33 +84,70 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
               color: Colors.black,
             )),
       ),
-      body: _loading ? const Loading() : ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.sp),
-            child: Text(
-              'Chọn phương tiện để xem kết quả chuẩn đoán',
-              style: AppStyles.header600(
-                  fontsize: 10.sp, color: Colors.grey.shade500),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.sp),
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _listCar.length,
-              itemBuilder: (context, index) => Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
-                child: CarChipManagement(
-                  car: _listCar[index],
-                  selectedCar: _selectedCar,
-                  onSelected: _onCarSelected,
+      body: _loading ? const Loading() : Container(
+        child: Column(
+          children: [
+            SizedBox(height: 10.sp),
+            Container(
+              color: Colors.white,
+              margin: const EdgeInsets.only(left: 24, right: 24),
+              width: 335.w,
+              height: 45.h,
+              child: TextField(
+                onChanged: (value) => _runFilter(value),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: AppColors.lightGrey500,
+                  focusedBorder: const OutlineInputBorder(
+                      borderSide:
+                      BorderSide(color: AppColors.blueTextColor, width: 3),
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  focusColor: AppColors.searchBarColor,
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Icon(
+                      Icons.search,
+                      color: AppColors.lightTextColor,
+                      size: 20,
+                    ),
+                  ),
+                  hintText: 'Tìm kiếm...',
+                  hintStyle: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightTextColor,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: _listCar.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
+                        child: CarChipManagement(
+                          car: _listCar[index] ,
+                          selectedCar: _selectedCar,
+                          onSelected: _onCarSelected,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
