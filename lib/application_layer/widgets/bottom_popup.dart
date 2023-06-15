@@ -52,6 +52,7 @@ class BottomPopup extends StatelessWidget {
               ),
               Text(
                 title,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'SFProDisplay',
                   fontSize: 18.sp,
