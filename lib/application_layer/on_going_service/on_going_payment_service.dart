@@ -393,39 +393,39 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                       ),
                     ),
                   ),
-                  const Divider(thickness: 1),
-                  CustomRowWithoutPadding(
-                    title: 'Tổng tạm tính',
-                    value: formatCurrency(sum),
-                    textStyle: AppStyles.header600(fontsize: 10.sp),
+                const Divider(thickness: 1),
+                CustomRowWithoutPadding(
+                  title: 'Tổng tạm tính',
+                  value: formatCurrency(sum),
+                  textStyle: AppStyles.header600(fontsize: 10.sp),
+                ),
+                CustomRowWithoutPadding(
+                  title: 'Khấu trừ từ đặt lịch',
+                  value: "-${formatCurrency(prepaid)}",
+                  textStyle:
+                      AppStyles.header600(fontsize: 10.sp, color: Colors.red),
+                ),
+                CustomRowWithoutPadding(
+                  title: 'Số tiền cần thanh toán',
+                  value: formatCurrency(sumAfter),
+                  textStyle: AppStyles.header600(fontsize: 10.sp),
+                ),
+                const Divider(thickness: 1),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.sp),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Phương thức thanh toán',
+                        style: AppStyles.text400(fontsize: 10.sp),
+                      ),
+                      Image.asset(
+                        'assets/image/icon-logo/vnpay.png',
+                        height: 12.sp,
+                      )
+                    ],
                   ),
-                  CustomRowWithoutPadding(
-                    title: 'Khấu trừ từ đặt lịch',
-                    value: "-${formatCurrency(prepaid)}",
-                    textStyle:
-                        AppStyles.header600(fontsize: 10.sp, color: Colors.red),
-                  ),
-                  CustomRowWithoutPadding(
-                    title: 'Tổng cộng',
-                    value: formatCurrency(sumAfter),
-                    textStyle: AppStyles.header600(fontsize: 10.sp),
-                  ),
-                  const Divider(thickness: 1),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.sp),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Phương thức thanh toán',
-                          style: AppStyles.text400(fontsize: 10.sp),
-                        ),
-                        Image.asset(
-                          'assets/image/icon-logo/vnpay.png',
-                          height: 12.sp,
-                        )
-                      ],
-                    ),
                   ),
                   SizedBox(height: 5.sp),
                   ExpansionTile(
@@ -563,7 +563,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                 ],
               ),
             ),
-            Divider(thickness: 1,),
+            const Divider(thickness: 1,),
             SizedBox(height: 10.sp),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

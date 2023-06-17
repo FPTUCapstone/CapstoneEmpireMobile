@@ -190,15 +190,18 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     itemBuilder: (context, index) {
                       var healthCarRecordProblem = _orderServicesResponseModel!
                           .healthCarRecord!.healthCarRecordProblems![index];
-                          var selectedIndex = -1;
-                          if (healthCarRecordProblem.problem.items != null) {
-                            for (var element in healthCarRecordProblem.problem.items!) {
-                              var flag = _checkService(element);
-                              if (flag == true) {
-                                selectedIndex = healthCarRecordProblem.problem.items!.indexOf(element);
-                              }
-                            }
+                      var selectedIndex = -1;
+                      if (healthCarRecordProblem.problem.items != null) {
+                        for (var element
+                            in healthCarRecordProblem.problem.items!) {
+                          var flag = _checkService(element);
+                          if (flag == true) {
+                            selectedIndex = healthCarRecordProblem
+                                .problem.items!
+                                .indexOf(element);
                           }
+                        }
+                      }
                       return ExpansionTile(
                           initiallyExpanded: true,
                           childrenPadding: EdgeInsets.zero,
@@ -215,12 +218,19 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                               color: AppColors.blackTextColor,
                             ),
                           ),
-                          subtitle: selectedIndex != -1 ? Text("Đã chọn: ${healthCarRecordProblem.problem.items![selectedIndex].name}", style: AppStyles.text400(fontsize: 10.sp)) : null,
-                          trailing: selectedIndex != -1 ? Text(formatCurrency(healthCarRecordProblem.problem.items![selectedIndex].presentPrice), style: AppStyles.text400(fontsize: 10.sp)) : null,
+                          subtitle: selectedIndex != -1
+                              ? Text(
+                                  "Đã chọn: ${healthCarRecordProblem.problem.items![selectedIndex].name}",
+                                  style: AppStyles.text400(fontsize: 10.sp))
+                              : null,
+                          trailing: selectedIndex != -1
+                              ? Text(
+                                  formatCurrency(healthCarRecordProblem.problem
+                                      .items![selectedIndex].presentPrice),
+                                  style: AppStyles.text400(fontsize: 10.sp))
+                              : null,
                           onExpansionChanged: (value) {
-                            if (value == false ){
-
-                            }
+                            if (value == false) {}
                           },
                           children: [
                             SizedBox(height: 5.sp),
@@ -230,6 +240,9 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                               itemCount:
                                   healthCarRecordProblem.problem.items!.length,
                               itemBuilder: (context, index) {
+                                int itemCountToDisplayBtn =
+                                    healthCarRecordProblem
+                                        .problem.items!.length;
                                 var item = healthCarRecordProblem
                                     .problem.items![index];
                                 return InkWell(
@@ -271,12 +284,21 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                       // mainAxisAlignment:
                                       //     MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Icon(
-                                          _checkService(item)
-                                              ? Icons.radio_button_checked
-                                              : Icons.radio_button_unchecked,
-                                          color: AppColors.buttonColor,
-                                        ),
+                                        itemCountToDisplayBtn > 1
+                                            ?Icon(
+                                                _checkService(item)
+                                                    ? Icons.radio_button_checked
+                                                    : Icons
+                                                        .radio_button_unchecked,
+                                                color: AppColors.buttonColor,
+                                              )
+                                            :Icon(
+                                                _checkService(item)
+                                                    ? Icons.check_box
+                                                    : Icons
+                                                        .check_box_outline_blank,
+                                                color: AppColors.buttonColor,
+                                              ),
                                         SizedBox(width: 5.sp),
                                         Text(
                                           item.name.toString(),
