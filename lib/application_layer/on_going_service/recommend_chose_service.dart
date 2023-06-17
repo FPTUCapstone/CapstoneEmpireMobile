@@ -314,9 +314,6 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     title: "Tổng tạm tính",
                     value: formatCurrency(_sum),
                     textStyle: AppStyles.header600(fontsize: 12.sp)),
-                const Divider(
-                  thickness: 1,
-                ),
                 SizedBox(
                   height: 15.sp,
                 ),
@@ -327,6 +324,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                         style: AppStyles.text400(
                             fontsize: 12.sp, color: Colors.red)),
                   ),
+                SizedBox(height: 5.sp),
                 SizedBox(
                   width: 335.w,
                   height: 52.sp,

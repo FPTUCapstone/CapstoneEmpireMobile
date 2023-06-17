@@ -282,7 +282,7 @@ class _BookingInfoState extends State<BookingInfo> {
             image: 'assets/image/icon-logo/successfull-icon.png',
             title: "Đặt lịch thành công",
             body:
-                'Bạn đã đặt lịch thành công với phương tiện ${response.car.carLisenceNo}\nMã đặt lịch: #${response.code}',
+                'Mã đặt lịch: #${response.code}\nBạn đã đặt lịch thành công với phương tiện ${response.car.carLisenceNo}',
             buttonTitle: "Xem chi tiết",
             action: () {
               Get.offAll(() => const MainPage());
@@ -949,7 +949,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           BottomPopup(
                             image: 'assets/image/icon-logo/failed-icon.png',
                             title: "Đặt lịch thất bại",
-                            body: 'Vui lòng nhập triệu chứng',
+                            body: 'Vui lòng nhập tình trạng xe',
                             buttonTitle: "Thử lại",
                             action: () {
                               Get.back();
@@ -960,9 +960,9 @@ class _BookingInfoState extends State<BookingInfo> {
                       } else{
                         Get.bottomSheet(
                           BottomPopup(
-                            image: 'assets/image/service-picture/paying.png',
+                            image: 'assets/image/service-picture/confirmed.png',
                             title: "Xác nhận thanh toán phí đặt lịch",
-                            body: 'Tiền đặt lịch sẽ được khấu trừ vào hóa đơn khi thực hiện dịch vụ ở garage ',
+                            body: 'Tiền đặt lịch sẽ được khấu trừ vào hóa đơn khi thực hiện dịch vụ ở garage',
                             buttonTitle: "Tiếp tục",
                             action: () {
                               Get.to(() => ChosePaymentMethod(excute: executeBook));

@@ -170,8 +170,10 @@ class _ChosePaymentMethodState extends State<ChosePaymentMethod> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.sp),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
+                      //Divider(thickness: 2, color: Colors.red),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {

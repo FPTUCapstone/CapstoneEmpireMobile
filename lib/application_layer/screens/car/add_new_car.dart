@@ -384,12 +384,12 @@ class _AddNewCarState extends State<AddNewCar> {
                           .addNewCar(carLisenceNo, carBrand, carModel);
                       Get.back();
                       // ignore: unnecessary_null_comparison
-                      if (response == null || response.statusCode != 201) {
+                      if (response == null || response.statusCode == 201) {
                         Get.bottomSheet(
                           BottomPopup(
                             image: 'assets/image/icon-logo/failed-icon.png',
                             title: "Thêm xe thất bại",
-                            body: "Có sự cố khi thêm xe",
+                            body: "Vui lòng điền thông tin vào tất cả ô trống",
                             buttonTitle: "Trở về",
                             action: () => Get.back(),
                           ),

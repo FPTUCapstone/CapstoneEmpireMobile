@@ -96,24 +96,15 @@ class _CompleteServiceState extends State<CompleteService> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Divider(thickness: 1),
-                SizedBox(
-                  height: 10.sp,
-                ),
-                Center(
-                    child: Text(
-                  "Phương tiện đã được sửa chữa hoàn tất",
-                  style: AppStyles.header600(fontsize: 12.sp),
-                )),
                 InkWell(
                   onTap: () async {
                     Get.to(() => CheckOutQRCodePage(
-                          id: _orderServicesResponseModel!.id,
-                        ));
+                      id: _orderServicesResponseModel!.id,
+                    ));
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 20.sp, vertical: 10.sp),
+                        horizontal: 20.sp, vertical: 5.sp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -121,7 +112,7 @@ class _CompleteServiceState extends State<CompleteService> {
                           "Vui lòng lấy mã nhận xe",
                           style: TextStyle(
                             fontFamily: 'Roboto',
-                            fontSize: 10.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blueTextColor,
                           ),
@@ -139,6 +130,15 @@ class _CompleteServiceState extends State<CompleteService> {
                     ),
                   ),
                 ),
+                const Divider(thickness: 1),
+                SizedBox(
+                  height: 10.sp,
+                ),
+                Center(
+                    child: Text(
+                  "Phương tiện đã được sửa chữa hoàn tất",
+                  style: AppStyles.header600(fontsize: 12.sp),
+                )),
                 Center(
                   child: Column(
                     //mainAxisAlignment: MainAxisAlignment.center,

@@ -404,7 +404,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                 AppStyles.divider(padding: EdgeInsets.zero),
                                 Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 10.sp),
+                                      EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -441,7 +441,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                         ),
                                       ]),
                                 ),
-                                AppStyles.divider(padding: EdgeInsets.zero),
+                                //AppStyles.divider(padding: EdgeInsets.zero),
                                 Visibility(
                                     visible:
                                         _booking!.unresolvedProblems.isNotEmpty,

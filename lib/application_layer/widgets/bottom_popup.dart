@@ -22,7 +22,7 @@ class BottomPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.h,
+      height: 380.h,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(
@@ -39,8 +39,8 @@ class BottomPopup extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: SizedBox(
-                  height: 140.h,
-                  width: 140.h,
+                  height: 160.h,
+                  width: 160.h,
                   child: Image.asset(
                     image,
                     fit: BoxFit.fill,
@@ -79,21 +79,25 @@ class BottomPopup extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
               ),
+              Divider(thickness: 1,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: action,
-                      style: AppStyles.button16(),
-                      child: Text(
-                        buttonTitle,
-                        style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.sp),
+                      child: ElevatedButton(
+                        onPressed: action,
+                        style: AppStyles.button16(),
+                        child: Text(
+                          buttonTitle,
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
