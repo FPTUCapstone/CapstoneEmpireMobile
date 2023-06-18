@@ -187,440 +187,462 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
 
   @override
   Widget build(BuildContext context) {
+
+    double hours = _totalMinutes / 60;
+
+    double minutesADay = 24 * 60;
+    double days = _totalMinutes / minutesADay;
+
     return _loading
         ? const Loading()
         : Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.sp),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Divider(thickness: 1),
-                  SizedBox(height: 10.sp),
-                  Text(
-                    "Kết quả chuẩn đoán",
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                    ),
-                  ),
-                  SizedBox(height: 10.sp),
-                  ReadMoreText(
-                    _orderServicesResponseModel!.healthCarRecord!.symptom
-                        .toString(),
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.blackTextColor,
-                    ),
-                    trimLines: 10,
-                    trimMode: TrimMode.Line,
-                    trimCollapsedText: ' Read more',
-                    trimExpandedText: ' Show less',
-                  ),
-                  SizedBox(height: 10.sp),
-                  const Divider(thickness: 1),
-                  SizedBox(height: 10.sp),
-                  _currentExpertWorkload != null
-                      ? RichText(
-                          text: TextSpan(
-                              text: "Thời gian bắt đầu dự kiến: ",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.blackTextColor,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text:
-                                      formatDate(_currentExpertWorkload!.intendedFinishTime.toString(), true),
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
-                                  ),
-                                )
-                              ]),
-                        )
-                      : Container(),
-                  _currentExpertWorkload != null ? SizedBox(height: 5.sp) : Container(),
-                  _workload != null
-                      ? RichText(
-                          text: TextSpan(
-                              text: "Thời gian hoàn tất dự kiến: ",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.blackTextColor,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text:
-                                      formatDate(_workload!.intendedFinishTime.toString(), true),
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
-                                  ),
-                                )
-                              ]),
-                        )
-                      : Container(),
-                  _workload != null ? SizedBox(height: 5.sp) : Container(),
-                  RichText(
-                    text: TextSpan(
-                        text: "Ước lượng: ",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.blackTextColor,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "$_totalMinutes phút",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                        ]),
-                  ),
-                  SizedBox(height: 10.sp),
-                  const Divider(thickness: 1),
-                  SizedBox(height: 10.sp),
-                  Text(
-                    "Tóm tắt thanh toán",
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.blackTextColor,
-                    ),
-                  ),
-                  SizedBox(height: 5.sp),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                              child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5.sp),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        _getNameOfItem(
-                                            _listOrderServiceDetails[index]
-                                                .itemId),
-                                        style:
-                                            AppStyles.text400(fontsize: 10.sp)),
-                                    Visibility(
-                                      visible: _expand,
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 1.sp),
-                                        child: Text(
-                                            _getProblemNameOfItem(
-                                                _listOrderServiceDetails[index]
-                                                    .itemId),
-                                            style: AppStyles.text400(
-                                                fontsize: 10.sp,
-                                                color: Colors.grey.shade500)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                    formatCurrency(
-                                        _listOrderServiceDetails[index].price),
-                                    style: AppStyles.text400(fontsize: 10.sp)),
-                              ],
-                            ),
-                          ))
-                        ],
-                      );
-                    },
-                    itemCount: _listOrderServiceDetails.length,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: CustomRowWithoutPadding(
-                              title: "Phí kiểm tra",
-                              value: formatCurrency(prepaid),
-                              textStyle: AppStyles.text400(fontsize: 10.sp))),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        _expand = !_expand;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5.sp),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            _expand ? 'Thu gọn' : 'Thêm chi tiết',
-                            style: AppStyles.header600(
-                                fontsize: 10.sp, color: Colors.grey.shade500),
-                          ),
-                          Icon(
-                              _expand
-                                  ? Icons.keyboard_arrow_up
-                                  : Icons.keyboard_arrow_down,
-                              color: Colors.grey.shade500)
-                        ],
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Divider(thickness: 1),
+                    SizedBox(height: 10.sp),
+                    Text(
+                      "Kết quả chuẩn đoán",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
                       ),
                     ),
-                  ),
-                const Divider(thickness: 1),
-                CustomRowWithoutPadding(
-                  title: 'Tổng tạm tính',
-                  value: formatCurrency(sum),
-                  textStyle: AppStyles.header600(fontsize: 10.sp),
-                ),
-                CustomRowWithoutPadding(
-                  title: 'Khấu trừ từ đặt lịch',
-                  value: "-${formatCurrency(prepaid)}",
-                  textStyle:
-                      AppStyles.header600(fontsize: 10.sp, color: Colors.red),
-                ),
-                CustomRowWithoutPadding(
-                  title: 'Số tiền cần thanh toán',
-                  value: formatCurrency(sumAfter),
-                  textStyle: AppStyles.header600(fontsize: 10.sp),
-                ),
-                const Divider(thickness: 1),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.sp),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Phương thức thanh toán',
-                        style: AppStyles.text400(fontsize: 10.sp),
+                    SizedBox(height: 10.sp),
+                    ReadMoreText(
+                      _orderServicesResponseModel!.healthCarRecord!.symptom
+                          .toString(),
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.blackTextColor,
                       ),
-                      Image.asset(
-                        'assets/image/icon-logo/vnpay.png',
-                        height: 12.sp,
-                      )
-                    ],
-                  ),
-                  ),
-                  SizedBox(height: 5.sp),
-                  ExpansionTile(
-                    trailing: const Icon(
-                      Icons.abc_sharp,
-                      color: Colors.transparent,
+                      trimLines: 10,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: ' Read more',
+                      trimExpandedText: ' Show less',
                     ),
-                    title: Center(
-                      child: SizedBox(
-                        width: 180.w,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 50),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Xem thêm chi tiết ",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blueTextColor,
-                                ),
-                              ),
-                              const Icon(
-                                Icons.add_circle_outline_sharp,
-                                size: 16,
-                                color: AppColors.blueTextColor,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    children: <Widget>[
-                      ListTile(
-                        leading: Image.asset(
-                          "assets/image/service-picture/mechanicPic.png",
-                          height: 40.sp,
-                          width: 50.sp,
-                        ),
-                        title: Text(
-                          _orderServicesResponseModel!.expert == null
-                              ? "Chưa có kỹ thuật viên"
-                              : _orderServicesResponseModel!.expert!.fullname,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        subtitle: Text(
-                          "Kỹ thuật viên",
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                      ),
-                      const Divider(thickness: 1),
-                      SizedBox(height: 10.sp),
-                      ListTile(
-                        leading: FutureBuilder(
-                            future: BrandService().getPhoto(
-                                _orderServicesResponseModel!.car.carBrand),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Image.network(
-                                  snapshot.data.toString(),
-                                  height: 40.sp,
-                                  width: 50.sp,
-                                );
-                              } else if (snapshot.hasError) {
-                                return Image.asset(
-                                  "assets/image/icon-logo/bmw-car-icon.png",
-                                  height: 40.sp,
-                                  width: 50.sp,
-                                );
-                              } else {
-                                return Image.asset(
-                                  "assets/image/icon-logo/bmw-car-icon.png",
-                                  height: 40.sp,
-                                  width: 50.sp,
-                                );
-                              }
-                            }),
-                        title: Text(
-                          _orderServicesResponseModel!.car.carBrand,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.lightTextColor,
-                          ),
-                        ),
-                        subtitle: Align(
-                          alignment: Alignment.topLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                _orderServicesResponseModel!.car.carLisenceNo,
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                _orderServicesResponseModel!.car.carModel,
+                    SizedBox(height: 10.sp),
+                    const Divider(thickness: 1),
+                    SizedBox(height: 10.sp),
+                    _currentExpertWorkload != null
+                        ? RichText(
+                            text: TextSpan(
+                                text: "Thời gian bắt đầu dự kiến: ",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
+                                  color: AppColors.blackTextColor,
                                 ),
+                                children: [
+                                  TextSpan(
+                                    text: formatDate(
+                                        _currentExpertWorkload!
+                                            .intendedFinishTime
+                                            .toString(),
+                                        true),
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                  )
+                                ]),
+                          )
+                        : Container(),
+                    _currentExpertWorkload != null
+                        ? SizedBox(height: 5.sp)
+                        : Container(),
+                    _workload != null
+                        ? RichText(
+                            text: TextSpan(
+                                text: "Thời gian hoàn tất dự kiến: ",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.blackTextColor,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: formatDate(
+                                        _workload!.intendedFinishTime
+                                            .toString(),
+                                        true),
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                  )
+                                ]),
+                          )
+                        : Container(),
+                    _workload != null ? SizedBox(height: 5.sp) : Container(),
+                    RichText(
+                      text: TextSpan(
+                          text: "Ước lượng: ",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.blackTextColor,
+                          ),
+                          children: [
+                            TextSpan(
+                              text:
+                                  hours > 24 ? "$days Ngày" :"$hours Giờ"  ,
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.blackTextColor,
                               ),
-                            ],
+                            ),
+                          ]),
+                    ),
+                    SizedBox(height: 10.sp),
+                    const Divider(thickness: 1),
+                    SizedBox(height: 10.sp),
+                    Text(
+                      "Tóm tắt thanh toán",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                    SizedBox(height: 5.sp),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5.sp),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          _getNameOfItem(
+                                              _listOrderServiceDetails[index]
+                                                  .itemId),
+                                          style: AppStyles.text400(
+                                              fontsize: 10.sp)),
+                                      Visibility(
+                                        visible: _expand,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 1.sp),
+                                          child: Text(
+                                              _getProblemNameOfItem(
+                                                  _listOrderServiceDetails[
+                                                          index]
+                                                      .itemId),
+                                              style: AppStyles.text400(
+                                                  fontsize: 10.sp,
+                                                  color: Colors.grey.shade500)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                      formatCurrency(
+                                          _listOrderServiceDetails[index]
+                                              .price),
+                                      style:
+                                          AppStyles.text400(fontsize: 10.sp)),
+                                ],
+                              ),
+                            ))
+                          ],
+                        );
+                      },
+                      itemCount: _listOrderServiceDetails.length,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: CustomRowWithoutPadding(
+                                title: "Phí kiểm tra",
+                                value: formatCurrency(prepaid),
+                                textStyle: AppStyles.text400(fontsize: 10.sp))),
+                      ],
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _expand = !_expand;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.sp),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              _expand ? 'Thu gọn' : 'Thêm chi tiết',
+                              style: AppStyles.header600(
+                                  fontsize: 10.sp, color: Colors.grey.shade500),
+                            ),
+                            Icon(
+                                _expand
+                                    ? Icons.keyboard_arrow_up
+                                    : Icons.keyboard_arrow_down,
+                                color: Colors.grey.shade500)
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Divider(thickness: 1),
+                    CustomRowWithoutPadding(
+                      title: 'Tổng tạm tính',
+                      value: formatCurrency(sum),
+                      textStyle: AppStyles.header600(fontsize: 10.sp),
+                    ),
+                    CustomRowWithoutPadding(
+                      title: 'Khấu trừ từ đặt lịch',
+                      value: "- ${formatCurrency(prepaid)}",
+                      textStyle: AppStyles.header600(
+                          fontsize: 10.sp, color: Colors.red),
+                    ),
+                    CustomRowWithoutPadding(
+                      title: 'Số tiền cần thanh toán',
+                      value: formatCurrency(sumAfter),
+                      textStyle: AppStyles.header600(fontsize: 10.sp),
+                    ),
+                    const Divider(thickness: 1),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.sp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Phương thức thanh toán',
+                            style: AppStyles.text400(fontsize: 10.sp),
+                          ),
+                          Image.asset(
+                            'assets/image/icon-logo/vnpay.png',
+                            height: 12.sp,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 5.sp),
+                    ExpansionTile(
+                      trailing: const Icon(
+                        Icons.abc_sharp,
+                        color: Colors.transparent,
+                      ),
+                      title: Center(
+                        child: SizedBox(
+                          width: 180.w,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 50),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Xem thêm chi tiết ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blueTextColor,
+                                  ),
+                                ),
+                                const Icon(
+                                  Icons.add_circle_outline_sharp,
+                                  size: 16,
+                                  color: AppColors.blueTextColor,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 10.sp),
-                    ],
+                      children: <Widget>[
+                        ListTile(
+                          leading: Image.asset(
+                            "assets/image/service-picture/mechanicPic.png",
+                            height: 40.sp,
+                            width: 50.sp,
+                          ),
+                          title: Text(
+                            _orderServicesResponseModel!.expert == null
+                                ? "Chưa có kỹ thuật viên"
+                                : _orderServicesResponseModel!.expert!.fullname,
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                          subtitle: Text(
+                            "Kỹ thuật viên",
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blackTextColor,
+                            ),
+                          ),
+                        ),
+                        const Divider(thickness: 1),
+                        SizedBox(height: 10.sp),
+                        ListTile(
+                          leading: FutureBuilder(
+                              future: BrandService().getPhoto(
+                                  _orderServicesResponseModel!.car.carBrand),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Image.network(
+                                    snapshot.data.toString(),
+                                    height: 40.sp,
+                                    width: 50.sp,
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Image.asset(
+                                    "assets/image/icon-logo/bmw-car-icon.png",
+                                    height: 40.sp,
+                                    width: 50.sp,
+                                  );
+                                } else {
+                                  return Image.asset(
+                                    "assets/image/icon-logo/bmw-car-icon.png",
+                                    height: 40.sp,
+                                    width: 50.sp,
+                                  );
+                                }
+                              }),
+                          title: Text(
+                            _orderServicesResponseModel!.car.carBrand,
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.lightTextColor,
+                            ),
+                          ),
+                          subtitle: Align(
+                            alignment: Alignment.topLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  _orderServicesResponseModel!.car.carLisenceNo,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.h,
+                                ),
+                                Text(
+                                  _orderServicesResponseModel!.car.carModel,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.lightTextColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10.sp),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(
+                thickness: 1,
+              ),
+              SizedBox(height: 10.sp),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: 150.w,
+                    height: 52.sp,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        widget.onGoingPaymentCallBack();
+                      },
+                      style: AppStyles.button16(color: Colors.grey.shade500),
+                      child: Text(
+                        'Quay lại',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 150.w,
+                    height: 52.sp,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.bottomSheet(
+                          BottomPopup(
+                            image: 'assets/image/service-picture/confirmed.png',
+                            title: "Bạn có muốn thanh toán ?",
+                            body:
+                                'Phương tiện của bạn sẽ được tiến hành thực hiện sau khi thanh toán hoàn tất',
+                            buttonTitle: "Xác nhận",
+                            action: () {
+                              Get.to(_pay());
+                            },
+                          ),
+                          backgroundColor: Colors.transparent,
+                        );
+                      },
+                      style: AppStyles.button16(),
+                      child: Text(
+                        'Tiếp tục',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-            const Divider(thickness: 1,),
-            SizedBox(height: 10.sp),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  width: 150.w,
-                  height: 52.sp,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      widget.onGoingPaymentCallBack();
-                    },
-                    style: AppStyles.button16(color: Colors.grey.shade500),
-                    child: Text(
-                      'Quay lại',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 150.w,
-                  height: 52.sp,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.bottomSheet(
-                        BottomPopup(
-                          image: 'assets/image/service-picture/confirmed.png',
-                          title: "Bạn có muốn thanh toán ?",
-                          body: 'Phương tiện của bạn sẽ được tiến hành thực hiện sau khi thanh toán hoàn tất',
-                          buttonTitle: "Xác nhận",
-                          action: () {
-                            Get.to(_pay());
-                          },
-                        ),
-                        backgroundColor: Colors.transparent,
-                      );
-                    },
-                    style: AppStyles.button16(),
-                    child: Text(
-                      'Tiếp tục',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20.sp,
-            ),
-          ],
-        );
+              SizedBox(
+                height: 20.sp,
+              ),
+            ],
+          );
   }
 }
