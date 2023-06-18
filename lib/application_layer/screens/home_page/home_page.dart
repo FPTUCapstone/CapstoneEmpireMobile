@@ -301,17 +301,20 @@ class _HomePageState extends State<HomePage> {
                                                   const BorderRadius.all(
                                                       Radius.circular(16))),
                                           child: SizedBox(
-                                            height: 70.h,
-                                            child: ActivityChip(
-                                              carInfo:
-                                                  '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                              date: item.date.toString(),
-                                              daysLeft: item.daysLeft,
-                                              isBooking: item.isBooking,
-                                              item: item,
-                                              code: item.code != null
-                                                  ? item.code.toString()
-                                                  : "#########",
+                                            height: 75.h,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(bottom: 20),
+                                              child: ActivityChip(
+                                                carInfo:
+                                                    '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                                date: item.date.toString(),
+                                                daysLeft: item.daysLeft,
+                                                isBooking: item.isBooking,
+                                                item: item,
+                                                code: item.code != null
+                                                    ? item.code.toString()
+                                                    : "#########",
+                                              ),
                                             ),
                                           ),
                                         ),

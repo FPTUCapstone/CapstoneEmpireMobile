@@ -349,7 +349,8 @@ class _ActivityChipState extends State<ActivityChip> {
               ? "assets/image/icon-logo/calendar-history-icon.png"
               : "assets/image/icon-logo/service-logo.png",
           fit: BoxFit.cover,
-          width: 40.w,
+          height: 40.sp,
+          width: 50.sp,
         ),
         title: !isComplete
             ? Text(
