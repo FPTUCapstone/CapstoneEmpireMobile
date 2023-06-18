@@ -143,7 +143,7 @@ class _BookingInfoState extends State<BookingInfo> {
     }
     setState(() {
       _listCar = listCar;
-      _selectedCar = _listCar.first.id;
+      _selectedCar = _listCar.where((element) => element.isInGarage == false && element.haveBooking == false).first.id;
       _loadHCR = false;
       _loading = true;
     });
