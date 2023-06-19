@@ -1,6 +1,7 @@
 import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/car_service/car_service.dart';
@@ -26,7 +27,10 @@ class ChoseYourCar extends StatefulWidget {
 }
 
 class _ChoseYourCarState extends State<ChoseYourCar> {
-  List<CarResponseModel> _listCar = [];
+  List<CarResponseModel> _listCarWithBooking = [];
+  List<CarResponseModel> _listCarWithoutBooking = [];
+  List<CarResponseModel> listWithBooking = [];
+  List<CarResponseModel> listWithoutBooking = [];
   late int _selectedCar;
   bool _loading = true;
 
@@ -42,8 +46,19 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
     var listCar = await CarService().fetchUserCars(userId as int);
     if (listCar == null) return;
     if (!mounted) return;
+
+    listWithBooking.clear();
+    listWithoutBooking.clear();
+    for (var car in listCar) {
+      if (car.haveBooking == true || car.isInGarage == true) {
+        listWithBooking.add(car);
+      } else {
+        listWithoutBooking.add(car);
+      }
+    }
     setState(() {
-      _listCar = listCar;
+      _listCarWithBooking = listWithBooking;
+      _listCarWithoutBooking = listWithoutBooking;
       _loading = false;
     });
   }
@@ -135,25 +150,73 @@ class _ChoseYourCarState extends State<ChoseYourCar> {
                     color: AppColors.blue600,
                     child: _loading
                         ? const Loading()
-                        : ListView.builder(
-                            itemCount: _listCar.length,
-                            itemBuilder: (context, index) => Column(
-                              children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.sp),
-                                  child: CarChip(
-                                    car: _listCar[index],
-                                    selectedCar: _selectedCar,
-                                    onSelected: _onCarSelected,
+                        : ListView(
+                          children: [
+                            ListView.builder(
+                              shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: _listCarWithoutBooking.length,
+                                itemBuilder: (context, index) => Column(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10.sp),
+                                          child: CarChip(
+                                            car: _listCarWithoutBooking[index],
+                                            selectedCar: _selectedCar,
+                                            onSelected: _onCarSelected,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 16.h,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            _listCarWithBooking.isNotEmpty?
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
+                              child: Text("Xe không thể đặt lịch",
+                                style: AppStyles.header600(fontsize: 12),
+                              ),
+                            ): Container(),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: _listCarWithBooking.length,
+                              itemBuilder: (context, index) => Column(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.sp),
+                                        child: Opacity(
+                                          opacity: 0.5,
+                                          child: AbsorbPointer(
+                                            absorbing: true,
+                                            child: CarChip(
+                                              car: _listCarWithBooking[index],
+                                              selectedCar: _selectedCar,
+                                              onSelected: _onCarSelected,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                              ],
+                                  SizedBox(
+                                    height: 16.h,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
                   ),
                 ),
               ]),
@@ -272,7 +335,7 @@ class _CarChipState extends State<CarChip> {
               ),
             ],
           ),
-          trailing: Column(
+          trailing: widget.car.isInGarage == false && widget.car.haveBooking == false?Column(
             children: [
               SizedBox(height: 10.sp),
               Icon(
@@ -282,7 +345,7 @@ class _CarChipState extends State<CarChip> {
                 color: isSelected ? AppColors.buttonColor : AppColors.grey400,
               )
             ],
-          ),
+          ): null,
         ),
       ),
     );

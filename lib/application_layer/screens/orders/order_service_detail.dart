@@ -128,7 +128,6 @@ class _OrderServiceDetailState extends State<OrderServiceDetail> {
             Text(
                 widget._orderServicesResponseModel
                     .orderServiceDetails![widget.index].item!.problem!.name
-                    .toString()
                     .toString(),
                 style: const TextStyle(
                   fontFamily: 'Roboto',
@@ -150,8 +149,7 @@ class _OrderServiceDetailState extends State<OrderServiceDetail> {
             Text(
                 widget._orderServicesResponseModel
                     .orderServiceDetails![widget.index].note
-                    .toString()
-                    .toString(),
+                    ?? "Chưa có ghi chú",
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,

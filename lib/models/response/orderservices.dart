@@ -7,6 +7,7 @@ class OrderServicesResponseModel {
   HealthCarRecord? healthCarRecord;
   Order order;
   List<OrderServiceDetails>? orderServiceDetails;
+  MaintenanceSchedule? maintenanceSchedule;
 
   OrderServicesResponseModel({
     required this.id,
@@ -17,6 +18,7 @@ class OrderServicesResponseModel {
     this.healthCarRecord,
     required this.order,
     required this.orderServiceDetails,
+    this.maintenanceSchedule,
   });
 
   factory OrderServicesResponseModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,18 @@ class OrderServicesResponseModel {
           ? List<OrderServiceDetails>.from(json['orderServiceDetails']
               .map((x) => OrderServiceDetails.fromJson(x)))
           : null,
+      maintenanceSchedule: json['maintenanceSchedule'] != null ? MaintenanceSchedule.fromJson(json['maintenanceSchedule']) : null,
+    );
+  }
+}
+
+class MaintenanceSchedule{
+  DateTime maintenanceDate;
+
+  MaintenanceSchedule({required this.maintenanceDate});
+  factory MaintenanceSchedule.fromJson(Map<String, dynamic> json){
+    return MaintenanceSchedule(
+      maintenanceDate: DateTime.parse(json['maintenanceDate']),
     );
   }
 }

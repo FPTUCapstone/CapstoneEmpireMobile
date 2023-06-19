@@ -92,34 +92,54 @@ class _OrderDetailState extends State<OrderDetail> {
                           Get.to(() => OrderServiceDetail(
                               index, widget._orderServicesResponseModel));
                         },
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(
+                        child: Row(
+                          children: [
                             widget._orderServicesResponseModel
-                                .orderServiceDetails![index].item!.name
-                                .toString(),
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: Colors.black,
+                                        .orderServiceDetails![index].done ==
+                                    true
+                                ? Icon(Icons.verified,
+                                    color: AppColors.blueTextColor)
+                                : Icon(Icons.schedule,
+                                    color: AppColors.grey400),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 20.sp),
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(
+                                    widget._orderServicesResponseModel
+                                        .orderServiceDetails![index].item!.name
+                                        .toString(),
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.sp,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    widget
+                                        ._orderServicesResponseModel
+                                        .orderServiceDetails![index]
+                                        .item!
+                                        .problem!
+                                        .name
+                                        .toString(),
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 10.sp,
+                                      color: AppColors.lightTextColor,
+                                    ),
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: AppColors.blackTextColor,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          subtitle: Text(
-                            widget._orderServicesResponseModel
-                                .orderServiceDetails![index].item!.problem!.name
-                                .toString(),
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 10.sp,
-                              color: AppColors.lightTextColor,
-                            ),
-                          ),
-                          trailing: const Icon(
-                              Icons.keyboard_arrow_right,
-                              color: AppColors.blackTextColor,
-                          ),
+                          ],
                         ),
                       ),
                     ],

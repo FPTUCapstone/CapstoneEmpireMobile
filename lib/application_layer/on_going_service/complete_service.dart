@@ -96,6 +96,8 @@ class _CompleteServiceState extends State<CompleteService> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Divider(thickness: 1),
+                SizedBox(height: 5.sp),
                 InkWell(
                   onTap: () async {
                     Get.to(() => CheckOutQRCodePage(
@@ -130,6 +132,9 @@ class _CompleteServiceState extends State<CompleteService> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 5.sp,
+                ),
                 const Divider(thickness: 1),
                 SizedBox(
                   height: 10.sp,
@@ -139,6 +144,7 @@ class _CompleteServiceState extends State<CompleteService> {
                   "Phương tiện đã được sửa chữa hoàn tất",
                   style: AppStyles.header600(fontsize: 12.sp),
                 )),
+                SizedBox(height: 5.sp),
                 Center(
                   child: Column(
                     //mainAxisAlignment: MainAxisAlignment.center,
@@ -169,6 +175,24 @@ class _CompleteServiceState extends State<CompleteService> {
                   ),
                 ),
                 SizedBox(height: 5.sp),
+                _orderServicesResponseModel!.maintenanceSchedule != null ?
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(thickness: 1),
+                    SizedBox(height: 10.sp),
+                    Text(
+                      "Ngày bảo trì: " + formatDate(_orderServicesResponseModel!.maintenanceSchedule!.maintenanceDate.toString(), false),
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                    SizedBox(height: 10.sp),
+                  ],
+                ): Container(),
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),
                 Text(
