@@ -128,226 +128,233 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
   Widget build(BuildContext context) {
     return _loading
         ? const Loading()
-        : Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Divider(thickness: 1),
-                SizedBox(height: 10.sp),
-                Text(
-                  "Kết quả chuẩn đoán",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
-                  ),
-                ),
-                SizedBox(height: 10.sp),
-                ReadMoreText(
-                  _orderServicesResponseModel!.healthCarRecord!.symptom
-                      .toString(),
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.blackTextColor,
-                  ),
-                  trimLines: 10,
-                  trimMode: TrimMode.Line,
-                  trimCollapsedText: ' Read more',
-                  trimExpandedText: ' Show less',
-                ),
-                SizedBox(height: 10.sp),
-                const Divider(thickness: 1),
-                SizedBox(height: 10.sp),
-                Text(
-                  "Dịch vụ gợi ý trên kết quả phân tích",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.blackTextColor,
-                  ),
-                ),
-                SizedBox(height: 5.sp),
-                Text(
-                  "Bạn có thể thay đổi theo mong muốn ",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-                SizedBox(height: 15.sp),
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: _orderServicesResponseModel!
-                        .healthCarRecord!.healthCarRecordProblems!.length,
-                    itemBuilder: (context, index) {
-                      var healthCarRecordProblem = _orderServicesResponseModel!
-                          .healthCarRecord!.healthCarRecordProblems![index];
-                          var selectedIndex = -1;
-                          if (healthCarRecordProblem.problem.items != null) {
-                            for (var element in healthCarRecordProblem.problem.items!) {
-                              var flag = _checkService(element);
-                              if (flag == true) {
-                                selectedIndex = healthCarRecordProblem.problem.items!.indexOf(element);
-                              }
-                            }
-                          }
-                      return ExpansionTile(
-                          initiallyExpanded: true,
-                          childrenPadding: EdgeInsets.zero,
-                          tilePadding: EdgeInsets.zero,
-                          shape: Border.all(color: Colors.white),
-                          collapsedShape: Border.all(color: Colors.white),
-                          iconColor: AppColors.blueTextColor,
-                          title: Text(
-                            healthCarRecordProblem.problem.name.toString(),
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                          subtitle: selectedIndex != -1 ? Text("Đã chọn: ${healthCarRecordProblem.problem.items![selectedIndex].name}", style: AppStyles.text400(fontsize: 10.sp)) : null,
-                          trailing: selectedIndex != -1 ? Text(formatCurrency(healthCarRecordProblem.problem.items![selectedIndex].presentPrice), style: AppStyles.text400(fontsize: 10.sp)) : null,
-                          onExpansionChanged: (value) {
-                            if (value == false ){
-
-                            }
-                          },
-                          children: [
-                            SizedBox(height: 5.sp),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount:
-                                  healthCarRecordProblem.problem.items!.length,
-                              itemBuilder: (context, index) {
-                                var item = healthCarRecordProblem
-                                    .problem.items![index];
-                                return InkWell(
-                                  onTap: () {
-                                    //remove when click at itself
-                                    if (_listOrderServiceDetails.any(
-                                        (element) =>
-                                            element.itemId == item.id)) {
-                                      setState(() {
-                                        _listOrderServiceDetails.removeWhere(
-                                            (element) =>
-                                                element.itemId == item.id);
-                                        _sum -= item.presentPrice!;
-                                      });
-                                    } else {
-                                      //reload list in a problem
-                                      for (var e in healthCarRecordProblem
-                                          .problem.items!) {
-                                        if (_listOrderServiceDetails.any(
-                                            (element) =>
-                                                element.itemId == e.id)) {
-                                          _listOrderServiceDetails.removeWhere(
-                                              (element) =>
-                                                  element.itemId == e.id);
-                                          _sum -= double.parse(
-                                              e.presentPrice.toString());
-                                        }
-                                      }
-                                      _confirmService(
-                                          item,
-                                          healthCarRecordProblem
-                                              .problem.intendedMinutes);
-                                    }
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 5.sp, vertical: 5.sp),
-                                    child: Row(
-                                      // mainAxisAlignment:
-                                      //     MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          _checkService(item)
-                                              ? Icons.radio_button_checked
-                                              : Icons.radio_button_unchecked,
-                                          color: AppColors.buttonColor,
-                                        ),
-                                        SizedBox(width: 5.sp),
-                                        Text(
-                                          item.name.toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.blackTextColor,
-                                          ),
-                                        ),
-                                        // SizedBox(width: 120.sp),
-                                        const Spacer(),
-                                        Text(
-                                          formatCurrency(item.presentPrice),
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 10.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.lightTextColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                            SizedBox(height: 5.sp),
-                          ]);
-                    }),
-                const Divider(
-                  thickness: 1,
-                ),
-                CustomRowWithoutPadding(
-                    title: "Tổng tạm tính",
-                    value: formatCurrency(_sum),
-                    textStyle: AppStyles.header600(fontsize: 12.sp)),
-                SizedBox(
-                  height: 15.sp,
-                ),
-                if (_error != null)
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 8.h),
-                    child: Text(_error.toString(),
-                        style: AppStyles.text400(
-                            fontsize: 12.sp, color: Colors.red)),
-                  ),
-                SizedBox(height: 5.sp),
-                SizedBox(
-                  width: 335.w,
-                  height: 52.sp,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      _onContinue();
-                    },
-                    style: AppStyles.button16(),
-                    child: Text(
-                      'Tiếp tục',
+        : Column(
+          children: [
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(thickness: 1),
+                    SizedBox(height: 10.sp),
+                    Text(
+                      "Kết quả chuẩn đoán",
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontSize: 14.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
                       ),
                     ),
+                    SizedBox(height: 10.sp),
+                    ReadMoreText(
+                      _orderServicesResponseModel!.healthCarRecord!.symptom
+                          .toString(),
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.blackTextColor,
+                      ),
+                      trimLines: 10,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: ' Read more',
+                      trimExpandedText: ' Show less',
+                    ),
+                    SizedBox(height: 10.sp),
+                    const Divider(thickness: 1),
+                    SizedBox(height: 10.sp),
+                    Text(
+                      "Dịch vụ gợi ý trên kết quả phân tích",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blackTextColor,
+                      ),
+                    ),
+                    SizedBox(height: 5.sp),
+                    Text(
+                      "Bạn có thể thay đổi theo mong muốn ",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightTextColor,
+                      ),
+                    ),
+                    SizedBox(height: 15.sp),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _orderServicesResponseModel!
+                            .healthCarRecord!.healthCarRecordProblems!.length,
+                        itemBuilder: (context, index) {
+                          var healthCarRecordProblem = _orderServicesResponseModel!
+                              .healthCarRecord!.healthCarRecordProblems![index];
+                              var selectedIndex = -1;
+                              if (healthCarRecordProblem.problem.items != null) {
+                                for (var element in healthCarRecordProblem.problem.items!) {
+                                  var flag = _checkService(element);
+                                  if (flag == true) {
+                                    selectedIndex = healthCarRecordProblem.problem.items!.indexOf(element);
+                                  }
+                                }
+                              }
+                          return ExpansionTile(
+                              initiallyExpanded: true,
+                              childrenPadding: EdgeInsets.zero,
+                              tilePadding: EdgeInsets.zero,
+                              shape: Border.all(color: Colors.white),
+                              collapsedShape: Border.all(color: Colors.white),
+                              iconColor: AppColors.blueTextColor,
+                              title: Text(
+                                healthCarRecordProblem.problem.name.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              subtitle: selectedIndex != -1 ? Text("Đã chọn: ${healthCarRecordProblem.problem.items![selectedIndex].name}", style: AppStyles.text400(fontsize: 10.sp)) : null,
+                              trailing: selectedIndex != -1 ? Text(formatCurrency(healthCarRecordProblem.problem.items![selectedIndex].presentPrice), style: AppStyles.text400(fontsize: 10.sp)) : null,
+                              onExpansionChanged: (value) {
+                                if (value == false ){
+
+                                }
+                              },
+                              children: [
+                                SizedBox(height: 5.sp),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      healthCarRecordProblem.problem.items!.length,
+                                  itemBuilder: (context, index) {
+                                    var item = healthCarRecordProblem
+                                        .problem.items![index];
+                                    return InkWell(
+                                      onTap: () {
+                                        //remove when click at itself
+                                        if (_listOrderServiceDetails.any(
+                                            (element) =>
+                                                element.itemId == item.id)) {
+                                          setState(() {
+                                            _listOrderServiceDetails.removeWhere(
+                                                (element) =>
+                                                    element.itemId == item.id);
+                                            _sum -= item.presentPrice!;
+                                          });
+                                        } else {
+                                          //reload list in a problem
+                                          for (var e in healthCarRecordProblem
+                                              .problem.items!) {
+                                            if (_listOrderServiceDetails.any(
+                                                (element) =>
+                                                    element.itemId == e.id)) {
+                                              _listOrderServiceDetails.removeWhere(
+                                                  (element) =>
+                                                      element.itemId == e.id);
+                                              _sum -= double.parse(
+                                                  e.presentPrice.toString());
+                                            }
+                                          }
+                                          _confirmService(
+                                              item,
+                                              healthCarRecordProblem
+                                                  .problem.intendedMinutes);
+                                        }
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 5.sp, vertical: 5.sp),
+                                        child: Row(
+                                          // mainAxisAlignment:
+                                          //     MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Icon(
+                                              _checkService(item)
+                                                  ? Icons.radio_button_checked
+                                                  : Icons.radio_button_unchecked,
+                                              color: AppColors.buttonColor,
+                                            ),
+                                            SizedBox(width: 5.sp),
+                                            Text(
+                                              item.name.toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.blackTextColor,
+                                              ),
+                                            ),
+                                            // SizedBox(width: 120.sp),
+                                            const Spacer(),
+                                            Text(
+                                              formatCurrency(item.presentPrice),
+                                              style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.lightTextColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(height: 5.sp),
+                              ]);
+                        }),
+                    const Divider(
+                      thickness: 1,
+                    ),
+                    CustomRowWithoutPadding(
+                        title: "Tổng tạm tính",
+                        value: formatCurrency(_sum),
+                        textStyle: AppStyles.header600(fontsize: 12.sp)),
+                    SizedBox(
+                      height: 15.sp,
+                    ),
+                    if (_error != null)
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 8.h),
+                        child: Text(_error.toString(),
+                            style: AppStyles.text400(
+                                fontsize: 12.sp, color: Colors.red)),
+                      ),
+                  ],
+                ),
+              ),
+            const Divider(
+              thickness: 1,
+            ),
+            SizedBox(height: 15.sp),
+            SizedBox(
+              width: 300.w,
+              height: 52.sp,
+              child: ElevatedButton(
+                onPressed: () async {
+                  _onContinue();
+                },
+                style: AppStyles.button16(),
+                child: Text(
+                  'Tiếp tục',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(
-                  height: 15.sp,
-                ),
-              ],
+              ),
             ),
-          );
+            SizedBox(
+              height: 15.sp,
+            ),
+          ],
+        );
   }
 }
