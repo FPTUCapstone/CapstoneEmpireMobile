@@ -22,22 +22,17 @@ class BottomPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 380.h,
       decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-              top: Radius.circular(24))),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
       child: Column(
         children: [
-          ClipRRect(
+          Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 12),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: SizedBox(
@@ -49,9 +44,6 @@ class BottomPopup extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
                   Text(
                     title,
                     textAlign: TextAlign.center,
@@ -62,52 +54,48 @@ class BottomPopup extends StatelessWidget {
                       color: AppColors.blackTextColor,
                     ),
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  SizedBox(
-                    width: 300.w,
-                    child: Center(
-                      child: Text(
-                        body,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
+                  Center(
+                    child: Text(
+                      body,
+                      textAlign: TextAlign.center,
+                      maxLines: 3,
+                      style: TextStyle(
                           fontFamily: 'SFProDisplay',
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                           color: AppColors.lightTextColor,
                         ),
-                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
                   ),
                 ],
               ),
             ),
           ),
-          Divider(thickness: 1),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
-                  child: ElevatedButton(
-                    onPressed: action,
-                    style: AppStyles.button16(),
-                    child: Text(
-                      buttonTitle,
-                      style: TextStyle(
-                        fontFamily: 'SFProDisplay',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
+          Column(
+            children: [
+              const Divider(thickness: 1),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: action,
+                        style: AppStyles.button16(),
+                        child: Text(
+                          buttonTitle,
+                          style: TextStyle(
+                            fontFamily: 'SFProDisplay',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         ],
