@@ -101,12 +101,12 @@ class _CompleteServiceState extends State<CompleteService> {
                 InkWell(
                   onTap: () async {
                     Get.to(() => CheckOutQRCodePage(
-                      id: _orderServicesResponseModel!.id,
-                    ));
+                          id: _orderServicesResponseModel!.id,
+                        ));
                   },
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20.sp, vertical: 5.sp),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -175,24 +175,49 @@ class _CompleteServiceState extends State<CompleteService> {
                   ),
                 ),
                 SizedBox(height: 5.sp),
-                _orderServicesResponseModel!.maintenanceSchedule != null ?
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Divider(thickness: 1),
-                    SizedBox(height: 10.sp),
-                    Text(
-                      "Ngày bảo trì: " + formatDate(_orderServicesResponseModel!.maintenanceSchedule!.maintenanceDate.toString(), false),
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blackTextColor,
-                      ),
-                    ),
-                    SizedBox(height: 10.sp),
-                  ],
-                ): Container(),
+                _orderServicesResponseModel!.maintenanceSchedule != null
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Divider(thickness: 1),
+                          SizedBox(height: 10.sp),
+                          Row(
+                            children: [
+                              Text(
+                                "Ngày bảo trì: ${formatDate(_orderServicesResponseModel!.maintenanceSchedule!.maintenanceDate.toString(), false)}",
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              ),
+                              const Spacer(),
+                              SizedBox(
+                                width: 75.w,
+                                height: 20.sp,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    //TODO
+                                  },
+                                  style: AppStyles.button16(
+                                      color: AppColors.buttonColor),
+                                  child: Text(
+                                    'Xác nhận',
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10.sp),
+                        ],
+                      )
+                    : Container(),
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),
                 Text(
