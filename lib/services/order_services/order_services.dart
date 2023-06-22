@@ -165,7 +165,8 @@ class OrderServices {
   }
 
   Future<Workload?> getExpectedWorkload(int expertId, int totalPoints) async {
-    String apiUrl = "${APIPath.path}/workloads/expected-finish-time?expertId=$expertId&points=$totalPoints";
+    String apiUrl =
+        "${APIPath.path}/workloads/expected-finish-time?expertId=$expertId&points=$totalPoints";
     try {
       var response = await makeHttpRequest(apiUrl);
       if (response.statusCode == 200) {
@@ -178,8 +179,10 @@ class OrderServices {
     return null;
   }
 
-  Future<Workload?> getOrderServiceWorkload(int expertId, int orderServiceId) async {
-    String apiUrl = "${APIPath.path}/workloads/by-order-service?expertId=$expertId&orderServiceId=$orderServiceId";
+  Future<Workload?> getOrderServiceWorkload(
+      int expertId, int orderServiceId) async {
+    String apiUrl =
+        "${APIPath.path}/workloads/by-order-service?expertId=$expertId&orderServiceId=$orderServiceId";
     try {
       var response = await makeHttpRequest(apiUrl);
       if (response.statusCode == 200) {
@@ -193,7 +196,8 @@ class OrderServices {
   }
 
   Future<Workload?> getStartWorkload(int expertId, int orderServiceId) async {
-    String apiUrl = "${APIPath.path}/workloads/expected-start-time?expertId=$expertId&orderServiceId=$orderServiceId";
+    String apiUrl =
+        "${APIPath.path}/workloads/expected-start-time?expertId=$expertId&orderServiceId=$orderServiceId";
     try {
       var response = await makeHttpRequest(apiUrl);
       if (response.statusCode == 200) {
@@ -205,4 +209,20 @@ class OrderServices {
     }
     return null;
   }
+ 
+ Future<http.Response?> putConfirmMaintainanceSchedule (int? orderServiceId) async{
+   http.Response? response;
+    try {
+      response = await makeHttpRequest(
+        '${APIPath.path}/order-services/$orderServiceId/maintenance-schedule/confirm',
+        method: 'PUT',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
+ }
 }

@@ -14,6 +14,7 @@ import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
 import '../../services/booking_service/booking_service.dart';
+import '../widgets/bottom_popup.dart';
 
 class CompleteService extends StatefulWidget {
   final int servicesId;
@@ -48,6 +49,7 @@ class _CompleteServiceState extends State<CompleteService> {
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
   bool _expand = false;
+  bool _isConfirmedMaintananceSchedule = true;
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
@@ -73,6 +75,24 @@ class _CompleteServiceState extends State<CompleteService> {
           }
           sumAfter = sum - prepaid;
           _loading = false;
+        });
+      }
+    } catch (e) {
+      e.toString();
+    }
+  }
+
+  _confirmMaintainanceSchedult() async {
+    var response = await OrderServices()
+        .putConfirmMaintainanceSchedule(_orderServicesResponseModel?.id);
+    try {
+      if (response!.statusCode == 204) {
+        setState(() {
+          _isConfirmedMaintananceSchedule = false;
+        });
+      } else {
+        setState(() {
+          _isConfirmedMaintananceSchedule = false;
         });
       }
     } catch (e) {
@@ -193,25 +213,58 @@ class _CompleteServiceState extends State<CompleteService> {
                                 ),
                               ),
                               const Spacer(),
-                              SizedBox(
-                                width: 75.w,
-                                height: 20.sp,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    //TODO
-                                  },
-                                  style: AppStyles.button16(
-                                      color: AppColors.buttonColor),
-                                  child: Text(
-                                    'Xác nhận',
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              _isConfirmedMaintananceSchedule == true
+                                  ? SizedBox(
+                                      width: 75.w,
+                                      height: 20.sp,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Get.bottomSheet(
+                                            BottomPopup(
+                                              image:
+                                                  'assets/image/service-picture/confirmed.png',
+                                              title:
+                                                  "Xác nhận lịch bảo trì ?",
+                                              body:
+                                                  'Vui lòng đến garage đúng ngày đã hẹn để được phục vụ một cách tốt nhất',
+                                              buttonTitle: "Xác nhận",
+                                              action: () {
+                                                _confirmMaintainanceSchedult();
+                                                Get.back();
+                                              },
+                                            ),
+                                            backgroundColor: Colors.transparent,
+                                          );
+                                        },
+                                        style: AppStyles.button16(
+                                            color: AppColors.buttonColor),
+                                        child: Text(
+                                          'Xác nhận',
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      width: 85.w,
+                                      height: 20.sp,
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        style: AppStyles.button16(
+                                            color: AppColors.greenTextColor),
+                                        child: Text(
+                                          'Đã xác nhận',
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    )
                             ],
                           ),
                           SizedBox(height: 10.sp),
