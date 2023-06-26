@@ -169,4 +169,19 @@ class BookingService {
     );
     return response;
   }
+
+  Future<double> getTotalWorkload() async {
+    String apiUrl = "${APIPath.path}/workloads/total";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        dynamic jsonObject = json.decode(response.body);
+        double totalWorkload = double.parse(jsonObject.toString());
+        return totalWorkload;
+      }
+    } catch (e) {
+      e.toString();
+    }
+    return 0;
+  }
 }

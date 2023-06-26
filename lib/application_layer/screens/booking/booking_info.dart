@@ -105,12 +105,29 @@ class _BookingInfoState extends State<BookingInfo> {
   CarProfile? _carProfile;
   List<UnresolvedProblem> _unresolvedProblems = [];
   ModelSlimResponse? _model;
+  bool _canBooking = false;
 
   _loadOptions() async {
     var symptoms = await SymptomsService().fetchListSymptoms();
     if (symptoms != null) {
       setState(() {
         options = symptoms;
+      });
+    }
+  }
+
+  _checkCanBookOrNot() async {
+    var totalWorkload = await BookingService().getTotalWorkload();
+    var currentDate = DateTime.now();
+    Duration duration = widget.selectedDate.difference(currentDate);
+    int date = duration.inDays;
+    if (totalWorkload - date * 16 < 0) {
+      setState(() {
+        _canBooking = true;
+      });
+    } else {
+      setState(() {
+        _canBooking = false;
       });
     }
   }
@@ -127,7 +144,7 @@ class _BookingInfoState extends State<BookingInfo> {
     var modelSymptom =
         await ModelService().getExpectedPrice(_model!.id, symptomId);
     if (modelSymptom != null) {
-      return modelSymptom.expectedPrice ;
+      return modelSymptom.expectedPrice;
     }
   }
 
@@ -143,15 +160,19 @@ class _BookingInfoState extends State<BookingInfo> {
     }
     setState(() {
       _listCar = listCar;
-      _selectedCar = _listCar.where((element) => element.isInGarage == false && element.haveBooking == false).first.id;
+      _selectedCar = _listCar
+          .where((element) =>
+              element.isInGarage == false && element.haveBooking == false)
+          .first
+          .id;
       _loadHCR = false;
       _loading = true;
     });
     var car = _listCar.where((element) => element.id == _selectedCar).first;
     await _getModel(car.carModel, car.carBrand);
     for (var element in options) {
-        element.expectedPrice = await _onSelectSymtomAndCar(element.id);
-      }
+      element.expectedPrice = await _onSelectSymtomAndCar(element.id);
+    }
     bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
     setState(() {
       _isCarHasHCR = isCarHasHCR;
@@ -191,8 +212,8 @@ class _BookingInfoState extends State<BookingInfo> {
     var car = _listCar.where((element) => element.id == _selectedCar).first;
     await _getModel(car.carModel, car.carBrand);
     for (var element in options) {
-        element.expectedPrice = await _onSelectSymtomAndCar(element.id);
-      }
+      element.expectedPrice = await _onSelectSymtomAndCar(element.id);
+    }
   }
 
   void _onCallBack(int selectedCar) async {
@@ -223,6 +244,7 @@ class _BookingInfoState extends State<BookingInfo> {
     _getBookingPrice();
     _loadOptions();
     _getUserCar();
+    _checkCanBookOrNot();
     super.initState();
   }
 
@@ -855,7 +877,7 @@ class _BookingInfoState extends State<BookingInfo> {
                     ),
                     AppStyles.divider(),
                     Padding(
-                       padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
                       child: Container(
                         margin: const EdgeInsets.only(left: 24, right: 24),
                         child: Row(
@@ -942,52 +964,67 @@ class _BookingInfoState extends State<BookingInfo> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if(_listSymptom.isEmpty && _unresolvedProblems.isEmpty){
-                        Get.bottomSheet(
-                          BottomPopup(
-                            image: 'assets/image/icon-logo/failed-icon.png',
-                            title: "Đặt lịch thất bại",
-                            body: 'Vui lòng nhập tình trạng xe',
-                            buttonTitle: "Thử lại",
-                            action: () {
-                              Get.back();
-                            },
+                  child: _canBooking
+                      ? ElevatedButton(
+                          onPressed: () {
+                            if (_listSymptom.isEmpty &&
+                                _unresolvedProblems.isEmpty) {
+                              Get.bottomSheet(
+                                BottomPopup(
+                                  image:
+                                      'assets/image/icon-logo/failed-icon.png',
+                                  title: "Đặt lịch thất bại",
+                                  body: 'Vui lòng nhập tình trạng xe',
+                                  buttonTitle: "Thử lại",
+                                  action: () {
+                                    Get.back();
+                                  },
+                                ),
+                                backgroundColor: Colors.transparent,
+                              );
+                            } else {
+                              Get.bottomSheet(
+                                BottomPopup(
+                                  image:
+                                      'assets/image/service-picture/confirmed.png',
+                                  title: "Xác nhận thanh toán phí đặt lịch",
+                                  body:
+                                      'Tiền đặt lịch sẽ được khấu trừ vào hóa đơn khi thực hiện dịch vụ ở garage',
+                                  buttonTitle: "Tiếp tục",
+                                  action: () {
+                                    Get.to(() => ChosePaymentMethod(
+                                        excute: executeBook));
+                                  },
+                                ),
+                                backgroundColor: Colors.transparent,
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.buttonColor,
+                            fixedSize: Size.fromHeight(50.w),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
                           ),
-                          backgroundColor: Colors.transparent,
-                        );
-                      } else{
-                        Get.bottomSheet(
-                          BottomPopup(
-                            image: 'assets/image/service-picture/confirmed.png',
-                            title: "Xác nhận thanh toán phí đặt lịch",
-                            body: 'Tiền đặt lịch sẽ được khấu trừ vào hóa đơn khi thực hiện dịch vụ ở garage',
-                            buttonTitle: "Tiếp tục",
-                            action: () {
-                              Get.to(() => ChosePaymentMethod(excute: executeBook));
-                            },
+                          child: Text(
+                            'Thanh toán',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                          backgroundColor: Colors.transparent,
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.buttonColor,
-                      fixedSize: Size.fromHeight(50.w),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: Text(
-                      'Thanh toán',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                        )
+                      : Text(
+                          "Không thể đặt lịch.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                 ),
               ],
             ),
