@@ -7,6 +7,7 @@ import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
 import 'package:empiregarage_mobile/models/response/qrcode.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
+import 'package:empiregarage_mobile/models/response/workload.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -183,5 +184,20 @@ class BookingService {
       e.toString();
     }
     return 0;
+  }
+
+  Future<Workload?> getMinWorkload() async {
+    String apiUrl = "${APIPath.path}/workloads/minWorkload";
+    try {
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        dynamic jsonObject = json.decode(response.body);
+        Workload minWorkload = Workload.fromJson(jsonObject);
+        return minWorkload;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 }
