@@ -384,7 +384,7 @@ class _AddNewCarState extends State<AddNewCar> {
                           .addNewCar(carLisenceNo, carBrand, carModel);
                       Get.back();
                       // ignore: unnecessary_null_comparison
-                      if (response == null || response.statusCode == 201) {
+                      if (response == null || response.statusCode != 201) {
                         Get.bottomSheet(
                           BottomPopup(
                             image: 'assets/image/icon-logo/failed-icon.png',
