@@ -216,52 +216,33 @@ class _AddNewCarState extends State<AddNewCar> {
                   Row(
                     children: [
                       Expanded(
-                        child: TypeAheadField(
+                        child: TypeAheadFormField<BrandResponseModel>(
                           textFieldConfiguration: TextFieldConfiguration(
                             controller: _brandController,
-                            // decoration: InputDecoration(
-                            //     border: OutlineInputBorder(
-                            //         borderSide: BorderSide.none,
-                            //         borderRadius: BorderRadius.circular(26)),
-                            //     focusedBorder: OutlineInputBorder(
-                            //         borderSide: const BorderSide(
-                            //             color: AppColors.loginScreenBackGround),
-                            //         borderRadius: BorderRadius.circular(26)),
-                            //     floatingLabelBehavior:
-                            //         FloatingLabelBehavior.always,
-                            //     filled: true,
-                            //     hintText: "Nhập hãng xe",
-                            //     errorText: _errorBrandText),
                             decoration: AppStyles.textbox12(
-                                hintText: 'Chọn hãng xe',
-                                suffixIcon:
-                                    const Icon(Icons.keyboard_arrow_down),
-                                errorText: _errorBrandText),
+                              hintText: 'Chọn hãng xe',
+                              suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                              errorText: _errorBrandText,
+                            ),
                             style: TextStyle(
                               fontFamily: 'Roboto',
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
                             ),
-                            onChanged: (value) {
-                              setState(() {
-                                _filteredBrands = _brands
-                                    .where((element) => element.name
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()))
-                                    .toList();
-                              });
-                            },
                           ),
                           suggestionsCallback: (pattern) async {
-                            return _filteredBrands;
+                            return _brands
+                                .where((element) =>
+                                element.name.toLowerCase().contains(pattern.toLowerCase()))
+                                .toList();
                           },
-                          itemBuilder: (context, suggestion) {
+                          itemBuilder: (context, BrandResponseModel suggestion) {
                             return ListTile(
                               title: Text(suggestion.name),
                             );
                           },
-                          onSuggestionSelected: (suggestion) {
+                          onSuggestionSelected: (BrandResponseModel suggestion) {
                             setState(() {
                               _brandController.text = suggestion.name;
                               carBrand = suggestion.name;
@@ -273,6 +254,7 @@ class _AddNewCarState extends State<AddNewCar> {
                       ),
                     ],
                   ),
+
                   SizedBox(
                     height: 20.sp,
                   ),
@@ -288,54 +270,94 @@ class _AddNewCarState extends State<AddNewCar> {
                   SizedBox(
                     height: 10.sp,
                   ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: TypeAheadField(
+                  //         textFieldConfiguration: TextFieldConfiguration(
+                  //           controller: _modelController,
+                  //           // decoration: InputDecoration(
+                  //           //   border: OutlineInputBorder(
+                  //           //       borderSide: BorderSide.none,
+                  //           //       borderRadius: BorderRadius.circular(26)),
+                  //           //   focusedBorder: OutlineInputBorder(
+                  //           //       borderSide: const BorderSide(
+                  //           //           color: AppColors.loginScreenBackGround),
+                  //           //       borderRadius: BorderRadius.circular(26)),
+                  //           //   floatingLabelBehavior:
+                  //           //       FloatingLabelBehavior.always,
+                  //           //   filled: true,
+                  //           //   hintText: "Nhập dòng xe",
+                  //           // ),
+                  //           decoration: AppStyles.textbox12(
+                  //               hintText: 'Chọn dòng xe',
+                  //               suffixIcon:
+                  //                   const Icon(Icons.keyboard_arrow_down)),
+                  //           style: TextStyle(
+                  //             fontFamily: 'Roboto',
+                  //             fontSize: 12.sp,
+                  //             fontWeight: FontWeight.w400,
+                  //             color: AppColors.lightTextColor,
+                  //           ),
+                  //           onChanged: (value) {
+                  //             setState(() {
+                  //               _filteredModels = _models
+                  //                   .where((element) => element.name
+                  //                       .toLowerCase()
+                  //                       .contains(value.toLowerCase()))
+                  //                   .toList();
+                  //             });
+                  //           },
+                  //         ),
+                  //         suggestionsCallback: (pattern) async {
+                  //           return _filteredModels;
+                  //         },
+                  //         itemBuilder: (context, suggestion) {
+                  //           return ListTile(
+                  //             title: Text(suggestion.name),
+                  //           );
+                  //         },
+                  //         onSuggestionSelected: (suggestion) {
+                  //           setState(() {
+                  //             _modelController.text = suggestion.name;
+                  //             carModel = suggestion.name;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     children: [
                       Expanded(
-                        child: TypeAheadField(
+                        child: TypeAheadFormField<ModelResponseModel>(
                           textFieldConfiguration: TextFieldConfiguration(
                             controller: _modelController,
-                            // decoration: InputDecoration(
-                            //   border: OutlineInputBorder(
-                            //       borderSide: BorderSide.none,
-                            //       borderRadius: BorderRadius.circular(26)),
-                            //   focusedBorder: OutlineInputBorder(
-                            //       borderSide: const BorderSide(
-                            //           color: AppColors.loginScreenBackGround),
-                            //       borderRadius: BorderRadius.circular(26)),
-                            //   floatingLabelBehavior:
-                            //       FloatingLabelBehavior.always,
-                            //   filled: true,
-                            //   hintText: "Nhập dòng xe",
-                            // ),
                             decoration: AppStyles.textbox12(
-                                hintText: 'Chọn dòng xe',
-                                suffixIcon:
-                                    const Icon(Icons.keyboard_arrow_down)),
+                              hintText: 'Chọn dòng xe',
+                              suffixIcon: const Icon(Icons.keyboard_arrow_down),
+                            ),
                             style: TextStyle(
                               fontFamily: 'Roboto',
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                               color: AppColors.lightTextColor,
                             ),
-                            onChanged: (value) {
-                              setState(() {
-                                _filteredModels = _models
-                                    .where((element) => element.name
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()))
-                                    .toList();
-                              });
-                            },
                           ),
                           suggestionsCallback: (pattern) async {
-                            return _filteredModels;
+                            return _models
+                                .where((element) =>
+                                element.name.toLowerCase().contains(pattern.toLowerCase()))
+                                .toList();
                           },
-                          itemBuilder: (context, suggestion) {
-                            return ListTile(
-                              title: Text(suggestion.name),
+                          itemBuilder: (context, ModelResponseModel suggestion) {
+                            return SingleChildScrollView(
+                              child: ListTile(
+                                title: Text(suggestion.name),
+                              ),
                             );
                           },
-                          onSuggestionSelected: (suggestion) {
+                          onSuggestionSelected: (ModelResponseModel suggestion) {
                             setState(() {
                               _modelController.text = suggestion.name;
                               carModel = suggestion.name;
