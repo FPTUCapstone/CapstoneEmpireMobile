@@ -1,15 +1,15 @@
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/main_page/main_page.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/models/request/update_user_request_model.dart';
 import 'package:empiregarage_mobile/models/response/user.dart';
 import 'package:empiregarage_mobile/services/user_service/user_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
-import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
 import '../../../services/firebase_storage_services/storage_services.dart';
@@ -35,6 +35,7 @@ class _UserProfileState extends State<UserProfile> {
   TextEditingController dateinput = TextEditingController();
   final TextEditingController _phoneNumber = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   void initState() {
@@ -49,6 +50,8 @@ class _UserProfileState extends State<UserProfile> {
     if (_user != null) {
       setState(() {
         _nameController.text = _user!.fullname;
+        _emailController.text = _user!.email ?? '';
+        _phoneNumber.text = _user!.phone ?? '';
         if (_user!.gender == null) _user!.gender = true;
         _loading = true;
       });
@@ -131,8 +134,7 @@ class _UserProfileState extends State<UserProfile> {
                                       shape: BoxShape.rectangle,
                                     ),
                                     child: IconButton(
-                                      onPressed: () async {
-                                      },
+                                      onPressed: () async {},
                                       icon: const Icon(
                                         Icons.edit_rounded,
                                         color: AppColors.whiteButtonColor,
@@ -199,117 +201,117 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        Text(
-                          "Ngày sinh",
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.blackTextColor,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SizedBox(
-                                  height: 80,
-                                  child: Center(
-                                      child: TextFormField(
-                                    decoration: InputDecoration(
-                                      suffixIcon: GestureDetector(
-                                          onTap: () {},
-                                          child: Container(
-                                            padding: const EdgeInsets.all(12.0),
-                                            constraints: const BoxConstraints(
-                                              maxHeight: 20.0,
-                                              maxWidth: 20.0,
-                                            ),
-                                            child: const Image(
-                                              image: AssetImage(
-                                                'assets/image/icon-logo/calendar.png',
-                                              ),
-                                            ),
-                                          )),
-                                      fillColor: Colors.white,
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: AppColors.grey200),
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              width: 3,
-                                              color: AppColors.buttonColor),
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: "Nhập ngày sinh",
-                                      hintStyle: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.lightTextColor,
-                                      ),
-                                    ),
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.lightTextColor,
-                                    ),
-                                    controller:
-                                        dateinput, //editing controller of this TextField
-                                    readOnly: true,
-                                    validator: (value) {
-                                      if (calculateAge(DateTime.parse(value!)) <
-                                              18 ||
-                                          value.isEmpty) {
-                                        return 'Tuổi phải lớn hơn 18';
-                                      }
-                                      return null;
-                                    },
-                                    //set it true, so that user will not able to edit text
-                                    onTap: () async {
-                                      DateTime? pickedDate =
-                                          await showDatePicker(
-                                              context: context,
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(
-                                                  1900), //DateTime.now() - not to allow to choose before today.
-                                              lastDate: DateTime.now().add(
-                                                  const Duration(days: 0)));
-                                      if (calculateAge(pickedDate!) < 18) {
-                                        if (kDebugMode) {
-                                          print('Tuổi phải lớn hơn 18');
-                                        }
-                                      } else {
-                                        if (kDebugMode) {
-                                          print(pickedDate);
-                                        } //pickedDate output format => 2021-03-10 00:00:00.000
-                                        String formattedDate =
-                                            DateFormat('dd-MM-yyyy')
-                                                .format(pickedDate);
-                                        if (kDebugMode) {
-                                          print(formattedDate);
-                                        } //formatted date output using intl package =>  2021-03-16
-                                        //you can implement different kind of Date Format here according to your requirement
-                                        setState(() {
-                                          dateinput.text =
-                                              formattedDate; //set output date to TextField value.
-                                        });
-                                      }
-                                    },
-                                  ))),
-                            ),
-                          ],
-                        ),
+                        // SizedBox(
+                        //   height: 16.h,
+                        // ),
+                        // Text(
+                        //   "Ngày sinh",
+                        //   style: TextStyle(
+                        //     fontFamily: 'Roboto',
+                        //     fontSize: 12.sp,
+                        //     fontWeight: FontWeight.w600,
+                        //     color: AppColors.blackTextColor,
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 5.h,
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: SizedBox(
+                        //           height: 80,
+                        //           child: Center(
+                        //               child: TextFormField(
+                        //             decoration: InputDecoration(
+                        //               suffixIcon: GestureDetector(
+                        //                   onTap: () {},
+                        //                   child: Container(
+                        //                     padding: const EdgeInsets.all(12.0),
+                        //                     constraints: const BoxConstraints(
+                        //                       maxHeight: 20.0,
+                        //                       maxWidth: 20.0,
+                        //                     ),
+                        //                     child: const Image(
+                        //                       image: AssetImage(
+                        //                         'assets/image/icon-logo/calendar.png',
+                        //                       ),
+                        //                     ),
+                        //                   )),
+                        //               fillColor: Colors.white,
+                        //               enabledBorder: OutlineInputBorder(
+                        //                   borderSide: const BorderSide(
+                        //                       color: AppColors.grey200),
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(16)),
+                        //               focusedBorder: OutlineInputBorder(
+                        //                   borderSide: const BorderSide(
+                        //                       width: 3,
+                        //                       color: AppColors.buttonColor),
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(16)),
+                        //               floatingLabelBehavior:
+                        //                   FloatingLabelBehavior.always,
+                        //               hintText: "Nhập ngày sinh",
+                        //               hintStyle: TextStyle(
+                        //                 fontFamily: 'Roboto',
+                        //                 fontSize: 12.sp,
+                        //                 fontWeight: FontWeight.w400,
+                        //                 color: AppColors.lightTextColor,
+                        //               ),
+                        //             ),
+                        //             style: TextStyle(
+                        //               fontFamily: 'Roboto',
+                        //               fontSize: 14.sp,
+                        //               fontWeight: FontWeight.w400,
+                        //               color: AppColors.lightTextColor,
+                        //             ),
+                        //             controller:
+                        //                 dateinput, //editing controller of this TextField
+                        //             readOnly: true,
+                        //             validator: (value) {
+                        //               if (calculateAge(DateTime.parse(value!)) <
+                        //                       18 ||
+                        //                   value.isEmpty) {
+                        //                 return 'Tuổi phải lớn hơn 18';
+                        //               }
+                        //               return null;
+                        //             },
+                        //             //set it true, so that user will not able to edit text
+                        //             onTap: () async {
+                        //               DateTime? pickedDate =
+                        //                   await showDatePicker(
+                        //                       context: context,
+                        //                       initialDate: DateTime.now(),
+                        //                       firstDate: DateTime(
+                        //                           1900), //DateTime.now() - not to allow to choose before today.
+                        //                       lastDate: DateTime.now().add(
+                        //                           const Duration(days: 0)));
+                        //               if (calculateAge(pickedDate!) < 18) {
+                        //                 if (kDebugMode) {
+                        //                   print('Tuổi phải lớn hơn 18');
+                        //                 }
+                        //               } else {
+                        //                 if (kDebugMode) {
+                        //                   print(pickedDate);
+                        //                 } //pickedDate output format => 2021-03-10 00:00:00.000
+                        //                 String formattedDate =
+                        //                     DateFormat('dd-MM-yyyy')
+                        //                         .format(pickedDate);
+                        //                 if (kDebugMode) {
+                        //                   print(formattedDate);
+                        //                 } //formatted date output using intl package =>  2021-03-16
+                        //                 //you can implement different kind of Date Format here according to your requirement
+                        //                 setState(() {
+                        //                   dateinput.text =
+                        //                       formattedDate; //set output date to TextField value.
+                        //                 });
+                        //               }
+                        //             },
+                        //           ))),
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(
                           height: 16.h,
                         ),
@@ -328,34 +330,47 @@ class _UserProfileState extends State<UserProfile> {
                         Row(
                           children: [
                             Expanded(
-                              child: TextField(
-                                controller: _phoneNumber,
-                                keyboardType: TextInputType.phone,
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: AppColors.grey200),
-                                      borderRadius: BorderRadius.circular(16)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          width: 3,
-                                          color: AppColors.buttonColor),
-                                      borderRadius: BorderRadius.circular(16)),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  hintText: _user!.phone,
-                                  hintStyle: TextStyle(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.shade100,
+                                    borderRadius: BorderRadius.circular(16)),
+                                child: TextField(
+                                  enabled: false,
+                                  controller: _phoneNumber,
+                                  keyboardType: TextInputType.phone,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: AppColors.grey200),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: AppColors.grey200),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            width: 3,
+                                            color: AppColors.buttonColor),
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    hintText: _user!.phone,
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.lightTextColor,
+                                    ),
+                                  ),
+                                  style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.lightTextColor,
                                   ),
-                                ),
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.lightTextColor,
                                 ),
                               ),
                             ),
@@ -383,6 +398,7 @@ class _UserProfileState extends State<UserProfile> {
                             children: [
                               Expanded(
                                   child: DropdownButtonFormField(
+                                value: _user!.gender,
                                 icon: const Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: AppColors.lightTextColor,
@@ -408,7 +424,7 @@ class _UserProfileState extends State<UserProfile> {
                                 ),
                                 items: [
                                   DropdownMenuItem(
-                                      value: 0,
+                                      value: true,
                                       child: Text(
                                         "Nam",
                                         style: TextStyle(
@@ -419,7 +435,7 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
                                       )),
                                   DropdownMenuItem(
-                                      value: 1,
+                                      value: false,
                                       child: Text(
                                         "Nữ",
                                         style: TextStyle(
@@ -430,7 +446,9 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
                                       )),
                                 ],
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  _user!.gender = value;
+                                },
                               )),
                             ],
                           ),
@@ -459,6 +477,7 @@ class _UserProfileState extends State<UserProfile> {
                                     _user!.email = value;
                                   });
                                 },
+                                controller: _emailController,
                                 decoration: InputDecoration(
                                   suffixIcon: GestureDetector(
                                       onTap: () {},
@@ -486,7 +505,7 @@ class _UserProfileState extends State<UserProfile> {
                                       borderRadius: BorderRadius.circular(16)),
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
-                                  hintText: _user!.email ?? "",
+                                  hintText: _user!.email,
                                 ),
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
@@ -525,22 +544,22 @@ class _UserProfileState extends State<UserProfile> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () async {
-                            // UpdateUserRequestModel model =
-                            //     UpdateUserRequestModel(
-                            //         id: _user!.id,
-                            //         fullname: _user!.fullname,
-                            //         email: _user!.email,
-                            //         phone: _user!.phone.toString(),
-                            //         roleId: _user!.roleId.toString(),
-                            //         gender: _user!.gender as bool);
-                            // var response =
-                            //     await UserService().updateUser(model);
-                            // if (response == null ||
-                            //     response.statusCode != 204) {
-                            //   log("error when update user");
-                            // } else {
-                            //   Get.offAll(() => const MainPage());
-                            // }
+                            UpdateUserRequestModel model =
+                                UpdateUserRequestModel(
+                                    id: _user!.id,
+                                    fullname: _user!.fullname,
+                                    address: "",
+                                    email: _user!.email,
+                                    gender: _user!.gender as bool);
+                            log(jsonEncode(model));
+                            var response =
+                                await UserService().updateUser(model);
+                            if (response == null ||
+                                response.statusCode != 204) {
+                              log("error when update user");
+                            } else {
+                              Get.offAll(() => const MainPage());
+                            }
                             Get.offAll(() => const MainPage());
                           },
                           style: ElevatedButton.styleFrom(
