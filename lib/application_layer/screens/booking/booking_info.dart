@@ -119,7 +119,7 @@ class _BookingInfoState extends State<BookingInfo> {
   _checkCanBookOrNot() async {
     var workload = await BookingService().getMinWorkload();
     DateTime selectedDate = widget.selectedDate;
-    if(selectedDate.day - workload!.intendedFinishTime.day > 0){
+    if(selectedDate.compareTo(workload!.intendedFinishTime) > 0){
         setState(() {
           _canBooking = true;
         });
