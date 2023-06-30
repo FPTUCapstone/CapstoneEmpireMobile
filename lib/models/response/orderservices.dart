@@ -57,14 +57,14 @@ class Expert {
   String fullname;
   String? phone; // nullable property
   String email;
-  String? gender; // nullable property
+  //String? gender; // nullable property
 
   Expert({
     required this.id,
     required this.fullname,
     this.phone,
     required this.email,
-    this.gender,
+    //this.gender,
   });
 
   factory Expert.fromJson(Map<String, dynamic> json) {
@@ -73,7 +73,7 @@ class Expert {
       fullname: json['fullname'],
       phone: json['phone'],
       email: json['email'],
-      gender: json['gender'],
+      //gender: json['gender'],
     );
   }
 
@@ -82,7 +82,7 @@ class Expert {
         'fullname': fullname,
         'phone': phone,
         'email': email,
-        'gender': gender,
+        //'gender': gender,
       };
 }
 

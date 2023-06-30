@@ -119,7 +119,7 @@ class _BookingInfoState extends State<BookingInfo> {
   _checkCanBookOrNot() async {
     var workload = await BookingService().getMinWorkload();
     DateTime selectedDate = widget.selectedDate;
-    if(selectedDate.day - workload!.intendedFinishTime.day > 0){
+    if(selectedDate.compareTo(workload!.intendedFinishTime) > 0){
         setState(() {
           _canBooking = true;
         });
@@ -172,10 +172,12 @@ class _BookingInfoState extends State<BookingInfo> {
       element.expectedPrice = await _onSelectSymtomAndCar(element.id);
     }
     bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
-    setState(() {
-      _isCarHasHCR = isCarHasHCR;
-      _loadHCR = true;
-    });
+    if(mounted) {
+      setState(() {
+        _isCarHasHCR = isCarHasHCR;
+        _loadHCR = true;
+      });
+    }
   }
 
   Future<bool> _checkCarHasHCR(int carId) async {
