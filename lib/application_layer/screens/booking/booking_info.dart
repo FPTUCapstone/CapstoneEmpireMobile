@@ -964,8 +964,7 @@ class _BookingInfoState extends State<BookingInfo> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                  child: _canBooking
-                      ? ElevatedButton(
+                  child: ElevatedButton(
                           onPressed: () {
                             if (_listSymptom.isEmpty &&
                                 _unresolvedProblems.isEmpty) {
@@ -1016,15 +1015,6 @@ class _BookingInfoState extends State<BookingInfo> {
                             ),
                           ),
                         )
-                      : Text(
-                          "Không thể đặt lịch.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
                 ),
               ],
             ),
