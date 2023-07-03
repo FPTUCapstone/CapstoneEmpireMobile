@@ -1,10 +1,12 @@
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_info.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:get/get.dart';
 
 import '../../common/colors.dart';
+import '../../../services/booking_service/booking_service.dart';
 
 class PickDateBooking extends StatefulWidget {
   const PickDateBooking({Key? key}) : super(key: key);
@@ -16,7 +18,38 @@ class PickDateBooking extends StatefulWidget {
 class _PickDateBookingState extends State<PickDateBooking> {
   final DatePickerController _controller = DatePickerController();
 
-  DateTime _selectedValue = DateTime.now();
+  DateTime _dateCanBook = DateTime.now();
+  DateTime _selectedDate = DateTime.now();
+  List<DateTime> _list = [];
+  bool _loading = false;
+
+  _getDateCanBook() async {
+    var workload = await BookingService().getMinWorkload();
+    DateTime dateCanBook = workload!.intendedFinishTime;
+    int inactiveDates = dateCanBook.subtract(Duration(days: 1)).compareTo(DateTime.now());
+    if(inactiveDates < 0){
+      inactiveDates = 0;
+    }
+    List<DateTime> list = [];
+    for(int i = 0; i <= inactiveDates; i++){
+      list.add(DateTime.now().add(Duration(days: i)));
+    }
+    if (mounted) {
+      setState(() {
+        _dateCanBook = dateCanBook;
+        _loading = true;
+        _list = list;
+        _selectedDate = list[list.length -1].add(Duration(days: 1));
+      });
+    }
+    return dateCanBook;
+  }
+
+  @override
+  void initState() {
+    _getDateCanBook();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +123,9 @@ class _PickDateBookingState extends State<PickDateBooking> {
             SizedBox(
               height: 20.h,
             ),
-            DatePicker(
+            _loading ? DatePicker(
               DateTime.now(),
+              inactiveDates: _list,
               dayTextStyle: TextStyle(
                 fontFamily: 'Roboto',
                 fontSize: 14.sp,
@@ -102,17 +136,17 @@ class _PickDateBookingState extends State<PickDateBooking> {
               width: 60.w,
               height: 80.h,
               controller: _controller,
-              initialSelectedDate: DateTime.now(),
+              initialSelectedDate: _selectedDate,
               selectionColor: Colors.black,
               selectedTextColor: Colors.white,
               daysCount: 7,
               onDateChange: (date) {
                 // New date selected
                 setState(() {
-                  _selectedValue = date;
+                  _selectedDate = date;
                 });
               },
-            ),
+            ) : const Loading(),
             SizedBox(
               height: 40.h,
             ),
@@ -120,8 +154,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
               height: 100,
               decoration: const BoxDecoration(
                   border: Border(
-                      top: BorderSide(
-                          color: AppColors.grey100, width: 2))),
+                      top: BorderSide(color: AppColors.grey100, width: 2))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -130,7 +163,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                       onPressed: () {
                         Get.off(
                           () => BookingInfo(
-                            selectedDate: _selectedValue,
+                            selectedDate: _selectedDate,
                           ),
                         );
                       },
