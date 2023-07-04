@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:empiregarage_mobile/services/authen_firebase_services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -106,9 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             setState(() {
                               phoneNumber = value;
-                              if (kDebugMode) {
-                                log(phoneNumber);
-                              }
                             });
                           },
                           decoration: InputDecoration(
@@ -126,11 +120,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             fillColor: Colors.white,
                             enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        
-                                        color: AppColors.grey200
-                                      ),
-                                      borderRadius: BorderRadius.circular(16)),
+                                borderSide:
+                                    const BorderSide(color: AppColors.grey200),
+                                borderRadius: BorderRadius.circular(16)),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16)),
                             focusedBorder: OutlineInputBorder(
@@ -139,11 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(16)),
                             hintText: "Nhập số điện thoại của bạn",
                             hintStyle: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.grey400
-                            ),
+                                fontFamily: 'Roboto',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.grey400),
                           ),
                         )),
                       ],

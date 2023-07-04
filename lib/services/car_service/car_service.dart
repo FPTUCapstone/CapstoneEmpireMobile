@@ -86,4 +86,18 @@ class CarService {
     );
     return response;
   }
+
+  Future<CarResponseModel?> getCarById(int carId) async {
+    String apiUrl = '${APIPath.path}/cars/$carId';
+    final response = await makeHttpRequest(apiUrl);
+    if (response.statusCode == 200) {
+      var jsonArray = json.decode(response.body);
+      var car = CarResponseModel.fromJson(jsonArray);
+      return car;
+    } else {
+      // If the server returns an error, then throw an exception.
+      log("Failed to load item, status code: ${response.statusCode}");
+      return null;
+    }
+  }
 }

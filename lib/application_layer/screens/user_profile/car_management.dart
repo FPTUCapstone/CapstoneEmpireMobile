@@ -122,7 +122,14 @@ class _CarManagementState extends State<CarManagement> {
                   onPressed: () {
                     Get.to(
                       () => AddNewCar(
-                        onAddCar: (int) {},
+                        onAddCar: (int carId) async {
+                          var newCar = await CarService().getCarById(carId);
+                          if(newCar != null){
+                            setState(() {
+                              _listCar.add(newCar);
+                            });
+                          }
+                        },
                       ),
                     );
                   },
