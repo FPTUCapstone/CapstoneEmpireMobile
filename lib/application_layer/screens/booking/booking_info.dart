@@ -116,19 +116,19 @@ class _BookingInfoState extends State<BookingInfo> {
     }
   }
 
-  _checkCanBookOrNot() async {
-    var workload = await BookingService().getMinWorkload();
-    DateTime selectedDate = widget.selectedDate;
-    if(selectedDate.compareTo(workload!.intendedFinishTime) > 0){
-        setState(() {
-          _canBooking = true;
-        });
-    } else {
-      setState(() {
-        _canBooking = false;
-      });
-    }
-  }
+  // _checkCanBookOrNot() async {
+  //   var workload = await BookingService().getMinWorkload();
+  //   DateTime selectedDate = widget.selectedDate;
+  //   if(selectedDate.compareTo(workload!.intendedFinishTime) > 0){
+  //       setState(() {
+  //         _canBooking = true;
+  //       });
+  //   } else {
+  //     setState(() {
+  //       _canBooking = false;
+  //     });
+  //   }
+  // }
 
   _getModel(String modelName, String brandName) async {
     var model = await ModelService().getModel(modelName, brandName);
@@ -156,27 +156,31 @@ class _BookingInfoState extends State<BookingInfo> {
       });
       return;
     }
-    setState(() {
-      _listCar = listCar;
-      _selectedCar = _listCar
-          .where((element) =>
-              element.isInGarage == false && element.haveBooking == false)
-          .first
-          .id;
-      _loadHCR = false;
-      _loading = true;
-    });
-    var car = _listCar.where((element) => element.id == _selectedCar).first;
-    await _getModel(car.carModel, car.carBrand);
-    for (var element in options) {
-      element.expectedPrice = await _onSelectSymtomAndCar(element.id);
-    }
-    bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
-    if(mounted) {
+    if(listCar.where((element) => element.isInGarage == false && element.haveBooking == false).isNotEmpty){
       setState(() {
-        _isCarHasHCR = isCarHasHCR;
-        _loadHCR = true;
+        _listCar = listCar;
+        _selectedCar = _listCar
+            .where((element) =>
+        element.isInGarage == false && element.haveBooking == false)
+            .first
+            .id;
+        _loadHCR = false;
+        _loading = true;
       });
+      var car = _listCar.where((element) => element.id == _selectedCar).first;
+      await _getModel(car.carModel, car.carBrand);
+      for (var element in options) {
+        element.expectedPrice = await _onSelectSymtomAndCar(element.id);
+      }
+      bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
+      if(mounted) {
+        setState(() {
+          _isCarHasHCR = isCarHasHCR;
+          _loadHCR = true;
+        });
+      }
+    } else {
+      _loading = true;
     }
   }
 
@@ -244,7 +248,7 @@ class _BookingInfoState extends State<BookingInfo> {
     _getBookingPrice();
     _loadOptions();
     _getUserCar();
-    _checkCanBookOrNot();
+    //_checkCanBookOrNot();
     super.initState();
   }
 
