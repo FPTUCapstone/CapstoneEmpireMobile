@@ -68,6 +68,7 @@ class _OnGoingServiceState extends State<OnGoingService> {
     if (!mounted) return;
     setState(() {
       _response = orderResponseModel;
+      activeStep = _response!.status;
       _selectedTab = _response!.status;
       _loading = false;
     });
@@ -162,7 +163,8 @@ class _OnGoingServiceState extends State<OnGoingService> {
                 child: Column(
                   children: [
                     OnGoingServiceProgressBar(
-                      activeStep: _response!.status,
+                      key: Key('OnGoingServiceProgressBar_$activeStep'),
+                      activeStep: activeStep,
                       order: _response!,
                       callBack: _onCallBack,
                     ),
