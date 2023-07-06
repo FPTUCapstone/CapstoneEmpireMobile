@@ -5,7 +5,7 @@ class LoginResponseModel {
       required this.role,
       required this.phone,
       this.email,
-      required this.name,
+      this.name,
       this.gender,
       this.image,
       this.address,
@@ -16,7 +16,7 @@ class LoginResponseModel {
   String role;
   String phone;
   String? email;
-  String name;
+  String? name;
   bool? gender;
   String? image;
   String? birthday;
