@@ -312,7 +312,6 @@ class _BookingInfoState extends State<BookingInfo> {
             },
           ),
           backgroundColor: Colors.transparent,
-          isScrollControlled: true,
         );
       } else {
         setState(() {

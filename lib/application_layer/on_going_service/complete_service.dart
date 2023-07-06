@@ -104,6 +104,7 @@ class _CompleteServiceState extends State<CompleteService> {
   void initState() {
     _getBookingPrice();
     _getOrderServices();
+    _confirmMaintainanceSchedult();
     super.initState();
   }
 
