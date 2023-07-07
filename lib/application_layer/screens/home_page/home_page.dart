@@ -238,9 +238,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   !_loadingActivity
                       ? Padding(
-                        padding: EdgeInsets.only(top: 10.sp),
-                        child: const Loading(),
-                      )
+                          padding: EdgeInsets.only(top: 10.sp),
+                          child: const Loading(),
+                        )
                       : Visibility(
                           visible: _listOngoingActivity.isNotEmpty,
                           child: Column(
@@ -261,13 +261,11 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 20.w),
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
                                 child: ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: _listOngoingActivity.length,
-                                  physics:
-                                      const NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     var item = _listOngoingActivity[index];
                                     return Padding(
@@ -282,8 +280,7 @@ class _HomePageState extends State<HomePage> {
                                                   : OnGoingService(
                                                       servicesId: item.id,
                                                     ),
-                                              transition:
-                                                  Transition.downToUp);
+                                              transition: Transition.downToUp);
                                         },
                                         child: DecoratedBox(
                                           decoration: BoxDecoration(
@@ -303,7 +300,8 @@ class _HomePageState extends State<HomePage> {
                                           child: SizedBox(
                                             height: 75.h,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(bottom: 20),
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 20),
                                               child: ActivityChip(
                                                 carInfo:
                                                     '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
@@ -326,6 +324,25 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w, top: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Chờ bảo trì",
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                  fontFamily: 'Roboto'),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 24),
                     child: Row(
@@ -352,50 +369,52 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                  !_loadingService ? 
-                  const Loading()
-                  : SizedBox(
-                    height: 260.h,
-                    width: 300.w,
-                    child: ListView.builder(
-                      reverse: false,
-                      scrollDirection: Axis.horizontal,
-                      physics: const ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: _filteredItem!.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: InkWell(
-                            onTap: () {
-                              Get.to(() => ServiceDetails(
-                                  itemId: _filteredItem![index].id));
+                  !_loadingService
+                      ? const Loading()
+                      : SizedBox(
+                          height: 260.h,
+                          width: 300.w,
+                          child: ListView.builder(
+                            reverse: false,
+                            scrollDirection: Axis.horizontal,
+                            physics: const ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: _filteredItem!.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.to(() => ServiceDetails(
+                                        itemId: _filteredItem![index].id));
+                                  },
+                                  child: HomepageFamousService(
+                                    backgroundImage:
+                                        _filteredItem![index].photo,
+                                    title: _filteredItem![index].name,
+                                    price:
+                                        _filteredItem![index].prices!.isNotEmpty
+                                            ? NumberFormat.currency(
+                                                    decimalDigits: 0,
+                                                    locale: 'vi_VN',
+                                                    symbol: "đ")
+                                                .format(_filteredItem![index]
+                                                    .prices!
+                                                    .first
+                                                    .price)
+                                                .toString()
+                                            : "Liên hệ",
+                                    usageCount: '182',
+                                    rating: '4.4',
+                                    tag: _filteredItem![index].category != null
+                                        ? _filteredItem![index].category!.name
+                                        : "Dịch vụ",
+                                  ),
+                                ),
+                              );
                             },
-                            child: HomepageFamousService(
-                              backgroundImage: _filteredItem![index].photo,
-                              title: _filteredItem![index].name,
-                              price: _filteredItem![index].prices!.isNotEmpty
-                                  ? NumberFormat.currency(
-                                          decimalDigits: 0,
-                                          locale: 'vi_VN',
-                                          symbol: "đ")
-                                      .format(_filteredItem![index]
-                                          .prices!
-                                          .first
-                                          .price)
-                                      .toString()
-                                  : "Liên hệ",
-                              usageCount: '182',
-                              rating: '4.4',
-                              tag: _filteredItem![index].category != null
-                                  ? _filteredItem![index].category!.name
-                                  : "Dịch vụ",
-                            ),
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
                   const SizedBox(
                     height: 20,
                   )

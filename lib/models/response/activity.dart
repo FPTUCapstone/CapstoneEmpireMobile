@@ -9,6 +9,7 @@ class ActivityResponseModel {
     this.isActive,
     this.status,
     // this.transaction,
+    this.isMaintenanceSchedule,
     required this.isBooking,
     this.isOnGoing,
     this.total,
@@ -22,6 +23,7 @@ class ActivityResponseModel {
   final bool? isArrived;
   final bool? isActive;
   final int? status;
+  final bool? isMaintenanceSchedule;
   // final TransactionSlimResponse? transaction;
   final bool isBooking;
   final bool? isOnGoing;
@@ -46,6 +48,7 @@ class ActivityResponseModel {
       //         json['transaction'] as Map<String, dynamic>),
       isBooking: json['isBooking'] as bool,
       isOnGoing: json['isOnGoing'] as bool?,
+      isMaintenanceSchedule: json['isMaintenanceSchedule'] as bool?,
       total: json['total'] != null ? json['total'].toDouble() : null,
     );
   }

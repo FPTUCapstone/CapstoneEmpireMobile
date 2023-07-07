@@ -202,7 +202,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                 }
                               }
                           return ExpansionTile(
-                              initiallyExpanded: true,
+                              initiallyExpanded: false,
                               childrenPadding: EdgeInsets.zero,
                               tilePadding: EdgeInsets.zero,
                               shape: Border.all(color: Colors.white),
