@@ -74,6 +74,10 @@ class _OnGoingServiceState extends State<OnGoingService> {
     });
   }
 
+  Future _reload() {
+    return _getOrderServices();
+  }
+
   @override
   void initState() {
     _getOrderServices();
@@ -119,10 +123,6 @@ class _OnGoingServiceState extends State<OnGoingService> {
 
   _getStatus(int id) {
     return statuses.where((element) => element.id == id).first.text;
-  }
-
-  Future _reload() {
-    return _getOrderServices();
   }
 
   @override
