@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
+import 'package:empiregarage_mobile/application_layer/screens/orders/order_detail.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
@@ -8,6 +9,7 @@ import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -144,6 +146,27 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       ),
                       textAlign: TextAlign.center,
                     ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(
+                            () => OrderDetail(_orderServicesResponseModel!));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Xem ghi chú và đính kèm hình ảnh từ kỹ thuật viên',
+                        style: AppStyles.header600(
+                            fontsize: 10.sp,
+                            color: AppColors.blueTextColor),
+                      ),
+                      const Icon(
+                        Icons.navigate_next_outlined,
+                        color: AppColors.blueTextColor,
+                      ),
+                    ],
                   ),
                 ),
                 const Divider(thickness: 1),
