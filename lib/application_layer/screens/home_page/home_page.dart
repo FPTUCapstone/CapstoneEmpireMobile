@@ -324,25 +324,26 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.w, top: 20),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Chờ bảo trì",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.blackTextColor,
-                                  fontFamily: 'Roboto'),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Column(
+                  //   children: [
+                  //     Padding(
+                  //       padding: EdgeInsets.only(left: 24.w, top: 24),
+                  //       child: Row(
+                  //         children: [
+                  //           Text(
+                  //             "Chờ bảo trì",
+                  //             style: TextStyle(
+                  //                 fontSize: 14.sp,
+                  //                 fontWeight: FontWeight.w600,
+                  //                 color: AppColors.blackTextColor,
+                  //                 fontFamily: 'Roboto'),
+                  //           ),
+                  //           ListView.builder(itemBuilder: itemBuilder)
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 24),
                     child: Row(

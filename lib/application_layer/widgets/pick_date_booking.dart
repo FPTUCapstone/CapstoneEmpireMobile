@@ -36,7 +36,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
         _dateCanBook = dateCanBook;
         _loading = true;
         _list = list;
-        _selectedDate = list[list.length -1].add(Duration(days: 1));
+        _selectedDate = list[list.length -1].add(const Duration(days: 1));
       });
     }
     if(inactiveDates <= 0){
@@ -153,7 +153,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
             SizedBox(
               height: 40.h,
             ),
-            Container(
+            _loading ? Container(
               height: 100,
               decoration: const BoxDecoration(
                   border: Border(
@@ -189,7 +189,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                   )
                 ],
               ),
-            ),
+            ) : const Loading(),
           ],
         ),
       ),
