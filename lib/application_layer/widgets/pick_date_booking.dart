@@ -26,10 +26,10 @@ class _PickDateBookingState extends State<PickDateBooking> {
   _getDateCanBook() async {
     var workload = await BookingService().getMinWorkload();
     DateTime dateCanBook = workload!.intendedFinishTime;
-    int inactiveDates = dateCanBook.subtract(Duration(days: 1)).compareTo(DateTime.now());
+    int inactiveDates = dateCanBook.day - DateTime.now().day;
     List<DateTime> list = [];
-    if(inactiveDates >= 0){
-      for(int i = 0; i <= inactiveDates; i++){
+    if(inactiveDates > 0){
+      for(int i = 0; i < inactiveDates; i++){
         list.add(DateTime.now().add(Duration(days: i)));
       }
       setState(() {
@@ -39,7 +39,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
         _selectedDate = list[list.length -1].add(Duration(days: 1));
       });
     }
-    if(inactiveDates < 0){
+    if(inactiveDates <= 0){
       setState(() {
         _selectedDate = dateCanBook;
         _loading = true;
