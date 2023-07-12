@@ -138,7 +138,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
       Get.bottomSheet(
         BottomPopup(
           image: 'assets/image/icon-logo/successfull-icon.png',
-          title: "Thánh toán thành công",
+          title: "Thanh toán thành công",
           body:
               'Bạn đã thanh toán thành công, phương tiện của bạn sẽ được tiến hành sửa chữa',
           buttonTitle: "Trở về",
