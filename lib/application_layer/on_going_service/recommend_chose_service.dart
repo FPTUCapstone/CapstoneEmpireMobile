@@ -193,6 +193,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                           var healthCarRecordProblem = _orderServicesResponseModel!
                               .healthCarRecord!.healthCarRecordProblems![index];
                               var selectedIndex = -1;
+                              var check = 0;
                               if (healthCarRecordProblem.problem.items != null) {
                                 for (var element in healthCarRecordProblem.problem.items!) {
                                   var flag = _checkService(element);
@@ -201,8 +202,13 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                   }
                                 }
                               }
+                              if(healthCarRecordProblem.problem.items!.any((element) => element.isDefault == true)){
+                                check = 1;
+                              } else {
+                                check = 0;
+                              }
                           return ExpansionTile(
-                              initiallyExpanded: false,
+                              initiallyExpanded: check == 0,
                               childrenPadding: EdgeInsets.zero,
                               tilePadding: EdgeInsets.zero,
                               shape: Border.all(color: Colors.white),
@@ -270,8 +276,6 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                         margin: EdgeInsets.symmetric(
                                             horizontal: 5.sp, vertical: 5.sp),
                                         child: Row(
-                                          // mainAxisAlignment:
-                                          //     MainAxisAlignment.spaceBetween,
                                           children: [
                                             Icon(
                                               _checkService(item)
@@ -280,17 +284,19 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                               color: AppColors.buttonColor,
                                             ),
                                             SizedBox(width: 5.sp),
-                                            Text(
-                                              item.name.toString(),
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.blackTextColor,
+                                            Expanded(
+                                              child: Text(
+                                                item.name.toString(),
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.blackTextColor,
+                                                ),
                                               ),
                                             ),
                                             // SizedBox(width: 120.sp),
-                                            const Spacer(),
+                                            //const Spacer(),
                                             Text(
                                               formatCurrency(item.presentPrice),
                                               style: TextStyle(
