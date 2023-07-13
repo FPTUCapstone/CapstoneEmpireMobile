@@ -150,14 +150,14 @@ class Problem {
 class ProblemItem {
   final int id;
   final String name;
-  final String photo;
+  final String? photo;
   final int presentPrice;
   bool isSelected;
 
   ProblemItem({
     required this.id,
     required this.name,
-    required this.photo,
+    this.photo,
     required this.presentPrice,
     required this.isSelected,
   });

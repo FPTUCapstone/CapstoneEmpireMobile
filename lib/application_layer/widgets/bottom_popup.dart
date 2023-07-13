@@ -10,12 +10,14 @@ class BottomPopup extends StatelessWidget {
   final String body;
   final Function()? action;
   final String buttonTitle;
+  final Widget? addition;
   const BottomPopup(
       {Key? key,
       required this.image,
       required this.title,
       required this.body,
       this.action,
+      this.addition,
       required this.buttonTitle})
       : super(key: key);
 
@@ -60,13 +62,14 @@ class BottomPopup extends StatelessWidget {
                       textAlign: TextAlign.center,
                       maxLines: 3,
                       style: TextStyle(
-                          fontFamily: 'SFProDisplay',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.lightTextColor,
-                        ),
+                        fontFamily: 'SFProDisplay',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightTextColor,
+                      ),
                     ),
                   ),
+                  if (addition != null) addition!
                 ],
               ),
             ),

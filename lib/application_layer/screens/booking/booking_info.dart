@@ -179,8 +179,11 @@ class _BookingInfoState extends State<BookingInfo> {
           _loadHCR = true;
         });
       }
-    } else {
-      _loading = true;
+    }
+    if(listCar.where((element) => element.isInGarage == false && element.haveBooking == false).isEmpty){
+      setState(() {
+        _loading = true;
+      });
     }
   }
 

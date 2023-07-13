@@ -26,20 +26,23 @@ class _PickDateBookingState extends State<PickDateBooking> {
   _getDateCanBook() async {
     var workload = await BookingService().getMinWorkload();
     DateTime dateCanBook = workload!.intendedFinishTime;
-    int inactiveDates = dateCanBook.subtract(Duration(days: 1)).compareTo(DateTime.now());
-    if(inactiveDates < 0){
-      inactiveDates = 0;
-    }
+    int inactiveDates = dateCanBook.day - DateTime.now().day;
     List<DateTime> list = [];
-    for(int i = 0; i <= inactiveDates; i++){
-      list.add(DateTime.now().add(Duration(days: i)));
-    }
-    if (mounted) {
+    if(inactiveDates > 0){
+      for(int i = 0; i < inactiveDates; i++){
+        list.add(DateTime.now().add(Duration(days: i)));
+      }
       setState(() {
         _dateCanBook = dateCanBook;
         _loading = true;
         _list = list;
-        _selectedDate = list[list.length -1].add(Duration(days: 1));
+        _selectedDate = list[list.length -1].add(const Duration(days: 1));
+      });
+    }
+    if(inactiveDates <= 0){
+      setState(() {
+        _selectedDate = dateCanBook;
+        _loading = true;
       });
     }
     return dateCanBook;
@@ -150,7 +153,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
             SizedBox(
               height: 40.h,
             ),
-            Container(
+            _loading ? Container(
               height: 100,
               decoration: const BoxDecoration(
                   border: Border(
@@ -186,7 +189,7 @@ class _PickDateBookingState extends State<PickDateBooking> {
                   )
                 ],
               ),
-            ),
+            ) : const Loading(),
           ],
         ),
       ),
