@@ -186,7 +186,6 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
 
   @override
   Widget build(BuildContext context) {
-
     double hours = _totalMinutes / 60;
     double roundHours = double.parse(hours.toStringAsFixed(1));
 
@@ -300,8 +299,9 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           ),
                           children: [
                             TextSpan(
-                              text:
-                                  hours > 24 ? "$roundDays Ngày" :"$roundHours Giờ"  ,
+                              text: hours > 24
+                                  ? "$roundDays Ngày"
+                                  : "$roundHours Giờ",
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 10.sp,
@@ -623,6 +623,99 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                             action: () {
                               Get.to(_pay());
                             },
+                            addition: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Column(children: [
+                                _currentExpertWorkload != null
+                                    ? RichText(
+                                        text: TextSpan(
+                                            text: "Thời gian bắt đầu dự kiến: ",
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.blackTextColor,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: formatDate(
+                                                    _currentExpertWorkload!
+                                                        .intendedFinishTime
+                                                        .toString(),
+                                                    true),
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      AppColors.blackTextColor,
+                                                ),
+                                              )
+                                            ]),
+                                      )
+                                    : Container(),
+                                _currentExpertWorkload != null
+                                    ? SizedBox(height: 5.sp)
+                                    : Container(),
+                                _workload != null
+                                    ? RichText(
+                                        text: TextSpan(
+                                            text:
+                                                "Thời gian hoàn tất dự kiến: ",
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.blackTextColor,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: formatDate(
+                                                    _workload!
+                                                        .intendedFinishTime
+                                                        .toString(),
+                                                    true),
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color:
+                                                      AppColors.blackTextColor,
+                                                ),
+                                              )
+                                            ]),
+                                      )
+                                    : Container(),
+                                _workload != null
+                                    ? SizedBox(height: 5.sp)
+                                    : Container(),
+                                RichText(
+                                  text: TextSpan(
+                                      text: "Ước lượng: ",
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.blackTextColor,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: hours > 24
+                                              ? "$roundDays Ngày"
+                                              : "$roundHours Giờ",
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.blackTextColor,
+                                          ),
+                                        ),
+                                      ]),
+                                ),
+                                SizedBox(height: 10.sp),
+                              ]),
+                            ),
                           ),
                           backgroundColor: Colors.transparent,
                         );
