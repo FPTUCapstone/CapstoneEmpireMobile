@@ -184,7 +184,6 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     _getOrderServices();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
 
@@ -447,138 +446,138 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                       ),
                     ),
                     SizedBox(height: 5.sp),
-                    ExpansionTile(
-                      trailing: const Icon(
-                        Icons.abc_sharp,
-                        color: Colors.transparent,
-                      ),
-                      title: Center(
-                        child: SizedBox(
-                          width: 180.w,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 50),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Xem thêm chi tiết ",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blueTextColor,
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.add_circle_outline_sharp,
-                                  size: 16,
-                                  color: AppColors.blueTextColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      children: <Widget>[
-                        ListTile(
-                          leading: Image.asset(
-                            "assets/image/service-picture/mechanicPic.png",
-                            height: 40.sp,
-                            width: 50.sp,
-                          ),
-                          title: Text(
-                            _orderServicesResponseModel!.expert == null
-                                ? "Chưa có kỹ thuật viên"
-                                : _orderServicesResponseModel!.expert!.fullname,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                          subtitle: Text(
-                            "Kỹ thuật viên",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.blackTextColor,
-                            ),
-                          ),
-                        ),
-                        const Divider(thickness: 1),
-                        SizedBox(height: 10.sp),
-                        ListTile(
-                          leading: FutureBuilder(
-                              future: BrandService().getPhoto(
-                                  _orderServicesResponseModel!.car.carBrand),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return Image.network(
-                                    snapshot.data.toString(),
-                                    height: 40.sp,
-                                    width: 50.sp,
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return Image.asset(
-                                    "assets/image/icon-logo/bmw-car-icon.png",
-                                    height: 40.sp,
-                                    width: 50.sp,
-                                  );
-                                } else {
-                                  return Image.asset(
-                                    "assets/image/icon-logo/bmw-car-icon.png",
-                                    height: 40.sp,
-                                    width: 50.sp,
-                                  );
-                                }
-                              }),
-                          title: Text(
-                            _orderServicesResponseModel!.car.carBrand,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.lightTextColor,
-                            ),
-                          ),
-                          subtitle: Align(
-                            alignment: Alignment.topLeft,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text(
-                                  _orderServicesResponseModel!.car.carLisenceNo,
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text(
-                                  _orderServicesResponseModel!.car.carModel,
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.lightTextColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10.sp),
-                      ],
-                    ),
+                    // ExpansionTile(
+                    //   trailing: const Icon(
+                    //     Icons.abc_sharp,
+                    //     color: Colors.transparent,
+                    //   ),
+                    //   title: Center(
+                    //     child: SizedBox(
+                    //       width: 180.w,
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.only(left: 50),
+                    //         child: Row(
+                    //           children: [
+                    //             Text(
+                    //               "Xem thêm chi tiết ",
+                    //               textAlign: TextAlign.center,
+                    //               style: TextStyle(
+                    //                 fontFamily: 'Roboto',
+                    //                 fontSize: 12.sp,
+                    //                 fontWeight: FontWeight.w600,
+                    //                 color: AppColors.blueTextColor,
+                    //               ),
+                    //             ),
+                    //             const Icon(
+                    //               Icons.add_circle_outline_sharp,
+                    //               size: 16,
+                    //               color: AppColors.blueTextColor,
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   children: <Widget>[
+                    //     ListTile(
+                    //       leading: Image.asset(
+                    //         "assets/image/service-picture/mechanicPic.png",
+                    //         height: 40.sp,
+                    //         width: 50.sp,
+                    //       ),
+                    //       title: Text(
+                    //         _orderServicesResponseModel!.expert == null
+                    //             ? "Chưa có kỹ thuật viên"
+                    //             : _orderServicesResponseModel!.expert!.fullname,
+                    //         style: TextStyle(
+                    //           fontFamily: 'Roboto',
+                    //           fontSize: 12.sp,
+                    //           fontWeight: FontWeight.w600,
+                    //           color: AppColors.blackTextColor,
+                    //         ),
+                    //       ),
+                    //       subtitle: Text(
+                    //         "Kỹ thuật viên",
+                    //         style: TextStyle(
+                    //           fontFamily: 'Roboto',
+                    //           fontSize: 10.sp,
+                    //           fontWeight: FontWeight.w400,
+                    //           color: AppColors.blackTextColor,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const Divider(thickness: 1),
+                    //     SizedBox(height: 10.sp),
+                    //     ListTile(
+                    //       leading: FutureBuilder(
+                    //           future: BrandService().getPhoto(
+                    //               _orderServicesResponseModel!.car.carBrand),
+                    //           builder: (context, snapshot) {
+                    //             if (snapshot.hasData) {
+                    //               return Image.network(
+                    //                 snapshot.data.toString(),
+                    //                 height: 40.sp,
+                    //                 width: 50.sp,
+                    //               );
+                    //             } else if (snapshot.hasError) {
+                    //               return Image.asset(
+                    //                 "assets/image/icon-logo/bmw-car-icon.png",
+                    //                 height: 40.sp,
+                    //                 width: 50.sp,
+                    //               );
+                    //             } else {
+                    //               return Image.asset(
+                    //                 "assets/image/icon-logo/bmw-car-icon.png",
+                    //                 height: 40.sp,
+                    //                 width: 50.sp,
+                    //               );
+                    //             }
+                    //           }),
+                    //       title: Text(
+                    //         _orderServicesResponseModel!.car.carBrand,
+                    //         style: TextStyle(
+                    //           fontFamily: 'Roboto',
+                    //           fontSize: 10.sp,
+                    //           fontWeight: FontWeight.w400,
+                    //           color: AppColors.lightTextColor,
+                    //         ),
+                    //       ),
+                    //       subtitle: Align(
+                    //         alignment: Alignment.topLeft,
+                    //         child: Column(
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             SizedBox(
+                    //               height: 5.h,
+                    //             ),
+                    //             Text(
+                    //               _orderServicesResponseModel!.car.carLisenceNo,
+                    //               style: TextStyle(
+                    //                 fontFamily: 'Roboto',
+                    //                 fontSize: 12.sp,
+                    //                 fontWeight: FontWeight.w600,
+                    //                 color: AppColors.blackTextColor,
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //               height: 5.h,
+                    //             ),
+                    //             Text(
+                    //               _orderServicesResponseModel!.car.carModel,
+                    //               style: TextStyle(
+                    //                 fontFamily: 'Roboto',
+                    //                 fontSize: 10.sp,
+                    //                 fontWeight: FontWeight.w400,
+                    //                 color: AppColors.lightTextColor,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     SizedBox(height: 10.sp),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -612,12 +611,15 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     height: 52.sp,
                     child: ElevatedButton(
                       onPressed: () {
+                        String start = formatDate(_currentExpertWorkload!.intendedFinishTime.toString(), true);
+                        String finish = formatDate(_workload!.intendedFinishTime.toString(), true);
                         Get.bottomSheet(
                           BottomPopup(
                             image: 'assets/image/service-picture/confirmed.png',
                             title: "Bạn có muốn thanh toán ?",
                             body:
-                                'Phương tiện của bạn sẽ được tiến hành thực hiện sau khi thanh toán hoàn tất',
+                                'Phương tiện của bạn sẽ được tiến hành thực hiện sửa chữa bắt đầu từ '
+                                    '$start tới $finish sau khi thanh toán hoàn tất',
                             buttonTitle: "Xác nhận",
                             action: () {
                               Get.to(_pay());
