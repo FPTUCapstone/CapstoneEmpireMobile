@@ -183,7 +183,6 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     _getOrderServices();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     double hours = _totalMinutes / 60;
@@ -613,12 +612,15 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     height: 52.sp,
                     child: ElevatedButton(
                       onPressed: () {
+                        String start = formatDate(_currentExpertWorkload!.intendedFinishTime.toString(), true);
+                        String finish = formatDate(_workload!.intendedFinishTime.toString(), true);
                         Get.bottomSheet(
                           BottomPopup(
                             image: 'assets/image/service-picture/confirmed.png',
                             title: "Bạn có muốn thanh toán ?",
                             body:
-                                'Phương tiện của bạn sẽ được tiến hành thực hiện sau khi thanh toán hoàn tất',
+                                'Phương tiện của bạn sẽ được tiến hành thực hiện sửa chữa bắt đầu từ '
+                                    '$start tới $finish sau khi thanh toán hoàn tất',
                             buttonTitle: "Xác nhận",
                             action: () {
                               Get.to(_pay());
