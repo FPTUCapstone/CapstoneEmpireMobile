@@ -299,9 +299,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                           ),
                           children: [
                             TextSpan(
-                              text: hours > 24
-                                  ? "$roundDays Ngày"
-                                  : "$roundHours Giờ",
+                              text: "$roundHours Giờ",
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 10.sp,
