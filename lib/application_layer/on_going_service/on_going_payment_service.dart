@@ -205,7 +205,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     const Divider(thickness: 1),
                     SizedBox(height: 10.sp),
                     Text(
-                      "Kết quả chuẩn đoán",
+                      "Kết quả chẩn đoán",
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 12.sp,

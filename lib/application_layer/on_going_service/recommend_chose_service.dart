@@ -138,7 +138,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                     const Divider(thickness: 1),
                     SizedBox(height: 10.sp),
                     Text(
-                      "Kết quả chuẩn đoán",
+                      "Kết quả chẩn đoán",
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 12.sp,

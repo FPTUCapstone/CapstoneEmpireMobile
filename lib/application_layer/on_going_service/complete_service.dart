@@ -5,7 +5,6 @@ import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
-import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -275,7 +274,7 @@ class _CompleteServiceState extends State<CompleteService> {
                 const Divider(thickness: 1),
                 SizedBox(height: 10.sp),
                 Text(
-                  "Kết quả chuẩn đoán",
+                  "Kết quả chẩn đoán",
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 12.sp,

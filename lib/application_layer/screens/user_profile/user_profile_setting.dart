@@ -250,7 +250,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                             ),
                           ),
                           Text(
-                            "Kết quả chuẩn đoán",
+                            "Kết quả chẩn đoán",
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
