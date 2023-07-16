@@ -619,8 +619,8 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                             image: 'assets/image/service-picture/confirmed.png',
                             title: "Bạn có muốn thanh toán ?",
                             body:
-                                'Phương tiện của bạn sẽ được tiến hành thực hiện sửa chữa bắt đầu từ '
-                                    '$start tới $finish sau khi thanh toán hoàn tất',
+                                'Phương tiện của bạn sẽ được tiến hành thực hiện sửa chữa '
+                                    'sau khi thanh toán hoàn tất',
                             buttonTitle: "Xác nhận",
                             action: () {
                               Get.to(_pay());
