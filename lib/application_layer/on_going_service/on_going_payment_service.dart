@@ -232,82 +232,87 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     const Divider(thickness: 1),
                     SizedBox(height: 10.sp),
                     _currentExpertWorkload != null
-                        ? RichText(
-                            text: TextSpan(
-                                text: "Thời gian bắt đầu dự kiến: ",
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Thời gian bắt đầu dự kiến",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blackTextColor,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: formatDate(
-                                        _currentExpertWorkload!
-                                            .intendedFinishTime
-                                            .toString(),
-                                        true),
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  )
-                                ]),
+                              ),
+                              Text(
+                                formatDate(
+                                    _currentExpertWorkload!.intendedFinishTime
+                                        .toString(),
+                                    true),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              )
+                            ],
                           )
                         : Container(),
                     _currentExpertWorkload != null
                         ? SizedBox(height: 5.sp)
                         : Container(),
                     _workload != null
-                        ? RichText(
-                            text: TextSpan(
-                                text: "Thời gian hoàn tất dự kiến: ",
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Thời gian hoàn tất dự kiến",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blackTextColor,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: formatDate(
-                                        _workload!.intendedFinishTime
-                                            .toString(),
-                                        true),
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  )
-                                ]),
+                              ),
+                              Text(
+                                formatDate(
+                                    _workload!.intendedFinishTime.toString(),
+                                    true),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              )
+                            ],
                           )
                         : Container(),
                     _workload != null ? SizedBox(height: 5.sp) : Container(),
-                    RichText(
-                      text: TextSpan(
-                          text: "Ước lượng: ",
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Ước lượng",
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w400,
                             color: AppColors.blackTextColor,
                           ),
-                          children: [
-                            TextSpan(
-                              text: "$roundHours Giờ",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                          ]),
+                        ),
+                        Text(
+                          "$roundHours Giờ làm việc",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
+                          ),
+                        )
+                      ],
                     ),
                     SizedBox(height: 10.sp),
                     const Divider(thickness: 1),
