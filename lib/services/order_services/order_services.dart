@@ -151,7 +151,8 @@ class OrderServices {
   }
 
   Future<Workload?> getWorkload(int expertId) async {
-    String apiUrl = "${APIPath.path}/workloads?expertId=$expertId";
+    String apiUrl =
+        "${APIPath.path}/workloads?expertId=$expertId&isGetStartTime=true";
     try {
       var response = await makeHttpRequest(apiUrl);
       if (response.statusCode == 200) {
@@ -209,9 +210,10 @@ class OrderServices {
     }
     return null;
   }
- 
- Future<http.Response?> putConfirmMaintainanceSchedule (int? orderServiceId) async{
-   http.Response? response;
+
+  Future<http.Response?> putConfirmMaintainanceSchedule(
+      int? orderServiceId) async {
+    http.Response? response;
     try {
       response = await makeHttpRequest(
         '${APIPath.path}/order-services/$orderServiceId/maintenance-schedule/confirm',
@@ -224,5 +226,5 @@ class OrderServices {
       log(e.toString());
     }
     return response;
- }
+  }
 }

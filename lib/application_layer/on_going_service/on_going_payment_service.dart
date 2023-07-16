@@ -183,6 +183,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     _getOrderServices();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     double hours = _totalMinutes / 60;
@@ -204,7 +205,7 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     const Divider(thickness: 1),
                     SizedBox(height: 10.sp),
                     Text(
-                      "Kết quả chuẩn đoán",
+                      "Kết quả chẩn đoán",
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 12.sp,
@@ -231,84 +232,87 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     const Divider(thickness: 1),
                     SizedBox(height: 10.sp),
                     _currentExpertWorkload != null
-                        ? RichText(
-                            text: TextSpan(
-                                text: "Thời gian bắt đầu dự kiến: ",
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Thời gian bắt đầu dự kiến",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blackTextColor,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: formatDate(
-                                        _currentExpertWorkload!
-                                            .intendedFinishTime
-                                            .toString(),
-                                        true),
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  )
-                                ]),
+                              ),
+                              Text(
+                                formatDate(
+                                    _currentExpertWorkload!.intendedFinishTime
+                                        .toString(),
+                                    true),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              )
+                            ],
                           )
                         : Container(),
                     _currentExpertWorkload != null
                         ? SizedBox(height: 5.sp)
                         : Container(),
                     _workload != null
-                        ? RichText(
-                            text: TextSpan(
-                                text: "Thời gian hoàn tất dự kiến: ",
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Thời gian hoàn tất dự kiến",
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.blackTextColor,
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: formatDate(
-                                        _workload!.intendedFinishTime
-                                            .toString(),
-                                        true),
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
-                                  )
-                                ]),
+                              ),
+                              Text(
+                                formatDate(
+                                    _workload!.intendedFinishTime.toString(),
+                                    true),
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.blackTextColor,
+                                ),
+                              )
+                            ],
                           )
                         : Container(),
                     _workload != null ? SizedBox(height: 5.sp) : Container(),
-                    RichText(
-                      text: TextSpan(
-                          text: "Ước lượng: ",
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Ước lượng",
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w400,
                             color: AppColors.blackTextColor,
                           ),
-                          children: [
-                            TextSpan(
-                              text: hours > 24
-                                  ? "$roundDays Ngày"
-                                  : "$roundHours Giờ",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.blackTextColor,
-                              ),
-                            ),
-                          ]),
+                        ),
+                        Text(
+                          "$roundHours Giờ làm việc",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.blackTextColor,
+                          ),
+                        )
+                      ],
                     ),
                     SizedBox(height: 10.sp),
                     const Divider(thickness: 1),
@@ -612,15 +616,12 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                     height: 52.sp,
                     child: ElevatedButton(
                       onPressed: () {
-                        String start = formatDate(_currentExpertWorkload!.intendedFinishTime.toString(), true);
-                        String finish = formatDate(_workload!.intendedFinishTime.toString(), true);
                         Get.bottomSheet(
                           BottomPopup(
                             image: 'assets/image/service-picture/confirmed.png',
                             title: "Bạn có muốn thanh toán ?",
                             body:
-                                'Phương tiện của bạn sẽ được tiến hành thực hiện sửa chữa '
-                                    'sau khi thanh toán hoàn tất',
+                                'Phương tiện của bạn sẽ được tiến hành thực hiện sửa chữa sau khi thanh toán hoàn tất',
                             buttonTitle: "Xác nhận",
                             action: () {
                               Get.to(_pay());
