@@ -356,10 +356,24 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   //   textStyle:
                   //       AppStyles.header600(fontsize: 10.sp, color: Colors.red),
                   // ),
-                  CustomRowWithoutPadding(
-                    title: 'Tổng cộng',
-                    value: formatCurrency(sum + prepaid),
-                    textStyle: AppStyles.header600(fontsize: 10.sp),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomRowWithoutPadding(
+                          title: 'Tổng cộng',
+                          value: formatCurrency(sum + prepaid),
+                          textStyle: AppStyles.header600(fontsize: 10.sp),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Icon(
+                        Icons.verified,
+                        size: 18,
+                        color: AppColors.blueTextColor,
+                      ),
+                    ],
                   ),
                   const Divider(thickness: 1),
                   Padding(
