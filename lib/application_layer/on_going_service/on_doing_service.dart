@@ -5,7 +5,6 @@ import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/models/response/workload.dart';
-import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -220,7 +219,7 @@ class _OnDoingServiceState extends State<OnDoingService> {
                       : Container(),
                   SizedBox(height: 10.sp),
                   Text(
-                    "Kết quả chuẩn đoán",
+                    "Kết quả chẩn đoán",
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 12.sp,
@@ -357,10 +356,24 @@ class _OnDoingServiceState extends State<OnDoingService> {
                   //   textStyle:
                   //       AppStyles.header600(fontsize: 10.sp, color: Colors.red),
                   // ),
-                  CustomRowWithoutPadding(
-                    title: 'Tổng cộng',
-                    value: formatCurrency(sum + prepaid),
-                    textStyle: AppStyles.header600(fontsize: 10.sp),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomRowWithoutPadding(
+                          title: 'Tổng cộng',
+                          value: formatCurrency(sum + prepaid),
+                          textStyle: AppStyles.header600(fontsize: 10.sp),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Icon(
+                        Icons.verified,
+                        size: 18,
+                        color: AppColors.blueTextColor,
+                      ),
+                    ],
                   ),
                   const Divider(thickness: 1),
                   Padding(

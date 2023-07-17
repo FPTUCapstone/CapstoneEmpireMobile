@@ -43,13 +43,15 @@ class OrderServicesResponseModel {
 
 class MaintenanceSchedule{
   DateTime maintenanceDate;
-
-  MaintenanceSchedule({required this.maintenanceDate});
+  bool? isConfirmed = false;
+  MaintenanceSchedule({required this.maintenanceDate, required this.isConfirmed});
   factory MaintenanceSchedule.fromJson(Map<String, dynamic> json){
     return MaintenanceSchedule(
-      maintenanceDate: DateTime.parse(json['maintenanceDate']),
+      maintenanceDate: DateTime.parse(json['maintenanceDate']), 
+      isConfirmed: json['isConfirmed'] ?? false,
     );
   }
+
 }
 
 class Expert {
