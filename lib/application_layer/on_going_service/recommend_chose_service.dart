@@ -129,8 +129,8 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     return _loading
         ? const Loading()
         : Column(
-          children: [
-            Padding(
+            children: [
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.sp),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,25 +190,23 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                         itemCount: _orderServicesResponseModel!
                             .healthCarRecord!.healthCarRecordProblems!.length,
                         itemBuilder: (context, index) {
-                          var healthCarRecordProblem = _orderServicesResponseModel!
-                              .healthCarRecord!.healthCarRecordProblems![index];
-                              var selectedIndex = -1;
-                              var check = 0;
-                              if (healthCarRecordProblem.problem.items != null) {
-                                for (var element in healthCarRecordProblem.problem.items!) {
-                                  var flag = _checkService(element);
-                                  if (flag == true) {
-                                    selectedIndex = healthCarRecordProblem.problem.items!.indexOf(element);
-                                  }
-                                }
+                          var healthCarRecordProblem =
+                              _orderServicesResponseModel!.healthCarRecord!
+                                  .healthCarRecordProblems![index];
+                          var selectedIndex = -1;
+                          if (healthCarRecordProblem.problem.items != null) {
+                            for (var element
+                                in healthCarRecordProblem.problem.items!) {
+                              var flag = _checkService(element);
+                              if (flag == true) {
+                                selectedIndex = healthCarRecordProblem
+                                    .problem.items!
+                                    .indexOf(element);
                               }
-                              if(healthCarRecordProblem.problem.items!.any((element) => element.isDefault == true)){
-                                check = 1;
-                              } else {
-                                check = 0;
-                              }
+                            }
+                          }
                           return ExpansionTile(
-                              initiallyExpanded: check == 0,
+                              initiallyExpanded: true,
                               childrenPadding: EdgeInsets.zero,
                               tilePadding: EdgeInsets.zero,
                               shape: Border.all(color: Colors.white),
@@ -223,20 +221,29 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                   color: AppColors.blackTextColor,
                                 ),
                               ),
-                              subtitle: selectedIndex != -1 ? Text("Đã chọn: ${healthCarRecordProblem.problem.items![selectedIndex].name}", style: AppStyles.text400(fontsize: 10.sp)) : null,
-                              trailing: selectedIndex != -1 ? Text(formatCurrency(healthCarRecordProblem.problem.items![selectedIndex].presentPrice), style: AppStyles.text400(fontsize: 10.sp)) : null,
+                              subtitle: selectedIndex != -1
+                                  ? Text(
+                                      "Đã chọn: ${healthCarRecordProblem.problem.items![selectedIndex].name}",
+                                      style: AppStyles.text400(fontsize: 10.sp))
+                                  : null,
+                              trailing: selectedIndex != -1
+                                  ? Text(
+                                      formatCurrency(healthCarRecordProblem
+                                          .problem
+                                          .items![selectedIndex]
+                                          .presentPrice),
+                                      style: AppStyles.text400(fontsize: 10.sp))
+                                  : null,
                               onExpansionChanged: (value) {
-                                if (value == false ){
-
-                                }
+                                if (value == false) {}
                               },
                               children: [
                                 SizedBox(height: 5.sp),
                                 ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount:
-                                      healthCarRecordProblem.problem.items!.length,
+                                  itemCount: healthCarRecordProblem
+                                      .problem.items!.length,
                                   itemBuilder: (context, index) {
                                     var item = healthCarRecordProblem
                                         .problem.items![index];
@@ -247,8 +254,8 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                             (element) =>
                                                 element.itemId == item.id)) {
                                           setState(() {
-                                            _listOrderServiceDetails.removeWhere(
-                                                (element) =>
+                                            _listOrderServiceDetails
+                                                .removeWhere((element) =>
                                                     element.itemId == item.id);
                                             _sum -= item.presentPrice!;
                                           });
@@ -259,8 +266,8 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                             if (_listOrderServiceDetails.any(
                                                 (element) =>
                                                     element.itemId == e.id)) {
-                                              _listOrderServiceDetails.removeWhere(
-                                                  (element) =>
+                                              _listOrderServiceDetails
+                                                  .removeWhere((element) =>
                                                       element.itemId == e.id);
                                               _sum -= double.parse(
                                                   e.presentPrice.toString());
@@ -280,7 +287,8 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                             Icon(
                                               _checkService(item)
                                                   ? Icons.radio_button_checked
-                                                  : Icons.radio_button_unchecked,
+                                                  : Icons
+                                                      .radio_button_unchecked,
                                               color: AppColors.buttonColor,
                                             ),
                                             SizedBox(width: 5.sp),
@@ -291,7 +299,8 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                                                   fontFamily: 'Roboto',
                                                   fontSize: 10.sp,
                                                   fontWeight: FontWeight.w400,
-                                                  color: AppColors.blackTextColor,
+                                                  color:
+                                                      AppColors.blackTextColor,
                                                 ),
                                               ),
                                             ),
@@ -335,32 +344,32 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                   ],
                 ),
               ),
-            const Divider(
-              thickness: 1,
-            ),
-            SizedBox(height: 15.sp),
-            SizedBox(
-              width: 300.w,
-              height: 52.sp,
-              child: ElevatedButton(
-                onPressed: () async {
-                  _onContinue();
-                },
-                style: AppStyles.button16(),
-                child: Text(
-                  'Tiếp tục',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
+              const Divider(
+                thickness: 1,
+              ),
+              SizedBox(height: 15.sp),
+              SizedBox(
+                width: 300.w,
+                height: 52.sp,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _onContinue();
+                  },
+                  style: AppStyles.button16(),
+                  child: Text(
+                    'Tiếp tục',
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15.sp,
-            ),
-          ],
-        );
+              SizedBox(
+                height: 15.sp,
+              ),
+            ],
+          );
   }
 }

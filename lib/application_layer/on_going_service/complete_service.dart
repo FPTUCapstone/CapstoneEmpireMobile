@@ -48,7 +48,7 @@ class _CompleteServiceState extends State<CompleteService> {
   OrderServicesResponseModel? _orderServicesResponseModel;
   bool _loading = true;
   bool _expand = false;
-  bool _isConfirmedMaintananceSchedule = true;
+  bool _isConfirmedMaintananceSchedule = false;
 
   _getBookingPrice() async {
     var response = await BookingService().getBookingPrice();
@@ -87,23 +87,19 @@ class _CompleteServiceState extends State<CompleteService> {
     try {
       if (response!.statusCode == 204) {
         setState(() {
-          _isConfirmedMaintananceSchedule = false;
-        });
-      } else {
-        setState(() {
-          _isConfirmedMaintananceSchedule = false;
+          _isConfirmedMaintananceSchedule = true;
         });
       }
     } catch (e) {
       e.toString();
     }
   }
+ 
 
   @override
   void initState() {
     _getBookingPrice();
     _getOrderServices();
-    _confirmMaintainanceSchedult();
     super.initState();
   }
 
@@ -213,7 +209,7 @@ class _CompleteServiceState extends State<CompleteService> {
                                 ),
                               ),
                               const Spacer(),
-                              _isConfirmedMaintananceSchedule == true
+                              _orderServicesResponseModel!.maintenanceSchedule!.isConfirmed == false
                                   ? SizedBox(
                                       width: 75.w,
                                       height: 20.sp,

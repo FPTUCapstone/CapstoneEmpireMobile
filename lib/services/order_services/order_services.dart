@@ -213,18 +213,12 @@ class OrderServices {
 
   Future<http.Response?> putConfirmMaintainanceSchedule(
       int? orderServiceId) async {
-    http.Response? response;
-    try {
-      response = await makeHttpRequest(
-        '${APIPath.path}/order-services/$orderServiceId/maintenance-schedule/confirm',
-        method: 'PUT',
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-    } catch (e) {
-      log(e.toString());
-    }
+    String apiUrl =
+        '${APIPath.path}/order-services/$orderServiceId/maintenance-schedule/confirm';
+    var response = await makeHttpRequest(
+      apiUrl,
+      method: 'PUT',
+    );
     return response;
   }
 }
