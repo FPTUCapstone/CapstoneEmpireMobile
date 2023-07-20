@@ -63,6 +63,11 @@ class _CarManagementState extends State<CarManagement> {
             .contains(searchString.toLowerCase())).toList();
       });
     }
+    if(searchString.isEmpty){
+      setState(() {
+        _listCar = _initListCar;
+      });
+    }
   }
 
   @override
