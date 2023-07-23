@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/booking/booking_detail.dart';
+import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
@@ -7,6 +8,7 @@ import 'package:empiregarage_mobile/models/response/orderservices.dart';
 import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/route_manager.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../common/colors.dart';
@@ -115,7 +117,41 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     //   });
     //   return;
     // }
-    widget.onRecommendChoseServicecallBack(_listOrderServiceDetails);
+    var listProblemMissing = _orderServicesResponseModel!
+        .healthCarRecord!.healthCarRecordProblems!
+        .where((element) => !element.problem.items!.any(
+            (item) => _listOrderServiceDetails.any((r) => r.itemId == item.id)))
+        .toList();
+    listProblemMissing.isNotEmpty
+        ? Get.bottomSheet(
+            BottomPopup(
+              image: 'assets/image/service-picture/confirmed.png',
+              title: "Bạn quên gì không ?",
+              body: 'Còn vấn đề chưa được xác nhận',
+              buttonTitle: "Bỏ qua",
+              action: () {
+                Get.back();
+                widget
+                    .onRecommendChoseServicecallBack(_listOrderServiceDetails);
+              },
+              addition: ListView.builder(
+                padding:
+                    EdgeInsets.symmetric(vertical: 10.sp, horizontal: 10.sp),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: listProblemMissing.length,
+                itemBuilder: (context, index) {
+                  return Center(
+                      child: Text(
+                    listProblemMissing[index].problem.name!,
+                    style: AppStyles.text400(fontsize: 12.sp),
+                  ));
+                },
+              ),
+            ),
+            backgroundColor: Colors.transparent,
+          )
+        : widget.onRecommendChoseServicecallBack(_listOrderServiceDetails);
   }
 
   @override
