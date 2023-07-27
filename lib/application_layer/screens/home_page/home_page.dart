@@ -17,6 +17,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../common/colors.dart';
+import '../../../common/style.dart';
+import '../../../helper/common_helper.dart';
 import '../../../models/response/item.dart';
 
 class HomePage extends StatefulWidget {
@@ -63,7 +65,10 @@ class _HomePageState extends State<HomePage> {
     if (userId == null) throw Exception("NOT_FOUND_USER");
     var listActivity = await ActivityService().fetchOnGoingActivity(userId);
     _listOngoingActivity = listActivity
-        .where((element) => element != null && element.isOnGoing == true)
+        .where((element) =>
+            element != null &&
+            (element.isOnGoing == true ||
+                element.isMaintenanceSchedule == true))
         .where((element) => element!.status == null || element.status != 5)
         .toList();
     if (!mounted) return;
@@ -296,25 +301,90 @@ class _HomePageState extends State<HomePage> {
                                               ],
                                               borderRadius:
                                                   const BorderRadius.all(
-                                                      Radius.circular(16))),
-                                          child: SizedBox(
-                                            height: 75.h,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 20),
-                                              child: ActivityChip(
-                                                carInfo:
-                                                    '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                                date: item.date.toString(),
-                                                daysLeft: item.daysLeft,
-                                                isBooking: item.isBooking,
-                                                item: item,
-                                                code: item.code != null
-                                                    ? item.code.toString()
-                                                    : "#########",
-                                              ),
-                                            ),
-                                          ),
+                                                      Radius.circular(17))),
+                                          child: item!.isMaintenanceSchedule ==
+                                                  true
+                                              ? SizedBox(
+                                                  height: 75.h,
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(16),
+                                                        child: Image.asset(
+                                                          'assets/image/icon-logo/homeservice-logo-care.png',
+                                                          fit: BoxFit.contain,
+                                                          height: 40.sp,
+                                                          width: 50.sp,
+                                                        ),
+                                                      ),
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            "Lịch bảo trì",
+                                                            style: AppStyles.header600(
+                                                                fontsize: 10.sp,
+                                                                color: AppColors
+                                                                    .greenTextColor),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5.h,
+                                                          ),
+                                                          Text(
+                                                            '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                                            style: AppStyles
+                                                                .text400(
+                                                                    fontsize:
+                                                                        12.sp),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5.h,
+                                                          ),
+                                                          Text(
+                                                            formatDate(
+                                                                item.date
+                                                                    .toString(),
+                                                                false),
+                                                            style: AppStyles
+                                                                .text400(
+                                                                    fontsize:
+                                                                        10.sp),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              : SizedBox(
+                                                  height: 75.h,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 20),
+                                                    child: ActivityChip(
+                                                      carInfo:
+                                                          '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                                      date:
+                                                          item.date.toString(),
+                                                      daysLeft: item.daysLeft,
+                                                      isBooking: item.isBooking,
+                                                      item: item,
+                                                      code: item.code != null
+                                                          ? item.code.toString()
+                                                          : "#########",
+                                                    ),
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                     );
