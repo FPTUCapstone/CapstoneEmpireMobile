@@ -65,7 +65,7 @@ class BottomPopup extends StatelessWidget {
                         fontFamily: 'SFProDisplay',
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor,
+                        color: AppColors.blackTextColor,
                       ),
                     ),
                   ),

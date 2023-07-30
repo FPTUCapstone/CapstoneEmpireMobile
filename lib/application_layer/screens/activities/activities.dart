@@ -53,7 +53,9 @@ class _HomePageState extends State<Activities> {
     if (!mounted) return;
     setState(() {
       _listOnGoing = listOngoingActivity
-          .where((element) => element!.isOnGoing == true)
+          .where((element) =>
+              element!.isOnGoing == true ||
+              element.isMaintenanceSchedule == true)
           .where((element) => element!.status == null || element.status != 5)
           .toList();
       // _listOnGoing.sort(((a, b) => a!.daysLeft!.compareTo(b!.daysLeft as num)));
@@ -183,18 +185,71 @@ class _HomePageState extends State<Activities> {
                                               ),
                                         transition: Transition.downToUp);
                                   },
-                                  child: ActivityChip.haveTotal(
-                                    carInfo:
-                                        '${item!.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
-                                    date: item.date.toString(),
-                                    code: item.code != null
-                                        ? item.code.toString()
-                                        : "##########",
-                                    daysLeft: item.daysLeft,
-                                    isBooking: item.isBooking,
-                                    item: item,
-                                    total: item.total,
-                                  ),
+                                  child: item!.isMaintenanceSchedule == true
+                                      ? SizedBox(
+                                          height: 75.h,
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                child: Image.asset(
+                                                  'assets/image/icon-logo/homeservice-logo-care.png',
+                                                  fit: BoxFit.contain,
+                                                  height: 40.sp,
+                                                  width: 50.sp,
+                                                ),
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Lịch bảo trì",
+                                                    style: AppStyles.header600(
+                                                        fontsize: 10.sp,
+                                                        color: AppColors
+                                                            .greenTextColor),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5.h,
+                                                  ),
+                                                  Text(
+                                                    '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                                    style: AppStyles.text400(
+                                                        fontsize: 12.sp),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5.h,
+                                                  ),
+                                                  Text(
+                                                    formatDate(
+                                                        item.date.toString(),
+                                                        false),
+                                                    style: AppStyles.text400(
+                                                        fontsize: 10.sp),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      : ActivityChip.haveTotal(
+                                          carInfo:
+                                              '${item.car!.carBrand} ${item.car!.carModel} ${item.car!.carLisenceNo}',
+                                          date: item.date.toString(),
+                                          code: item.code != null
+                                              ? item.code.toString()
+                                              : "##########",
+                                          daysLeft: item.daysLeft,
+                                          isBooking: item.isBooking,
+                                          item: item,
+                                          total: item.total,
+                                        ),
                                 ),
                               );
                             },
@@ -348,7 +403,7 @@ class _ActivityChipState extends State<ActivityChip> {
           widget.isBooking
               ? "assets/image/icon-logo/calendar-history-icon.png"
               : "assets/image/icon-logo/service-logo.png",
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
           height: 40.sp,
           width: 50.sp,
         ),
