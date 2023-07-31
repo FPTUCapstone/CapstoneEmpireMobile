@@ -26,26 +26,38 @@ class _PickDateBookingState extends State<PickDateBooking> {
   _getDateCanBook() async {
     var workload = await BookingService().getMinWorkload();
     DateTime dateCanBook = workload!.intendedFinishTime;
-    int inactiveDates = dateCanBook.day - DateTime.now().day;
-    List<DateTime> list = [];
-    if(inactiveDates > 0){
-      for(int i = 0; i < inactiveDates; i++){
-        list.add(DateTime.now().add(Duration(days: i)));
+    if (dateCanBook.month == DateTime.now().month || dateCanBook.year == DateTime.now().year) {
+      int inactiveDates = dateCanBook.day - DateTime.now().day;
+      List<DateTime> list = [];
+      if (inactiveDates > 0) {
+        for (int i = 0; i < inactiveDates; i++) {
+          list.add(DateTime.now().add(Duration(days: i)));
+        }
+        setState(() {
+          _dateCanBook = dateCanBook;
+          _loading = true;
+          _list = list;
+          _selectedDate = list[list.length - 1].add(const Duration(days: 1));
+        });
       }
+      if (inactiveDates <= 0) {
+        setState(() {
+          _selectedDate = dateCanBook;
+          _loading = true;
+        });
+      }
+    }
+    if (dateCanBook.month > DateTime.now().month || dateCanBook.year > DateTime.now().year) {
+      List<DateTime> list = [];
+      list.add(DateTime.now());
       setState(() {
         _dateCanBook = dateCanBook;
         _loading = true;
         _list = list;
-        _selectedDate = list[list.length -1].add(const Duration(days: 1));
+        _selectedDate = list[list.length - 1].add(const Duration(days: 1));
       });
     }
-    if(inactiveDates <= 0){
-      setState(() {
-        _selectedDate = dateCanBook;
-        _loading = true;
-      });
-    }
-    return dateCanBook;
+    return _dateCanBook;
   }
 
   @override
@@ -126,70 +138,75 @@ class _PickDateBookingState extends State<PickDateBooking> {
             SizedBox(
               height: 20.h,
             ),
-            _loading ? DatePicker(
-              DateTime.now(),
-              inactiveDates: _list,
-              dayTextStyle: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-              locale: "vi_VN",
-              width: 60.w,
-              height: 80.h,
-              controller: _controller,
-              initialSelectedDate: _selectedDate,
-              selectionColor: Colors.black,
-              selectedTextColor: Colors.white,
-              daysCount: 7,
-              onDateChange: (date) {
-                // New date selected
-                setState(() {
-                  _selectedDate = date;
-                });
-              },
-            ) : const Loading(),
+            _loading
+                ? DatePicker(
+                    DateTime.now(),
+                    inactiveDates: _list,
+                    dayTextStyle: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                    locale: "vi_VN",
+                    width: 60.w,
+                    height: 80.h,
+                    controller: _controller,
+                    initialSelectedDate: _selectedDate,
+                    selectionColor: Colors.black,
+                    selectedTextColor: Colors.white,
+                    daysCount: 7,
+                    onDateChange: (date) {
+                      // New date selected
+                      setState(() {
+                        _selectedDate = date;
+                      });
+                    },
+                  )
+                : const Loading(),
             SizedBox(
               height: 40.h,
             ),
-            _loading ? Container(
-              height: 100,
-              decoration: const BoxDecoration(
-                  border: Border(
-                      top: BorderSide(color: AppColors.grey100, width: 2))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.off(
-                          () => BookingInfo(
-                            selectedDate: _selectedDate,
+            _loading
+                ? Container(
+                    height: 100,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                                color: AppColors.grey100, width: 2))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.off(
+                                () => BookingInfo(
+                                  selectedDate: _selectedDate,
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.buttonColor,
+                              fixedSize: Size.fromHeight(55.w),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: Text(
+                              'Tiếp tục',
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.buttonColor,
-                        fixedSize: Size.fromHeight(55.w),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      child: Text(
-                        'Tiếp tục',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                        )
+                      ],
                     ),
                   )
-                ],
-              ),
-            ) : const Loading(),
+                : const Loading(),
           ],
         ),
       ),
