@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/models/request/car_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/brand.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
@@ -99,5 +100,28 @@ class CarService {
       log("Failed to load item, status code: ${response.statusCode}");
       return null;
     }
+  }
+
+  Future<http.Response?> updateCar(CarRequestModel model) async {
+    http.Response? response;
+    String updatedCarJson = jsonEncode(model.toJson());
+    String apiUrl = 'https://empire-api.azurewebsites.net/api/v1/cars';
+    try {
+      response = await makeHttpRequest(
+        apiUrl,
+        // headers: {
+        //   'accept': '*/*',
+        //   'Content-Type': 'application/json',
+        // },
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        method: 'PUT',
+        body: updatedCarJson,
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
   }
 }
