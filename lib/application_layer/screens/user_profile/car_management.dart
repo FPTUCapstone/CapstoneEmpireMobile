@@ -1,4 +1,5 @@
 import 'package:empiregarage_mobile/application_layer/screens/car/add_new_car.dart';
+import 'package:empiregarage_mobile/application_layer/screens/car/update_car.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/services/brand_service/brand_service.dart';
 import 'package:flutter/material.dart';
@@ -324,6 +325,11 @@ class _CarChipManagementState extends State<CarChipManagement> {
               ),
             ],
           ),
+          onTap: () {
+            Get.to(() => UpdateCar(
+              car: widget.car,
+            ));
+          },
           // trailing: Column(
           //   children: [
           //     SizedBox(height: 10.sp),
