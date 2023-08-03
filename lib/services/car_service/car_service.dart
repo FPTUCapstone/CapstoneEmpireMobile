@@ -105,14 +105,10 @@ class CarService {
   Future<http.Response?> updateCar(CarRequestModel model) async {
     http.Response? response;
     String updatedCarJson = jsonEncode(model.toJson());
-    String apiUrl = 'https://empire-api.azurewebsites.net/api/v1/cars';
+    String apiUrl = '${APIPath.path}/cars';
     try {
       response = await makeHttpRequest(
         apiUrl,
-        // headers: {
-        //   'accept': '*/*',
-        //   'Content-Type': 'application/json',
-        // },
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -121,6 +117,27 @@ class CarService {
       );
     } catch (e) {
       log(e.toString());
+    }
+    return response;
+  }
+
+  Future<http.Response?> deleteCar(int carId, int customerId) async {
+    http.Response? response;
+    String apiUrl = '${APIPath.path}/cars/$carId';
+    try {
+      response = await http.delete(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'accept': '*/*',
+        },
+        body: jsonEncode({
+          'carId': carId,
+          'customerId': customerId,
+        }),
+      );
+    } catch (e) {
+      print('Error occurred during API call: $e');
     }
     return response;
   }
