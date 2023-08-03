@@ -6,6 +6,7 @@ import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart'
 import 'package:empiregarage_mobile/application_layer/widgets/chose_your_car.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
+import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/models/request/car_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
@@ -288,6 +289,9 @@ class _UpdateCarState extends State<UpdateCar> {
                             body: 'Cập nhật thông tin xe thành công',
                             buttonTitle: "Xác nhận",
                             action: () {
+                              Get.back();
+                              Get.back();
+                              Get.back();
                               Get.to(() => CarManagement(
                                     selectedCar: widget.car.id,
                                     onSelected: (int) {},
@@ -334,15 +338,24 @@ class _UpdateCarState extends State<UpdateCar> {
                           body: 'Bạn chắc chắn muốn xóa xe này ?',
                           buttonTitle: "Xác nhận",
                           action: () async {
-                            var customerId = 12;
+                            var customerId = await getUserId();
+                            if(customerId == null){
+                              return;
+                            }
                             var response =
                                 await CarService().deleteCar(widget.car.id, customerId);
                             if (response != null && response.statusCode == 204) {
+                              Get.back();
+                              Get.back();
+                              Get.back();
                               Get.to(() => CarManagement(
                                     selectedCar: widget.car.id,
                                     onSelected: (int) {},
                                   ));
                             } else {
+                              Get.back();
+                              Get.back();
+                              Get.back();
                               Get.to(() => CarManagement(
                                 selectedCar: widget.car.id,
                                 onSelected: (int) {},
