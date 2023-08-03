@@ -1,3 +1,4 @@
+import 'package:empiregarage_mobile/application_layer/on_going_service/on_going_service.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/loading.dart';
 import 'package:empiregarage_mobile/helper/notification_helper.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -117,9 +118,17 @@ class _NotificationPageState extends State<NotificationPage> {
                   var title = notifications[index].title;
                   var isRead = notifications[index].isRead;
                   var key = notifications[index].key;
+                  var type = notifications[index].type;
+                  var referenceId = notifications[index].referenceId;
                   return InkWell(
                     onTap: () {
                       readNotification(key);
+                      switch (type){
+                        case 'ORDER_SERVICE':
+                          Get.to(() => OnGoingService(
+                          servicesId: referenceId,
+                        ));
+                      }
                     },
                     child: NotificationChip(
                       title: title,
@@ -158,9 +167,7 @@ class _NotificationChipState extends State<NotificationChip> {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-          color: widget.isRead == "false"
-              ? AppColors.blue100
-              : Colors.white),
+          color: widget.isRead == "false" ? AppColors.blue100 : Colors.white),
       child: Padding(
         padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
         child: ListTile(
@@ -184,8 +191,7 @@ class _NotificationChipState extends State<NotificationChip> {
                 fontFamily: 'Roboto',
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: AppColors.blackTextColor
-                ),
+                color: AppColors.blackTextColor),
           ),
           subtitle: Align(
             alignment: Alignment.centerLeft,
@@ -198,8 +204,7 @@ class _NotificationChipState extends State<NotificationChip> {
                         fontFamily: 'Roboto',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.blackTextColor
-                        )),
+                        color: AppColors.blackTextColor)),
                 const SizedBox(height: 10),
                 Text(
                     widget.time
@@ -210,8 +215,7 @@ class _NotificationChipState extends State<NotificationChip> {
                         fontFamily: 'Roboto',
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor
-                        )),
+                        color: AppColors.lightTextColor)),
               ],
             ),
           ),
@@ -227,6 +231,8 @@ class Notification {
   final String time;
   final String isRead;
   final String key;
+  final String type;
+  final int referenceId;
 
   Notification({
     required this.title,
@@ -234,14 +240,19 @@ class Notification {
     required this.time,
     required this.isRead,
     required this.key,
+    required this.referenceId,
+    required this.type,
   });
 
   factory Notification.fromMap(String key, Map<dynamic, dynamic> map) {
     return Notification(
-        key: key,
-        title: map['title'] ?? '',
-        message: map['message'] ?? '',
-        time: map['time'] ?? '',
-        isRead: map['isRead'] ?? '');
+      key: key,
+      title: map['title'] ?? '',
+      message: map['message'] ?? '',
+      time: map['time'] ?? '',
+      isRead: map['isRead'] ?? '',
+      type: map['type'] ?? '',
+      referenceId: map['referenceId'] ?? 0,
+    );
   }
 }

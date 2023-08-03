@@ -442,50 +442,52 @@ class _HomePageState extends State<HomePage> {
                   ),
                   !_loadingService
                       ? const Loading()
-                      : SizedBox(
-                          height: 260.h,
-                          width: 300.w,
-                          child: ListView.builder(
-                            reverse: false,
-                            scrollDirection: Axis.horizontal,
-                            physics: const ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: _filteredItem!.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 16),
-                                child: InkWell(
-                                  onTap: () {
-                                    Get.to(() => ServiceDetails(
-                                        itemId: _filteredItem![index].id));
-                                  },
-                                  child: HomepageFamousService(
-                                    backgroundImage:
-                                        _filteredItem![index].photo,
-                                    title: _filteredItem![index].name,
-                                    price:
-                                        _filteredItem![index].prices!.isNotEmpty
-                                            ? NumberFormat.currency(
-                                                    decimalDigits: 0,
-                                                    locale: 'vi_VN',
-                                                    symbol: "đ")
-                                                .format(_filteredItem![index]
-                                                    .prices!
-                                                    .first
-                                                    .price)
-                                                .toString()
-                                            : "Liên hệ",
-                                    usageCount: '182',
-                                    rating: '4.4',
-                                    tag: _filteredItem![index].category != null
-                                        ? _filteredItem![index].category!.name
-                                        : "Dịch vụ",
+                      : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: SizedBox(
+                            height: 260.h,
+                            child: ListView.builder(
+                              reverse: false,
+                              scrollDirection: Axis.horizontal,
+                              physics: const ClampingScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _filteredItem!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.to(() => ServiceDetails(
+                                          itemId: _filteredItem![index].id));
+                                    },
+                                    child: HomepageFamousService(
+                                      backgroundImage:
+                                          _filteredItem![index].photo,
+                                      title: _filteredItem![index].name,
+                                      price:
+                                          _filteredItem![index].prices!.isNotEmpty
+                                              ? NumberFormat.currency(
+                                                      decimalDigits: 0,
+                                                      locale: 'vi_VN',
+                                                      symbol: "đ")
+                                                  .format(_filteredItem![index]
+                                                      .prices!
+                                                      .first
+                                                      .price)
+                                                  .toString()
+                                              : "Liên hệ",
+                                      usageCount: '182',
+                                      rating: '4.4',
+                                      tag: _filteredItem![index].category != null
+                                          ? _filteredItem![index].category!.name
+                                          : "Dịch vụ",
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
-                        ),
+                      ),
                   const SizedBox(
                     height: 20,
                   )

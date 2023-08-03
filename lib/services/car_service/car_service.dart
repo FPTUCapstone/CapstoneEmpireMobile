@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
+import 'package:empiregarage_mobile/models/request/car_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/brand.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
@@ -99,5 +100,45 @@ class CarService {
       log("Failed to load item, status code: ${response.statusCode}");
       return null;
     }
+  }
+
+  Future<http.Response?> updateCar(CarRequestModel model) async {
+    http.Response? response;
+    String updatedCarJson = jsonEncode(model.toJson());
+    String apiUrl = '${APIPath.path}/cars';
+    try {
+      response = await makeHttpRequest(
+        apiUrl,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        method: 'PUT',
+        body: updatedCarJson,
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return response;
+  }
+
+  Future<http.Response?> deleteCar(int carId, int customerId) async {
+    http.Response? response;
+    String apiUrl = '${APIPath.path}/cars/$carId';
+    try {
+      response = await http.delete(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'accept': '*/*',
+        },
+        body: jsonEncode({
+          'carId': carId,
+          'customerId': customerId,
+        }),
+      );
+    } catch (e) {
+      print('Error occurred during API call: $e');
+    }
+    return response;
   }
 }

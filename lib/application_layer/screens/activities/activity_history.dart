@@ -166,7 +166,7 @@ class _ActivityHistoryState extends State<ActivityHistory> {
                                           ? BookingDetailv2(
                                               bookingId: item.id,
                                             )
-                                          : item.status == 5
+                                          : item.status == 5 || item.status == -1
                                               ? ServiceActivityDetail(
                                                   orderServicesId: item.id,
                                                 )
@@ -216,8 +216,6 @@ class _ListFilterState extends State<ListFilter> {
   final List<String> _filterOptions = [
     'Đặt lịch',
     'Dịch vụ',
-    'Đặt hàng',
-    'Cứu hộ'
   ];
 
   final List<String> _selectedFilters = ['Đặt lịch'];

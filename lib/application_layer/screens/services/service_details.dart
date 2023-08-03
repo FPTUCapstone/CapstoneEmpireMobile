@@ -43,6 +43,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
       home: _loading
           ? const ScreenLoadingNoOpacity()
           : Scaffold(
+              backgroundColor: AppColors.whiteTextColor,
               body: Column(
                 children: [
                   SizedBox(
@@ -88,6 +89,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                           color: AppColors.whiteButtonColor,
                                         )),
                                   ),
+                                  shadowColor: Colors.transparent,
                                 ),
                               ),
                               Container(
@@ -185,7 +187,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                           child: Container(
                             width: 375.w,
                             decoration: BoxDecoration(
-                              color: AppColors.white100,
+                              color: AppColors.whiteTextColor,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(16.r),
                                 topRight: Radius.circular(16.r),
@@ -197,7 +199,8 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   height: 10.h,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left:20,top: 5,bottom: 5),
+                                  padding: const EdgeInsets.only(
+                                      left: 20, top: 5, bottom: 5),
                                   child: Row(
                                     children: <Widget>[
                                       Text(
@@ -209,9 +212,11 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                           color: AppColors.blackTextColor,
                                         ),
                                       ),
-                                      const SizedBox(width: 5,),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
                                       Text(
-                                        "lượt đặt",
+                                        "lượt sử dụng",
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontSize: 12.sp,
@@ -221,7 +226,8 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                       ),
                                       const Spacer(),
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 25),
+                                        padding:
+                                            const EdgeInsets.only(right: 25),
                                         child: Container(
                                           decoration: const BoxDecoration(
                                               color: AppColors.green50,
@@ -233,7 +239,8 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                               _item!.prices!.isNotEmpty
                                                   ? NumberFormat.currency(
                                                           decimalDigits: 0,
-                                                          locale: 'vi_VN',symbol: "đ")
+                                                          locale: 'vi_VN',
+                                                          symbol: "đ")
                                                       .format(_item!
                                                           .prices!.first.price)
                                                       .toString()
@@ -241,7 +248,8 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                               style: TextStyle(
                                                   fontSize: 15.sp,
                                                   fontWeight: FontWeight.w600,
-                                                  color: AppColors.greenTextColor,
+                                                  color:
+                                                      AppColors.greenTextColor,
                                                   fontFamily: 'Roboto'),
                                             ),
                                           ),
@@ -258,7 +266,8 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   height: 10.h,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 20, bottom: 15),
+                                  padding: const EdgeInsets.only(
+                                      left: 20, bottom: 15),
                                   child: Row(
                                     children: [
                                       Text(
@@ -273,7 +282,8 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 15),
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 5),
@@ -289,7 +299,8 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                           fontFamily: 'Roboto',
                                         ),
                                         trimLines: 5,
-                                        colorClickableText: AppColors.blueTextColor,
+                                        colorClickableText:
+                                            AppColors.blueTextColor,
                                         trimMode: TrimMode.Line,
                                         trimCollapsedText: ' Read more',
                                         trimExpandedText: ' Show less',
