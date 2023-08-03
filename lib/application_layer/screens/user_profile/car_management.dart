@@ -328,6 +328,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
           onTap: () {
             Get.to(() => UpdateCar(
               car: widget.car,
+              onSelected: (int) {},
             ));
           },
           // trailing: Column(
