@@ -50,6 +50,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: AppColors.whiteTextColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
