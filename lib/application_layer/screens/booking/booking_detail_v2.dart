@@ -32,6 +32,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
   var morningEnd;
   var afternoonStart;
   var afternoonEnd;
+  bool showText = false;
 
   _getModel(String modelName, String brandName) async {
     var model = await ModelService().getModel(modelName, brandName);
@@ -72,18 +73,12 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
   }
 
   String formatTimeToAMPM(int hour) {
-    if (hour >= 0 && hour <= 11) {
-      return DateFormat('hh:mm a').format(DateTime(2023, 1, 1, hour));
-    } else if (hour >= 12 && hour <= 23) {
-      return DateFormat('hh:mm a').format(DateTime(2023, 1, 1, hour));
-    } else {
-      return 'Invalid Time';
-    }
+    return DateFormat('HH:mm').format(DateTime(2023, 1, 1, hour));
   }
 
-  getTimeSlot() async{
+  getTimeSlot() async {
     var list = await UserService().getTimeSlot();
-    if(list != null){
+    if (list != null) {
       setState(() {
         list.forEach((map) {
           if (map['key'] == 'MORNING_OPEN_TIME') {
@@ -99,7 +94,6 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
       });
     }
   }
-
 
   @override
   void initState() {
@@ -334,20 +328,40 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                       right: 10.sp,
                                       top: 20.sp,
                                       bottom: 5.sp),
-                                  child: Text(
-                                    "Quý khách có thể tới Garage tại địa chỉ 27/12 Trần Trọng Cung, P. Tân Đông Thuận, Q. 7, TP. HCM",
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.blackTextColor,
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Quý khách có thể tới Garage tại địa chỉ: ",
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.sp,),
+                                      Text(
+                                        "27/12 Trần Trọng Cung, P. Tân Đông Thuận, Q. 7, TP. HCM ",
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.blackTextColor,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 CustomRow(
                                   title: 'Khung giờ làm việc:',
                                   value: '',
-                                  textStyle: AppStyles.text400(fontsize: 12.sp),
+                                  textStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
                                 ),
                                 CustomRow(
                                   title: 'Sáng:',
@@ -356,7 +370,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                 ),
                                 CustomRow(
                                   title: 'Chiều:',
-                                  value:'${afternoonStart} - ${afternoonEnd}',
+                                  value: '${afternoonStart} - ${afternoonEnd}',
                                   textStyle: AppStyles.text400(fontsize: 10.sp),
                                 ),
                                 SizedBox(
@@ -475,13 +489,13 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                                                     10.sp),
                                                       )
                                                     : Text(
-                                                      formatCurrency(item
-                                                          .expectedPrice),
-                                                      style: AppStyles
-                                                          .text400(
-                                                              fontsize:
-                                                                  10.sp),
-                                                    )),
+                                                        formatCurrency(
+                                                            item.expectedPrice),
+                                                        style:
+                                                            AppStyles.text400(
+                                                                fontsize:
+                                                                    10.sp),
+                                                      )),
                                           ],
                                         ),
                                       );
@@ -490,8 +504,8 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                 ),
                                 AppStyles.divider(padding: EdgeInsets.zero),
                                 Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.sp, vertical: 5.sp),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
