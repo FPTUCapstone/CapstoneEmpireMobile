@@ -126,8 +126,8 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
         ? Get.bottomSheet(
             BottomPopup(
               image: 'assets/image/service-picture/confirmed.png',
-              title: "Bạn quên gì không ?",
-              body: 'Còn vấn đề chưa được xác nhận',
+              title: "Bạn đang chưa chọn hết dịch vụ",
+              body: 'Xe của bạn có thể sẽ không hoạt động bình thường nếu không thực hiện các vấn đề còn thiếu sau',
               buttonTitle: "Bỏ qua",
               action: () {
                 Get.back();
@@ -144,7 +144,7 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
                   return Center(
                       child: Text(
                     listProblemMissing[index].problem.name!,
-                    style: AppStyles.text400(fontsize: 12.sp),
+                    style: AppStyles.header600(fontsize: 12.sp),
                   ));
                 },
               ),
