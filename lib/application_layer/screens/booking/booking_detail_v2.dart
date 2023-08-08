@@ -7,12 +7,13 @@ import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/services/booking_service/booking_service.dart';
 import 'package:empiregarage_mobile/services/model_services/model_service.dart';
+import 'package:empiregarage_mobile/services/user_service/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common/colors.dart';
-import '../../../models/response/brand.dart';
 import '../main_page/main_page.dart';
 
 class BookingDetailv2 extends StatefulWidget {
@@ -27,7 +28,10 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
   BookingResponseModel? _booking;
   bool _loading = true;
   late DateTime _bookingDate;
-  ModelSlimResponse? _model;
+  var morningStart;
+  var morningEnd;
+  var afternoonStart;
+  var afternoonEnd;
 
   _getModel(String modelName, String brandName) async {
     var model = await ModelService().getModel(modelName, brandName);
@@ -67,9 +71,40 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
     return null;
   }
 
+  String formatTimeToAMPM(int hour) {
+    if (hour >= 0 && hour <= 11) {
+      return DateFormat('hh:mm a').format(DateTime(2023, 1, 1, hour));
+    } else if (hour >= 12 && hour <= 23) {
+      return DateFormat('hh:mm a').format(DateTime(2023, 1, 1, hour));
+    } else {
+      return 'Invalid Time';
+    }
+  }
+
+  getTimeSlot() async{
+    var list = await UserService().getTimeSlot();
+    if(list != null){
+      setState(() {
+        list.forEach((map) {
+          if (map['key'] == 'MORNING_OPEN_TIME') {
+            morningStart = formatTimeToAMPM(int.parse(map['value']));
+          } else if (map['key'] == 'MORNING_CLOSE_TIME') {
+            morningEnd = formatTimeToAMPM(int.parse(map['value']));
+          } else if (map['key'] == 'AFTERNOON_OPEN_TIME') {
+            afternoonStart = formatTimeToAMPM(int.parse(map['value']));
+          } else if (map['key'] == 'AFTERNOON_CLOSE_TIME') {
+            afternoonEnd = formatTimeToAMPM(int.parse(map['value']));
+          }
+        });
+      });
+    }
+  }
+
+
   @override
   void initState() {
     _fetchData();
+    getTimeSlot();
     super.initState();
   }
 
@@ -278,6 +313,58 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                   )
                                 : null,
                           ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.sp,
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                        child: Column(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 10.sp,
+                                      right: 10.sp,
+                                      top: 20.sp,
+                                      bottom: 5.sp),
+                                  child: Text(
+                                    "Quý khách có thể tới Garage tại địa chỉ 27/12 Trần Trọng Cung, P. Tân Đông Thuận, Q. 7, TP. HCM",
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.blackTextColor,
+                                    ),
+                                  ),
+                                ),
+                                CustomRow(
+                                  title: 'Khung giờ làm việc:',
+                                  value: '',
+                                  textStyle: AppStyles.text400(fontsize: 12.sp),
+                                ),
+                                CustomRow(
+                                  title: 'Sáng:',
+                                  value: '${morningStart} - ${morningEnd}',
+                                  textStyle: AppStyles.text400(fontsize: 10.sp),
+                                ),
+                                CustomRow(
+                                  title: 'Chiều:',
+                                  value:'${afternoonStart} - ${afternoonEnd}',
+                                  textStyle: AppStyles.text400(fontsize: 10.sp),
+                                ),
+                                SizedBox(
+                                  height: 15.sp,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
