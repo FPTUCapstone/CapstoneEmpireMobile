@@ -125,10 +125,10 @@ class _RecommendChoseServiceState extends State<RecommendChoseService> {
     listProblemMissing.isNotEmpty
         ? Get.bottomSheet(
             BottomPopup(
-              image: 'assets/image/service-picture/confirmed.png',
+              image: 'assets/image/icon-logo/warning-icon.png',
               title: "Bạn đang chưa chọn hết dịch vụ",
               body: 'Xe của bạn có thể sẽ không hoạt động bình thường nếu không thực hiện các vấn đề còn thiếu sau',
-              buttonTitle: "Bỏ qua",
+              buttonTitle: "Đồng ý",
               action: () {
                 Get.back();
                 widget
