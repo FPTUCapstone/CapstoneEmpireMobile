@@ -60,4 +60,19 @@ class UserService {
       return [];
     }
   }
+
+  Future<List<Map<String, dynamic>>?> getTimeSlot() async {
+    final response = await makeHttpRequest('${APIPath.path}/system-configurations/get-time-slot');
+    var timeSlots;
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      timeSlots = List<Map<String, dynamic>>.from(data);
+      return timeSlots;
+    } else {
+      if (kDebugMode) {
+        print("Failed to load item, status code: ${response.statusCode}");
+      }
+      return null;
+    }
+  }
 }
