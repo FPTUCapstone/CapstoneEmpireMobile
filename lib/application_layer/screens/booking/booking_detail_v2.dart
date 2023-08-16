@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/colors.dart';
 import '../main_page/main_page.dart';
@@ -28,10 +29,13 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
   BookingResponseModel? _booking;
   bool _loading = true;
   late DateTime _bookingDate;
-  var morningStart;
-  var morningEnd;
-  var afternoonStart;
-  var afternoonEnd;
+  var morningStart = '';
+  var morningEnd = '';
+  var afternoonStart= '';
+  var afternoonEnd = '';
+  var address = '';
+  var phoneNumber = '';
+  var companyName = '';
   bool showText = false;
 
   _getModel(String modelName, String brandName) async {
@@ -94,11 +98,49 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
       });
     }
   }
+  getPhoneAndAddress() async{
+    var list = await UserService().getPhoneAndAddress();
+    if(list != null){
+      setState(() {
+        list.forEach((map) {
+          if (map['key'] == 'ADDRESS') {
+            address = map['value'];
+          } else if (map['key'] == 'PHONE_NUMBER') {
+            phoneNumber = map['value'];
+          } else if (map['key'] == 'COMPANY_NAME') {
+            companyName = map['value'];
+          }
+        });
+      });
+    }
+  }
+
+  void _openGoogleMaps() async {
+    //const String empire = 'Công Ty Tnhh Ô Tô Đế Chế';
+    final String encodedEmpire = Uri.encodeFull(companyName);
+    final String url = 'https://www.google.com/maps/search/?api=1&query=$encodedEmpire';
+
+    try {
+      if (await canLaunch(url)) {
+        await launch(
+          url,
+          universalLinksOnly: true,
+          forceSafariVC: false,
+          forceWebView: false,
+        );
+      } else {
+        throw 'Could not launch $url';
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
   void initState() {
     _fetchData();
     getTimeSlot();
+    getPhoneAndAddress();
     super.initState();
   }
 
@@ -341,14 +383,26 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                         ),
                                       ),
                                       SizedBox(height: 5.sp,),
-                                      Text(
-                                        "27/12 Trần Trọng Cung, P. Tân Đông Thuận, Q. 7, TP. HCM ",
-                                        style: TextStyle(
-                                          fontFamily: 'Roboto',
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.blackTextColor,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "${address}",
+                                              style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.blackTextColor,
+                                              ),
+                                            ),
+                                          ),
+                                          //const Icon(Icons.location_on, color: AppColors.grey400),
+                                          GestureDetector (
+                                            onTap: _openGoogleMaps,
+                                            child: const Icon(Icons.location_on, color: AppColors.blueTextColor),
+                                          ),
+
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -372,6 +426,16 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                   title: 'Chiều:',
                                   value: '${afternoonStart} - ${afternoonEnd}',
                                   textStyle: AppStyles.text400(fontsize: 10.sp),
+                                ),
+                                CustomRow(
+                                  title: 'Số điện thoại:',
+                                  value: '${phoneNumber}',
+                                  textStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 15.sp,

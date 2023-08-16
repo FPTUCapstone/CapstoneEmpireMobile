@@ -75,4 +75,19 @@ class UserService {
       return null;
     }
   }
+
+  Future<List<Map<String, dynamic>>?> getPhoneAndAddress() async {
+    final response = await makeHttpRequest('${APIPath.path}/system-configurations/get-phone-and-adress');
+    var result;
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      result = List<Map<String, dynamic>>.from(data);
+      return result;
+    } else {
+      if (kDebugMode) {
+        print("Failed to load item, status code: ${response.statusCode}");
+      }
+      return null;
+    }
+  }
 }
