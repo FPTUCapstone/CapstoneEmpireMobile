@@ -169,8 +169,8 @@ class _ChosePaymentMethodState extends State<ChosePaymentMethod> {
               ],
             ),
           ),
-          Spacer(),
-          Divider(thickness: 2),
+          const Spacer(),
+          const Divider(thickness: 2),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10.sp),
             child: SizedBox(

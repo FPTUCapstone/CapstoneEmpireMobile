@@ -63,7 +63,7 @@ class UserService {
 
   Future<List<Map<String, dynamic>>?> getTimeSlot() async {
     final response = await makeHttpRequest('${APIPath.path}/system-configurations/get-time-slot');
-    var timeSlots;
+    List<Map<String, dynamic>> timeSlots;
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       timeSlots = List<Map<String, dynamic>>.from(data);
@@ -78,7 +78,7 @@ class UserService {
 
   Future<List<Map<String, dynamic>>?> getPhoneAndAddress() async {
     final response = await makeHttpRequest('${APIPath.path}/system-configurations/get-phone-and-adress');
-    var result;
+    List<Map<String, dynamic>> result;
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
       result = List<Map<String, dynamic>>.from(data);

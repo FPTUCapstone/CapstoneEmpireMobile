@@ -89,20 +89,11 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
   Widget build(BuildContext context) {
     String arrivedDate = '';
     String checkedOutDate = '';
-    String vnTime = '';
-    String formattedTimeString = '';
     if (_orderServices != null) {
       String createDate = _orderServices!.order.createdAt.substring(0, 10);
       String checkOut = _orderServices!.order.updatedAt.substring(0, 10);
-      String vnTime =
-          _orderServices!.order.updatedAt.toString().substring(11, 16);
       DateTime createDateTime = DateTime.parse(createDate);
       DateTime checkOutTime = DateTime.parse(checkOut);
-      DateTime originalDateTime = DateTime.utc(1970, 1, 1,
-          int.parse(vnTime.substring(0, 2)), int.parse(vnTime.substring(3)));
-      DateTime vietnamDateTime =
-          originalDateTime.toUtc().add(const Duration(hours: 7));
-      formattedTimeString = DateFormat('HH:mm').format(vietnamDateTime);
       arrivedDate =
           '${createDateTime.day.toString().padLeft(2, '0')}/${createDateTime.month.toString().padLeft(2, '0')}/${createDateTime.year.toString()}';
       checkedOutDate =
@@ -272,7 +263,8 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                       children: [
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 _orderServices!
@@ -284,7 +276,8 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                                   fontFamily: 'Roboto',
                                                   fontSize: 10.sp,
                                                   fontWeight: FontWeight.w400,
-                                                  color: AppColors.blackTextColor,
+                                                  color:
+                                                      AppColors.blackTextColor,
                                                 ),
                                               ),
                                               Visibility(
@@ -369,7 +362,8 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
                                   });
                                 },
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.sp),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -572,6 +566,7 @@ class _ServiceActivityDetailState extends State<ServiceActivityDetail> {
   }
 }
 
+// ignore: must_be_immutable
 class CarInfo extends StatelessWidget {
   String title;
   String value;

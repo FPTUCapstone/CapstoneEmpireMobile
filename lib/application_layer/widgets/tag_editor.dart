@@ -1,7 +1,6 @@
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/symptoms.dart';
-import 'package:empiregarage_mobile/services/model_services/model_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,14 +34,6 @@ class _TagEditorState extends State<TagEditor> {
   void initState() {
     super.initState();
     _selectedTags = [];
-  }
-
-  _onSelectSymtomAndCar(int symptomId) async {
-    var modelSymptom =
-        await ModelService().getExpectedPrice(widget.modelId, symptomId);
-    if (modelSymptom != null) {
-      return modelSymptom.expectedPrice;
-    }
   }
 
   Future<double> _sumExpectedPrice() async {
@@ -194,9 +185,9 @@ class _TagEditorState extends State<TagEditor> {
                               style: AppStyles.text400(fontsize: 10.sp),
                             )
                           : Text(
-                            formatCurrency(tag.expectedPrice),
-                            style: AppStyles.text400(fontsize: 10.sp),
-                          ),
+                              formatCurrency(tag.expectedPrice),
+                              style: AppStyles.text400(fontsize: 10.sp),
+                            ),
                       const SizedBox(
                         width: 10,
                       ),

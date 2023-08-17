@@ -185,33 +185,26 @@ class _HealthCarRecordManagementDetailState
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              //TODO
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  hcrproblem.problem.name,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: AppColors
-                                                        .blackTextColor,
-                                                  ),
-                                                ),
-                                                Icon(
-                                                  Icons.arrow_forward_ios,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                hcrproblem.problem.name,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 12.sp,
+                                                  fontWeight: FontWeight.w400,
                                                   color:
                                                       AppColors.blackTextColor,
-                                                  size: 12.sp,
-                                                )
-                                              ],
-                                            ),
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.arrow_forward_ios,
+                                                color: AppColors.blackTextColor,
+                                                size: 12.sp,
+                                              )
+                                            ],
                                           ),
                                           ListView.builder(
                                             shrinkWrap: true,

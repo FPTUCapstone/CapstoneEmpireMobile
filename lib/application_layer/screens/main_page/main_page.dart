@@ -158,10 +158,10 @@ class _MainPageState extends State<MainPage> {
                 onPressed: () {
                   Get.bottomSheet(const PickDateBooking());
                 },
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     ImageIcon(
                         AssetImage(
                             "assets/image/icon-logo/mainpage-booking.png"),

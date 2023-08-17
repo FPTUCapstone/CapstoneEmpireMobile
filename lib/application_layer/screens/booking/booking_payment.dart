@@ -39,10 +39,9 @@ class _BookingPaymentState extends State<BookingPayment> {
                 _controller = controller;
               },
               onPageFinished: (String url) async {
-                final String json =
+                final String json = await _controller
                     // ignore: deprecated_member_use
-                    await _controller
-                        .evaluateJavascript('document.body.innerText');
+                    .evaluateJavascript('document.body.innerText');
                 if (isJson(json)) {
                   final decoded = jsonDecode(json);
                   log(decoded);

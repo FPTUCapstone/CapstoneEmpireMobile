@@ -97,9 +97,9 @@ class _OrderDetailState extends State<OrderDetail> {
                             widget._orderServicesResponseModel
                                         .orderServiceDetails![index].done ==
                                     true
-                                ? Icon(Icons.verified,
+                                ? const Icon(Icons.verified,
                                     color: AppColors.blueTextColor)
-                                : Icon(Icons.schedule,
+                                : const Icon(Icons.schedule,
                                     color: AppColors.grey400),
                             Expanded(
                               child: Padding(

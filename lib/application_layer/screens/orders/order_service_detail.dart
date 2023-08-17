@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
+// ignore: must_be_immutable
 class OrderServiceDetail extends StatefulWidget {
   int index;
   final OrderServicesResponseModel _orderServicesResponseModel;
@@ -148,8 +149,8 @@ class _OrderServiceDetailState extends State<OrderServiceDetail> {
             SizedBox(height: 5.sp),
             Text(
                 widget._orderServicesResponseModel
-                    .orderServiceDetails![widget.index].note
-                    ?? "Chưa có ghi chú",
+                        .orderServiceDetails![widget.index].note ??
+                    "Chưa có ghi chú",
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,

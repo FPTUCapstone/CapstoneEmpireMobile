@@ -41,6 +41,7 @@ class _OrderPaymentState extends State<OrderPayment> {
                 final String json =
                     // ignore: deprecated_member_use
                     await _controller
+                        // ignore: deprecated_member_use
                         .evaluateJavascript('document.body.innerText');
                 if (isJson(json)) {
                   final decoded = jsonDecode(json);

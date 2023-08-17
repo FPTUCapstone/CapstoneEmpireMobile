@@ -316,10 +316,10 @@ class _SearchPageState extends State<SearchPage> {
                                           ListTile(
                                             title: Padding(
                                               padding: EdgeInsets.all(30.h),
-                                              child: Row(
+                                              child: const Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
-                                                children: const [
+                                                children: [
                                                   Text(
                                                     'Không thể tìm thấy',
                                                     style: TextStyle(

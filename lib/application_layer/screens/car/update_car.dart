@@ -3,8 +3,6 @@ import 'dart:developer';
 
 import 'package:empiregarage_mobile/application_layer/screens/user_profile/car_management.dart';
 import 'package:empiregarage_mobile/application_layer/widgets/bottom_popup.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/chose_your_car.dart';
-import 'package:empiregarage_mobile/application_layer/widgets/screen_loading.dart';
 import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:empiregarage_mobile/common/jwt_interceptor.dart';
 import 'package:empiregarage_mobile/common/style.dart';
@@ -15,11 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class UpdateCar extends StatefulWidget {
   CarResponseModel car;
   final Function(int) onSelected;
 
   UpdateCar({
+    super.key,
     required this.car,
     required this.onSelected,
   });
@@ -294,7 +294,7 @@ class _UpdateCarState extends State<UpdateCar> {
                               Get.back();
                               Get.to(() => CarManagement(
                                     selectedCar: widget.car.id,
-                                    onSelected: (int) {},
+                                    onSelected: (int a) {},
                                   ));
                             },
                           ),
@@ -339,27 +339,28 @@ class _UpdateCarState extends State<UpdateCar> {
                           buttonTitle: "Xác nhận",
                           action: () async {
                             var customerId = await getUserId();
-                            if(customerId == null){
+                            if (customerId == null) {
                               return;
                             }
-                            var response =
-                                await CarService().deleteCar(widget.car.id, customerId);
-                            if (response != null && response.statusCode == 204) {
+                            var response = await CarService()
+                                .deleteCar(widget.car.id, customerId);
+                            if (response != null &&
+                                response.statusCode == 204) {
                               Get.back();
                               Get.back();
                               Get.back();
                               Get.to(() => CarManagement(
                                     selectedCar: widget.car.id,
-                                    onSelected: (int) {},
+                                    onSelected: (int a) {},
                                   ));
                             } else {
                               Get.back();
                               Get.back();
                               Get.back();
                               Get.to(() => CarManagement(
-                                selectedCar: widget.car.id,
-                                onSelected: (int) {},
-                              ));
+                                    selectedCar: widget.car.id,
+                                    onSelected: (int a) {},
+                                  ));
                             }
                           },
                         ),

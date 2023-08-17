@@ -189,10 +189,6 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
     double hours = _totalMinutes / 60;
     double roundHours = double.parse(hours.toStringAsFixed(1));
 
-    double minutesADay = 24 * 60;
-    double days = _totalMinutes / minutesADay;
-    double roundDays = double.parse(days.toStringAsFixed(1));
-
     return _loading
         ? const Loading()
         : Column(

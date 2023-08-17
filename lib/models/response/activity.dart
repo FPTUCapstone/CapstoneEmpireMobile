@@ -49,7 +49,7 @@ class ActivityResponseModel {
       isBooking: json['isBooking'] as bool,
       isOnGoing: json['isOnGoing'] as bool?,
       isMaintenanceSchedule: json['isMaintenanceSchedule'] as bool?,
-      total: json['total'] != null ? json['total'].toDouble() : null,
+      total: json['total'] != null ? json['total']!.toDouble() : null,
     );
   }
 

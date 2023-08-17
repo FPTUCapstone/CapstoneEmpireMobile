@@ -26,7 +26,6 @@ class _CarManagementState extends State<CarManagement> {
   List<CarResponseModel> _listCar = [];
   late int _selectedCar;
   bool _loading = true;
-  final TextEditingController _searchController = TextEditingController();
   List<CarResponseModel> _initListCar = [];
 
   @override
@@ -56,15 +55,17 @@ class _CarManagementState extends State<CarManagement> {
     Get.back();
   }
 
-  void _runFilter(String searchString){
-    if(searchString.isNotEmpty){
+  void _runFilter(String searchString) {
+    if (searchString.isNotEmpty) {
       setState(() {
         _listCar = _initListCar
-            .where((element) => element.carLisenceNo.toLowerCase()
-            .contains(searchString.toLowerCase())).toList();
+            .where((element) => element.carLisenceNo
+                .toLowerCase()
+                .contains(searchString.toLowerCase()))
+            .toList();
       });
     }
-    if(searchString.isEmpty){
+    if (searchString.isEmpty) {
       setState(() {
         _listCar = _initListCar;
       });
@@ -130,7 +131,7 @@ class _CarManagementState extends State<CarManagement> {
                       () => AddNewCar(
                         onAddCar: (int carId) async {
                           var newCar = await CarService().getCarById(carId);
-                          if(newCar != null){
+                          if (newCar != null) {
                             setState(() {
                               _listCar.add(newCar);
                             });
@@ -147,73 +148,73 @@ class _CarManagementState extends State<CarManagement> {
           ),
         ],
       ),
-      body: _loading ? const Loading() : Container(
-        child: Column(
-          children: [
-            SizedBox(height: 10.sp),
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.only(left: 24, right: 24),
-              width: 335.w,
-              height: 45.h,
-              child: TextField(
-                //focusNode: FocusNode(canRequestFocus: true),
-                onChanged: (value) => _runFilter(value),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppColors.lightGrey500,
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: AppColors.blueTextColor, width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
-                  enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
-                  focusColor: AppColors.searchBarColor,
-                  prefixIcon: const Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Icon(
-                      Icons.search,
-                      color: AppColors.lightTextColor,
-                      size: 20,
-                    ),
-                  ),
-                  hintText: 'Tìm kiếm...',
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.lightTextColor,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _listCar.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
-                        child: CarChipManagement(
-                          car: _listCar[index],
-                          selectedCar: _selectedCar,
-                          onSelected: _onCarSelected,
+      body: _loading
+          ? const Loading()
+          : Column(
+              children: [
+                SizedBox(height: 10.sp),
+                Container(
+                  color: Colors.white,
+                  margin: const EdgeInsets.only(left: 24, right: 24),
+                  width: 335.w,
+                  height: 45.h,
+                  child: TextField(
+                    //focusNode: FocusNode(canRequestFocus: true),
+                    onChanged: (value) => _runFilter(value),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: AppColors.lightGrey500,
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColors.blueTextColor, width: 3),
+                          borderRadius: BorderRadius.all(Radius.circular(16))),
+                      enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.all(Radius.circular(16))),
+                      focusColor: AppColors.searchBarColor,
+                      prefixIcon: const Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Icon(
+                          Icons.search,
+                          color: AppColors.lightTextColor,
+                          size: 20,
                         ),
+                      ),
+                      hintText: 'Tìm kiếm...',
+                      hintStyle: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightTextColor,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: _listCar.length,
+                          itemBuilder: (context, index) => Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.sp, vertical: 10.sp),
+                            child: CarChipManagement(
+                              car: _listCar[index],
+                              selectedCar: _selectedCar,
+                              onSelected: _onCarSelected,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-
     );
   }
 }
@@ -245,104 +246,98 @@ class _CarChipManagementState extends State<CarChipManagement> {
 
   @override
   Widget build(BuildContext context) {
-    bool isSelected = widget.car.id == widget.selectedCar;
-    return InkWell(
-      onTap: () {
-        //TODO
-      },
-      child: Container(
-        height: 70.sp,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(16)),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 5),
-                  blurRadius: 20,
-                  color: Colors.grey.shade300,
-                  blurStyle: BlurStyle.outer)
-            ]),
-        child: ListTile(
-          leading: FutureBuilder(
-              future: getBrandPhoto(widget.car.carBrand),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Image.network(
-                    snapshot.data.toString(),
-                    height: 40.sp,
-                    width: 50.sp,
-                  );
-                } else if (snapshot.hasError) {
-                  return Image.asset(
-                    "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 40.sp,
-                    width: 50.sp,
-                  );
-                } else {
-                  return Image.asset(
-                    "assets/image/icon-logo/bmw-car-icon.png",
-                    height: 40.sp,
-                    width: 50.sp,
-                  );
-                }
-              }),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                widget.car.carBrand,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.lightTextColor,
-                ),
+    return Container(
+      height: 70.sp,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          boxShadow: [
+            BoxShadow(
+                offset: const Offset(0, 5),
+                blurRadius: 20,
+                color: Colors.grey.shade300,
+                blurStyle: BlurStyle.outer)
+          ]),
+      child: ListTile(
+        leading: FutureBuilder(
+            future: getBrandPhoto(widget.car.carBrand),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Image.network(
+                  snapshot.data.toString(),
+                  height: 40.sp,
+                  width: 50.sp,
+                );
+              } else if (snapshot.hasError) {
+                return Image.asset(
+                  "assets/image/icon-logo/bmw-car-icon.png",
+                  height: 40.sp,
+                  width: 50.sp,
+                );
+              } else {
+                return Image.asset(
+                  "assets/image/icon-logo/bmw-car-icon.png",
+                  height: 40.sp,
+                  width: 50.sp,
+                );
+              }
+            }),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              widget.car.carBrand,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.lightTextColor,
               ),
-              SizedBox(
-                height: 5.sp,
+            ),
+            SizedBox(
+              height: 5.sp,
+            ),
+            Text(
+              widget.car.carLisenceNo,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.blackTextColor,
               ),
-              Text(
-                widget.car.carLisenceNo,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.blackTextColor,
-                ),
+            ),
+            SizedBox(
+              height: 5.sp,
+            ),
+            Text(
+              widget.car.carModel,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w500,
+                color: AppColors.lightTextColor,
               ),
-              SizedBox(
-                height: 5.sp,
-              ),
-              Text(
-                widget.car.carModel,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.lightTextColor,
-                ),
-              ),
-            ],
-          ),
-          onTap: () {
-            Get.to(() => UpdateCar(
-              car: widget.car,
-              onSelected: (int) {},
-            ));
-          },
-          // trailing: Column(
-          //   children: [
-          //     SizedBox(height: 10.sp),
-          //     Icon(
-          //       isSelected
-          //           ? Icons.radio_button_checked
-          //           : Icons.radio_button_unchecked,
-          //       color: isSelected ? AppColors.buttonColor : AppColors.grey400,
-          //     )
-          //   ],
-          // ),
+            ),
+          ],
         ),
+        onTap: () {
+          Get.to(() => UpdateCar(
+                car: widget.car,
+                onSelected: (int a) {},
+              ));
+        },
+        // trailing: Column(
+        //   children: [
+        //     SizedBox(height: 10.sp),
+        //     Icon(
+        //       isSelected
+        //           ? Icons.radio_button_checked
+        //           : Icons.radio_button_unchecked,
+        //       color: isSelected ? AppColors.buttonColor : AppColors.grey400,
+        //     )
+        //   ],
+        // ),
       ),
     );
   }

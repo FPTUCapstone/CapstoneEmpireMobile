@@ -74,8 +74,8 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
       body: _loading
           ? const Loading()
           : Column(children: <Widget>[
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Padding(
                     padding: EdgeInsets.only(left: 24, bottom: 24, top: 24),
                     child: Text("Thanh toán",
@@ -152,8 +152,8 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                   ),
                 ]),
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Padding(
                     padding: EdgeInsets.only(left: 24, bottom: 24),
                     child: Text("Phương thức thanh toán",
@@ -173,10 +173,10 @@ class _SeeBookingDetailPaymentState extends State<SeeBookingDetailPayment> {
                 child: Column(children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24, bottom: 24),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 24, bottom: 24),
                         child: Row(
-                          children: const [
+                          children: [
                             Icon(
                               Icons.account_balance_wallet_outlined,
                               color: AppColors.blackTextColor,
