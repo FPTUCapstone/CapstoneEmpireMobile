@@ -26,6 +26,7 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
   List<CarResponseModel> _listCar = [];
   late int _selectedCar;
   bool _loading = true;
+  final TextEditingController _searchController = TextEditingController();
   List<CarResponseModel> _initListCar = [];
 
   @override
@@ -55,14 +56,12 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
     Get.back();
   }
 
-  void _runFilter(String searchString) {
-    if (searchString.isNotEmpty) {
+  void _runFilter(String searchString){
+    if(searchString.isNotEmpty){
       setState(() {
         _listCar = _initListCar
-            .where((element) => element.carLisenceNo
-                .toLowerCase()
-                .contains(searchString.toLowerCase()))
-            .toList();
+            .where((element) => element.carLisenceNo.toLowerCase()
+            .contains(searchString.toLowerCase())).toList();
       });
     }
   }
@@ -85,72 +84,69 @@ class _HealthCarRecordManagementState extends State<HealthCarRecordManagement> {
               color: Colors.black,
             )),
       ),
-      body: _loading
-          ? const Loading()
-          : Column(
+      body: _loading ? const Loading() : Column(
+        children: [
+          SizedBox(height: 10.sp),
+          Container(
+            color: Colors.white,
+            margin: EdgeInsets.only(left: 20.sp, right: 20.sp),
+            width: 335.w,
+            height: 45.h,
+            child: TextField(
+              onChanged: (value) => _runFilter(value),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: AppColors.lightGrey500,
+                focusedBorder: const OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: AppColors.blueTextColor, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                focusColor: AppColors.searchBarColor,
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Icon(
+                    Icons.search,
+                    color: AppColors.lightTextColor,
+                    size: 20,
+                  ),
+                ),
+                hintText: 'Tìm kiếm...',
+                hintStyle: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.lightTextColor,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView(
               children: [
-                SizedBox(height: 10.sp),
-                Container(
-                  color: Colors.white,
-                  margin: EdgeInsets.only(left: 20.sp, right: 20.sp),
-                  width: 335.w,
-                  height: 45.h,
-                  child: TextField(
-                    onChanged: (value) => _runFilter(value),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: AppColors.lightGrey500,
-                      focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: AppColors.blueTextColor, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(16))),
-                      enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.all(Radius.circular(16))),
-                      focusColor: AppColors.searchBarColor,
-                      prefixIcon: const Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Icon(
-                          Icons.search,
-                          color: AppColors.lightTextColor,
-                          size: 20,
-                        ),
-                      ),
-                      hintText: 'Tìm kiếm...',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.lightTextColor,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _listCar.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
+                      child: CarChipManagement(
+                        car: _listCar[index] ,
+                        selectedCar: _selectedCar,
+                        onSelected: _onCarSelected,
                       ),
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: _listCar.length,
-                          itemBuilder: (context, index) => Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.sp, vertical: 10.sp),
-                            child: CarChipManagement(
-                              car: _listCar[index],
-                              selectedCar: _selectedCar,
-                              onSelected: _onCarSelected,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -177,6 +173,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
 
   @override
   Widget build(BuildContext context) {
+    bool isSelected = widget.car.id == widget.selectedCar;
     return InkWell(
       onTap: () {
         Get.to(() => HealthCarRecordManagementDetail(carId: widget.car.id));
@@ -258,8 +255,7 @@ class _CarChipManagementState extends State<CarChipManagement> {
           ),
           trailing: IconButton(
               onPressed: () {
-                Get.to(() =>
-                    HealthCarRecordManagementDetail(carId: widget.car.id));
+                Get.to(() => HealthCarRecordManagementDetail(carId: widget.car.id));
               },
               icon: const Icon(
                 Icons.arrow_forward_ios,

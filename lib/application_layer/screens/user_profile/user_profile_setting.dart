@@ -198,7 +198,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     InkWell(
                       onTap: () async {
                         Get.to(() => CarManagement(
-                              onSelected: (int a) {},
+                              onSelected: (int) {},
                               selectedCar: 1,
                             ));
                       },
@@ -235,7 +235,7 @@ class _UserProfileSettingsState extends State<UserProfileSettings> {
                     InkWell(
                       onTap: () async {
                         Get.to(() => HealthCarRecordManagement(
-                              onSelected: (int a) {},
+                              onSelected: (int) {},
                               selectedCar: 1,
                             ));
                       },

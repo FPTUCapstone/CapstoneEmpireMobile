@@ -6,7 +6,6 @@ import 'package:empiregarage_mobile/models/request/car_request_model.dart';
 import 'package:empiregarage_mobile/models/response/booking.dart';
 import 'package:empiregarage_mobile/models/response/brand.dart';
 import 'package:empiregarage_mobile/models/response/car.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../../common/api_part.dart';
@@ -79,7 +78,7 @@ class CarService {
       return null;
     }
   }
-
+  
   Future<http.Response> canBook(int carId) async {
     String apiUrl = '${APIPath.path}/cars/$carId/can-book';
     var response = await makeHttpRequest(
@@ -138,9 +137,7 @@ class CarService {
         }),
       );
     } catch (e) {
-      if (kDebugMode) {
-        print('Error occurred during API call: $e');
-      }
+      print('Error occurred during API call: $e');
     }
     return response;
   }

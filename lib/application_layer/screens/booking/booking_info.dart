@@ -105,6 +105,7 @@ class _BookingInfoState extends State<BookingInfo> {
   CarProfile? _carProfile;
   List<UnresolvedProblem> _unresolvedProblems = [];
   ModelSlimResponse? _model;
+  bool _canBooking = false;
 
   _loadOptions() async {
     var symptoms = await SymptomsService().fetchListSymptoms();
@@ -155,15 +156,12 @@ class _BookingInfoState extends State<BookingInfo> {
       });
       return;
     }
-    if (listCar
-        .where((element) =>
-            element.isInGarage == false && element.haveBooking == false)
-        .isNotEmpty) {
+    if(listCar.where((element) => element.isInGarage == false && element.haveBooking == false).isNotEmpty){
       setState(() {
         _listCar = listCar;
         _selectedCar = _listCar
             .where((element) =>
-                element.isInGarage == false && element.haveBooking == false)
+        element.isInGarage == false && element.haveBooking == false)
             .first
             .id;
         _loadHCR = false;
@@ -175,17 +173,14 @@ class _BookingInfoState extends State<BookingInfo> {
         element.expectedPrice = await _onSelectSymtomAndCar(element.id);
       }
       bool isCarHasHCR = await _checkCarHasHCR(_selectedCar);
-      if (mounted) {
+      if(mounted) {
         setState(() {
           _isCarHasHCR = isCarHasHCR;
           _loadHCR = true;
         });
       }
     }
-    if (listCar
-        .where((element) =>
-            element.isInGarage == false && element.haveBooking == false)
-        .isEmpty) {
+    if(listCar.where((element) => element.isInGarage == false && element.haveBooking == false).isEmpty){
       setState(() {
         _loading = true;
       });
@@ -288,6 +283,7 @@ class _BookingInfoState extends State<BookingInfo> {
         _listSymptom,
         _unresolvedProblems);
     try {
+      var x = response.statusCode;
       setState(() {
         _loading = true;
       });
@@ -304,7 +300,7 @@ class _BookingInfoState extends State<BookingInfo> {
         ),
         backgroundColor: Colors.transparent,
       );
-    } catch (e) {
+    } catch (RuntimeBinderException) {
       if (response != null) {
         setState(() {
           _loading = true;
@@ -974,54 +970,58 @@ class _BookingInfoState extends State<BookingInfo> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Expanded(
-                    child: ElevatedButton(
-                  onPressed: () {
-                    if (_listSymptom.isEmpty && _unresolvedProblems.isEmpty) {
-                      Get.bottomSheet(
-                        BottomPopup(
-                          image: 'assets/image/icon-logo/failed-icon.png',
-                          title: "Đặt lịch thất bại",
-                          body: 'Vui lòng nhập tình trạng xe',
-                          buttonTitle: "Thử lại",
-                          action: () {
-                            Get.back();
+                  child: ElevatedButton(
+                          onPressed: () {
+                            if (_listSymptom.isEmpty &&
+                                _unresolvedProblems.isEmpty) {
+                              Get.bottomSheet(
+                                BottomPopup(
+                                  image:
+                                      'assets/image/icon-logo/failed-icon.png',
+                                  title: "Đặt lịch thất bại",
+                                  body: 'Vui lòng nhập tình trạng xe',
+                                  buttonTitle: "Thử lại",
+                                  action: () {
+                                    Get.back();
+                                  },
+                                ),
+                                backgroundColor: Colors.transparent,
+                              );
+                            } else {
+                              Get.bottomSheet(
+                                BottomPopup(
+                                  image:
+                                      'assets/image/service-picture/confirmed.png',
+                                  title: "Xác nhận thanh toán phí đặt lịch",
+                                  body:
+                                      'Tiền đặt lịch sẽ được khấu trừ vào hóa đơn khi thực hiện dịch vụ ở garage',
+                                  buttonTitle: "Tiếp tục",
+                                  action: () {
+                                    Get.to(() => ChosePaymentMethod(
+                                        excute: executeBook));
+                                  },
+                                ),
+                                backgroundColor: Colors.transparent,
+                              );
+                            }
                           },
-                        ),
-                        backgroundColor: Colors.transparent,
-                      );
-                    } else {
-                      Get.bottomSheet(
-                        BottomPopup(
-                          image: 'assets/image/service-picture/confirmed.png',
-                          title: "Xác nhận thanh toán phí đặt lịch",
-                          body:
-                              'Tiền đặt lịch sẽ được khấu trừ vào hóa đơn khi thực hiện dịch vụ ở garage',
-                          buttonTitle: "Tiếp tục",
-                          action: () {
-                            Get.to(
-                                () => ChosePaymentMethod(excute: executeBook));
-                          },
-                        ),
-                        backgroundColor: Colors.transparent,
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.buttonColor,
-                    fixedSize: Size.fromHeight(50.w),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: Text(
-                    'Thanh toán',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                )),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.buttonColor,
+                            fixedSize: Size.fromHeight(50.w),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: Text(
+                            'Thanh toán',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        )
+                ),
               ],
             ),
           ),

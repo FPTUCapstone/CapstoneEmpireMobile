@@ -23,6 +23,7 @@ class BookingDetail extends StatefulWidget {
 }
 
 class _BookingDetailState extends State<BookingDetail> {
+
   BookingResponseModel? _booking;
   bool _loading = true;
 
@@ -35,6 +36,7 @@ class _BookingDetailState extends State<BookingDetail> {
     });
   }
 
+
   @override
   void initState() {
     _fetchData();
@@ -43,7 +45,12 @@ class _BookingDetailState extends State<BookingDetail> {
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = '';
     if (_booking != null) {
+      String date = _booking!.date.substring(0, 10);
+      DateTime dateTime = DateTime.parse(date);
+      formattedDate =
+          '${dateTime.day.toString().padLeft(2, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.year.toString()}';
     } else {
       // handle the case where _booking or _booking!.date is null
       const Loading();
@@ -593,7 +600,6 @@ class CustomSpacer extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class CustomRow extends StatelessWidget {
   String title;
   String value;
@@ -616,7 +622,6 @@ class CustomRow extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class CustomRowWithoutPadding extends StatelessWidget {
   String title;
   String value;

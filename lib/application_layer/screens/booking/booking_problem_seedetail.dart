@@ -75,6 +75,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                   ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
+                    //TODO
                     itemCount: 1,
                     itemBuilder: (context, index) {
                       return Padding(
@@ -86,11 +87,11 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                                 (states) => Colors.transparent),
                             foregroundColor: getColor(AppColors.buttonColor,
                                 AppColors.whiteButtonColor),
-                            backgroundColor: getColor(
-                                AppColors.whiteButtonColor,
+                            backgroundColor: getColor(AppColors.whiteButtonColor,
                                 AppColors.buttonColor),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                            shape:
+                                MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             )),
                           ),
@@ -106,13 +107,13 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
               padding: const EdgeInsets.only(top: 12),
               child: Container(
                 color: AppColors.white100,
-                child: const Padding(
-                  padding:
-                      EdgeInsets.only(left: 24, right: 24, top: 12, bottom: 12),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 12, bottom: 12),
                   child: Column(
                     children: <Widget>[
                       Row(
-                        children: <Widget>[
+                        children: const <Widget>[
                           Text('Tên vấn đề',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -122,11 +123,11 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                               )),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Row(
-                        children: <Widget>[
+                        children: const <Widget>[
                           Text('Tên vấn đề',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -150,8 +151,8 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                       left: 24, right: 24, top: 12, bottom: 12),
                   child: Column(
                     children: <Widget>[
-                      const Row(
-                        children: <Widget>[
+                      Row(
+                        children: const <Widget>[
                           Text('Ghi chú của kỹ thuật viên',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -192,8 +193,8 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                       left: 24, right: 24, top: 12, bottom: 12),
                   child: Column(
                     children: <Widget>[
-                      const Row(
-                        children: <Widget>[
+                      Row(
+                        children: const <Widget>[
                           Text('Dịch vụ được gợi ý',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -230,10 +231,10 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: 15,
                           itemBuilder: (BuildContext context, int index) {
-                            return const Column(
+                            return Column(
                               children: <Widget>[
                                 Row(
-                                  children: <Widget>[
+                                  children: const <Widget>[
                                     Text('Dịch vụ được gợi ý',
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
@@ -243,11 +244,11 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                                         )),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Row(
-                                  children: <Widget>[
+                                  children: const <Widget>[
                                     Text('Giá: Những dịch  vụ đã  được gợi ý',
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
@@ -257,7 +258,7 @@ class _BookingProblemSeeDetailState extends State<BookingProblemSeeDetail> {
                                         )),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 40,
                                 ),
                               ],

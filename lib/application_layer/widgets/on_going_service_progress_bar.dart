@@ -63,6 +63,11 @@ class _OnGoingServiceProgressBarState extends State<OnGoingServiceProgressBar> {
     });
   }
 
+  _onSelectTab(selectedTab) {
+    if (widget.activeStep < selectedTab) return;
+    widget.callBack(selectedTab);
+  }
+
   _getExpert() async {
     if (widget.order.expert == null) return;
     var expert = await UserService().getUserById(widget.order.expert!.id);

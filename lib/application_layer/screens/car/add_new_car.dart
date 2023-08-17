@@ -27,7 +27,9 @@ class _AddNewCarState extends State<AddNewCar> {
   var carLisenceNo = "";
 
   List<BrandResponseModel> _brands = [];
+  List<BrandResponseModel> _filteredBrands = [];
   List<ModelResponseModel> _models = [];
+  List<ModelResponseModel> _filteredModels = [];
 
   _getBrands() async {
     var brands = await CarService().getBrand();
@@ -231,19 +233,16 @@ class _AddNewCarState extends State<AddNewCar> {
                           ),
                           suggestionsCallback: (pattern) async {
                             return _brands
-                                .where((element) => element.name
-                                    .toLowerCase()
-                                    .contains(pattern.toLowerCase()))
+                                .where((element) =>
+                                element.name.toLowerCase().contains(pattern.toLowerCase()))
                                 .toList();
                           },
-                          itemBuilder:
-                              (context, BrandResponseModel suggestion) {
+                          itemBuilder: (context, BrandResponseModel suggestion) {
                             return ListTile(
                               title: Text(suggestion.name),
                             );
                           },
-                          onSuggestionSelected:
-                              (BrandResponseModel suggestion) {
+                          onSuggestionSelected: (BrandResponseModel suggestion) {
                             setState(() {
                               _brandController.text = suggestion.name;
                               carBrand = suggestion.name;
@@ -347,21 +346,18 @@ class _AddNewCarState extends State<AddNewCar> {
                           ),
                           suggestionsCallback: (pattern) async {
                             return _models
-                                .where((element) => element.name
-                                    .toLowerCase()
-                                    .contains(pattern.toLowerCase()))
+                                .where((element) =>
+                                element.name.toLowerCase().contains(pattern.toLowerCase()))
                                 .toList();
                           },
-                          itemBuilder:
-                              (context, ModelResponseModel suggestion) {
+                          itemBuilder: (context, ModelResponseModel suggestion) {
                             return SingleChildScrollView(
                               child: ListTile(
                                 title: Text(suggestion.name),
                               ),
                             );
                           },
-                          onSuggestionSelected:
-                              (ModelResponseModel suggestion) {
+                          onSuggestionSelected: (ModelResponseModel suggestion) {
                             setState(() {
                               _modelController.text = suggestion.name;
                               carModel = suggestion.name;

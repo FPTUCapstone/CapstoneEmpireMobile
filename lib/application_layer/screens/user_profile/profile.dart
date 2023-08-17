@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 
 import '../../../common/colors.dart';
+import '../../../services/firebase_storage_services/storage_services.dart';
 
 class UserProfile extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
@@ -30,6 +31,7 @@ class _UserProfileState extends State<UserProfile> {
 
   bool _loading = false;
 
+  final SingingCharacter _character = SingingCharacter.male;
   TextEditingController dateinput = TextEditingController();
   final TextEditingController _phoneNumber = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -71,6 +73,8 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final Storage storage = Storage();
+    var value = 0;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: !_loading

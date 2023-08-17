@@ -31,10 +31,8 @@ void main() async {
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  if (kDebugMode) {
-    print(message.data.toString());
-    print(message.notification!.title);
-  }
+  print(message.data.toString());
+  print(message.notification!.title);
 }
 
 class MyApp extends StatefulWidget {
@@ -50,9 +48,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     FirebaseMessaging.instance.getInitialMessage().then((message) async {
       if (message != null) {
-        if (kDebugMode) {
-          print(message);
-        }
+        print(message);
       }
     });
 
@@ -110,9 +106,8 @@ class _MyAppState extends State<MyApp> {
     ///When the app is in background but opened and user taps
     ///on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) async {
-      if (kDebugMode) {
-        print(message);
-      }
+      final routeFromMessage = message.data["route"];
+      print(message);
     });
   }
 
