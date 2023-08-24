@@ -31,7 +31,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
   late DateTime _bookingDate;
   var morningStart = '';
   var morningEnd = '';
-  var afternoonStart= '';
+  var afternoonStart = '';
   var afternoonEnd = '';
   var address = '';
   var phoneNumber = '';
@@ -84,7 +84,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
     var list = await UserService().getTimeSlot();
     if (list != null) {
       setState(() {
-        list.forEach((map) {
+        for (var map in list) {
           if (map['key'] == 'MORNING_OPEN_TIME') {
             morningStart = formatTimeToAMPM(int.parse(map['value']));
           } else if (map['key'] == 'MORNING_CLOSE_TIME') {
@@ -94,15 +94,16 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
           } else if (map['key'] == 'AFTERNOON_CLOSE_TIME') {
             afternoonEnd = formatTimeToAMPM(int.parse(map['value']));
           }
-        });
+        }
       });
     }
   }
-  getPhoneAndAddress() async{
+
+  getPhoneAndAddress() async {
     var list = await UserService().getPhoneAndAddress();
-    if(list != null){
+    if (list != null) {
       setState(() {
-        list.forEach((map) {
+        for (var map in list) {
           if (map['key'] == 'ADDRESS') {
             address = map['value'];
           } else if (map['key'] == 'PHONE_NUMBER') {
@@ -110,7 +111,7 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
           } else if (map['key'] == 'COMPANY_NAME') {
             companyName = map['value'];
           }
-        });
+        }
       });
     }
   }
@@ -118,7 +119,8 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
   void _openGoogleMaps() async {
     //const String empire = 'Công Ty Tnhh Ô Tô Đế Chế';
     final String encodedEmpire = Uri.encodeFull(companyName);
-    final String url = 'https://www.google.com/maps/search/?api=1&query=$encodedEmpire';
+    final String url =
+        'https://www.google.com/maps/search/?api=1&query=$encodedEmpire';
 
     try {
       if (await canLaunch(url)) {
@@ -371,7 +373,8 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                       top: 20.sp,
                                       bottom: 5.sp),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Quý khách có thể tới Garage tại địa chỉ: ",
@@ -382,12 +385,14 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                           color: AppColors.blackTextColor,
                                         ),
                                       ),
-                                      SizedBox(height: 5.sp,),
+                                      SizedBox(
+                                        height: 5.sp,
+                                      ),
                                       Row(
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              "${address}",
+                                              address,
                                               style: TextStyle(
                                                 fontFamily: 'Roboto',
                                                 fontSize: 12.sp,
@@ -397,14 +402,24 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                             ),
                                           ),
                                           //const Icon(Icons.location_on, color: AppColors.grey400),
-                                          GestureDetector (
+                                          GestureDetector(
                                             onTap: _openGoogleMaps,
-                                            child: const Icon(Icons.location_on, color: AppColors.blueTextColor),
+                                            child: const Icon(Icons.location_on,
+                                                color: AppColors.blueTextColor),
                                           ),
-
                                         ],
                                       ),
                                     ],
+                                  ),
+                                ),
+                                CustomRow(
+                                  title: 'Số điện thoại:',
+                                  value: phoneNumber,
+                                  textStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.blackTextColor,
                                   ),
                                 ),
                                 CustomRow(
@@ -419,23 +434,13 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                 ),
                                 CustomRow(
                                   title: 'Sáng:',
-                                  value: '${morningStart} - ${morningEnd}',
+                                  value: '$morningStart - $morningEnd',
                                   textStyle: AppStyles.text400(fontsize: 10.sp),
                                 ),
                                 CustomRow(
                                   title: 'Chiều:',
-                                  value: '${afternoonStart} - ${afternoonEnd}',
+                                  value: '$afternoonStart - $afternoonEnd',
                                   textStyle: AppStyles.text400(fontsize: 10.sp),
-                                ),
-                                CustomRow(
-                                  title: 'Số điện thoại:',
-                                  value: '${phoneNumber}',
-                                  textStyle: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.blackTextColor,
-                                  ),
                                 ),
                                 SizedBox(
                                   height: 15.sp,
