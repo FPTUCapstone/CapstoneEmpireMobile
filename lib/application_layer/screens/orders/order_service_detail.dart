@@ -2,6 +2,7 @@ import 'package:empiregarage_mobile/common/colors.dart';
 import 'package:empiregarage_mobile/common/style.dart';
 import 'package:empiregarage_mobile/helper/common_helper.dart';
 import 'package:empiregarage_mobile/models/response/orderservices.dart';
+import 'package:empiregarage_mobile/services/order_services/order_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -148,8 +149,8 @@ class _OrderServiceDetailState extends State<OrderServiceDetail> {
             SizedBox(height: 5.sp),
             Text(
                 widget._orderServicesResponseModel
-                    .orderServiceDetails![widget.index].note
-                    ?? "Chưa có ghi chú",
+                        .orderServiceDetails![widget.index].note ??
+                    "Chưa có ghi chú",
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,
@@ -185,6 +186,45 @@ class _OrderServiceDetailState extends State<OrderServiceDetail> {
                           color: AppColors.lightTextColor,
                         ))
                   ]),
+            ),
+            SizedBox(height: 10.sp),
+            Visibility(
+              visible: widget._orderServicesResponseModel
+                      .orderServiceDetails![widget.index].item!.warranty !=
+                  null,
+              child: FutureBuilder(
+                future: OrderServices().getWarrantyExpiredDate(
+                    widget._orderServicesResponseModel.id,
+                    widget._orderServicesResponseModel
+                        .orderServiceDetails![widget.index].item!.warranty),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data != "") {
+                    return RichText(
+                      text: TextSpan(
+                          text: 'Hạn bảo hành: ',
+                          style: const TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                            color: AppColors.blackTextColor,
+                          ),
+                          children: [
+                            TextSpan(
+                                text:
+                                    formatDate(snapshot.data.toString(), false),
+                                style: const TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: AppColors.lightTextColor,
+                                ))
+                          ]),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
             ),
           ],
         ),

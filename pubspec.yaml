@@ -69,6 +69,7 @@ dependencies:
   flutter_typeahead: ^4.3.7
   top_snackbar_flutter: ^3.0.0+1
   flutter_image_slideshow: ^0.1.5
+  in_date_utils: ^1.2.0+2
   # flutter_local_notifications: ^8.2.0
 
 dev_dependencies:
