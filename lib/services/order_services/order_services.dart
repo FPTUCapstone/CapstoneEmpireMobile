@@ -244,4 +244,15 @@ class OrderServices {
     }
     return "";
   }
+
+  Future<String?> getDiffPrice(int orderServiceId, double price) async {
+    String apiUrl =
+        '${APIPath.path}/order-services/$orderServiceId/get-diff-price?price=$price';
+    var response = await makeHttpRequest(apiUrl);
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+      return result["diff"].toString();
+    }
+    return null;
+  }
 }
