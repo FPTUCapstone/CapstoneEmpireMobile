@@ -433,6 +433,26 @@ class _OnGoingPaymentServiceState extends State<OnGoingPaymentService> {
                       value: formatCurrency(sumAfter),
                       textStyle: AppStyles.header600(fontsize: 10.sp),
                     ),
+                    Visibility(
+                      visible: sumAfter != 0,
+                      child: FutureBuilder(
+                        future: OrderServices()
+                            .getDiffPrice(widget.servicesId, sumAfter),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData && snapshot.data != null) {
+                            return CustomRowWithoutPadding(
+                              title: 'Chênh lệch với giá dự kiến',
+                              value:
+                                  formatCurrency(double.parse(snapshot.data!)),
+                              textStyle: AppStyles.text400(
+                                  fontsize: 10.sp, color: AppColors.grey500),
+                            );
+                          } else {
+                            return const Text("hello");
+                          }
+                        },
+                      ),
+                    ),
                     const Divider(thickness: 1),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10.sp),
