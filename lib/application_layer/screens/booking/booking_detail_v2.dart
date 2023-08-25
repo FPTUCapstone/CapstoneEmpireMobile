@@ -115,26 +115,26 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
     }
   }
 
-  void _openGoogleMaps() async {
-    //const String empire = 'Công Ty Tnhh Ô Tô Đế Chế';
-    final String encodedEmpire = Uri.encodeFull(companyName);
-    final String url = 'https://www.google.com/maps/search/?api=1&query=$encodedEmpire';
-
-    try {
-      if (await canLaunch(url)) {
-        await launch(
-          url,
-          universalLinksOnly: true,
-          forceSafariVC: false,
-          forceWebView: false,
-        );
-      } else {
-        throw 'Could not launch $url';
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
+  // void _openGoogleMaps() async {
+  //   //const String empire = 'Công Ty Tnhh Ô Tô Đế Chế';
+  //   final String encodedEmpire = Uri.encodeFull(companyName);
+  //   final String url = 'https://www.google.com/maps/search/?api=1&query=$encodedEmpire';
+  //
+  //   try {
+  //     if (await canLaunch(url)) {
+  //       await launch(
+  //         url,
+  //         universalLinksOnly: true,
+  //         forceSafariVC: false,
+  //         forceWebView: false,
+  //       );
+  //     } else {
+  //       throw 'Could not launch $url';
+  //     }
+  //   } catch (e) {
+  //     print('Error: $e');
+  //   }
+  // }
 
   @override
   void initState() {
@@ -397,10 +397,10 @@ class _BookingDetailv2State extends State<BookingDetailv2> {
                                             ),
                                           ),
                                           //const Icon(Icons.location_on, color: AppColors.grey400),
-                                          GestureDetector (
-                                            onTap: _openGoogleMaps,
-                                            child: const Icon(Icons.location_on, color: AppColors.blueTextColor),
-                                          ),
+                                          // GestureDetector (
+                                          //   onTap: _openGoogleMaps,
+                                          //   child: const Icon(Icons.location_on, color: AppColors.blueTextColor),
+                                          // ),
 
                                         ],
                                       ),
