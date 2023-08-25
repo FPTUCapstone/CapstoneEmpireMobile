@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 import '../../common/colors.dart';
 import '../../models/response/orderservices.dart';
+import '../screens/activities/service_activity_detail.dart';
 
 class Status {
   final int id;
@@ -66,6 +67,12 @@ class _OnGoingServiceState extends State<OnGoingService> {
       ),
     ];
     if (!mounted) return;
+    if (orderResponseModel.status == -1 || orderResponseModel.status >= 5) {
+      Get.off(() => ServiceActivityDetail(
+            orderServicesId: orderResponseModel.id,
+          ));
+      return;
+    }
     setState(() {
       _response = orderResponseModel;
       activeStep = _response!.status;
@@ -141,17 +148,17 @@ class _OnGoingServiceState extends State<OnGoingService> {
           ),
         ),
         title: _loading
-          ? const Loading()
-          : Text(
-          _getStatus(_response!.status),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.blackTextColor,
-          ),
-        ),
+            ? const Loading()
+            : Text(
+                _getStatus(_response!.status),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackTextColor,
+                ),
+              ),
         centerTitle: true,
       ),
       body: _loading

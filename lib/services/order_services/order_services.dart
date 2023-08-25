@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:empiregarage_mobile/models/request/order_service_detail_request_model.dart';
 import 'package:empiregarage_mobile/models/response/check_out_qr_code_response_model.dart';
 import 'package:empiregarage_mobile/models/response/workload.dart';
+import 'package:in_date_utils/in_date_utils.dart';
 
 import '../../common/api_part.dart';
 import '../../common/jwt_interceptor.dart';
@@ -220,5 +221,27 @@ class OrderServices {
       method: 'PUT',
     );
     return response;
+  }
+
+  Future<String> getWarrantyExpiredDate(
+      int orderServiceId, int? warranty) async {
+    if (warranty != null) {
+      String apiUrl =
+          '${APIPath.path}/order-service-status-logs/order-service/$orderServiceId';
+      var response = await makeHttpRequest(apiUrl);
+      if (response.statusCode == 200) {
+        var statusLogs = jsonDecode(response.body);
+        // Find the entry with orderServiceStatusId = 4
+        Map<String, dynamic> entryWithStatus4 = statusLogs.firstWhere(
+            (entry) => entry['orderServiceStatusId'] == 4,
+            orElse: () => null);
+
+        var logDateTime = DateTime.parse(entryWithStatus4['logDateTime']);
+        var warrantyExpiredDate = DTU.addMonths(logDateTime, warranty);
+        return warrantyExpiredDate.toString();
+      }
+      return "";
+    }
+    return "";
   }
 }
